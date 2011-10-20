@@ -1,0 +1,48 @@
+#########################################################################
+#
+# Grinnell Dinning Menu Android Application
+#
+#### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
++-----------------------------------------------------------------------+
+Authors:  David Cowden 
+
+Date:     Wednesday 19 October
+
++-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
+License:
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 
+
+Grinnell Menu
+
+Grinnell Menu is a quick and easy way to view the Grinnell College Dinning
+Dinning Services menu for today, tomorrow, or any day in the next week.  
+Grinnell Menu lets you view details about each menu item including 
+nutritional information and an image and description.  Further, you can 
+filter choices by personal dietary concerns such as vegan, gluten free, or 
+lactose intolerant.  Add items to your 'tray' and view a total nutritional
+summary once you've selected everything you wish to eat for a given meal.
+
+Grinnell Menu is currently in ALPHA.  This means the application is
+in development and not yet fully functional.  
+
+Source for Grinnell-Menu can be obtained at the following location:
+	https://github.com/GrinnellAppDev/Grinnell-Menu
+
+You can obtain the source with the following command:
+	git clone git://github.com/GrinnellAppDev/Grinnell-Menu.git
+
+If you would like to contribute, shoot me a pull request.  

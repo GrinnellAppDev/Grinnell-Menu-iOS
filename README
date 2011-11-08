@@ -1,13 +1,15 @@
 #########################################################################
 #
-# Grinnell Dinning Menu Android Application
+# Grinnell Dinning Menu iOS Application
 #
 #### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
 +-----------------------------------------------------------------------+
 Authors:	David Cowden
-		**add your names here** 
+                Colin Tremblay
+		Aaltan Ahmad
+		Maijid Moujaled
 
-Date:     	Wednesday 20 October
+Date:     	Tuesday 8 November
 
 +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
 License:
@@ -47,3 +49,19 @@ You can obtain the source with the following command:
 	git clone git://github.com/GrinnellAppDev/Grinnell-Menu-iOS.git
 
 If you would like to contribute, shoot us a pull request.  
+
+^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+
+To-Do List
+	Create the mechanism for importing dishes and their properties
+	Change first page so that each button does what it should (i.e. today,
+ 		tomorrow, and go should load different menus based on day)
+	Sort dishes into sections by venue
+	Support filters (nut allergies, vegetarian, etc.)
+	Save filters and tray on exit
+	Create nutrition adder
+	Give it pretty colors?
+
+Possible Features
+	Favorites list or rating for dishes
+	Search bar to search for next time a certain dish is on the menu

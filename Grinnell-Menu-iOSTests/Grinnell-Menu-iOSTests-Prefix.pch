@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Grinnell-Menu-iOSTests' target in the 'Grinnell-Menu-iOSTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif

@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E1178B751460846900679C32 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = E1178B741460846900679C32 /* minus.png */; };
+		E1178B771460850600679C32 /* checkmark_blank.png in Resources */ = {isa = PBXBuildFile; fileRef = E1178B761460850600679C32 /* checkmark_blank.png */; };
+		E1178B79146087C000679C32 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = E1178B78146087C000679C32 /* checkmark.png */; };
+		E12A9A73145FD1EB00C9271A /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = E12A9A72145FD1EB00C9271A /* Filter.m */; };
+		E1A0C530145324470072BE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C52F145324470072BE76 /* UIKit.framework */; };
+		E1A0C532145324470072BE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C531145324470072BE76 /* Foundation.framework */; };
+		E1A0C534145324470072BE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C533145324470072BE76 /* CoreGraphics.framework */; };
+		E1A0C536145324470072BE76 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C535145324470072BE76 /* CoreData.framework */; };
+		E1A0C53C145324470072BE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C53A145324470072BE76 /* InfoPlist.strings */; };
+		E1A0C53F145324470072BE76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C53E145324470072BE76 /* main.m */; };
+		E1A0C542145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */; };
+		E1A0C545145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C543145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodeld */; };
+		E1A0C548145324480072BE76 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C546145324480072BE76 /* MainWindow.xib */; };
+		E1A0C54B145324480072BE76 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C54A145324480072BE76 /* RootViewController.m */; };
+		E1A0C54E145324480072BE76 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C54C145324480072BE76 /* RootViewController.xib */; };
+		E1A0C555145324480072BE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C52F145324470072BE76 /* UIKit.framework */; };
+		E1A0C556145324480072BE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C531145324470072BE76 /* Foundation.framework */; };
+		E1A0C557145324480072BE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C533145324470072BE76 /* CoreGraphics.framework */; };
+		E1A0C558145324480072BE76 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C535145324470072BE76 /* CoreData.framework */; };
+		E1A0C560145324490072BE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C55E145324490072BE76 /* InfoPlist.strings */; };
+		E1A0C563145324490072BE76 /* Grinnell_Menu_iOSTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C562145324490072BE76 /* Grinnell_Menu_iOSTests.h */; };
+		E1A0C565145324490072BE76 /* Grinnell_Menu_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C564145324490072BE76 /* Grinnell_Menu_iOSTests.m */; };
+		E1A0C579145326010072BE76 /* VenueView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C577145326010072BE76 /* VenueView.m */; };
+		E1A0C57A145326010072BE76 /* VenueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C578145326010072BE76 /* VenueView.xib */; };
+		E1A0C5891453270D0072BE76 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C57F1453270B0072BE76 /* Settings.m */; };
+		E1A0C58A1453270D0072BE76 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C5801453270B0072BE76 /* Settings.xib */; };
+		E1A0C58B1453270D0072BE76 /* DishView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C5821453270C0072BE76 /* DishView.m */; };
+		E1A0C58C1453270D0072BE76 /* DishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C5831453270C0072BE76 /* DishView.xib */; };
+		E1A0C58D1453270D0072BE76 /* Tray.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C5851453270C0072BE76 /* Tray.m */; };
+		E1A0C58E1453270D0072BE76 /* Tray.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C5861453270C0072BE76 /* Tray.xib */; };
+		E1DBA300145C922C0099E8CE /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DBA2FF145C922B0099E8CE /* Dish.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1A0C559145324480072BE76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A0C522145324450072BE76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1A0C52A145324460072BE76;
+			remoteInfo = "Grinnell-Menu-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E1178B741460846900679C32 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
+		E1178B761460850600679C32 /* checkmark_blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_blank.png; sourceTree = "<group>"; };
+		E1178B78146087C000679C32 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		E12A9A71145FD1EA00C9271A /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		E12A9A72145FD1EB00C9271A /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
+		E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grinnell-Menu-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A0C52F145324470072BE76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E1A0C531145324470072BE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E1A0C533145324470072BE76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E1A0C535145324470072BE76 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E1A0C539145324470072BE76 /* Grinnell-Menu-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grinnell-Menu-iOS-Info.plist"; sourceTree = "<group>"; };
+		E1A0C53B145324470072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E1A0C53D145324470072BE76 /* Grinnell-Menu-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grinnell-Menu-iOS-Prefix.pch"; sourceTree = "<group>"; };
+		E1A0C53E145324470072BE76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grinnell_Menu_iOSAppDelegate.h; sourceTree = "<group>"; };
+		E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Grinnell_Menu_iOSAppDelegate.m; sourceTree = "<group>"; };
+		E1A0C544145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Grinnell_Menu_iOS.xcdatamodel; sourceTree = "<group>"; };
+		E1A0C547145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		E1A0C549145324480072BE76 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		E1A0C54A145324480072BE76 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		E1A0C54D145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		E1A0C554145324480072BE76 /* Grinnell-Menu-iOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grinnell-Menu-iOSTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A0C55D145324490072BE76 /* Grinnell-Menu-iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grinnell-Menu-iOSTests-Info.plist"; sourceTree = "<group>"; };
+		E1A0C55F145324490072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E1A0C561145324490072BE76 /* Grinnell-Menu-iOSTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grinnell-Menu-iOSTests-Prefix.pch"; sourceTree = "<group>"; };
+		E1A0C562145324490072BE76 /* Grinnell_Menu_iOSTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grinnell_Menu_iOSTests.h; sourceTree = "<group>"; };
+		E1A0C564145324490072BE76 /* Grinnell_Menu_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Grinnell_Menu_iOSTests.m; sourceTree = "<group>"; };
+		E1A0C576145326010072BE76 /* VenueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueView.h; sourceTree = "<group>"; };
+		E1A0C577145326010072BE76 /* VenueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueView.m; sourceTree = "<group>"; };
+		E1A0C578145326010072BE76 /* VenueView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenueView.xib; sourceTree = "<group>"; };
+		E1A0C57E1453270B0072BE76 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		E1A0C57F1453270B0072BE76 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		E1A0C5801453270B0072BE76 /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
+		E1A0C5811453270C0072BE76 /* DishView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishView.h; sourceTree = "<group>"; };
+		E1A0C5821453270C0072BE76 /* DishView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishView.m; sourceTree = "<group>"; };
+		E1A0C5831453270C0072BE76 /* DishView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishView.xib; sourceTree = "<group>"; };
+		E1A0C5841453270C0072BE76 /* Tray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tray.h; sourceTree = "<group>"; };
+		E1A0C5851453270C0072BE76 /* Tray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tray.m; sourceTree = "<group>"; };
+		E1A0C5861453270C0072BE76 /* Tray.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tray.xib; sourceTree = "<group>"; };
+		E1DBA2FE145C922A0099E8CE /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
+		E1DBA2FF145C922B0099E8CE /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E1A0C528145324460072BE76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A0C530145324470072BE76 /* UIKit.framework in Frameworks */,
+				E1A0C532145324470072BE76 /* Foundation.framework in Frameworks */,
+				E1A0C534145324470072BE76 /* CoreGraphics.framework in Frameworks */,
+				E1A0C536145324470072BE76 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A0C550145324480072BE76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A0C555145324480072BE76 /* UIKit.framework in Frameworks */,
+				E1A0C556145324480072BE76 /* Foundation.framework in Frameworks */,
+				E1A0C557145324480072BE76 /* CoreGraphics.framework in Frameworks */,
+				E1A0C558145324480072BE76 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E1A0C520145324450072BE76 = {
+			isa = PBXGroup;
+			children = (
+				E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */,
+				E1A0C55B145324480072BE76 /* Grinnell-Menu-iOSTests */,
+				E1A0C52E145324460072BE76 /* Frameworks */,
+				E1A0C52C145324460072BE76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1A0C52C145324460072BE76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */,
+				E1A0C554145324480072BE76 /* Grinnell-Menu-iOSTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1A0C52E145324460072BE76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C52F145324470072BE76 /* UIKit.framework */,
+				E1A0C531145324470072BE76 /* Foundation.framework */,
+				E1A0C533145324470072BE76 /* CoreGraphics.framework */,
+				E1A0C535145324470072BE76 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */,
+				E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */,
+				E1A0C546145324480072BE76 /* MainWindow.xib */,
+				E1A0C549145324480072BE76 /* RootViewController.h */,
+				E1A0C54A145324480072BE76 /* RootViewController.m */,
+				E1A0C54C145324480072BE76 /* RootViewController.xib */,
+				E1DBA2FE145C922A0099E8CE /* Dish.h */,
+				E1DBA2FF145C922B0099E8CE /* Dish.m */,
+				E1A0C576145326010072BE76 /* VenueView.h */,
+				E1A0C577145326010072BE76 /* VenueView.m */,
+				E1A0C578145326010072BE76 /* VenueView.xib */,
+				E1178B761460850600679C32 /* checkmark_blank.png */,
+				E1178B78146087C000679C32 /* checkmark.png */,
+				E1A0C57E1453270B0072BE76 /* Settings.h */,
+				E1A0C57F1453270B0072BE76 /* Settings.m */,
+				E1A0C5801453270B0072BE76 /* Settings.xib */,
+				E12A9A71145FD1EA00C9271A /* Filter.h */,
+				E12A9A72145FD1EB00C9271A /* Filter.m */,
+				E1A0C5811453270C0072BE76 /* DishView.h */,
+				E1A0C5821453270C0072BE76 /* DishView.m */,
+				E1A0C5831453270C0072BE76 /* DishView.xib */,
+				E1A0C5841453270C0072BE76 /* Tray.h */,
+				E1A0C5851453270C0072BE76 /* Tray.m */,
+				E1A0C5861453270C0072BE76 /* Tray.xib */,
+				E1178B741460846900679C32 /* minus.png */,
+				E1A0C543145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodeld */,
+				E1A0C538145324470072BE76 /* Supporting Files */,
+			);
+			path = "Grinnell-Menu-iOS";
+			sourceTree = "<group>";
+		};
+		E1A0C538145324470072BE76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C539145324470072BE76 /* Grinnell-Menu-iOS-Info.plist */,
+				E1A0C53A145324470072BE76 /* InfoPlist.strings */,
+				E1A0C53D145324470072BE76 /* Grinnell-Menu-iOS-Prefix.pch */,
+				E1A0C53E145324470072BE76 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E1A0C55B145324480072BE76 /* Grinnell-Menu-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C562145324490072BE76 /* Grinnell_Menu_iOSTests.h */,
+				E1A0C564145324490072BE76 /* Grinnell_Menu_iOSTests.m */,
+				E1A0C55C145324490072BE76 /* Supporting Files */,
+			);
+			path = "Grinnell-Menu-iOSTests";
+			sourceTree = "<group>";
+		};
+		E1A0C55C145324490072BE76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C55D145324490072BE76 /* Grinnell-Menu-iOSTests-Info.plist */,
+				E1A0C55E145324490072BE76 /* InfoPlist.strings */,
+				E1A0C561145324490072BE76 /* Grinnell-Menu-iOSTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E1A0C52A145324460072BE76 /* Grinnell-Menu-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1A0C568145324490072BE76 /* Build configuration list for PBXNativeTarget "Grinnell-Menu-iOS" */;
+			buildPhases = (
+				E1A0C527145324460072BE76 /* Sources */,
+				E1A0C528145324460072BE76 /* Frameworks */,
+				E1A0C529145324460072BE76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Grinnell-Menu-iOS";
+			productName = "Grinnell-Menu-iOS";
+			productReference = E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E1A0C553145324480072BE76 /* Grinnell-Menu-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1A0C56B145324490072BE76 /* Build configuration list for PBXNativeTarget "Grinnell-Menu-iOSTests" */;
+			buildPhases = (
+				E1A0C54F145324480072BE76 /* Sources */,
+				E1A0C550145324480072BE76 /* Frameworks */,
+				E1A0C551145324480072BE76 /* Resources */,
+				E1A0C552145324480072BE76 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1A0C55A145324480072BE76 /* PBXTargetDependency */,
+			);
+			name = "Grinnell-Menu-iOSTests";
+			productName = "Grinnell-Menu-iOSTests";
+			productReference = E1A0C554145324480072BE76 /* Grinnell-Menu-iOSTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1A0C522145324450072BE76 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = E1A0C525145324460072BE76 /* Build configuration list for PBXProject "Grinnell-Menu-iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E1A0C520145324450072BE76;
+			productRefGroup = E1A0C52C145324460072BE76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1A0C52A145324460072BE76 /* Grinnell-Menu-iOS */,
+				E1A0C553145324480072BE76 /* Grinnell-Menu-iOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1A0C529145324460072BE76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A0C53C145324470072BE76 /* InfoPlist.strings in Resources */,
+				E1A0C548145324480072BE76 /* MainWindow.xib in Resources */,
+				E1A0C54E145324480072BE76 /* RootViewController.xib in Resources */,
+				E1A0C57A145326010072BE76 /* VenueView.xib in Resources */,
+				E1A0C58A1453270D0072BE76 /* Settings.xib in Resources */,
+				E1A0C58C1453270D0072BE76 /* DishView.xib in Resources */,
+				E1A0C58E1453270D0072BE76 /* Tray.xib in Resources */,
+				E1178B751460846900679C32 /* minus.png in Resources */,
+				E1178B771460850600679C32 /* checkmark_blank.png in Resources */,
+				E1178B79146087C000679C32 /* checkmark.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A0C551145324480072BE76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A0C560145324490072BE76 /* InfoPlist.strings in Resources */,
+				E1A0C563145324490072BE76 /* Grinnell_Menu_iOSTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E1A0C552145324480072BE76 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E1A0C527145324460072BE76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A0C53F145324470072BE76 /* main.m in Sources */,
+				E1A0C542145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m in Sources */,
+				E1A0C545145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodeld in Sources */,
+				E1A0C54B145324480072BE76 /* RootViewController.m in Sources */,
+				E1A0C579145326010072BE76 /* VenueView.m in Sources */,
+				E1A0C5891453270D0072BE76 /* Settings.m in Sources */,
+				E1A0C58B1453270D0072BE76 /* DishView.m in Sources */,
+				E1A0C58D1453270D0072BE76 /* Tray.m in Sources */,
+				E1DBA300145C922C0099E8CE /* Dish.m in Sources */,
+				E12A9A73145FD1EB00C9271A /* Filter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A0C54F145324480072BE76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A0C565145324490072BE76 /* Grinnell_Menu_iOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1A0C55A145324480072BE76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1A0C52A145324460072BE76 /* Grinnell-Menu-iOS */;
+			targetProxy = E1A0C559145324480072BE76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E1A0C53A145324470072BE76 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A0C53B145324470072BE76 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E1A0C546145324480072BE76 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A0C547145324480072BE76 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		E1A0C54C145324480072BE76 /* RootViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A0C54D145324480072BE76 /* en */,
+			);
+			name = RootViewController.xib;
+			sourceTree = "<group>";
+		};
+		E1A0C55E145324490072BE76 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A0C55F145324490072BE76 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E1A0C566145324490072BE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E1A0C567145324490072BE76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		E1A0C569145324490072BE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
+				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E1A0C56A145324490072BE76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
+				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E1A0C56C145324490072BE76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grinnell-Menu-iOS.app/Grinnell-Menu-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grinnell-Menu-iOSTests/Grinnell-Menu-iOSTests-Prefix.pch";
+				INFOPLIST_FILE = "Grinnell-Menu-iOSTests/Grinnell-Menu-iOSTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E1A0C56D145324490072BE76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grinnell-Menu-iOS.app/Grinnell-Menu-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grinnell-Menu-iOSTests/Grinnell-Menu-iOSTests-Prefix.pch";
+				INFOPLIST_FILE = "Grinnell-Menu-iOSTests/Grinnell-Menu-iOSTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1A0C525145324460072BE76 /* Build configuration list for PBXProject "Grinnell-Menu-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A0C566145324490072BE76 /* Debug */,
+				E1A0C567145324490072BE76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1A0C568145324490072BE76 /* Build configuration list for PBXNativeTarget "Grinnell-Menu-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A0C569145324490072BE76 /* Debug */,
+				E1A0C56A145324490072BE76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1A0C56B145324490072BE76 /* Build configuration list for PBXNativeTarget "Grinnell-Menu-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A0C56C145324490072BE76 /* Debug */,
+				E1A0C56D145324490072BE76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E1A0C543145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E1A0C544145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodel */,
+			);
+			currentVersion = E1A0C544145324470072BE76 /* Grinnell_Menu_iOS.xcdatamodel */;
+			path = Grinnell_Menu_iOS.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E1A0C522145324450072BE76 /* Project object */;
+}

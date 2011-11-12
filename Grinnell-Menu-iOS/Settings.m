@@ -18,10 +18,11 @@
 }
 
 - (void)dealloc
-{
+{    
     [newTableView release];
     [super dealloc];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -44,8 +45,6 @@
     UIBarButtonItem *toMainMenuButton = [[UIBarButtonItem alloc] initWithTitle:@"Main Menu" style:UIBarButtonItemStyleBordered target:self action:@selector(backToMainMenu:)];
     [self.navigationItem setRightBarButtonItem:toMainMenuButton]; 
     
-    
-    //NEED CODE TO DICTATE WHAT HAPPENS WHEN SWITCHES CHANGE
     [super viewDidLoad];
     self.title = @"Settings"; 
 }

@@ -9,7 +9,7 @@ Authors:	David Cowden
 		Aaltan Ahmad
 		Maijid Moujaled
 
-Date:     	Tuesday 8 November
+Date:     	Saturday 12 November
 
 +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
 License:
@@ -53,15 +53,14 @@ If you would like to contribute, shoot us a pull request.
 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
 To-Do List
+	Flip to Settings (not push)
+	Save tray on exit?
+	Use singletons and optimize code?
 	Create the mechanism for importing dishes and their properties
 	Change first page so that each button does what it should (i.e. today,
  		tomorrow, and go should load different menus based on day)
-	Sort dishes into sections by venue
-	Support filters (nut allergies, vegetarian, etc.)
-	Save filters and tray on exit
 	Create nutrition adder
-	Give it pretty colors?
 
-Possible Features
+Possible Features for Later Release
 	Favorites list or rating for dishes
 	Search bar to search for next time a certain dish is on the menu

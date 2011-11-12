@@ -10,6 +10,7 @@
 #import "VenueView.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "Dish.h"
+#import "Venue.h"
 
 @implementation DishView
 @synthesize dishDetails, nutritionDetails, removeButton, addButton, otherAddButton;
@@ -75,7 +76,8 @@
 {
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    Dish *dish = [mainDelegate.dishes objectAtIndex:mainDelegate.dishIndex];
+    Venue *venue = [mainDelegate.venues objectAtIndex:mainDelegate.dishSection];
+    Dish *dish = [venue.dishes objectAtIndex:mainDelegate.dishRow];
     dishDetails.text = dish.details;
     nutritionDetails.text = dish.nutrition;
     self.title = dish.name;

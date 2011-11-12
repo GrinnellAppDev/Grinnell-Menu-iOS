@@ -11,10 +11,11 @@
     UINavigationController *navigationController;
     NSString *navStyle;
     NSString *fromDishView;
-    NSMutableArray *trayDishes;
-    NSMutableArray *dishes;
+    NSMutableArray *venues;
     NSMutableArray *filters;
-    NSInteger dishIndex;
+    NSInteger dishSection;
+    NSInteger dishRow;
+    NSMutableArray *trayDishes;
 }
 
 - (void) flipToSettings;
@@ -24,9 +25,9 @@
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, retain) NSString *navStyle;
 @property (nonatomic, retain) NSString *fromDishView;
-@property (nonatomic, retain) NSMutableArray *trayDishes;
-@property (nonatomic, retain) NSMutableArray *dishes;
+@property (nonatomic, retain) NSMutableArray *venues;
 @property (nonatomic, retain) NSMutableArray *filters;
-@property (nonatomic, assign) NSInteger dishIndex;
-
+@property (nonatomic, assign) NSInteger dishSection;
+@property (nonatomic, assign) NSInteger dishRow;
+@property (nonatomic, retain) NSMutableArray *trayDishes;
 @end

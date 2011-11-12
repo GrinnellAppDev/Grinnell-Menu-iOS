@@ -8,19 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "Dish.h"
+#import "Settings.h"
 
 @interface VenueView : UIViewController {
-    NSArray *venues;
     UITableView *newTableView;
-    NSInteger dishInd;
-    NSIndexPath *indPath;
+    NSString *alert;
+    NSMutableArray *originalVenues;
 }
 - (IBAction)showInfo:(id)sender;
 - (IBAction)showTray:(id)sender;
 - (void)configureCheckmarkForCell:(UITableViewCell *)cell withDish:(Dish *)dish;
-- (int)getRow:(NSInteger)row inSection:(NSInteger)section;
-
+@property (nonatomic, retain) NSMutableArray *originalVenues;
 @property (nonatomic, retain) IBOutlet UITableView *newTableView;
-@property (nonatomic, assign) NSInteger dishInd;
-@property (nonatomic, retain) NSIndexPath *indPath;
+@property (nonatomic, retain) NSString *alert;
 @end

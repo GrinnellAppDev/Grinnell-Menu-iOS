@@ -1,17 +1,17 @@
 //
-//  Filter.h
+//  Venue.h
 //  Grinnell-Menu-iOS
 //
-//  Created by Colin Tremblay on 11/1/11.
+//  Created by Aaltan Ahmad on 11/8/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 
-@interface Filter : NSObject {
+@interface Venue : NSObject {
     
 }
 @property (nonatomic, retain) NSString *name;
-@property (nonatomic, assign) BOOL isChecked;
+@property (nonatomic, retain) NSMutableArray *dishes;
 @end

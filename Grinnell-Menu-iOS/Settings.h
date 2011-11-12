@@ -12,8 +12,8 @@
 @interface Settings : UIViewController {
     UITableView *newTableView;
 }
-- (IBAction)backToMainMenu:(id)sender;
-@property (nonatomic, retain) IBOutlet UITableView *newTableView;
 
+- (void)settingsDelegateDidFinish:(Settings *)controller;
+@property (nonatomic, retain) IBOutlet UITableView *newTableView;
 @end
 

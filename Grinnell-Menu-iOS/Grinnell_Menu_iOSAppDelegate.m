@@ -15,25 +15,10 @@
 @implementation Grinnell_Menu_iOSAppDelegate
 
 @synthesize window, navigationController;
-@synthesize navStyle, fromDishView, venues, dishRow, dishSection, filters, trayDishes;
+@synthesize venues, filters, trayDishes, dishName, selectedDish, isInTray, calledVenues;
 
 #pragma mark -
 #pragma mark Application lifecycle
-
-- (void)flipToSettings {
-    Settings *settings = 
-	[[Settings alloc] initWithNibName:@"Settings" bundle:nil];
-    
-    [self.navigationController pushViewController:settings animated:YES];
-
-    [settings release];
-}
-
-- (void)flipToTray {
-    Tray *tray = [[Tray alloc] initWithNibName:@"Tray" bundle:nil];
-    [self.navigationController pushViewController:tray animated:YES];
-    [tray release];
-}
 
 - (NSString *) saveFilePath {
 	NSArray *pathArray =
@@ -99,13 +84,12 @@
 #pragma mark Memory management
 
 - (void)dealloc {
+    [dishName release];
     [trayDishes release];
     [filters release];
     [venues release];
 	[navigationController release];
 	[window release];
-    [navStyle release];
-    [fromDishView release];
 	[super dealloc];
 }
 

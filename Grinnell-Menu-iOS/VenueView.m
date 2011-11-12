@@ -13,22 +13,32 @@
 #import "Filter.h"
 #import "Venue.h"
 #import "Settings.h"
-
+#import "Tray.h"
 @implementation VenueView 
 
-@synthesize newTableView, alert, originalVenues;
+@synthesize newTableView, alert, originalVenues, dishRow, dishSection, fromSettings;
 
 - (IBAction)showTray:(id)sender
 {    
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    mainDelegate.fromDishView = @"No";
-    [mainDelegate flipToTray];
+    Tray *tray = [[Tray alloc] initWithNibName:@"Tray" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tray];
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    tray.buttonTitle = self.title;
+    [self presentModalViewController:navController animated:YES];
+    [tray release];
 }
 
 - (IBAction)showInfo:(id)sender
 {    
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mainDelegate flipToSettings];
+    fromSettings = YES;
+    
+    Settings *settings = [[Settings alloc] initWithNibName:@"Settings" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:navController animated:YES];
+        
+    [settings release];
 }
 
 - (IBAction)changeMeal:(id)sender{
@@ -45,11 +55,14 @@
 }
 
 - (void)viewDidLoad {
+    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    mainDelegate.selectedDish = NO;
     UIBarButtonItem *changeMeal = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
     [self.navigationItem setRightBarButtonItem:changeMeal];
     
     [super viewDidLoad];
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    fromSettings = YES;
     mainDelegate.trayDishes = [[NSMutableArray alloc] init];
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
@@ -290,6 +303,22 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (mainDelegate.selectedDish){
+        DishView *dishView = 
+        [[DishView alloc] initWithNibName:@"DishView" bundle:nil];
+        for (Venue *v in mainDelegate.venues) {
+            for (Dish *d in v.dishes){
+                if([d.name isEqualToString:mainDelegate.dishName]){
+                    dishView.dishSection = [mainDelegate.venues indexOfObject:v];
+                    dishView.dishRow = [v.dishes indexOfObject:d];
+                }
+            }
+        }
+        [self.navigationController pushViewController:dishView animated:NO];
+        [dishView release];
+    }
+    
+    
     //PUT FILTERS IN ARRAY AND ITERATE THROUGH IT TO SET THEM
     BOOL allFilter, vegetFilter, veganFilter, nutFilter, wfgfFilter;
     NSPredicate *vegetPred, *veganPred, *wfgfPred, *nutPred;
@@ -338,7 +367,7 @@
         [mainDelegate.venues addObject:venue];
         [venue release];
     }
-    
+    if (fromSettings){
     if (allFilter){
     }
     else if (!nutFilter && veganFilter && vegetFilter && wfgfFilter){
@@ -376,7 +405,8 @@
             }
         }
     }
-    
+        fromSettings = NO;
+    }
     [newTableView reloadData];
     [super viewWillAppear:YES];
 }
@@ -499,10 +529,9 @@ titleForHeaderInSection:(NSInteger)section
 		UITableViewCell *cell = (UITableViewCell *)[gesture view];
         
 		// get indexPath of cell
-        Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
 		NSIndexPath *indexPath = [newTableView indexPathForCell:cell];
-        mainDelegate.dishRow = indexPath.row;
-        mainDelegate.dishSection = indexPath.section;
+        dishRow = indexPath.row;
+        dishSection = indexPath.section;
 		// do something with this action
         UIAlertView *addMultiple = [[UIAlertView alloc] initWithTitle:@"Servings?" message:nil delegate:self cancelButtonTitle:@"0" otherButtonTitles:@"1", @"2", @"3", nil];
         [addMultiple show];
@@ -517,8 +546,8 @@ titleForHeaderInSection:(NSInteger)section
     if ([alert isEqualToString:@"servings"])
     {
         Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-        Venue *venue = [mainDelegate.venues objectAtIndex:mainDelegate.dishSection];
-        Dish *dish = [venue.dishes objectAtIndex:mainDelegate.dishRow];
+        Venue *venue = [mainDelegate.venues objectAtIndex:dishSection];
+        Dish *dish = [venue.dishes objectAtIndex:dishRow];
         if (buttonIndex == 0) {
             [mainDelegate.trayDishes removeObject:dish.name];
             dish.isChecked = NO;
@@ -571,13 +600,12 @@ titleForHeaderInSection:(NSInteger)section
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     // Configure the cell...    
-	Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    mainDelegate.navStyle = @"pushed_from_venue";
-    mainDelegate.dishRow = indexPath.row;
-    mainDelegate.dishSection = indexPath.section;
-    
     DishView *dishView = 
 	[[DishView alloc] initWithNibName:@"DishView" bundle:nil];
+    dishView.dishRow = indexPath.row;
+    dishView.dishSection = indexPath.section;
+    
+
 	[self.navigationController pushViewController:dishView animated:YES];
     [dishView release];
 }

@@ -9,13 +9,10 @@
 #import "Settings.h"
 #import "Filter.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
+#import "VenueView.h"
 
 @implementation Settings
 @synthesize newTableView;
-
-- (IBAction)backToMainMenu:(id)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
 
 - (void)dealloc
 {    
@@ -36,15 +33,16 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+- (void)settingsDelegateDidFinish:(Settings *)controller{
+    [self dismissModalViewControllerAnimated:YES];
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    //Navigate to Main Menu
-    UIBarButtonItem *toMainMenuButton = [[UIBarButtonItem alloc] initWithTitle:@"Main Menu" style:UIBarButtonItemStyleBordered target:self action:@selector(backToMainMenu:)];
-    [self.navigationItem setRightBarButtonItem:toMainMenuButton]; 
-    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(settingsDelegateDidFinish:)];
+    [[self navigationItem] setLeftBarButtonItem:backButton];
+    [backButton release];
     [super viewDidLoad];
     self.title = @"Settings"; 
 }

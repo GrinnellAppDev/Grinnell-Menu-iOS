@@ -14,7 +14,7 @@
 
 @implementation Tray
 
-@synthesize newTableView, totalNutrition, editStyle, plusButton;
+@synthesize newTableView, totalNutrition, editStyle, plusButton, buttonTitle;
 
 - (IBAction) editTable:(id)sender {
     editStyle = @"delete";
@@ -43,9 +43,15 @@
 
 - (IBAction)toVenueView:(id)sender
 {
-    [self.navigationController popToViewController:    [self.navigationController.viewControllers objectAtIndex:1] animated:YES]; 
+    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    mainDelegate.calledVenues = YES;
+    [self dismissModalViewControllerAnimated:YES];
 }
 
+- (IBAction)toLastView:(id)sender
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
 - (IBAction)clearTray:(id)sender{
     
     UIAlertView *clear = [[UIAlertView alloc] 
@@ -97,6 +103,7 @@
 
 - (void)dealloc
 {
+    [buttonTitle release];
     [plusButton release];
     [editStyle release];
     [totalNutrition release];
@@ -113,16 +120,25 @@
 }
 
 - (void)viewDidLoad
-{     
+{    
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+
+    mainDelegate.calledVenues = NO;
+
     //Edit Button
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editTable:)];
     [self.navigationItem setRightBarButtonItem:editButton];
-    //toVenueView
-    if ([mainDelegate.trayDishes containsObject:mainDelegate.fromDishView])
-    {
-        UIBarButtonItem *toVenueViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Venues" style:UIBarButtonItemStyleBordered target:self action:@selector(toVenueView:)];
-        [self.navigationItem setLeftBarButtonItem:toVenueViewButton]; 
+    
+
+    if (mainDelegate.isInTray) {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Venues" style:UIBarButtonItemStyleBordered target:self action:@selector(toVenueView:)];
+        [[self navigationItem] setLeftBarButtonItem:backButton];
+        [backButton release];
+    }
+    else{
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:buttonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(toLastView:)];
+        [[self navigationItem] setLeftBarButtonItem:backButton];
+        [backButton release];
     }
     [super viewDidLoad];
     self.title = @"Your Tray";
@@ -200,35 +216,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    // Navigation logic may go here. Create and push another view controller.
+
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *dishName = [mainDelegate.trayDishes objectAtIndex:indexPath.row];
-   
-    for (Venue *v in mainDelegate.venues) {
-        for (Dish *d in v.dishes){
-            if([d.name isEqualToString:dishName]){
-                mainDelegate.dishSection = [mainDelegate.venues indexOfObject:v];
-                mainDelegate.dishRow = [v.dishes indexOfObject:d];
-            }
-        }
-    }
-    
-
-    
-    if ([mainDelegate.trayDishes containsObject:mainDelegate.fromDishView])
-    {
-        mainDelegate.navStyle = @"popped";
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
-        mainDelegate.navStyle = @"pushed_from_tray";
-        DishView *dishView = 
-        [[DishView alloc] initWithNibName:@"DishView" bundle:nil];
-        [self.navigationController pushViewController:dishView animated:YES];
-        [dishView release];
-    }
+    mainDelegate.dishName = [mainDelegate.trayDishes objectAtIndex:indexPath.row];
+    mainDelegate.selectedDish = YES;
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

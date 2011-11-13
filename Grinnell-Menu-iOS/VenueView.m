@@ -304,8 +304,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     if (mainDelegate.selectedDish){
-        DishView *dishView = 
-        [[DishView alloc] initWithNibName:@"DishView" bundle:nil];
+        DishView *dishView = [[DishView alloc] initWithNibName:@"DishView" bundle:nil];
         for (Venue *v in mainDelegate.venues) {
             for (Dish *d in v.dishes){
                 if([d.name isEqualToString:mainDelegate.dishName]){
@@ -404,6 +403,7 @@
                 [v.dishes filterUsingPredicate:nutPred];
             }
         }
+        [preds release];
     }
         fromSettings = NO;
     }
@@ -461,7 +461,6 @@ titleForHeaderInSection:(NSInteger)section
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     [view autorelease];
     [view addSubview:label];
-    
     return view;
 }
 

@@ -48,6 +48,7 @@
     navController.navigationBar.barStyle = UIBarStyleBlack;
     tray.buttonTitle = self.title;
     [self presentModalViewController:navController animated:YES];
+    [navController release];
     [tray release];
 }
 
@@ -129,6 +130,7 @@
     [self.navigationItem setRightBarButtonItem:toMainMenuButton];
 
     [super viewDidLoad];
+    [toMainMenuButton release];
     // Do any additional setup after loading the view from its nib.
 }
 

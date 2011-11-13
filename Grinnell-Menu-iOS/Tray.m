@@ -141,6 +141,7 @@
         [backButton release];
     }
     [super viewDidLoad];
+    [editButton release];
     self.title = @"Your Tray";
 
 }

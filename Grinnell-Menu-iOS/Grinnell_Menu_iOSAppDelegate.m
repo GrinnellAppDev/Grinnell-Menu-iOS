@@ -58,6 +58,7 @@
         filter.name = @"Gluten Free";
         filter.isChecked = YES;
         [filters addObject:filter];
+        [filter release];
     }
 
     // Override point for customization after app launch

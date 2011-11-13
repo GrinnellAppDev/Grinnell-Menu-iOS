@@ -121,7 +121,6 @@
         filter.isChecked = NO;        
         // Reflect deselection in data model
     }
-
     [newTableView reloadData];
 }
 

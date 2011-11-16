@@ -348,6 +348,17 @@
         [preds release];
     }
     
+    //Remove empty venues if all items are filtered out of a venue
+    int i;
+    for (i=0; i<mainDelegate.venues.count; i++) {
+        Venue *v = [[Venue alloc] init];
+        v = [mainDelegate.venues objectAtIndex:i];
+        if (v.dishes.count == 0) {
+            [mainDelegate.venues removeObjectAtIndex:i];
+        }
+    }
+    
+    
     [newTableView reloadData];
     [super viewWillAppear:YES];
 }

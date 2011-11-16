@@ -9,13 +9,12 @@
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "RootViewController.h"
 #import "Settings.h"
-#import "Tray.h"
 #import "Filter.h"
 
 @implementation Grinnell_Menu_iOSAppDelegate
 
 @synthesize window, navigationController;
-@synthesize venues, filters, trayDishes, dishName, selectedDish, isInTray, calledVenues;
+@synthesize venues, filters;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -85,8 +84,6 @@
 #pragma mark Memory management
 
 - (void)dealloc {
-    [dishName release];
-    [trayDishes release];
     [filters release];
     [venues release];
 	[navigationController release];

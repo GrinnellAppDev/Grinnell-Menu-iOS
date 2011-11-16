@@ -8,7 +8,6 @@
 
 #import "RootViewController.h"
 #import "VenueView.h"
-#import "Tray.h"
 
 @implementation RootViewController
 @synthesize today, tomorrow, go;

@@ -14,20 +14,12 @@
     UITableView *newTableView;
     NSString *alert;
     NSMutableArray *originalVenues;
-    NSInteger dishSection;
-    NSInteger dishRow;
-    BOOL fromSettings;
 }
 
 - (IBAction)showInfo:(id)sender;
-- (IBAction)showTray:(id)sender;
-- (void)configureCheckmarkForCell:(UITableViewCell *)cell withDish:(Dish *)dish;
 
 @property (nonatomic, retain) NSMutableArray *originalVenues;
 @property (nonatomic, retain) IBOutlet UITableView *newTableView;
 @property (nonatomic, retain) NSString *alert;
-@property (nonatomic, assign) NSInteger dishSection;
-@property (nonatomic, assign) NSInteger dishRow;
-@property (nonatomic, assign) BOOL fromSettings;
 
 @end

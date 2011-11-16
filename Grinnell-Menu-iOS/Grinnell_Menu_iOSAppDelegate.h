@@ -11,11 +11,6 @@
     UINavigationController *navigationController;
     NSMutableArray *venues;
     NSMutableArray *filters;
-    NSMutableArray *trayDishes;
-    NSString *dishName;
-    BOOL selectedDish;
-    BOOL isInTray;
-    BOOL calledVenues;
 }
 
 
@@ -23,10 +18,6 @@
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, retain) NSMutableArray *venues;
 @property (nonatomic, retain) NSMutableArray *filters;
-@property (nonatomic, retain) NSMutableArray *trayDishes;
-@property (nonatomic, retain) NSString *dishName;
-@property (nonatomic, assign) BOOL selectedDish;
-@property (nonatomic, assign) BOOL isInTray;
-@property (nonatomic, assign) BOOL calledVenues;
+
 
 @end

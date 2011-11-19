@@ -99,28 +99,38 @@
     {
         // Reflect selection in data model        
         if ([filter.name isEqualToString:@"All"]){
-            int temp = 0;
+            filter.isChecked = YES;
+            int temp = 1;
             while (temp < mainDelegate.filters.count){
                 filter = [mainDelegate.filters objectAtIndex:temp];
-                filter.isChecked = YES;
+                filter.isChecked = NO;
                 temp++;
             }
         }
-        else if ([filter.name isEqualToString:@"Vegetarian"]){
+        else{
             filter.isChecked = YES;
-            filter = [mainDelegate.filters objectAtIndex:(1+indexPath.row)];
-            filter.isChecked = YES;
+            filter = [mainDelegate.filters objectAtIndex:0];
+            filter.isChecked = NO; 
         }
-        else
-            filter.isChecked = YES;
     }
     else if (filter.isChecked)
     {
         filter.isChecked = NO;
-        filter = [mainDelegate.filters objectAtIndex:0];
-        filter.isChecked = NO;        
-        // Reflect deselection in data model
     }
+    
+    int i, j = 0;
+    for (i = 0; i < mainDelegate.filters.count; i++){
+        filter = [mainDelegate.filters objectAtIndex:i];
+        if (!filter.isChecked) {
+            j++;
+        }
+    }
+    
+    if (j == mainDelegate.filters.count){
+        filter = [mainDelegate.filters objectAtIndex:0];
+        filter.isChecked = YES;
+    }
+    
     [newTableView reloadData];
 }
 

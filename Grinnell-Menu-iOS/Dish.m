@@ -10,7 +10,7 @@
 
 
 @implementation Dish
-@synthesize name, venue, nutAllergen, glutenFree, vegetarian, vegan;
+@synthesize name, venue, nutAllergen, glutenFree, vegetarian, vegan, ovolacto, hasNutrition, nutrition;
 
 
 @end

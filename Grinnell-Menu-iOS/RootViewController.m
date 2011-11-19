@@ -10,7 +10,7 @@
 #import "VenueView.h"
 
 @implementation RootViewController
-@synthesize today, tomorrow, go;
+@synthesize go;
 
 - (void) venueViewDidFinish:(VenueView *)controller
 {
@@ -33,8 +33,6 @@
 
 - (void)dealloc
 {
-    [today release];
-    [tomorrow release];
     [go release];
     [super dealloc];
 }
@@ -55,14 +53,20 @@
 {
     [super viewDidLoad];
     //setDate:(NSDate *)date animated:YES;
-    self.title = @"Grinnell Menu";
+    self.title = @"Dining Menu";
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
-  //  [datePicker setMaximumDate:(NSDate *)];
-  //  [datePicker setMinimumDate:<#(NSDate *)#>];
+    [datePicker setMinimumDate:now];
+    
+    //Set the maximum date based on the number of days past the current date that can be accessed.
+    int days = 7;
+    int range = 24 * 60 * 60 * days;
+    NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
+    
+    [datePicker setMaximumDate:max];
     [now release];
 }
 

@@ -18,5 +18,7 @@
 @property (nonatomic, assign) BOOL glutenFree;
 @property (nonatomic, assign) BOOL vegetarian;
 @property (nonatomic, assign) BOOL vegan;
-
+@property (nonatomic, assign) BOOL ovolacto;
+@property (nonatomic, assign) BOOL hasNutrition;
+@property (nonatomic, retain) NSString *nutrition;
 @end

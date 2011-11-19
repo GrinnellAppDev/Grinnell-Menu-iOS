@@ -12,6 +12,7 @@
 #import "Filter.h"
 #import "Venue.h"
 #import "Settings.h"
+#import "DishView.h"
 
 @implementation VenueView 
 
@@ -22,7 +23,7 @@
 {    
    
     Settings *settings = [[Settings alloc] initWithNibName:@"Settings" bundle:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:settings] autorelease];
     navController.navigationBar.barStyle = UIBarStyleBlack;
     navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:navController animated:YES];
@@ -45,7 +46,7 @@
 
 - (void)viewDidLoad {
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    UIBarButtonItem *changeMeal = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
+    UIBarButtonItem *changeMeal = [[[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)] autorelease];
     [self.navigationItem setRightBarButtonItem:changeMeal];
     
     [super viewDidLoad];
@@ -53,13 +54,14 @@
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
     Dish *dish;
-    dish = [[Dish alloc] init];
+    dish = [[[Dish alloc] init] autorelease];
     dish.name = @"dish1";
     dish.venue = @"Honor Grill";
     dish.nutAllergen = YES;
     dish.glutenFree = NO;
     dish.vegetarian = NO;
     dish.vegan = NO;
+    dish.ovolacto = NO;
     
     int j=1;    
     for (Venue *x in mainDelegate.venues) {
@@ -69,19 +71,21 @@
         }
     }
     if (j){
-        Venue *venue = [[Venue alloc] init];
+        Venue *venue = [[[Venue alloc] init] autorelease];
         venue.name = dish.venue;
         [venue.dishes addObject:dish];
         [mainDelegate.venues addObject:venue];
     }
     
-    dish = [[Dish alloc] init];
+    dish = [[[Dish alloc] init] autorelease];
     dish.name = @"dish2";
     dish.venue = @"Honor Grill";
     dish.nutAllergen = NO;
     dish.glutenFree = YES;
     dish.vegetarian = NO;
     dish.vegan = NO;
+    dish.ovolacto = YES;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -90,7 +94,7 @@
         }
     }
     if (j){
-        Venue *venue = [[Venue alloc] init];
+        Venue *venue = [[[Venue alloc] init] autorelease];
         venue.name = dish.venue;
         [venue.dishes addObject:dish];
         [mainDelegate.venues addObject:venue];
@@ -103,6 +107,8 @@
     dish.glutenFree = NO;
     dish.vegetarian = YES;
     dish.vegan = NO;
+    dish.ovolacto = NO;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -124,6 +130,8 @@
     dish.glutenFree = NO;
     dish.vegetarian = NO;
     dish.vegan = YES;
+    dish.ovolacto = NO;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -145,6 +153,8 @@
     dish.glutenFree = NO;
     dish.vegetarian = NO;
     dish.vegan = NO;
+    dish.ovolacto = NO;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -164,7 +174,9 @@
     dish.nutAllergen = NO;
     dish.glutenFree = NO;
     dish.vegetarian = NO;
-    dish.vegan = NO;
+    dish.vegan = YES;
+    dish.ovolacto = YES;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -185,6 +197,8 @@
     dish.glutenFree = YES;
     dish.vegetarian = NO;
     dish.vegan = YES;
+    dish.ovolacto = NO;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -205,6 +219,8 @@
     dish.glutenFree = NO;
     dish.vegetarian = NO;
     dish.vegan = NO;
+    dish.ovolacto = NO;
+
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -218,24 +234,9 @@
         [venue.dishes addObject:dish];
         [mainDelegate.venues addObject:venue];
     }
+
     
-    for (Venue *v in mainDelegate.venues) {
-        Venue *venue = [[Venue alloc] init];
-        venue.name = v.name;
-        for (Dish *d in v.dishes) {
-            Dish *dish = [[Dish alloc] init];
-            dish.name = d.name;
-            dish.venue = d.venue;
-            dish.nutAllergen = d.nutAllergen;
-            dish.glutenFree = d.glutenFree;
-            dish.vegetarian = d.vegetarian;
-            dish.vegan = d.vegan;
-            [venue.dishes addObject:dish];
-        }
-        [originalVenues addObject:venue];
-        [venue release];
-    }
-    
+    [originalVenues setArray:mainDelegate.venues];    
     
     self.title = @"Venues";
 }
@@ -264,8 +265,8 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     //PUT FILTERS IN ARRAY AND ITERATE THROUGH IT TO SET THEM
-    BOOL allFilter, vegetFilter, veganFilter, nutFilter, wfgfFilter;
-    NSPredicate *vegetPred, *veganPred, *wfgfPred, *nutPred;
+    BOOL allFilter, veganFilter, ovoFilter;
+    NSPredicate *veganPred, *ovoPred;
     
     for (int i=0; i<mainDelegate.filters.count; i++) {
         Filter *filter = [mainDelegate.filters objectAtIndex:i];
@@ -274,16 +275,10 @@
                 allFilter = filter.isChecked;
                 break;
             case 1:
-                vegetFilter = filter.isChecked;
-                break;
-            case 2:
                 veganFilter = filter.isChecked;
                 break;
-            case 3:
-                nutFilter = filter.isChecked;
-                break;
-            case 4:
-                wfgfFilter = filter.isChecked;
+            case 2:
+                ovoFilter = filter.isChecked;
                 break;
             default:
                 break;
@@ -303,6 +298,8 @@
             dish.glutenFree = d.glutenFree;
             dish.vegetarian = d.vegetarian;
             dish.vegan = d.vegan;
+            dish.ovolacto = d.ovolacto;
+            dish.hasNutrition = d.hasNutrition;
             [venue.dishes addObject:dish];
         }
         [mainDelegate.venues addObject:venue];
@@ -311,57 +308,51 @@
 
     if (allFilter){
     }
-    else if (!nutFilter && veganFilter && vegetFilter && wfgfFilter){
-        nutPred = [NSPredicate predicateWithFormat:@"nutAllergen == NO"];
+    else if (ovoFilter && !veganFilter){
+        ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
         for (Venue *v in mainDelegate.venues) {
-            [v.dishes filterUsingPredicate:nutPred];
+            [v.dishes filterUsingPredicate:ovoPred];
         }
     }
-    else{
+    else if (veganFilter && !ovoFilter){
+        veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+        for (Venue *v in mainDelegate.venues) {
+            [v.dishes filterUsingPredicate:veganPred];
+        }
+    }
+    else if (veganFilter && ovoFilter){
         NSMutableArray *preds = [[NSMutableArray alloc] init];
         [preds removeAllObjects];
-        if (vegetFilter){
-            vegetPred = [NSPredicate predicateWithFormat:@"vegetarian == YES"];
-            [preds addObject:vegetPred];
-        }
-        if (veganFilter){
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            [preds addObject:veganPred];
-        }
-        if (wfgfFilter){
-            wfgfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            [preds addObject:wfgfPred];
-        }
+        ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+        [preds addObject:ovoPred];
         
-        NSPredicate *compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+        veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+        [preds addObject:veganPred];
+        
+        
+        NSPredicate *compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
         
         for (Venue *v in mainDelegate.venues){
             [v.dishes filterUsingPredicate:compoundPred];
         }
-            
-        if (!nutFilter){
-            nutPred = [NSPredicate predicateWithFormat:@"nutAllergen == NO"];
-            for (Venue *v in mainDelegate.venues) {
-                [v.dishes filterUsingPredicate:nutPred];
-            }
-        }
+
         [preds release];
     }
     
     //Remove empty venues if all items are filtered out of a venue
-    int i;
-    for (i=0; i<mainDelegate.venues.count; i++) {
-        Venue *v = [[Venue alloc] init];
-        v = [mainDelegate.venues objectAtIndex:i];
-        if (v.dishes.count == 0) {
-            [mainDelegate.venues removeObjectAtIndex:i];
+    NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
+    for (Venue *v in mainDelegate.venues) {
+        if (v.dishes.count == 0){
+            [emptyVenues addObject:v];
         }
     }
     
+    [mainDelegate.venues removeObjectsInArray:emptyVenues];
     
     [newTableView reloadData];
     [super viewWillAppear:YES];
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -426,7 +417,7 @@ titleForHeaderInSection:(NSInteger)section
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [[[UITableViewCell alloc] init] autorelease];
     // Configure the cell...    
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
@@ -435,12 +426,29 @@ titleForHeaderInSection:(NSInteger)section
     cell.textLabel.text = dish.name;
        
      // accessory type
+    if (!dish.hasNutrition){
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-     
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    }
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    DishView *dishView = [[DishView alloc] initWithNibName:@"DishView" bundle:nil];
+    dishView.dishRow = indexPath.row;
+    dishView.dishSection = indexPath.section;
+    
+    
+	[self.navigationController pushViewController:dishView animated:YES];
+    [dishView release];
+}
 
 
 #pragma mark UIAlertViewDelegate Methods

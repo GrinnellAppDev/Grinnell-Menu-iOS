@@ -42,21 +42,21 @@
         filter.isChecked = YES;
         [filters addObject:filter];
         filter = [[Filter alloc]  init];
+        filter.name = @"Vegan";
+        filter.isChecked = NO;
+        [filters addObject:filter];
+        filter = [[Filter alloc]  init];
+        filter.name = @"Ovolacto";
+        filter.isChecked = NO;
+        [filters addObject:filter];/*
+        filter = [[Filter alloc]  init];
+        filter.name = @"Wheat/Gluten";
+        filter.isChecked = YES;
+        [filters addObject:filter];
+        filter = [[Filter alloc]  init];
         filter.name = @"Vegetarian";
         filter.isChecked = YES;
-        [filters addObject:filter];
-        filter = [[Filter alloc]  init];
-        filter.name = @"Vegan";
-        filter.isChecked = YES;
-        [filters addObject:filter];
-        filter = [[Filter alloc]  init];
-        filter.name = @"Food Containing Nuts";
-        filter.isChecked = YES;
-        [filters addObject:filter];
-        filter = [[Filter alloc]  init];
-        filter.name = @"Gluten Free";
-        filter.isChecked = YES;
-        [filters addObject:filter];
+        [filters addObject:filter];*/
         [filter release];
     }
 

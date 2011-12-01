@@ -16,43 +16,13 @@
 
 @implementation VenueView 
 
-@synthesize newTableView, alert, originalVenues;
+@synthesize newTableView, alert, originalVenues, date, meal;
 
-
-- (IBAction)showInfo:(id)sender
-{    
-   
-    Settings *settings = [[Settings alloc] initWithNibName:@"Settings" bundle:nil];
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:settings] autorelease];
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:navController animated:YES];
-        
-    [settings release];
-}
-
-- (IBAction)changeMeal:(id)sender{
-    alert = @"meal";
-    UIAlertView *meal = [[UIAlertView alloc] 
-                         initWithTitle:@"Select Meal" 
-                         message:nil 
-                         delegate:self 
-                         cancelButtonTitle:@"Cancel" 
-                         otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", nil
-                         ];
-    [meal show];
-    [meal release];
-}
-
-- (void)viewDidLoad {
+- (void)getDishes {
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    UIBarButtonItem *changeMeal = [[[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)] autorelease];
-    [self.navigationItem setRightBarButtonItem:changeMeal];
-    
-    [super viewDidLoad];
- 
-    originalVenues = [[NSMutableArray alloc] init];
-    mainDelegate.venues = [[NSMutableArray alloc] init];
+    [originalVenues removeAllObjects];
+    [mainDelegate.venues removeAllObjects];
+
     Dish *dish;
     dish = [[[Dish alloc] init] autorelease];
     dish.name = @"dish1";
@@ -85,7 +55,7 @@
     dish.vegetarian = NO;
     dish.vegan = NO;
     dish.ovolacto = YES;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -108,7 +78,7 @@
     dish.vegetarian = YES;
     dish.vegan = NO;
     dish.ovolacto = NO;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -131,7 +101,7 @@
     dish.vegetarian = NO;
     dish.vegan = YES;
     dish.ovolacto = NO;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -154,7 +124,7 @@
     dish.vegetarian = NO;
     dish.vegan = NO;
     dish.ovolacto = NO;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -176,7 +146,7 @@
     dish.vegetarian = NO;
     dish.vegan = YES;
     dish.ovolacto = YES;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -198,7 +168,7 @@
     dish.vegetarian = NO;
     dish.vegan = YES;
     dish.ovolacto = NO;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -220,7 +190,7 @@
     dish.vegetarian = NO;
     dish.vegan = NO;
     dish.ovolacto = NO;
-
+    
     j=1;    
     for (Venue *x in mainDelegate.venues) {
         if ([x.name isEqualToString:dish.venue]){
@@ -234,9 +204,46 @@
         [venue.dishes addObject:dish];
         [mainDelegate.venues addObject:venue];
     }
-
-    
     [originalVenues setArray:mainDelegate.venues];    
+
+}
+
+- (IBAction)showInfo:(id)sender
+{    
+   
+    Settings *settings = [[Settings alloc] initWithNibName:@"Settings" bundle:nil];
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:settings] autorelease];
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:navController animated:YES];
+        
+    [settings release];
+}
+
+- (IBAction)changeMeal:(id)sender{
+    alert = @"meal";
+    UIAlertView *mealSelect = [[UIAlertView alloc] 
+                         initWithTitle:@"Select Meal" 
+                         message:nil 
+                         delegate:self 
+                         cancelButtonTitle:@"Cancel" 
+                         otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", nil
+                         ];
+    [mealSelect show];
+    [mealSelect release];
+}
+
+- (void)viewDidLoad {
+    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    UIBarButtonItem *changeMeal = [[[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)] autorelease];
+    [self.navigationItem setRightBarButtonItem:changeMeal];
+    
+    [super viewDidLoad];
+ 
+    originalVenues = [[NSMutableArray alloc] init];
+    mainDelegate.venues = [[NSMutableArray alloc] init];
+     
+    [self getDishes];
     
     self.title = @"Venues";
 }
@@ -456,16 +463,28 @@ titleForHeaderInSection:(NSInteger)section
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
           if (buttonIndex == 0) {
         }
-        else{
-            //get new data
+        else if (buttonIndex == 1){
+            meal = @"Breakfast";
         }
+        else if (buttonIndex == 2){
+            meal = @"Lunch";
+        }
+        else if (buttonIndex == 3){
+            meal = @"Dinner";
+        }
+    [self getDishes];
     [newTableView reloadData];
 }
 
 - (void)dealloc {
+    [meal release];
+    [date release];
     [originalVenues release];
     [alert release];
     [newTableView release];
     [super dealloc];
 }
+
+
+
 @end

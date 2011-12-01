@@ -87,24 +87,14 @@
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    VenueView *venueView = 
-    [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
-    venueView.date = datePicker.date;
     if (buttonIndex == 0) {
     }
-    else if (buttonIndex == 1){
-        venueView.meal = @"Breakfast";
+    else{
+        VenueView *venueView = 
+        [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
         [self.navigationController pushViewController:venueView animated:YES];
+        [venueView release];
     }
-    else if (buttonIndex == 2){
-        venueView.meal = @"Lunch";
-        [self.navigationController pushViewController:venueView animated:YES];
-    }    
-    else if (buttonIndex == 3){
-        venueView.meal = @"Dinner";
-        [self.navigationController pushViewController:venueView animated:YES];
-    }
-    [venueView release];
 }
 
 @end

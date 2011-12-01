@@ -20,11 +20,11 @@
 - (IBAction)showVenues:(id)sender
 {
     UIAlertView *meal = [[UIAlertView alloc] 
-						  initWithTitle:@"Select Meal" 
-						  message:nil 
-						  delegate:self 
-						  cancelButtonTitle:@"Cancel" 
-                          otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", nil
+                         initWithTitle:@"Select Meal" 
+                         message:nil 
+                         delegate:self 
+                         cancelButtonTitle:@"Cancel" 
+                         otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", nil
                          ];
     [meal show];
     [meal release];
@@ -87,14 +87,24 @@
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    VenueView *venueView = 
+    [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
+    venueView.date = datePicker.date;
     if (buttonIndex == 0) {
     }
-    else{
-        VenueView *venueView = 
-        [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
+    else if (buttonIndex == 1){
+        venueView.meal = @"Breakfast";
         [self.navigationController pushViewController:venueView animated:YES];
-        [venueView release];
     }
+    else if (buttonIndex == 2){
+        venueView.meal = @"Lunch";
+        [self.navigationController pushViewController:venueView animated:YES];
+    }    
+    else if (buttonIndex == 3){
+        venueView.meal = @"Dinner";
+        [self.navigationController pushViewController:venueView animated:YES];
+    }
+    [venueView release];
 }
 
 @end

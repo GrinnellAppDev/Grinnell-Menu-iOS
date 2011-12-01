@@ -14,12 +14,17 @@
     UITableView *newTableView;
     NSString *alert;
     NSMutableArray *originalVenues;
+    NSDate *date;
+    NSString *meal;
 }
 
 - (IBAction)showInfo:(id)sender;
+- (void)getDishes;
+- (void)applyFilters;
 
 @property (nonatomic, retain) NSMutableArray *originalVenues;
 @property (nonatomic, retain) IBOutlet UITableView *newTableView;
 @property (nonatomic, retain) NSString *alert;
-
+@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, retain) NSString *meal;
 @end

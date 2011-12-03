@@ -23,7 +23,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [originalVenues removeAllObjects];
     [mainDelegate.venues removeAllObjects];
-    
+    /*
     Dish *dish;
     dish = [[[Dish alloc] init] autorelease];
     dish.name = @"dish1";
@@ -204,10 +204,73 @@
         venue.name = dish.venue;
         [venue.dishes addObject:dish];
         [mainDelegate.venues addObject:venue];
-    }
+    }*/
+
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    NSInteger day = [components day];    
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+
+    
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
+    NSLog(@"%@", url);
+    
+    NSString *rawJSON = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
+
+
+    /*
+    [meal length];
+    NSString *text = [[NSString alloc] init];
+    NSString *text1 = [[NSString alloc] init];
+    NSString *text2 = [[NSString alloc] init];
+
+    for (int i = 0; i< [rawJSON length]; i++) {
+        text = [rawJSON substringFromIndex:i];
+        text1 = [text substringToIndex:[meal length]];
+        if([meal isEqualToString:text1]){
+            text2 = [text substringFromIndex:(i + [meal length])];
+            NSLog(@"%@", text2);
+           
+            break;
+        }
+    }*/
+    
+        
+    NSLog(@"%@", rawJSON);
+    //everything here on seems to be doing nothing... 
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSArray *json = [[parser objectWithString:rawJSON] copy];
+    //this gives (null) every time...
+    NSLog(@"%@", json);
+    NSArray *mea = [json objectAtIndex:0];
+    NSArray *ven = [mea objectAtIndex:0];
+    NSArray *di = [ven objectAtIndex:0];
+    NSString *name = [di objectAtIndex:0];
+    
+    
+    NSArray *meal1 = [json objectAtIndex:0];
+    NSArray *ven1 = [meal1 objectAtIndex:0];
+    Venue *venue1 = [[Venue alloc] init];
+    venue1.name = [meal1 objectAtIndex:0];
+    Dish *dish;
+    dish = [[Dish alloc] init];
+    dish.name = [ven1 objectAtIndex:0];
+    dish.venue = venue1.name;
+    if ([[ven1 objectAtIndex:1] isEqualToString:@"true"])
+        dish.vegan = TRUE;
+    if ([[ven1 objectAtIndex:2] isEqualToString:@"true"])
+        dish.ovolacto = TRUE;
+    [venue1.dishes addObject:dish];
+    
     [originalVenues setArray:mainDelegate.venues];    
     [self applyFilters];
 }
+
+
+
+
+
+
 
 - (IBAction)showInfo:(id)sender
 {    
@@ -479,6 +542,8 @@ titleForHeaderInSection:(NSInteger)section
     [self getDishes];
     [newTableView reloadData];
 }
+
+
 
 - (void)dealloc {
     [meal release];

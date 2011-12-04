@@ -89,6 +89,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     VenueView *venueView = 
     [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
+    venueView.date = [[NSDate alloc] init];
     venueView.date = datePicker.date;
     if (buttonIndex == 0) {
     }

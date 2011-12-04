@@ -206,7 +206,7 @@
         [mainDelegate.venues addObject:venue];
     }*/
 
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
     NSInteger day = [components day];    
     NSInteger month = [components month];
     NSInteger year = [components year];
@@ -240,8 +240,10 @@
     //everything here on seems to be doing nothing... 
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSArray *json = [[parser objectWithString:rawJSON] copy];
-    //this gives (null) every time...
+    //this gives (null) every time so I commentted the rest of the parsing off
     NSLog(@"%@", json);
+    
+    /*
     NSArray *mea = [json objectAtIndex:0];
     NSArray *ven = [mea objectAtIndex:0];
     NSArray *di = [ven objectAtIndex:0];
@@ -260,7 +262,7 @@
         dish.vegan = TRUE;
     if ([[ven1 objectAtIndex:2] isEqualToString:@"true"])
         dish.ovolacto = TRUE;
-    [venue1.dishes addObject:dish];
+    [venue1.dishes addObject:dish];*/
     
     [originalVenues setArray:mainDelegate.venues];    
     [self applyFilters];

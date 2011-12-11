@@ -13,7 +13,6 @@
 #import "Venue.h"
 #import "Settings.h"
 #import "DishView.h"
-#import "SBJson.h"
 
 @implementation VenueView 
 
@@ -213,44 +212,25 @@
 
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
-    NSLog(@"%@", url);
     
     NSString *rawJSON = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
-
+    
 
     /*
-    [meal length];
-    NSString *text = [[NSString alloc] init];
-    NSString *text1 = [[NSString alloc] init];
-    NSString *text2 = [[NSString alloc] init];
-
-    for (int i = 0; i< [rawJSON length]; i++) {
-        text = [rawJSON substringFromIndex:i];
-        text1 = [text substringToIndex:[meal length]];
-        if([meal isEqualToString:text1]){
-            text2 = [text substringFromIndex:(i + [meal length])];
-            NSLog(@"%@", text2);
-           
-            break;
-        }
-    }*/
-    
-        
-    NSLog(@"%@", rawJSON);
     //everything here on seems to be doing nothing... 
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSArray *json = [[parser objectWithString:rawJSON] copy];
-    //this gives (null) every time so I commentted the rest of the parsing off
-    NSLog(@"%@", json);
+  
     
-    /*
     NSArray *mea = [json objectAtIndex:0];
     NSArray *ven = [mea objectAtIndex:0];
     NSArray *di = [ven objectAtIndex:0];
     NSString *name = [di objectAtIndex:0];
     
     
-    NSArray *meal1 = [json objectAtIndex:0];
+    NSArray *meal1 = [[NSArray alloc] init];
+    meal1 = [json objectAtIndex:0];
+    NSLog(@"%@", meal1);
     NSArray *ven1 = [meal1 objectAtIndex:0];
     Venue *venue1 = [[Venue alloc] init];
     venue1.name = [meal1 objectAtIndex:0];

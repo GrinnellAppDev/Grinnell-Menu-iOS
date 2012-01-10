@@ -59,6 +59,7 @@
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
    // NSData *data = [NSData dataWithContentsOfURL:url];
     
+    mainURL = [NSURL URLWithString:url];
     NSData *data = [NSData dataWithContentsOfURL:mainURL];
     
     NSError *error;

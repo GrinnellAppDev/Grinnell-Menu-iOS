@@ -5,6 +5,7 @@
 //  Created by Colin Tremblay on 10/22/11.
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
+#define kDiningMenu [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?mon=12&day=7&year=2011"]
 
 #import "VenueView.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
@@ -14,15 +15,150 @@
 #import "Settings.h"
 #import "DishView.h"
 
-@implementation VenueView 
+@implementation VenueView{
+    NSArray *menuVenueNamesFromJSON;
+    NSDictionary *jsonDict;
+    NSMutableArray *realMenuFromJSON;
+    NSMutableArray *originalVenues;
+    NSString *alert;
 
-@synthesize newTableView, alert, originalVenues, date, meal;
+}
 
+@synthesize anotherTableView, date, meal, mainURL;
+
+
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+
+//We add this method here because when the VenueviewController is waking up. Turning on screen. We would also like to take advantage of that and do some initialization of our own. i.e loading the items
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    
+    if ((self = [super initWithCoder:aDecoder])) {         
+    }
+    return self;
+}
+
+
+-(void)getDishes
+{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    NSInteger day = [components day];    
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    
+    
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
+   // NSData *data = [NSData dataWithContentsOfURL:url];
+    
+    NSData *data = [NSData dataWithContentsOfURL:mainURL];
+    
+    NSError *error;
+    //NSJSON takes data and then gives you back a founddation object. dict or array. 
+    //HERES THE CRASH.................
+    jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                               options:kNilOptions //if you're not only reading but going to modify the objects after reading them, you'd want to pass in the right options. (NSJSONReadingMutablecontainers.. etc
+                                                 error:&error];
+    
+    if ([NSJSONSerialization isValidJSONObject:jsonDict])
+        NSLog(@"yes it's valid");
+    
+    else NSLog(@"No it's not valid");
+    
+    
+    
+    
+    NSString *key = [[NSString alloc] init];
+    if ([meal isEqualToString:@"Breakfast"]) {
+        key = @"BREAKFAST";
+    } else if ([meal isEqualToString:@"Lunch"]) {
+        key = @"LUNCH";
+    } else if ([meal isEqualToString:@"Dinner"]) {
+        key = @"DINNER";
+    } else if ([meal isEqualToString:@"Outtakes"]) {
+        key = @"OUTTAKES";
+    }
+    
+    NSLog(@"Key is %@", key);
+    
+    NSDictionary *mainMenu = [jsonDict objectForKey:key]; 
+    
+    //   NSLog(@"Jsondict count is %d", jsonDict.count);
+    //   NSLog(@"Jsond dict is %@", jsonDict);
+    // NSLog(@"Dinner: %@", mainMenu); //3
+    
+    //Let's put some data on our screen
+    
+    
+    //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue. 
+    //   NSLog(@"Count is %d", [mainMenu count]);
+    
+    menuVenueNamesFromJSON = [[NSArray alloc] init];
+    menuVenueNamesFromJSON = [mainMenu allKeys];
+    
+    
+    realMenuFromJSON = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    //   NSLog(@"realMenuFromJSON count is %d", realMenuFromJSON.count);
+    
+    
+    //Here we make an fill up the realMenuFromJSON array to  contain all the venues. 
+    for (NSString *venuename in menuVenueNamesFromJSON) {
+        Venue *gvenue = [[Venue alloc] init];
+        gvenue.name = venuename;
+        [realMenuFromJSON addObject:gvenue];
+    }
+    
+    
+    
+    /*
+     NSLog(@"The menuVenuesFromJSON count is %d", menuVenueNamesFromJSON.count);
+     NSLog(@"realMenuFromJSON is %@", realMenuFromJSON);
+     NSLog(@"realMenuFromJSON first object is %@", [realMenuFromJSON objectAtIndex:0]);
+     */
+    
+    
+    //So for each Venue...
+    for (Venue *gVenue in realMenuFromJSON) {
+        
+        //We create a dish
+        gVenue.dishes = [[NSMutableArray alloc] initWithCapacity:10];
+        
+        NSArray *dishesInVenue = [mainMenu objectForKey:gVenue.name];
+        
+        for (int i = 0; i < dishesInVenue.count; i++) {
+            Dish *dish = [[Dish alloc] init];
+            
+            //loop through for the number of dishes
+            NSDictionary *actualdish = [dishesInVenue objectAtIndex:i];
+            
+            dish.name = [actualdish  objectForKey:@"name"];
+            
+            if (![[actualdish objectForKey:@"vegan"] isEqualToString:@"false"]) 
+                dish.vegan = YES;
+            
+            //then finally we add this new dish to it's venue
+            [gVenue.dishes addObject:dish];
+        }
+    }
+    
+}
+
+
+/*
 - (void)getDishes {
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [originalVenues removeAllObjects];
     [mainDelegate.venues removeAllObjects];
-    /*
+    
     Dish *dish;
     dish = [[[Dish alloc] init] autorelease];
     dish.name = @"dish1";
@@ -203,7 +339,7 @@
         venue.name = dish.venue;
         [venue.dishes addObject:dish];
         [mainDelegate.venues addObject:venue];
-    }*/
+    }
 
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
     NSInteger day = [components day];    
@@ -213,10 +349,11 @@
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
     
-    NSString *rawJSON = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
     
-
-    /*
+    NSString *rawJSON = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
+    NSLog(@"%@", rawJSON);
+    
+    
     //everything here on seems to be doing nothing... 
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSArray *json = [[parser objectWithString:rawJSON] copy];
@@ -242,14 +379,14 @@
         dish.vegan = TRUE;
     if ([[ven1 objectAtIndex:2] isEqualToString:@"true"])
         dish.ovolacto = TRUE;
-    [venue1.dishes addObject:dish];*/
+    [venue1.dishes addObject:dish];
     
     [originalVenues setArray:mainDelegate.venues];    
     [self applyFilters];
 }
 
 
-
+*/
 
 
 
@@ -258,12 +395,10 @@
 {    
     
     Settings *settings = [[Settings alloc] initWithNibName:@"Settings" bundle:nil];
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:settings] autorelease];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
     navController.navigationBar.barStyle = UIBarStyleBlack;
     navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:navController animated:YES];
-    
-    [settings release];
 }
 
 - (IBAction)changeMeal:(id)sender{
@@ -273,15 +408,14 @@
                                message:nil 
                                delegate:self 
                                cancelButtonTitle:@"Cancel" 
-                               otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", nil
+                               otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", @"OutTakes", nil
                                ];
     [mealSelect show];
-    [mealSelect release];
 }
 
 - (void)viewDidLoad {
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    UIBarButtonItem *changeMeal = [[[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)] autorelease];
+    UIBarButtonItem *changeMeal = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
     [self.navigationItem setRightBarButtonItem:changeMeal];
     
     [super viewDidLoad];
@@ -297,12 +431,6 @@
     [super viewDidAppear:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	// Release any cached data, images, etc that aren't in use.
-}
-
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
 }
@@ -316,7 +444,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [self applyFilters];
-    [newTableView reloadData];
+    [anotherTableView reloadData];
     [super viewWillAppear:YES];
 }
 
@@ -362,7 +490,6 @@
             [venue.dishes addObject:dish];
         }
         [mainDelegate.venues addObject:venue];
-        [venue release];
     }
     
     if (allFilter){
@@ -394,8 +521,6 @@
         for (Venue *v in mainDelegate.venues){
             [v.dishes filterUsingPredicate:compoundPred];
         }
-        
-        [preds release];
     }
     
     //Remove empty venues if all items are filtered out of a venue
@@ -449,7 +574,7 @@ titleForHeaderInSection:(NSInteger)section
     }
     
     // Create label with section title
-    UILabel *label = [[[UILabel alloc] init] autorelease];
+    UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(20, 6, 300, 30);
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
@@ -458,7 +583,6 @@ titleForHeaderInSection:(NSInteger)section
     
     // Create header view and add label as a subview
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
-    [view autorelease];
     [view addSubview:label];
     return view;
 }
@@ -473,7 +597,7 @@ titleForHeaderInSection:(NSInteger)section
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[[UITableViewCell alloc] init] autorelease];
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
     // Configure the cell...    
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
@@ -503,7 +627,6 @@ titleForHeaderInSection:(NSInteger)section
     
     
 	[self.navigationController pushViewController:dishView animated:YES];
-    [dishView release];
 }
 
 
@@ -521,19 +644,11 @@ titleForHeaderInSection:(NSInteger)section
     else if (buttonIndex == 3){
         meal = @"Dinner";
     }
+    else if (buttonIndex == 4){
+        meal = @"Outtakes";
+    }
     [self getDishes];
-    [newTableView reloadData];
-}
-
-
-
-- (void)dealloc {
-    [meal release];
-    [date release];
-    [originalVenues release];
-    [alert release];
-    [newTableView release];
-    [super dealloc];
+    [anotherTableView reloadData];
 }
 
 

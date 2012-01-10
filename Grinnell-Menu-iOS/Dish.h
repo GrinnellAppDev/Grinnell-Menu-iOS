@@ -12,13 +12,13 @@
 @interface Dish : NSObject {
 }
 
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSString *venue;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *venue;
 @property (nonatomic, assign) BOOL nutAllergen;
 @property (nonatomic, assign) BOOL glutenFree;
 @property (nonatomic, assign) BOOL vegetarian;
 @property (nonatomic, assign) BOOL vegan;
 @property (nonatomic, assign) BOOL ovolacto;
 @property (nonatomic, assign) BOOL hasNutrition;
-@property (nonatomic, retain) NSString *nutrition;
+@property (nonatomic, strong) NSString *nutrition;
 @end

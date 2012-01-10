@@ -6,17 +6,12 @@
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
-@interface Grinnell_Menu_iOSAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    UINavigationController *navigationController;
-    NSMutableArray *venues;
-    NSMutableArray *filters;
-}
+@interface Grinnell_Menu_iOSAppDelegate : NSObject <UIApplicationDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
-@property (nonatomic, retain) NSMutableArray *venues;
-@property (nonatomic, retain) NSMutableArray *filters;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, strong) NSMutableArray *venues;
+@property (nonatomic, strong) NSMutableArray *filters;
 
 
 @end

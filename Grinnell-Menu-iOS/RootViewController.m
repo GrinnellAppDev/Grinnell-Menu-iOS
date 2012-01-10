@@ -24,17 +24,10 @@
                          message:nil 
                          delegate:self 
                          cancelButtonTitle:@"Cancel" 
-                         otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", nil
+                         otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", @"OutTakes", nil
                          ];
     [meal show];
     [meal release];
-}
-
-
-- (void)dealloc
-{
-    [go release];
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +52,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
-    [datePicker setMinimumDate:now];
+    
+    //ONLY COMMENTED OUT FOR TESTING PURPOSES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//    [datePicker setMinimumDate:now];
     
     //Set the maximum date based on the number of days past the current date that can be accessed.
     int days = 7;
@@ -103,6 +98,10 @@
     }    
     else if (buttonIndex == 3){
         venueView.meal = @"Dinner";
+        [self.navigationController pushViewController:venueView animated:YES];
+    }
+    else if (buttonIndex == 4){
+        venueView.meal = @"Outtakes";
         [self.navigationController pushViewController:venueView animated:YES];
     }
     [venueView release];

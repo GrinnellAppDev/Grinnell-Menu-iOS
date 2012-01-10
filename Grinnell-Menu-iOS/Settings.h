@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface Settings : UIViewController {
-    UITableView *newTableView;
-}
+@interface Settings : UIViewController
 
 - (void)settingsDelegateDidFinish:(Settings *)controller;
-@property (nonatomic, retain) IBOutlet UITableView *newTableView;
+@property (nonatomic, strong) IBOutlet UITableView *anotherTableView;
 @end
 

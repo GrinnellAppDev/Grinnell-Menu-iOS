@@ -13,8 +13,7 @@
 
 @implementation Grinnell_Menu_iOSAppDelegate
 
-@synthesize window, navigationController;
-@synthesize venues, filters;
+@synthesize window, navigationController, venues, filters;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -30,7 +29,7 @@
 	BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:myPath];
 
 	if (fileExists)	{
-		NSMutableArray *values = [[NSArray alloc] initWithContentsOfFile:myPath];
+		NSMutableArray *values = [[NSMutableArray alloc] initWithContentsOfFile:myPath];
         filters = [[NSMutableArray alloc] initWithArray:values];
 		[values release];
 	}
@@ -67,7 +66,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	NSMutableArray *values = [[NSArray alloc] init];
+	NSMutableArray *values = [[NSMutableArray alloc] init];
     for (int i=0; i<filters.count; i++){
         [values addObject:[filters objectAtIndex:i]];
     }
@@ -79,16 +78,6 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     [self.navigationController popToRootViewControllerAnimated:YES];
-}
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-    [filters release];
-    [venues release];
-	[navigationController release];
-	[window release];
-	[super dealloc];
 }
 
 @end

@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Venue : NSObject {
-    
-}
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSMutableArray *dishes;
+@interface Venue : NSObject
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSMutableArray *dishes;
 @end

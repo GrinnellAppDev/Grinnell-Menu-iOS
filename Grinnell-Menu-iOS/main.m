@@ -3,15 +3,15 @@
 //  Grinnell-Menu-iOS
 //
 //  Created by Colin Tremblay on 10/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "Grinnell_Menu_iOSAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    [pool release];
-    return retVal;
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([Grinnell_Menu_iOSAppDelegate class]));
+    }
 }

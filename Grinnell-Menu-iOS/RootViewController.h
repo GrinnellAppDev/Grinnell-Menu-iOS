@@ -12,7 +12,6 @@
 @interface RootViewController : UIViewController
 {
     IBOutlet UIDatePicker *datePicker;
-    UIButton *go;
 }
 
 - (IBAction)showVenues:(id)sender;

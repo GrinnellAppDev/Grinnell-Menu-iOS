@@ -12,13 +12,8 @@
 #import "VenueView.h"
 
 @implementation Settings
-@synthesize newTableView;
+@synthesize anotherTableView;
 
-- (void)dealloc
-{    
-    [newTableView release];
-    [super dealloc];
-}
 
 
 - (void)didReceiveMemoryWarning
@@ -131,7 +126,7 @@
         filter.isChecked = YES;
     }
     
-    [newTableView reloadData];
+    [anotherTableView reloadData];
 }
 
 

@@ -52,9 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
-    
-    //ONLY COMMENTED OUT FOR TESTING PURPOSES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//    [datePicker setMinimumDate:now];
+    [datePicker setMinimumDate:now];
     
     //Set the maximum date based on the number of days past the current date that can be accessed.
     int days = 7;

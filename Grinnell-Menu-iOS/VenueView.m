@@ -57,15 +57,14 @@
     
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
-
+   // NSData *data = [NSData dataWithContentsOfURL:url];
     
     mainURL = [NSURL URLWithString:url];
-    //COMMENTED FOR TESTING SO WE GET A USABLE DATE
-  //  NSData *data = [NSData dataWithContentsOfURL:mainURL];
-    NSData *data = [NSData dataWithContentsOfURL:kDiningMenu];
-
+    NSData *data = [NSData dataWithContentsOfURL:mainURL];
+    
     NSError *error;
     //NSJSON takes data and then gives you back a founddation object. dict or array. 
+    //HERES THE CRASH.................
     jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                options:kNilOptions //if you're not only reading but going to modify the objects after reading them, you'd want to pass in the right options. (NSJSONReadingMutablecontainers.. etc
                                                  error:&error];

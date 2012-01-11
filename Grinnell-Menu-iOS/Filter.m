@@ -8,7 +8,6 @@
 
 #import "Filter.h"
 
-
 @implementation Filter
 @synthesize name, isChecked;
 @end

@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@interface Filter : NSObject
 
-@interface Filter : NSObject {
-    
-}
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) BOOL isChecked;
 @end

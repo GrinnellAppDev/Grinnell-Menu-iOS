@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface Dish : NSObject {
-}
+@interface Dish : NSObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *venue;

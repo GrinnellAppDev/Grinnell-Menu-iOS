@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
 @interface RootViewController : UIViewController
 {
@@ -15,5 +14,5 @@
 }
 
 - (IBAction)showVenues:(id)sender;
-@property (nonatomic, retain) IBOutlet UIButton *go;
+@property (nonatomic, strong) IBOutlet UIButton *go;
 @end

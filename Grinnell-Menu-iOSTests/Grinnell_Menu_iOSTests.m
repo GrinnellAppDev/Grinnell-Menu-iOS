@@ -3,7 +3,7 @@
 //  Grinnell-Menu-iOSTests
 //
 //  Created by Colin Tremblay on 10/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
 #import "Grinnell_Menu_iOSTests.h"

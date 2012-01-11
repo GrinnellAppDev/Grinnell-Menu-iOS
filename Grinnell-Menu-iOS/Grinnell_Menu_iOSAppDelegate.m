@@ -8,7 +8,6 @@
 
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "RootViewController.h"
-#import "Settings.h"
 #import "Filter.h"
 
 @implementation Grinnell_Menu_iOSAppDelegate
@@ -47,15 +46,7 @@
         filter = [[Filter alloc]  init];
         filter.name = @"Ovolacto";
         filter.isChecked = NO;
-        [filters addObject:filter];/*
-        filter = [[Filter alloc]  init];
-        filter.name = @"Wheat/Gluten";
-        filter.isChecked = YES;
         [filters addObject:filter];
-        filter = [[Filter alloc]  init];
-        filter.name = @"Vegetarian";
-        filter.isChecked = YES;
-        [filters addObject:filter];*/
         [filter release];
     }
 

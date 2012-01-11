@@ -8,7 +8,6 @@
 
 #import "Venue.h"
 
-
 @implementation Venue
 @synthesize name, dishes;
 -(id)init{

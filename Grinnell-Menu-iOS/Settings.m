@@ -9,32 +9,27 @@
 #import "Settings.h"
 #import "Filter.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
-#import "VenueView.h"
 
 @implementation Settings
 @synthesize anotherTableView;
 
-
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 - (void)settingsDelegateDidFinish:(Settings *)controller{
     [self dismissModalViewControllerAnimated:YES];
 }
-#pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+#pragma mark - View lifecycle
+- (void)viewDidLoad{
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(settingsDelegateDidFinish:)];
     [[self navigationItem] setLeftBarButtonItem:backButton];
     [backButton release];
@@ -42,28 +37,24 @@
     self.title = @"Settings"; 
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // Return the number of rows in the section.
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     return mainDelegate.filters.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
     // Configure the cell...
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     Filter *filter = [[Filter alloc] init];
@@ -77,14 +68,11 @@
     return cell;
 }
 
-
-- (void)viewDidUnload
-{
+- (void)viewDidUnload{
     [super viewDidUnload];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     Filter *filter = [[Filter alloc] init];
@@ -108,11 +96,9 @@
             filter.isChecked = NO; 
         }
     }
-    else if (filter.isChecked)
-    {
+    else if (filter.isChecked){
         filter.isChecked = NO;
     }
-    
     int i, j = 0;
     for (i = 0; i < mainDelegate.filters.count; i++){
         filter = [mainDelegate.filters objectAtIndex:i];
@@ -120,14 +106,11 @@
             j++;
         }
     }
-    
     if (j == mainDelegate.filters.count){
         filter = [mainDelegate.filters objectAtIndex:0];
         filter.isChecked = YES;
     }
-    
     [anotherTableView reloadData];
 }
-
 
 @end

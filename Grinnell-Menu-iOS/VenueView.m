@@ -7,7 +7,7 @@
 //
 
 //FOR TESTING
-#define kDiningMenu [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?mon=12&day=7&year=2011"]
+#define kDiningMenu [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?mon=12&day=14&year=2011"]
 
 #import "VenueView.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"

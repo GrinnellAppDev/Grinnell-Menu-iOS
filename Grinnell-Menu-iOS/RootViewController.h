@@ -14,5 +14,7 @@
 }
 
 - (IBAction)showVenues:(id)sender;
+- (BOOL)networkCheck;
 @property (nonatomic, strong) IBOutlet UIButton *go;
+
 @end

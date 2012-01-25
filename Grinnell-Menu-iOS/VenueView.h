@@ -14,7 +14,7 @@
 - (void)getDishes;
 - (void)applyFilters;
 
-@property (nonatomic, strong) NSURL * mainURL;
+@property (nonatomic, strong) NSURL *mainURL;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *meal;
 @property (nonatomic, strong) IBOutlet UITableView *anotherTableView;

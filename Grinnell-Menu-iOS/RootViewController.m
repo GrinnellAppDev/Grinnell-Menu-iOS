@@ -9,7 +9,9 @@
 #import "RootViewController.h"
 #import "VenueView.h"
 
-@implementation RootViewController
+@implementation RootViewController{
+    NSString *alert;
+}
 @synthesize go;
 
 - (void) venueViewDidFinish:(VenueView *)controller
@@ -19,6 +21,8 @@
 
 - (IBAction)showVenues:(id)sender
 {
+    if(self.networkCheck){
+    alert = @"meal";
     UIAlertView *meal = [[UIAlertView alloc] 
                          initWithTitle:@"Select Meal" 
                          message:nil 
@@ -28,6 +32,19 @@
                          ];
     [meal show];
     [meal release];
+    }
+    else{
+        alert = @"network";
+        UIAlertView *network = [[UIAlertView alloc] 
+                            initWithTitle:@"No Network Connection" 
+                            message:nil
+                            delegate:self 
+                            cancelButtonTitle:@"OK"
+                            otherButtonTitles:nil
+                            ];
+        [network show];
+        [network release];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,7 +66,27 @@
     self.title = @"Dining Menu";
 }
 
+- (BOOL)networkCheck{
+    //CHECK NETWORK
+    NSString *urlStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSASCIIStringEncoding error:NULL];
+    return (urlStr != NULL);
+}
 - (void)viewWillAppear:(BOOL)animated{
+    
+    if(!self.networkCheck){
+        alert = @"network";
+        UIAlertView *network = [[UIAlertView alloc] 
+                                initWithTitle:@"No Network Connection" 
+                                message:nil
+                                delegate:self 
+                                cancelButtonTitle:@"OK"
+                                otherButtonTitles:nil
+                                ];
+        [network show];
+        [network release];
+    }
+        
+    
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
     [datePicker setMinimumDate:now];
@@ -80,6 +117,8 @@
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if ([alert isEqualToString:@"meal"]){
     VenueView *venueView = 
     [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
     venueView.date = [[NSDate alloc] init];
@@ -103,6 +142,9 @@
         [self.navigationController pushViewController:venueView animated:YES];
     }
     [venueView release];
+    }
+    else if ([alert isEqualToString:@"network"]){
+    }
 }
 
 @end

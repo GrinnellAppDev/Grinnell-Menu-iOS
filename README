@@ -9,7 +9,7 @@ Authors:	David Cowden
 		Aaltan Ahmad
 		Maijid Moujaled
 
-Date:     	Saturday 12 November
+Date:     	Saturday 24 January
 
 +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
 License:
@@ -53,14 +53,12 @@ If you would like to contribute, shoot us a pull request.
 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
 To-Do List
-	Flip to Settings (not push)
-	Save tray on exit?
-	Use singletons and optimize code?
-	Create the mechanism for importing dishes and their properties
-	Change first page so that each button does what it should (i.e. today,
- 		tomorrow, and go should load different menus based on day)
-	Create nutrition adder
+	Change filters
+	Optimize the JSONdict so that it is created on the first view and passed on to venueView
+	Change the visible dates on the date picker
+
 
 Possible Features for Later Release
+	Create nutrition adder
 	Favorites list or rating for dishes
 	Search bar to search for next time a certain dish is on the menu

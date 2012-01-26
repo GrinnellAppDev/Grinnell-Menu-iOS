@@ -9,31 +9,104 @@
 #import "RootViewController.h"
 #import "VenueView.h"
 
-@implementation RootViewController{
+@implementation RootViewController
+{
     NSString *alert;
+  //  NSDictionary *jsonDict;
+    NSURL *URLwithDate;
 }
-@synthesize go;
 
+@synthesize go, datePicker, jsonDict;
+
+
+-(void)fetchprelimdataWithURL:(NSURL *)URL
+{
+    NSData *data = [NSData dataWithContentsOfURL:URL];
+    
+    
+    NSError * error;
+    //NSJSON takes data and then gives you back a foundation object. dict or array. 
+    
+    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                               options:kNilOptions 
+                                                 error:&error];
+    if (error) {
+        NSLog(@"Could not fetch data");
+    }
+    
+    
+}
+
+
+- (BOOL)networkCheck
+{
+    //CHECK NETWORK
+    NSString *urlStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSASCIIStringEncoding error:NULL];
+    return (urlStr != NULL);
+}
+
+/*
+ Need this? 
 - (void) venueViewDidFinish:(VenueView *)controller
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+ */
 
 - (IBAction)showVenues:(id)sender
 {
-    if(self.networkCheck){
-    alert = @"meal";
-    UIAlertView *meal = [[UIAlertView alloc] 
-                         initWithTitle:@"Select Meal" 
-                         message:nil 
-                         delegate:self 
-                         cancelButtonTitle:@"Cancel" 
-                         otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", @"OutTakes", nil
-                         ];
-    [meal show];
-    [meal release];
+    if (self.networkCheck) 
+    {
+       
+        
+        NSDate *date = [self.datePicker date];
+        NSString *dateString;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        
+        [formatter setDateFormat:@"'mon='MM'&day='d'&year='yyyy"];
+        dateString = [formatter stringFromDate:date];
+        
+        // NSLog(@"Date String is %@", dateString);
+        
+        NSString *mainURL = [NSString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?"];
+        NSString *StringWithDate = [mainURL stringByAppendingString:dateString];
+        URLwithDate = [NSURL URLWithString:StringWithDate];
+
+        
+        [self fetchprelimdataWithURL:URLwithDate];
+        
+        UIAlertView *mealmessage = [[UIAlertView alloc] 
+                                    initWithTitle:@"Select Meal" 
+                                    message:nil
+                                    delegate:self 
+                                    cancelButtonTitle:@"Cancel" 
+                                    otherButtonTitles:nil
+                                    ];
+        
+        
+        if ([jsonDict objectForKey:@"BREAKFAST"]) {
+            [mealmessage addButtonWithTitle:@"Breakfast"];
+        }
+        
+        if ([jsonDict objectForKey:@"LUNCH"]) {
+            [mealmessage addButtonWithTitle:@"Lunch"];
+        }
+        if ([jsonDict objectForKey:@"DINNER"]) {
+            [mealmessage addButtonWithTitle:@"Dinner"];
+        }
+        if ([jsonDict objectForKey:@"OUTTAKES"]) {
+            [mealmessage addButtonWithTitle:@"Outtakes"];
+        }
+        
+        [mealmessage show];
+        
+
+        
     }
-    else{
+    
+    //Else if there is not network connection determined... 
+    else
+    {
         alert = @"network";
         UIAlertView *network = [[UIAlertView alloc] 
                             initWithTitle:@"No Network Connection" 
@@ -43,7 +116,7 @@
                             otherButtonTitles:nil
                             ];
         [network show];
-        [network release];
+
     }
 }
 
@@ -66,14 +139,11 @@
     self.title = @"Dining Menu";
 }
 
-- (BOOL)networkCheck{
-    //CHECK NETWORK
-    NSString *urlStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSASCIIStringEncoding error:NULL];
-    return (urlStr != NULL);
-}
+
 - (void)viewWillAppear:(BOOL)animated{
     
-    if(!self.networkCheck){
+    if(!self.networkCheck)
+    {
         alert = @"network";
         UIAlertView *network = [[UIAlertView alloc] 
                                 initWithTitle:@"No Network Connection" 
@@ -87,6 +157,9 @@
     }
         
     
+    //I've commented this out just to test the datePicker with Dec01-Dec15 past dates. 
+    
+    /*
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
     [datePicker setMinimumDate:now];
@@ -98,11 +171,13 @@
     
     [datePicker setMaximumDate:max];
     [now release];
+     */
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    self.datePicker = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -118,33 +193,30 @@
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if ([alert isEqualToString:@"meal"]){
+    //if ([alert isEqualToString:@"mealmessage"]){
+        
     VenueView *venueView = 
     [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
-    venueView.date = [[NSDate alloc] init];
-    venueView.date = datePicker.date;
-    if (buttonIndex == 0) {
+   // venueView.date = [[NSDate alloc] init];
+   // venueView.date = datePicker.date;
+    
+
+    venueView.jsonDict = [[NSDictionary alloc] initWithDictionary:self.jsonDict];
+    
+     
+    if (buttonIndex == alertView.cancelButtonIndex)
+    {
+        return;
     }
-    else if (buttonIndex == 1){
-        venueView.meal = @"Breakfast";
-        [self.navigationController pushViewController:venueView animated:YES];
-    }
-    else if (buttonIndex == 2){
-        venueView.meal = @"Lunch";
-        [self.navigationController pushViewController:venueView animated:YES];
-    }    
-    else if (buttonIndex == 3){
-        venueView.meal = @"Dinner";
-        [self.navigationController pushViewController:venueView animated:YES];
-    }
-    else if (buttonIndex == 4){
-        venueView.meal = @"Outtakes";
-        [self.navigationController pushViewController:venueView animated:YES];
-    }
-    [venueView release];
-    }
-    else if ([alert isEqualToString:@"network"]){
-    }
+    
+    
+    NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
+    venueView.mealChoice = titlePressed;
+    [self.navigationController pushViewController:venueView animated:YES];
+
+    
+
 }
+
 
 @end

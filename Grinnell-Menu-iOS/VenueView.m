@@ -19,12 +19,12 @@
 
 @implementation VenueView{
     NSArray *menuVenueNamesFromJSON;
-    NSDictionary *jsonDict;
+   // NSDictionary *jsonDict;
     NSMutableArray *originalVenues;
     NSString *alert;
 }
 
-@synthesize anotherTableView, date, meal, mainURL;
+@synthesize anotherTableView, date, mealChoice, mainURL, jsonDict;
 
 - (void)didReceiveMemoryWarning
 {
@@ -49,10 +49,12 @@
     [originalVenues removeAllObjects];
     [mainDelegate.venues removeAllObjects];
     
+    /*
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
     NSInteger day = [components day];    
     NSInteger month = [components month];
     NSInteger year = [components year];
+    
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
     
@@ -66,22 +68,24 @@
     jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                options:kNilOptions //if you're not only reading but going to modify the objects after reading them, you'd want to pass in the right options. (NSJSONReadingMutablecontainers.. etc
                                                  error:&error];
+     */
 
     NSString *key = [[NSString alloc] init];
-    if ([meal isEqualToString:@"Breakfast"]) {
+    if ([self.mealChoice isEqualToString:@"Breakfast"]) {
         key = @"BREAKFAST";
-    } else if ([meal isEqualToString:@"Lunch"]) {
+    } else if ([self.mealChoice isEqualToString:@"Lunch"]) {
         key = @"LUNCH";
-    } else if ([meal isEqualToString:@"Dinner"]) {
+    } else if ([self.mealChoice isEqualToString:@"Dinner"]) {
         key = @"DINNER";
-    } else if ([meal isEqualToString:@"Outtakes"]) {
+    } else if ([self.mealChoice isEqualToString:@"Outtakes"]) {
         key = @"OUTTAKES";
     }
         
-    NSDictionary *mainMenu = [jsonDict objectForKey:key]; 
+    NSDictionary *mainMenu = [self.jsonDict objectForKey:key]; 
     
     //Let's put some data on our screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue. 
+    
     menuVenueNamesFromJSON = [[NSArray alloc] init];
     menuVenueNamesFromJSON = [mainMenu allKeys];
     
@@ -127,6 +131,8 @@
 }
 
 - (IBAction)changeMeal:(id)sender{
+    
+    /*
     alert = @"meal";
     UIAlertView *mealSelect = [[UIAlertView alloc] 
                                initWithTitle:@"Select Meal" 
@@ -136,6 +142,33 @@
                                otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", @"OutTakes", nil
                                ];
     [mealSelect show];
+    
+    */
+    
+    UIAlertView *mealmessage = [[UIAlertView alloc] 
+                                initWithTitle:@"Select Meal" 
+                                message:nil
+                                delegate:self 
+                                cancelButtonTitle:@"Cancel" 
+                                otherButtonTitles:nil
+                                ];
+    
+    //Completely remove text from JSON output when menu is not present. in other words.. Removes the button from the alert view if no meal is present for that day.    
+    if ([jsonDict objectForKey:@"BREAKFAST"]) {
+        [mealmessage addButtonWithTitle:@"Breakfast"];
+    }
+    
+    if ([jsonDict objectForKey:@"LUNCH"]) {
+        [mealmessage addButtonWithTitle:@"Lunch"];
+    }
+    if ( [jsonDict objectForKey:@"DINNER"]) {
+        [mealmessage addButtonWithTitle:@"Dinner"];
+    }
+    if ([jsonDict objectForKey:@"OUTTAKES"]) {
+        [mealmessage addButtonWithTitle:@"Outtakes"];
+    }
+    
+    [mealmessage show];
 }
 
 - (void)viewDidLoad{
@@ -153,6 +186,8 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+    
+    NSLog(@"JsonDict is %@", jsonDict);
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -340,22 +375,20 @@
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
+    if (buttonIndex == alertView.cancelButtonIndex) 
+    {
+        return;
     }
-    else if (buttonIndex == 1){
-        meal = @"Breakfast";
+    else 
+    {
+        NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
+        self.mealChoice = titlePressed;
+
+        [self getDishes];
+        [anotherTableView reloadData];
     }
-    else if (buttonIndex == 2){
-        meal = @"Lunch";
-    }
-    else if (buttonIndex == 3){
-        meal = @"Dinner";
-    }
-    else if (buttonIndex == 4){
-        meal = @"Outtakes";
-    }
-    [self getDishes];
-    [anotherTableView reloadData];
 }
+
+
 
 @end

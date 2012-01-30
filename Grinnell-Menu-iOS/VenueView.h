@@ -19,4 +19,5 @@
 @property (nonatomic, strong) NSString *mealChoice;
 @property (nonatomic, strong) IBOutlet UITableView *anotherTableView;
 @property (nonatomic, strong) NSDictionary *jsonDict;
+
 @end

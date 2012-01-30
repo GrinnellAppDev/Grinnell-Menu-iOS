@@ -57,22 +57,16 @@
 {
     if (self.networkCheck) 
     {
-       
         
         NSDate *date = [self.datePicker date];
-        NSString *dateString;
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+        NSInteger day = [components day];    
+        NSInteger month = [components month];
+        NSInteger year = [components year];
         
-        [formatter setDateFormat:@"'mon='MM'&day='d'&year='yyyy"];
-        dateString = [formatter stringFromDate:date];
-        
-        // NSLog(@"Date String is %@", dateString);
-        
-        NSString *mainURL = [NSString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?"];
-        NSString *StringWithDate = [mainURL stringByAppendingString:dateString];
-        URLwithDate = [NSURL URLWithString:StringWithDate];
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
+        URLwithDate = [NSURL URLWithString:url];
 
-        
         [self fetchprelimdataWithURL:URLwithDate];
         
         UIAlertView *mealmessage = [[UIAlertView alloc] 
@@ -153,25 +147,57 @@
                                 otherButtonTitles:nil
                                 ];
         [network show];
-        [network release];
     }
         
-    
-    //I've commented this out just to test the datePicker with Dec01-Dec15 past dates. 
-    
-    /*
+        
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
     [datePicker setMinimumDate:now];
     
-    //Set the maximum date based on the number of days past the current date that can be accessed.
-    int days = 7;
-    int range = 24 * 60 * 60 * days;
-    NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
+    //Set the maximum date based on the number of days past the current date that can be accessed
     
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+    int weekday = [comps weekday];
+    int day;
+    
+    switch (weekday) {
+            //sunday
+        case 1:
+            day = 6;
+            break;
+            //monday
+        case 2:
+            day = 5;
+            break;
+            //tuesday
+        case 3:
+            day = 4;
+            break;
+            //wednesday
+        case 4:
+            day = 3;
+            break;
+            //thursday
+        case 5:
+            day = 2;
+            break;
+            //friday
+        case 6:
+            day = 1;
+            break;
+        case 7:
+            //saturday
+            day = 7;
+            break;
+        default:
+            break;
+    }
+    
+    int range = 24 * 60 * 60 * day;
+    NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
+
     [datePicker setMaximumDate:max];
-    [now release];
-     */
 }
 
 - (void)viewDidUnload

@@ -12,6 +12,7 @@
 @interface Settings : UIViewController
 
 - (void)settingsDelegateDidFinish:(Settings *)controller;
-@property (nonatomic, strong) IBOutlet UITableView *anotherTableView;
+@property (weak, nonatomic) IBOutlet UISwitch *ovoSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *veganSwitch;
 @end
 

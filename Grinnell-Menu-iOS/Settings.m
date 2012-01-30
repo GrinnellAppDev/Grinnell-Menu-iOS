@@ -7,11 +7,11 @@
 //
 
 #import "Settings.h"
-#import "Filter.h"
-#import "Grinnell_Menu_iOSAppDelegate.h"
+#import "VenueView.h"
 
 @implementation Settings
-@synthesize anotherTableView;
+
+@synthesize veganSwitch, ovoSwitch;
 
 - (void)didReceiveMemoryWarning{
     // Releases the view if it doesn't have a superview.
@@ -27,90 +27,43 @@
 - (void)settingsDelegateDidFinish:(Settings *)controller{
     [self dismissModalViewControllerAnimated:YES];
 }
+#pragma mark - Table view data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 
+- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    cell.textLabel.text = @"";
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+   }
 #pragma mark - View lifecycle
 - (void)viewDidLoad{
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(settingsDelegateDidFinish:)];
     [[self navigationItem] setLeftBarButtonItem:backButton];
-    [backButton release];
     [super viewDidLoad];
     self.title = @"Settings"; 
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    // Return the number of rows in the section.
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    return mainDelegate.filters.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    // Configure the cell...
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    Filter *filter = [[Filter alloc] init];
-    filter = [mainDelegate.filters objectAtIndex:indexPath.row];
-    cell.textLabel.text = filter.name;
-    if (filter.isChecked){
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else{
-        cell.accessoryType = UITableViewCellAccessoryNone;}
-    return cell;
+    [veganSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"]];
+    [ovoSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"]];
+    
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [[NSUserDefaults standardUserDefaults] setBool:veganSwitch.isOn forKey:@"VeganSwitchValue"];
+    [[NSUserDefaults standardUserDefaults] setBool:ovoSwitch.isOn forKey:@"OvoSwitchValue"];
+    [super viewWillDisappear:YES];
+}
 - (void)viewDidUnload{
+    
     [super viewDidUnload];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    Filter *filter = [[Filter alloc] init];
-    filter = [mainDelegate.filters objectAtIndex:indexPath.row];
-        
-    if (!filter.isChecked)
-    {
-        // Reflect selection in data model        
-        if ([filter.name isEqualToString:@"All"]){
-            filter.isChecked = YES;
-            int temp = 1;
-            while (temp < mainDelegate.filters.count){
-                filter = [mainDelegate.filters objectAtIndex:temp];
-                filter.isChecked = NO;
-                temp++;
-            }
-        }
-        else{
-            filter.isChecked = YES;
-            filter = [mainDelegate.filters objectAtIndex:0];
-            filter.isChecked = NO; 
-        }
-    }
-    else if (filter.isChecked){
-        filter.isChecked = NO;
-    }
-    int i, j = 0;
-    for (i = 0; i < mainDelegate.filters.count; i++){
-        filter = [mainDelegate.filters objectAtIndex:i];
-        if (!filter.isChecked) {
-            j++;
-        }
-    }
-    if (j == mainDelegate.filters.count){
-        filter = [mainDelegate.filters objectAtIndex:0];
-        filter.isChecked = YES;
-    }
-    [anotherTableView reloadData];
-}
 
 @end

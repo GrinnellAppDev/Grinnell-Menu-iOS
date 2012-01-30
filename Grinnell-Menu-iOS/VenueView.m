@@ -12,7 +12,6 @@
 #import "VenueView.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "Dish.h"
-#import "Filter.h"
 #import "Venue.h"
 #import "Settings.h"
 #import "DishView.h"
@@ -114,8 +113,7 @@
             if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"]) 
                 dish.ovolacto = YES;
             //then finally we add this new dish to it's venue
-            if (!([dish.name hasSuffix:@"rill)"] || [dish.name hasSuffix:@"pencer)"] || [dish.name hasSuffix:@"NCH)"] || [dish.name hasSuffix:@"nch)"]))
-                [gVenue.dishes addObject:dish];
+            [gVenue.dishes addObject:dish];
         }
     }
     [originalVenues setArray:mainDelegate.venues];    
@@ -212,28 +210,10 @@
 
 - (void)applyFilters{
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    //PUT FILTERS IN ARRAY AND ITERATE THROUGH IT TO SET THEM
-    BOOL allFilter, veganFilter, ovoFilter;
     NSPredicate *veganPred, *ovoPred;
-    
-    for (int i=0; i<mainDelegate.filters.count; i++) {
-        Filter *filter = [mainDelegate.filters objectAtIndex:i];
-        switch (i) {
-            case 0:
-                allFilter = filter.isChecked;
-                break;
-            case 1:
-                veganFilter = filter.isChecked;
-                break;
-            case 2:
-                ovoFilter = filter.isChecked;
-                break;
-            default:
-                break;
-        }
-    }
-    
+    BOOL ovoSwitch, veganSwitch;
+    veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
+    ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     [mainDelegate.venues removeAllObjects];
     for (Venue *v in originalVenues) {
         Venue *venue = [[Venue alloc] init];
@@ -253,10 +233,10 @@
         [mainDelegate.venues addObject:venue];
     }
     
-    if (allFilter){
+    if (!ovoSwitch && !veganSwitch){
     }
     
-    else if (ovoFilter){
+    else if (ovoSwitch){
         ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
         veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
         
@@ -271,7 +251,7 @@
         }
     }
     
-    else if (veganFilter){
+    else if (veganSwitch){
         veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
         for (Venue *v in mainDelegate.venues) {
             [v.dishes filterUsingPredicate:veganPred];

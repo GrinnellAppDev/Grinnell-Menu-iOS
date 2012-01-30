@@ -8,8 +8,9 @@ Authors:	David Cowden
                 Colin Tremblay
 		Aaltan Ahmad
 		Maijid Moujaled
+		Dugan Knoll
 
-Date:     	Saturday 24 January
+Date:     	Monday 30 January
 
 +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
 License:
@@ -53,10 +54,7 @@ If you would like to contribute, shoot us a pull request.
 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
 To-Do List
-	Change filters
-	Optimize the JSONdict so that it is created on the first view and passed on to venueView
-	Change the visible dates on the date picker
-
+	Publish
 
 Possible Features for Later Release
 	Create nutrition adder

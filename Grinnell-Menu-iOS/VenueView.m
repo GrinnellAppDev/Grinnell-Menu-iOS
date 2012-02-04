@@ -185,7 +185,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
     
-    NSLog(@"JsonDict is %@", jsonDict);
+    //NSLog(@"JsonDict is %@", jsonDict);
 }
 
 - (void)viewDidDisappear:(BOOL)animated{

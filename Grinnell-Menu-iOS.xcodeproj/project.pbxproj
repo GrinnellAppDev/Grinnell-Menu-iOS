@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
+		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
 		E1A08B09146C7D5D009AE082 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B03146C7D57009AE082 /* Icon-72.png */; };
 		E1A08B0A146C7D5D009AE082 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B04146C7D59009AE082 /* Icon-Small-50.png */; };
@@ -53,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		E1A08B03146C7D57009AE082 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
@@ -102,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */,
 				E1A0C530145324470072BE76 /* UIKit.framework in Frameworks */,
 				E1A0C532145324470072BE76 /* Foundation.framework in Frameworks */,
 				E1A0C534145324470072BE76 /* CoreGraphics.framework in Frameworks */,
@@ -126,6 +132,7 @@
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
+				314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */,
 				E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */,
 				E1A0C55B145324480072BE76 /* Grinnell-Menu-iOSTests */,
 				E1A0C52E145324460072BE76 /* Frameworks */,
@@ -162,6 +169,8 @@
 				E1A0C549145324480072BE76 /* RootViewController.h */,
 				E1A0C54A145324480072BE76 /* RootViewController.m */,
 				E1A0C54C145324480072BE76 /* RootViewController.xib */,
+				314CC43214EA0A410004F963 /* Reachability.h */,
+				314CC43314EA0A410004F963 /* Reachability.m */,
 				E1DBA2FE145C922A0099E8CE /* Dish.h */,
 				E1DBA2FF145C922B0099E8CE /* Dish.m */,
 				87B46E9E146A3ED7001007BA /* Venue.h */,
@@ -237,6 +246,7 @@
 				E1A0C527145324460072BE76 /* Sources */,
 				E1A0C528145324460072BE76 /* Frameworks */,
 				E1A0C529145324460072BE76 /* Resources */,
+				3109A33414E7773000363D73 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -326,6 +336,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3109A33414E7773000363D73 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n/Developer/iphoneentitlements401/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
+		};
 		E1A0C552145324480072BE76 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +377,7 @@
 				E1DBA300145C922C0099E8CE /* Dish.m in Sources */,
 				87B46EA0146A3ED7001007BA /* Venue.m in Sources */,
 				E1A806F61478569700ABBDDA /* DishView.m in Sources */,
+				314CC43414EA0A410004F963 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,7 +441,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -436,7 +460,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

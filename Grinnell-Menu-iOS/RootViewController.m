@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import "VenueView.h"
+#import "Reachability.h"
 
 @implementation RootViewController
 {
@@ -41,8 +42,34 @@
 - (BOOL)networkCheck
 {
     //CHECK NETWORK
+    /*
     NSString *urlStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"] encoding:NSASCIIStringEncoding error:NULL];
     return (urlStr != NULL);
+    
+    NSURL *url = [NSURL URLWithString:@"http://www.google.com"];
+    NSError *error;
+
+    NSLog(@"Value is %@", [url checkResourceIsReachableAndReturnError:&error]);
+
+   return  [url checkResourceIsReachableAndReturnError:&error];
+    */
+    NSLog(@"networkCheck was called");
+    
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    
+    return (!(networkStatus == NotReachable));
+    
+    /*
+    if (networkStatus == NotReachable) {
+        NSLog(@"There is NO internet Connection");
+        return YES;
+    } else {
+        NSLog(@"There is internet connection");
+        return NO;
+    }
+    */
+
 }
 
 /*
@@ -98,6 +125,7 @@
         
     }
     
+    
     //Else if there is not network connection determined... 
     else
     {
@@ -112,6 +140,7 @@
         [network show];
 
     }
+     
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,20 +165,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
-    if(!self.networkCheck)
-    {
-        alert = @"network";
-        UIAlertView *network = [[UIAlertView alloc] 
-                                initWithTitle:@"No Network Connection" 
-                                message:nil
-                                delegate:self 
-                                cancelButtonTitle:@"OK"
-                                otherButtonTitles:nil
-                                ];
-        [network show];
-    }
-        
-        
+
+   /*     
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:YES];
     [datePicker setMinimumDate:now];
@@ -198,6 +215,7 @@
     NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
     [datePicker setMaximumDate:max];
+    */
 }
 
 - (void)viewDidUnload

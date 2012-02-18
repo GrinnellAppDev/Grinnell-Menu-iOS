@@ -14,19 +14,17 @@
 @synthesize veganSwitch, ovoSwitch;
 
 - (void)didReceiveMemoryWarning{
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)settingsDelegateDidFinish:(Settings *)controller{
     [self dismissModalViewControllerAnimated:YES];
 }
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -41,8 +39,10 @@
     cell.textLabel.text = @"";
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
    }
+
 #pragma mark - View lifecycle
 - (void)viewDidLoad{
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(settingsDelegateDidFinish:)];
@@ -60,10 +60,9 @@
     [[NSUserDefaults standardUserDefaults] setBool:ovoSwitch.isOn forKey:@"OvoSwitchValue"];
     [super viewWillDisappear:YES];
 }
+
 - (void)viewDidUnload{
-    
     [super viewDidUnload];
 }
-
 
 @end

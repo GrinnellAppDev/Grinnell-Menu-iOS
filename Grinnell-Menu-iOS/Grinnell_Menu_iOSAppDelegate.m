@@ -9,7 +9,9 @@
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "RootViewController.h"
 
-@implementation Grinnell_Menu_iOSAppDelegate
+@implementation Grinnell_Menu_iOSAppDelegate{
+    NSString *alert;
+}
 
 @synthesize window, navigationController, venues;
 
@@ -18,7 +20,6 @@
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-    
     // Override point for customization after app launch
     [window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
@@ -26,13 +27,12 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-
-    
 }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 
 @end

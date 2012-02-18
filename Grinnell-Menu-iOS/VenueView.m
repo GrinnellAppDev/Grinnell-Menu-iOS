@@ -18,57 +18,28 @@
 
 @implementation VenueView{
     NSArray *menuVenueNamesFromJSON;
-   // NSDictionary *jsonDict;
     NSMutableArray *originalVenues;
     NSString *alert;
 }
 
 @synthesize anotherTableView, date, mealChoice, mainURL, jsonDict;
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 //We add this method here because when the VenueviewController is waking up. Turning on screen. We would also like to take advantage of that and do some initialization of our own. i.e loading the items
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    
+- (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {         
     }
     return self;
 }
 
--(void)getDishes
-{
+-(void)getDishes {
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [originalVenues removeAllObjects];
     [mainDelegate.venues removeAllObjects];
     
-    /*
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-    NSInteger day = [components day];    
-    NSInteger month = [components month];
-    NSInteger year = [components year];
-    
-    
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?year=%d&mon=%d&day=%d", year, month, day];
-    
-    mainURL = [NSURL URLWithString:url];
-    //COMMENTED FOR TESTING SO WE GET A USABLE DATE
-    //NSData *data = [NSData dataWithContentsOfURL:mainURL];
-    NSData *data = [NSData dataWithContentsOfURL:kDiningMenu];
-
-    NSError *error;
-    //NSJSON takes data and then gives you back a founddation object. dict or array. 
-    jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                               options:kNilOptions //if you're not only reading but going to modify the objects after reading them, you'd want to pass in the right options. (NSJSONReadingMutablecontainers.. etc
-                                                 error:&error];
-     */
-
     NSString *key = [[NSString alloc] init];
     if ([self.mealChoice isEqualToString:@"Breakfast"]) {
         key = @"BREAKFAST";
@@ -82,7 +53,7 @@
         
     NSDictionary *mainMenu = [self.jsonDict objectForKey:key]; 
     
-    //Let's put some data on our screen
+    //Put data on screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue. 
     
     menuVenueNamesFromJSON = [[NSArray alloc] init];
@@ -130,19 +101,6 @@
 
 - (IBAction)changeMeal:(id)sender{
     
-    /*
-    alert = @"meal";
-    UIAlertView *mealSelect = [[UIAlertView alloc] 
-                               initWithTitle:@"Select Meal" 
-                               message:nil 
-                               delegate:self 
-                               cancelButtonTitle:@"Cancel" 
-                               otherButtonTitles:@"Breakfast", @"Lunch", @"Dinner", @"OutTakes", nil
-                               ];
-    [mealSelect show];
-    
-    */
-    
     UIAlertView *mealmessage = [[UIAlertView alloc] 
                                 initWithTitle:@"Select Meal" 
                                 message:nil
@@ -184,8 +142,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-    
-    //NSLog(@"JsonDict is %@", jsonDict);
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -198,8 +154,6 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -268,7 +222,6 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -355,12 +308,10 @@
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == alertView.cancelButtonIndex) 
-    {
+    if (buttonIndex == alertView.cancelButtonIndex) {
         return;
     }
-    else 
-    {
+    else {
         NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
         self.mealChoice = titlePressed;
 
@@ -368,7 +319,5 @@
         [anotherTableView reloadData];
     }
 }
-
-
 
 @end

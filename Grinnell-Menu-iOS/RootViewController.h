@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RootViewController : UIViewController
-{
- //   IBOutlet UIDatePicker *datePicker;
-}
 
 - (IBAction)showVenues:(id)sender;
 - (BOOL)networkCheck;
@@ -19,6 +16,5 @@
 @property (nonatomic, strong) IBOutlet UIButton *go;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, strong) NSDictionary *jsonDict;
-
 
 @end

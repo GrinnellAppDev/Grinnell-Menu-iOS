@@ -33,14 +33,14 @@
 		E1A0C560145324490072BE76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C55E145324490072BE76 /* InfoPlist.strings */; };
 		E1A0C563145324490072BE76 /* Grinnell_Menu_iOSTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C562145324490072BE76 /* Grinnell_Menu_iOSTests.h */; };
 		E1A0C565145324490072BE76 /* Grinnell_Menu_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C564145324490072BE76 /* Grinnell_Menu_iOSTests.m */; };
-		E1A0C579145326010072BE76 /* VenueView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C577145326010072BE76 /* VenueView.m */; };
-		E1A0C57A145326010072BE76 /* VenueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C578145326010072BE76 /* VenueView.xib */; };
-		E1A0C5891453270D0072BE76 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C57F1453270B0072BE76 /* Settings.m */; };
-		E1A0C58A1453270D0072BE76 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C5801453270B0072BE76 /* Settings.xib */; };
+		E1A0C579145326010072BE76 /* VenueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C577145326010072BE76 /* VenueViewController.m */; };
+		E1A0C57A145326010072BE76 /* VenueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C578145326010072BE76 /* VenueViewController.xib */; };
+		E1A0C5891453270D0072BE76 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C57F1453270B0072BE76 /* SettingsViewController.m */; };
+		E1A0C58A1453270D0072BE76 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C5801453270B0072BE76 /* SettingsViewController.xib */; };
 		E1A806E8147853A500ABBDDA /* black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A806E7147853A500ABBDDA /* black-button.png */; };
 		E1A806EA147853B900ABBDDA /* green-button.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A806E9147853B900ABBDDA /* green-button.png */; };
-		E1A806F61478569700ABBDDA /* DishView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A806F41478569600ABBDDA /* DishView.m */; };
-		E1A806F71478569700ABBDDA /* DishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A806F51478569600ABBDDA /* DishView.xib */; };
+		E1A806F61478569700ABBDDA /* DishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A806F41478569600ABBDDA /* DishViewController.m */; };
+		E1A806F71478569700ABBDDA /* DishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A806F51478569600ABBDDA /* DishViewController.xib */; };
 		E1DBA300145C922C0099E8CE /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = E1DBA2FF145C922B0099E8CE /* Dish.m */; };
 /* End PBXBuildFile section */
 
@@ -87,17 +87,17 @@
 		E1A0C561145324490072BE76 /* Grinnell-Menu-iOSTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grinnell-Menu-iOSTests-Prefix.pch"; sourceTree = "<group>"; };
 		E1A0C562145324490072BE76 /* Grinnell_Menu_iOSTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grinnell_Menu_iOSTests.h; sourceTree = "<group>"; };
 		E1A0C564145324490072BE76 /* Grinnell_Menu_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Grinnell_Menu_iOSTests.m; sourceTree = "<group>"; };
-		E1A0C576145326010072BE76 /* VenueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueView.h; sourceTree = "<group>"; };
-		E1A0C577145326010072BE76 /* VenueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueView.m; sourceTree = "<group>"; };
-		E1A0C578145326010072BE76 /* VenueView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenueView.xib; sourceTree = "<group>"; };
-		E1A0C57E1453270B0072BE76 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
-		E1A0C57F1453270B0072BE76 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		E1A0C5801453270B0072BE76 /* Settings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Settings.xib; sourceTree = "<group>"; };
+		E1A0C576145326010072BE76 /* VenueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueViewController.h; sourceTree = "<group>"; };
+		E1A0C577145326010072BE76 /* VenueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueViewController.m; sourceTree = "<group>"; };
+		E1A0C578145326010072BE76 /* VenueViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenueViewController.xib; sourceTree = "<group>"; };
+		E1A0C57E1453270B0072BE76 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		E1A0C57F1453270B0072BE76 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		E1A0C5801453270B0072BE76 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		E1A806E7147853A500ABBDDA /* black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-button.png"; sourceTree = "<group>"; };
 		E1A806E9147853B900ABBDDA /* green-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-button.png"; sourceTree = "<group>"; };
-		E1A806F31478569600ABBDDA /* DishView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishView.h; sourceTree = "<group>"; };
-		E1A806F41478569600ABBDDA /* DishView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishView.m; sourceTree = "<group>"; };
-		E1A806F51478569600ABBDDA /* DishView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishView.xib; sourceTree = "<group>"; };
+		E1A806F31478569600ABBDDA /* DishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishViewController.h; sourceTree = "<group>"; };
+		E1A806F41478569600ABBDDA /* DishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishViewController.m; sourceTree = "<group>"; };
+		E1A806F51478569600ABBDDA /* DishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishViewController.xib; sourceTree = "<group>"; };
 		E1DBA2FE145C922A0099E8CE /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
 		E1DBA2FF145C922B0099E8CE /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,15 +175,15 @@
 				E1DBA2FF145C922B0099E8CE /* Dish.m */,
 				87B46E9E146A3ED7001007BA /* Venue.h */,
 				87B46E9F146A3ED7001007BA /* Venue.m */,
-				E1A0C576145326010072BE76 /* VenueView.h */,
-				E1A0C577145326010072BE76 /* VenueView.m */,
-				E1A0C578145326010072BE76 /* VenueView.xib */,
-				E1A0C57E1453270B0072BE76 /* Settings.h */,
-				E1A0C57F1453270B0072BE76 /* Settings.m */,
-				E1A0C5801453270B0072BE76 /* Settings.xib */,
-				E1A806F31478569600ABBDDA /* DishView.h */,
-				E1A806F41478569600ABBDDA /* DishView.m */,
-				E1A806F51478569600ABBDDA /* DishView.xib */,
+				E1A0C576145326010072BE76 /* VenueViewController.h */,
+				E1A0C577145326010072BE76 /* VenueViewController.m */,
+				E1A0C578145326010072BE76 /* VenueViewController.xib */,
+				E1A0C57E1453270B0072BE76 /* SettingsViewController.h */,
+				E1A0C57F1453270B0072BE76 /* SettingsViewController.m */,
+				E1A0C5801453270B0072BE76 /* SettingsViewController.xib */,
+				E1A806F31478569600ABBDDA /* DishViewController.h */,
+				E1A806F41478569600ABBDDA /* DishViewController.m */,
+				E1A806F51478569600ABBDDA /* DishViewController.xib */,
 				E1AE39CF148730620078DC40 /* Images */,
 				E1A0C538145324470072BE76 /* Supporting Files */,
 			);
@@ -310,8 +310,8 @@
 				E1A0C53C145324470072BE76 /* InfoPlist.strings in Resources */,
 				E1A0C548145324480072BE76 /* MainWindow.xib in Resources */,
 				E1A0C54E145324480072BE76 /* RootViewController.xib in Resources */,
-				E1A0C57A145326010072BE76 /* VenueView.xib in Resources */,
-				E1A0C58A1453270D0072BE76 /* Settings.xib in Resources */,
+				E1A0C57A145326010072BE76 /* VenueViewController.xib in Resources */,
+				E1A0C58A1453270D0072BE76 /* SettingsViewController.xib in Resources */,
 				E1A08B09146C7D5D009AE082 /* Icon-72.png in Resources */,
 				E1A08B0A146C7D5D009AE082 /* Icon-Small-50.png in Resources */,
 				E1A08B0B146C7D5D009AE082 /* Icon-Small.png in Resources */,
@@ -320,7 +320,7 @@
 				E1A08B0E146C7D5D009AE082 /* Icon@2x.png in Resources */,
 				E1A806E8147853A500ABBDDA /* black-button.png in Resources */,
 				E1A806EA147853B900ABBDDA /* green-button.png in Resources */,
-				E1A806F71478569700ABBDDA /* DishView.xib in Resources */,
+				E1A806F71478569700ABBDDA /* DishViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,11 +372,11 @@
 				E1A0C53F145324470072BE76 /* main.m in Sources */,
 				E1A0C542145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m in Sources */,
 				E1A0C54B145324480072BE76 /* RootViewController.m in Sources */,
-				E1A0C579145326010072BE76 /* VenueView.m in Sources */,
-				E1A0C5891453270D0072BE76 /* Settings.m in Sources */,
+				E1A0C579145326010072BE76 /* VenueViewController.m in Sources */,
+				E1A0C5891453270D0072BE76 /* SettingsViewController.m in Sources */,
 				E1DBA300145C922C0099E8CE /* Dish.m in Sources */,
 				87B46EA0146A3ED7001007BA /* Venue.m in Sources */,
-				E1A806F61478569700ABBDDA /* DishView.m in Sources */,
+				E1A806F61478569700ABBDDA /* DishViewController.m in Sources */,
 				314CC43414EA0A410004F963 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

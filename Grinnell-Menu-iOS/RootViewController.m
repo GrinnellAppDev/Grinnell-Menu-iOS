@@ -7,7 +7,7 @@
 //
 
 #import "RootViewController.h"
-#import "VenueView.h"
+#import "VenueViewController.h"
 #import "Reachability.h"
 
 @implementation RootViewController {
@@ -33,7 +33,7 @@
     }
 }
 
-
+//Method to determine the availability of network Connections using the Reachability Class
 - (BOOL)networkCheck {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -86,8 +86,7 @@
         alert = @"network";
         UIAlertView *network = [[UIAlertView alloc] 
                             initWithTitle:@"No Network Connection" 
-                            message:nil
-                            delegate:self 
+                            message:@"Turn on cellular data or use Wi-Fi to access data"                            delegate:self 
                             cancelButtonTitle:@"OK"
                             otherButtonTitles:nil
                             ];
@@ -107,10 +106,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if (self.networkCheck) {
     if (!notFirstTime){
         NSDate *now = [[NSDate alloc] init];
-        [datePicker setDate:now animated:YES];
-        [datePicker setMinimumDate:now];    
+        
+      //  [datePicker setDate:now animated:YES];
+      //  [datePicker setMinimumDate:now];    
         //Set the maximum date based on the number of days past the current date that can be accessed
         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
         NSError *error;
@@ -129,7 +130,7 @@
             alert = @"server";
             UIAlertView *network = [[UIAlertView alloc] 
                                 initWithTitle:@"Network Error" 
-                                message:@"The server may be down. Please check back later."
+                                    message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
                                 delegate:self 
                                 cancelButtonTitle:@"OK"
                                 otherButtonTitles:nil
@@ -144,7 +145,7 @@
             alert = @"network";
             UIAlertView *network = [[UIAlertView alloc] 
                                 initWithTitle:@"No Menus Found" 
-                                message:nil
+                                message:@"Please check back later"
                                 delegate:self 
                                 cancelButtonTitle:@"OK"
                                 otherButtonTitles:nil
@@ -155,10 +156,23 @@
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
-        [datePicker setMaximumDate:max];
+     //   [datePicker setMaximumDate:max];
         notFirstTime = YES;
     }
 }
+    else{
+        alert = @"network";
+        UIAlertView *network = [[UIAlertView alloc] 
+                                initWithTitle:@"No Network Connection" 
+                                message:@"Turn on cellular data or use Wi-Fi to access data"
+                                delegate:self 
+                                cancelButtonTitle:@"OK"
+                                otherButtonTitles:nil
+                                ];
+        [network show];
+    }
+}
+
 
 - (void)viewDidUnload{
     [super viewDidUnload];
@@ -177,8 +191,8 @@
     if (alert == @"server"){
         exit(0);
     }
-    VenueView *venueView = 
-    [[VenueView alloc] initWithNibName:@"VenueView" bundle:nil];
+    VenueViewController *venueView = 
+    [[VenueViewController alloc] initWithNibName:@"VenueView" bundle:nil];
     
     venueView.jsonDict = [[NSDictionary alloc] initWithDictionary:self.jsonDict];
     

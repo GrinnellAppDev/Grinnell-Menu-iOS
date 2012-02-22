@@ -162,6 +162,7 @@
     [super viewWillAppear:YES];
 }
 
+
 - (void)applyFilters{
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSPredicate *veganPred, *ovoPred;

@@ -18,7 +18,7 @@
 
 @synthesize go, datePicker, jsonDict;
 
-
+//Fetches the data from server. jsonDict is passed on to VenueViewController. 
 -(void)fetchprelimdataWithURL:(NSURL *)URL {
     NSData *data = [NSData dataWithContentsOfURL:URL];
     
@@ -63,7 +63,7 @@
                                     otherButtonTitles:nil
                                     ];
         
-        
+        //Create alert buttons depending on the menus available.
         if ([jsonDict objectForKey:@"BREAKFAST"]) {
             [mealmessage addButtonWithTitle:@"Breakfast"];
         }
@@ -81,7 +81,7 @@
         [mealmessage show];
     }
     
-    //Else if there is not network connection determined... 
+    //Else if there is not network connection determined... give No Network Connection alert
     else{
         alert = @"network";
         UIAlertView *network = [[UIAlertView alloc] 
@@ -110,15 +110,16 @@
     if (!notFirstTime){
         NSDate *now = [[NSDate alloc] init];
         
-      //  [datePicker setDate:now animated:YES];
-      //  [datePicker setMinimumDate:now];    
-        //Set the maximum date based on the number of days past the current date that can be accessed
+        [datePicker setDate:now animated:YES];
+       [datePicker setMinimumDate:now];    
+        
+        //Determines the available days to appropriately set the datePicker
         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
         NSError *error;
     
         NSData *data = [NSData dataWithContentsOfURL:datesURL];
     
-        //NSJSON takes data and then gives you back a foundation object. dict or array. 
+        
         NSDictionary *JSONdic = [[NSDictionary alloc] init];
     
         @try {
@@ -138,7 +139,7 @@
             [network show];
         }
     
-    
+    //If the available days returned is -1, there are no menus found.. 
         NSString *dayStr = [JSONdic objectForKey:@"days"];
         int day = dayStr.intValue;
         if (day < 0) {
@@ -151,12 +152,14 @@
                                 otherButtonTitles:nil
                                 ];
             [network show];
+            go.enabled = NO;
         
         }
+        
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
-     //   [datePicker setMaximumDate:max];
+        [datePicker setMaximumDate:max];
         notFirstTime = YES;
     }
 }

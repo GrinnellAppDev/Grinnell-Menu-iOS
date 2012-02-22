@@ -50,6 +50,9 @@
     [super viewDidLoad];
     self.title = @"Settings"; 
     
+    //filtersNameArray contains the names of all the filters. If you want to add more filters, You can add the name to this array. Change the number of rows to be returned. And then drag in a switch into the nib file for that particular filter. 
+    filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", nil];
+    
     //We set the switches to thier default values
     [veganSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"]];
     [ovoSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"]];
@@ -57,8 +60,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    //filtersNameArray contains the names of all the filters. If you want to add more filters, You can add the name to this array. Change the number of rows to be returned. And then drag in a switch into the nib file for that particular filter. 
-    filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

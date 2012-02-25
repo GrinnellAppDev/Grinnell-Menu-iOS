@@ -44,6 +44,7 @@
 
 - (IBAction)showVenues:(id)sender {
     if (self.networkCheck) {
+        
         NSDate *date = [self.datePicker date];
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
         NSInteger day = [components day];    
@@ -52,8 +53,31 @@
         
         NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
         URLwithDate = [NSURL URLWithString:url];
-
-        [self fetchprelimdataWithURL:URLwithDate];
+        
+        
+        /*** TEST ***/
+        
+        //File Directories used.
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *tempPath = NSTemporaryDirectory();
+        
+        NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", month, day, year];
+        
+        //either tempPath or Documentsdirectory
+        NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            self.jsonDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+            NSLog(@"Loading Json from iPhone cache");
+        }
+               
+        else {
+            [self fetchprelimdataWithURL:URLwithDate]; 
+            NSLog(@"Saving new json from server");
+            [jsonDict writeToFile:path atomically:YES];
+        }
+        
         
         UIAlertView *mealmessage = [[UIAlertView alloc] 
                                     initWithTitle:@"Select Meal" 
@@ -79,6 +103,16 @@
         }
         
         [mealmessage show];
+        
+        
+        
+   
+        
+        
+   
+        
+        
+        
     }
     
     //Else if there is not network connection determined... give No Network Connection alert
@@ -111,7 +145,7 @@
         NSDate *now = [[NSDate alloc] init];
         
         [datePicker setDate:now animated:YES];
-       [datePicker setMinimumDate:now];    
+  //     [datePicker setMinimumDate:now];    
         
         //Determines the available days to appropriately set the datePicker
         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
@@ -120,10 +154,10 @@
         NSData *data = [NSData dataWithContentsOfURL:datesURL];
     
         
-        NSDictionary *JSONdic = [[NSDictionary alloc] init];
+        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
     
         @try {
-            JSONdic = [NSJSONSerialization JSONObjectWithData:data
+            availableDaysJson = [NSJSONSerialization JSONObjectWithData:data
                                                   options:kNilOptions 
                                                     error:&error];
         }
@@ -140,7 +174,7 @@
         }
     
     //If the available days returned is -1, there are no menus found.. 
-        NSString *dayStr = [JSONdic objectForKey:@"days"];
+        NSString *dayStr = [availableDaysJson objectForKey:@"days"];
         int day = dayStr.intValue;
         if (day < 0) {
             alert = @"network";
@@ -152,15 +186,19 @@
                                 otherButtonTitles:nil
                                 ];
             [network show];
-            go.enabled = NO;
+    //        go.enabled = NO;
         
         }
         
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
-        [datePicker setMaximumDate:max];
+  //      [datePicker setMaximumDate:max];
         notFirstTime = YES;
+        
+        
+        
+        
     }
 }
     else{

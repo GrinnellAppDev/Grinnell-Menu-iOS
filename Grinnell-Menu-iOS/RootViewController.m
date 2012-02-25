@@ -43,42 +43,63 @@
 
 
 - (IBAction)showVenues:(id)sender {
-    if (self.networkCheck) {
+    
+    NSDate *date = [self.datePicker date];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    NSInteger day = [components day];    
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    
+    
+    
+    //File Directories used.
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *tempPath = NSTemporaryDirectory();
+    
+    NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", month, day, year];
+    
+    //either tempPath or Documentsdirectory - I went with tempPath
+    NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
+    
+    //Check to see if the file has previously been cached. 
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        self.jsonDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        NSLog(@"Loading Json from iPhone cache");
+    }
+    
+    //if not, go get it from server.
+    else {
+    
+        if (self.networkCheck) {
         
-        NSDate *date = [self.datePicker date];
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-        NSInteger day = [components day];    
-        NSInteger month = [components month];
-        NSInteger year = [components year];
+
         
         NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
         URLwithDate = [NSURL URLWithString:url];
-        
-        
-        /*** TEST ***/
-        
-        //File Directories used.
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *tempPath = NSTemporaryDirectory();
-        
-        NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", month, day, year];
-        
-        //either tempPath or Documentsdirectory
-        NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-            self.jsonDict = [[NSDictionary alloc] initWithContentsOfFile:path];
-            NSLog(@"Loading Json from iPhone cache");
-        }
-               
-        else {
+
             [self fetchprelimdataWithURL:URLwithDate]; 
             NSLog(@"Saving new json from server");
             [jsonDict writeToFile:path atomically:YES];
+        
         }
         
+        //Else if there is not network connection determined... give No Network Connection alert
+        else {
+            alert = @"network";
+            UIAlertView *network = [[UIAlertView alloc] 
+                                    initWithTitle:@"No Network Connection" 
+                                    message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self 
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil
+                                    ];
+            [network show];
+            return;
+        }
+    }
         
+        //At this point, we have a working jsonDict with menuitems. 
+    
         UIAlertView *mealmessage = [[UIAlertView alloc] 
                                     initWithTitle:@"Select Meal" 
                                     message:nil
@@ -104,29 +125,10 @@
         
         [mealmessage show];
         
-        
-        
-   
-        
-        
-   
-        
-        
-        
     }
     
-    //Else if there is not network connection determined... give No Network Connection alert
-    else{
-        alert = @"network";
-        UIAlertView *network = [[UIAlertView alloc] 
-                            initWithTitle:@"No Network Connection" 
-                            message:@"Turn on cellular data or use Wi-Fi to access data"                            delegate:self 
-                            cancelButtonTitle:@"OK"
-                            otherButtonTitles:nil
-                            ];
-        [network show];
-    }
-}
+
+
 
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
@@ -201,6 +203,9 @@
         
     }
 }
+    
+    //Commenting out because, I'm curious if we HAVE to let them know that there is no network connection whenever they hit backttodiningmenu button. considering we already do let them know whenever they hit the go button? 
+    /*
     else{
         alert = @"network";
         UIAlertView *network = [[UIAlertView alloc] 
@@ -212,6 +217,7 @@
                                 ];
         [network show];
     }
+     */
 }
 
 

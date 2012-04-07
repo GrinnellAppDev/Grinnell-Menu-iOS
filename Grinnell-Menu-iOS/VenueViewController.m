@@ -95,6 +95,7 @@
 
 - (IBAction)showInfo:(id)sender{ 
     
+    // Records when user goes to info, pushes to Flurry
     [FlurryAnalytics logEvent:@"Flipped to Settings"];
      
     SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];

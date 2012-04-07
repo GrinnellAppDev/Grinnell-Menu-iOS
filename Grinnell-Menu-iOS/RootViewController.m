@@ -45,9 +45,9 @@
 - (IBAction)showVenues:(id)sender {
     
    //Simple Crash test for Crittercism 
-       [NSException raise:NSInvalidArgumentException
+    /*   [NSException raise:NSInvalidArgumentException
                 format:@"Foo must not be nil"];
-    
+    */
 
     
     

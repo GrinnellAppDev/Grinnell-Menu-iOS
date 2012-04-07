@@ -8,6 +8,8 @@
 
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "RootViewController.h"
+#import "Crittercism.h"
+#import "FlurryAnalytics.h"
 
 @implementation Grinnell_Menu_iOSAppDelegate{
     NSString *alert;
@@ -23,6 +25,15 @@
     // Override point for customization after app launch
     [window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
+    
+    [Crittercism initWithAppID: @"4f67e3f4b0931560c200000c"
+                        andKey:@"gznvtmrwkvkp7rupb69jn3ux1d8o"
+                     andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
+    
+    [FlurryAnalytics startSession:@"CGUQXVSN77GEBKAK2ZWL"];
+    
+    
+
 }
 
 
@@ -33,6 +44,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 
 
 @end

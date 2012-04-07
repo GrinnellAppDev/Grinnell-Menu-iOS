@@ -43,6 +43,14 @@
 
 
 - (IBAction)showVenues:(id)sender {
+    
+  // Simple Crash test for Crittercism 
+  //      [NSException raise:NSInvalidArgumentException
+  //                  format:@"Foo must not be nil"];
+    
+
+    
+    
     if (self.networkCheck) {
         
         NSDate *date = [self.datePicker date];
@@ -144,8 +152,8 @@
     if (!notFirstTime){
         NSDate *now = [[NSDate alloc] init];
         
-        [datePicker setDate:now animated:YES];
-  //     [datePicker setMinimumDate:now];    
+       [datePicker setDate:now animated:YES];
+       [datePicker setMinimumDate:now];    
         
         //Determines the available days to appropriately set the datePicker
         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
@@ -193,7 +201,7 @@
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
-  //      [datePicker setMaximumDate:max];
+        [datePicker setMaximumDate:max];
         notFirstTime = YES;
         
         
@@ -229,9 +237,12 @@
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
+    /*
     if (alert == @"server"){
         exit(0);
     }
+     */
+    
     VenueViewController *venueView = 
     [[VenueViewController alloc] initWithNibName:@"VenueView" bundle:nil];
     

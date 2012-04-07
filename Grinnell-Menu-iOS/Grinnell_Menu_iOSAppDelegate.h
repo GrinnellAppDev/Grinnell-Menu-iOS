@@ -6,6 +6,8 @@
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
+//#import "Crittercism.h"
+
 @interface Grinnell_Menu_iOSAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;

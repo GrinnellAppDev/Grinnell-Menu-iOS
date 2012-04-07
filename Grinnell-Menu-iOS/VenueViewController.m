@@ -16,6 +16,8 @@
 #import "SettingsViewController.h"
 #import "DishViewController.h"
 
+#import "FlurryAnalytics.h"
+
 @implementation VenueViewController{
     NSArray *menuVenueNamesFromJSON;
     NSMutableArray *originalVenues;
@@ -91,7 +93,10 @@
     [self applyFilters];
 }
 
-- (IBAction)showInfo:(id)sender{    
+- (IBAction)showInfo:(id)sender{ 
+    
+    [FlurryAnalytics logEvent:@"Flipped to Settings"];
+     
     SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
     navController.navigationBar.barStyle = UIBarStyleBlack;

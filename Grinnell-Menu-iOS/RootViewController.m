@@ -58,7 +58,6 @@
         NSInteger year = [components year];
     
     
-    
     //File Directories used.
 //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 //    NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -256,7 +255,7 @@
      */
     
     VenueViewController *venueView = 
-    [[VenueViewController alloc] initWithNibName:@"VenueView" bundle:nil];
+    [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
     
     venueView.jsonDict = [[NSDictionary alloc] initWithDictionary:self.jsonDict];
     

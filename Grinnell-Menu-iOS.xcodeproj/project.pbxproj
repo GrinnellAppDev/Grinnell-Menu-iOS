@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1605836A153F7E88006D83D8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 16058369153F7E88006D83D8 /* Icon.png */; };
+		16058373153F80EE006D83D8 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1605836F153F80EE006D83D8 /* Icon-72.png */; };
+		16058374153F80EE006D83D8 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 16058370153F80EE006D83D8 /* Icon-Small-50.png */; };
+		16058375153F80EE006D83D8 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 16058371153F80EE006D83D8 /* Icon-Small.png */; };
+		16058376153F80EE006D83D8 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16058372153F80EE006D83D8 /* Icon-Small@2x.png */; };
 		1615ABBB151A9BD6006947DF /* libCrittercism_v3_1_4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1615AB55151A9BD5006947DF /* libCrittercism_v3_1_4.a */; };
 		1615ABBC151A9BD6006947DF /* crittercism-arrow-l.png in Resources */ = {isa = PBXBuildFile; fileRef = 1615AB71151A9BD5006947DF /* crittercism-arrow-l.png */; };
 		1615ABBD151A9BD6006947DF /* crittercism-arrow-l@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1615AB72151A9BD5006947DF /* crittercism-arrow-l@2x.png */; };
@@ -82,16 +87,13 @@
 		1615AC03151A9BD6006947DF /* CrittercismRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1615ABB9151A9BD5006947DF /* CrittercismRootViewController.xib */; };
 		1615AC04151A9BD6006947DF /* CrittercismViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1615ABBA151A9BD5006947DF /* CrittercismViewController.xib */; };
 		1615AC07151A9C03006947DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1615AC06151A9C03006947DF /* QuartzCore.framework */; };
+		161A7E4C153F813A0023BF40 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 161A7E4B153F813A0023BF40 /* Icon@2x.png */; };
+		161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */; };
+		1682E988153F818E0065F9FA /* glicious5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E987153F818E0065F9FA /* glicious5.png */; };
 		168D0812152A2C6A005B690E /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 168D0811152A2C6A005B690E /* libFlurryAnalytics.a */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
-		E1A08B09146C7D5D009AE082 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B03146C7D57009AE082 /* Icon-72.png */; };
-		E1A08B0A146C7D5D009AE082 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B04146C7D59009AE082 /* Icon-Small-50.png */; };
-		E1A08B0B146C7D5D009AE082 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B05146C7D5A009AE082 /* Icon-Small.png */; };
-		E1A08B0C146C7D5D009AE082 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B06146C7D5A009AE082 /* Icon-Small@2x.png */; };
-		E1A08B0D146C7D5D009AE082 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B07146C7D5B009AE082 /* Icon.png */; };
-		E1A08B0E146C7D5D009AE082 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1A08B08146C7D5D009AE082 /* Icon@2x.png */; };
 		E1A0C530145324470072BE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C52F145324470072BE76 /* UIKit.framework */; };
 		E1A0C532145324470072BE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C531145324470072BE76 /* Foundation.framework */; };
 		E1A0C534145324470072BE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C533145324470072BE76 /* CoreGraphics.framework */; };
@@ -131,6 +133,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16058369153F7E88006D83D8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1605836F153F80EE006D83D8 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
+		16058370153F80EE006D83D8 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "../Icon-Small-50.png"; sourceTree = "<group>"; };
+		16058371153F80EE006D83D8 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "../Icon-Small.png"; sourceTree = "<group>"; };
+		16058372153F80EE006D83D8 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "../Icon-Small@2x.png"; sourceTree = "<group>"; };
 		1615AB51151A9BD5006947DF /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		1615AB52151A9BD5006947DF /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
 		1615AB53151A9BD5006947DF /* CrittercismJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismJSONKit.h; sourceTree = "<group>"; };
@@ -235,6 +242,9 @@
 		1615ABB9151A9BD5006947DF /* CrittercismRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrittercismRootViewController.xib; sourceTree = "<group>"; };
 		1615ABBA151A9BD5006947DF /* CrittercismViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrittercismViewController.xib; sourceTree = "<group>"; };
 		1615AC06151A9C03006947DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		161A7E4B153F813A0023BF40 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vivaldi Italic.ttf"; sourceTree = "<group>"; };
+		1682E987153F818E0065F9FA /* glicious5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glicious5.png; sourceTree = "<group>"; };
 		168D0810152A2C6A005B690E /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		168D0811152A2C6A005B690E /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -242,12 +252,6 @@
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
-		E1A08B03146C7D57009AE082 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
-		E1A08B04146C7D59009AE082 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		E1A08B05146C7D5A009AE082 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		E1A08B06146C7D5A009AE082 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		E1A08B07146C7D5B009AE082 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		E1A08B08146C7D5D009AE082 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grinnell-Menu-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A0C52F145324470072BE76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1A0C531145324470072BE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -524,6 +528,7 @@
 		E1A0C538145324470072BE76 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */,
 				E1A0C539145324470072BE76 /* Grinnell-Menu-iOS-Info.plist */,
 				E1A0C53A145324470072BE76 /* InfoPlist.strings */,
 				E1A0C53D145324470072BE76 /* Grinnell-Menu-iOS-Prefix.pch */,
@@ -557,12 +562,13 @@
 			children = (
 				E1A806E7147853A500ABBDDA /* black-button.png */,
 				E1A806E9147853B900ABBDDA /* green-button.png */,
-				E1A08B03146C7D57009AE082 /* Icon-72.png */,
-				E1A08B04146C7D59009AE082 /* Icon-Small-50.png */,
-				E1A08B05146C7D5A009AE082 /* Icon-Small.png */,
-				E1A08B06146C7D5A009AE082 /* Icon-Small@2x.png */,
-				E1A08B07146C7D5B009AE082 /* Icon.png */,
-				E1A08B08146C7D5D009AE082 /* Icon@2x.png */,
+				16058369153F7E88006D83D8 /* Icon.png */,
+				1605836F153F80EE006D83D8 /* Icon-72.png */,
+				16058370153F80EE006D83D8 /* Icon-Small-50.png */,
+				16058371153F80EE006D83D8 /* Icon-Small.png */,
+				16058372153F80EE006D83D8 /* Icon-Small@2x.png */,
+				161A7E4B153F813A0023BF40 /* Icon@2x.png */,
+				1682E987153F818E0065F9FA /* glicious5.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -638,17 +644,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				161A7E4C153F813A0023BF40 /* Icon@2x.png in Resources */,
+				16058373153F80EE006D83D8 /* Icon-72.png in Resources */,
+				16058374153F80EE006D83D8 /* Icon-Small-50.png in Resources */,
+				16058375153F80EE006D83D8 /* Icon-Small.png in Resources */,
+				16058376153F80EE006D83D8 /* Icon-Small@2x.png in Resources */,
 				E1A0C53C145324470072BE76 /* InfoPlist.strings in Resources */,
 				E1A0C548145324480072BE76 /* MainWindow.xib in Resources */,
 				E1A0C54E145324480072BE76 /* RootViewController.xib in Resources */,
 				E1A0C57A145326010072BE76 /* VenueViewController.xib in Resources */,
 				E1A0C58A1453270D0072BE76 /* SettingsViewController.xib in Resources */,
-				E1A08B09146C7D5D009AE082 /* Icon-72.png in Resources */,
-				E1A08B0A146C7D5D009AE082 /* Icon-Small-50.png in Resources */,
-				E1A08B0B146C7D5D009AE082 /* Icon-Small.png in Resources */,
-				E1A08B0C146C7D5D009AE082 /* Icon-Small@2x.png in Resources */,
-				E1A08B0D146C7D5D009AE082 /* Icon.png in Resources */,
-				E1A08B0E146C7D5D009AE082 /* Icon@2x.png in Resources */,
 				E1A806E8147853A500ABBDDA /* black-button.png in Resources */,
 				E1A806EA147853B900ABBDDA /* green-button.png in Resources */,
 				E1A806F71478569700ABBDDA /* DishViewController.xib in Resources */,
@@ -725,6 +730,9 @@
 				1615AC02151A9BD6006947DF /* CrittercismGridViewController.xib in Resources */,
 				1615AC03151A9BD6006947DF /* CrittercismRootViewController.xib in Resources */,
 				1615AC04151A9BD6006947DF /* CrittercismViewController.xib in Resources */,
+				161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */,
+				1605836A153F7E88006D83D8 /* Icon.png in Resources */,
+				1682E988153F818E0065F9FA /* glicious5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

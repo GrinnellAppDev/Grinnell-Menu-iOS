@@ -16,5 +16,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *go;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, strong) NSDictionary *jsonDict;
+@property (weak, nonatomic) IBOutlet UILabel *grinnellDiningLabel;
 
 @end

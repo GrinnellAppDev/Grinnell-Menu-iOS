@@ -15,6 +15,7 @@
     NSURL *URLwithDate;
     BOOL notFirstTime;
 }
+@synthesize grinnellDiningLabel;
 
 @synthesize go, datePicker, jsonDict;
 
@@ -144,7 +145,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Dining Menu";
+    self.title = @"Choose a date";
+    self.grinnellDiningLabel.text = @"GrinnellDining";
+    self.grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:38];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -235,6 +238,7 @@
 
 
 - (void)viewDidUnload{
+    [self setGrinnellDiningLabel:nil];
     [super viewDidUnload];
     self.datePicker = nil;
 }

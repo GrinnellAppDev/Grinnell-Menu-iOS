@@ -7,7 +7,7 @@
 //
 
 //FOR TESTING
-#define kDiningMenu [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/menu.php?mon=12&day=14&year=2011"]
+#define kDiningMenu [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/menu.php?mon=12&day=14&year=2011"]
 
 #import "VenueViewController.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
@@ -23,6 +23,9 @@
     NSMutableArray *originalVenues;
     NSString *alert;
 }
+@synthesize grinnellDiningLabel;
+@synthesize dateLabel;
+@synthesize menuchoiceLabel;
 
 @synthesize anotherTableView, date, mealChoice, mainURL, jsonDict;
 
@@ -63,13 +66,23 @@
     
     //Here we fill the venues array to contain all the venues. 
     for (NSString *venuename in menuVenueNamesFromJSON) {
+        NSLog(@"venuenames: %@", venuename);
         Venue *gvenue = [[Venue alloc] init];
         gvenue.name = venuename;
+        if ([gvenue.name isEqualToString:@"ENTREES                  "] && [key isEqualToString:@"LUNCH"]) {
+            NSLog(@"Found it here");
+                continue;
+        }
+       // NSLog(@"Adding object: %@", gvenue);
         [mainDelegate.venues addObject:gvenue];
     }
     
+    //Remove the Entree venue
+    [mainDelegate.venues removeObject:@"ENTREES"];
+    
     //So for each Venue...
     for (Venue *gVenue in mainDelegate.venues) {
+        
         //We create a dish
         gVenue.dishes = [[NSMutableArray alloc] initWithCapacity:10];
         NSArray *dishesInVenue = [mainMenu objectForKey:gVenue.name];
@@ -144,6 +157,23 @@
     mainDelegate.venues = [[NSMutableArray alloc] init];
     [self getDishes];
     self.title = @"Venues";
+    menuchoiceLabel.text = self.mealChoice;
+    
+    NSLog(@"Date: %@", date);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+   // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter  setDateFormat:@"MMM dd"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    NSLog(@"Date: %@", formattedDate);
+    
+    dateLabel.text = formattedDate;
+    grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
+    grinnellDiningLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
+    dateLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
+    menuchoiceLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
+    
+    dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
+    menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -159,6 +189,9 @@
 }
 
 - (void)viewDidUnload {
+    [self setGrinnellDiningLabel:nil];
+    [self setDateLabel:nil];
+    [self setMenuchoiceLabel:nil];
     [super viewDidUnload];
 }
 
@@ -257,7 +290,9 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+   // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
     if (sectionTitle == nil) {
         return nil;
     }
@@ -266,7 +301,10 @@
     label.frame = CGRectMake(20, 6, 300, 30);
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
+   // label.font = [UIFont fontWithName:@"Vivaldi" size:32];
     label.font = [UIFont boldSystemFontOfSize:20];
+    //[UIFont fontWithName:@"Vivaldi" size:38]
+    
     label.text = sectionTitle;
     
     // Create header view and add label as a subview
@@ -299,6 +337,15 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
+    
+    if (indexPath.section % 2)
+    {
+       [cell setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:1 alpha:1]];
+
+    }
+    else 
+        //[cell setBackgroundColor:[UIColor colorWithRed:0.8 green:0.5 blue:.5 alpha:1]];
+ [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
     return cell;
 }
 
@@ -312,6 +359,9 @@
 	[self.navigationController pushViewController:dishView animated:YES];
 }
 
+
+
+
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -323,7 +373,11 @@
         self.mealChoice = titlePressed;
 
         [self getDishes];
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [anotherTableView reloadData];
+        menuchoiceLabel.text = self.mealChoice;
+        [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
     }
 }
 

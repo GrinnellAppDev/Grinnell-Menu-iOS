@@ -20,4 +20,8 @@
 @property (nonatomic, strong) IBOutlet UITableView *anotherTableView;
 @property (nonatomic, strong) NSDictionary *jsonDict;
 
+@property (weak, nonatomic) IBOutlet UILabel *grinnellDiningLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *menuchoiceLabel;
+
 @end

@@ -82,7 +82,8 @@
         
 
         
-                NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
+            //    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
+                NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
                 URLwithDate = [NSURL URLWithString:url];
 
                 [self fetchprelimdataWithURL:URLwithDate]; 
@@ -92,7 +93,7 @@
             }
         
     
-        //Else if there is not network connection determined... give No Network Connection alert
+        //Else if there is not a network connection determined... give No Network Connection alert
             else {
                 alert = @"network";
                 UIAlertView *network = [[UIAlertView alloc] 
@@ -159,11 +160,11 @@
        [datePicker setMinimumDate:now];    
         
         //Determines the available days to appropriately set the datePicker
-        NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
+       // NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
+        NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
+
         NSError *error;
-    
         NSData *data = [NSData dataWithContentsOfURL:datesURL];
-    
         
         NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
     
@@ -187,6 +188,9 @@
     //If the available days returned is -1, there are no menus found.. 
         NSString *dayStr = [availableDaysJson objectForKey:@"days"];
         int day = dayStr.intValue;
+        NSLog(@"Available days: %@", dayStr);
+        NSLog(@"Available json: %@", availableDaysJson);
+
         if (day < 0) {
             alert = @"network";
             UIAlertView *network = [[UIAlertView alloc] 
@@ -206,10 +210,7 @@
 
         [datePicker setMaximumDate:max];
         notFirstTime = YES;
-        
-        
-        
-        
+          
     }
 }
     
@@ -269,6 +270,7 @@
     
     NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
     venueView.mealChoice = titlePressed;
+    venueView.date = datePicker.date;
     [self.navigationController pushViewController:venueView animated:YES];
 }
 

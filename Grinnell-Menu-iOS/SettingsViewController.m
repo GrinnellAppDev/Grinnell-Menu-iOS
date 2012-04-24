@@ -8,10 +8,18 @@
 
 #import "SettingsViewController.h"
 #import "VenueViewController.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @implementation SettingsViewController
+@synthesize gotIdeasTextLabel;
+@synthesize tipsTextView;
+@synthesize tipsLabel;
 
 @synthesize filtersNameArray, veganSwitch, ovoSwitch;
+
+
+
 
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
@@ -36,9 +44,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+
     cell.textLabel.text = [filtersNameArray objectAtIndex:indexPath.row];
     return cell;
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"Tips";
+    }
+    else return @"Filters";
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return @"Lookout for more filters soon!";
+}
+
+
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
    }
@@ -61,6 +85,21 @@
 
 -(void)viewWillAppear:(BOOL)animated {
 
+    //Customise tips Label
+    tipsLabel.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1.0];
+    gotIdeasTextLabel.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1.0];
+    [tipsTextView setBackgroundColor:[UIColor whiteColor]];
+    //[tipsTextView setFont:[UIFont boldSystemFontOfSize:16.0]];
+    [tipsTextView setTextAlignment:UITextAlignmentLeft];
+    [tipsTextView setEditable:NO];
+    
+    // For the border and rounded corners
+    [[tipsTextView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
+    [[tipsTextView layer] setBorderWidth:2.3];
+    [[tipsTextView layer] setCornerRadius:15];
+    [tipsTextView setClipsToBounds: YES];
+        
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -71,7 +110,33 @@
 }
 
 - (void)viewDidUnload{
+    [self setTipsTextView:nil];
+    [self setTipsLabel:nil];
+    [self setGotIdeasTextLabel:nil];
     [super viewDidUnload];
 }
+
+- (IBAction)contactUs:(id)sender {
+    // From within your active view controller
+    if([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+        
+        [mailViewController setSubject:@"Feedback - Glicious!"];
+        [mailViewController setToRecipients:[NSArray arrayWithObject:@"appdev@grinnell.edu"]];
+        
+        [self presentModalViewController:mailViewController animated:YES];
+    }
+}
+
+
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+
 
 @end

@@ -89,8 +89,17 @@
 		1615AC07151A9C03006947DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1615AC06151A9C03006947DF /* QuartzCore.framework */; };
 		161A7E4C153F813A0023BF40 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 161A7E4B153F813A0023BF40 /* Icon@2x.png */; };
 		161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */; };
+		163CF0F91544A90300B0397C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 163CF0F81544A90300B0397C /* iTunesArtwork */; };
 		1682E988153F818E0065F9FA /* glicious5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E987153F818E0065F9FA /* glicious5.png */; };
+		1682E9981540CBDE0065F9FA /* glicious-banner-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9911540CBDE0065F9FA /* glicious-banner-3.png */; };
+		1682E9991540CBDE0065F9FA /* glicious-banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9921540CBDE0065F9FA /* glicious-banner1.png */; };
+		1682E99A1540CBDE0065F9FA /* glicious-banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9931540CBDE0065F9FA /* glicious-banner2.png */; };
+		1682E99B1540CBDE0065F9FA /* glicious-banner4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9941540CBDE0065F9FA /* glicious-banner4.png */; };
+		1682E99C1540CBDE0065F9FA /* glicious-banner5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9951540CBDE0065F9FA /* glicious-banner5.png */; };
+		1682E99D1540CBDE0065F9FA /* glicious-banner6.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9961540CBDE0065F9FA /* glicious-banner6.png */; };
+		1682E99E1540CBDE0065F9FA /* glicious-banner7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9971540CBDE0065F9FA /* glicious-banner7.png */; };
 		168D0812152A2C6A005B690E /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 168D0811152A2C6A005B690E /* libFlurryAnalytics.a */; };
+		16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A83B35154678540097FCF2 /* MessageUI.framework */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
@@ -244,9 +253,18 @@
 		1615AC06151A9C03006947DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		161A7E4B153F813A0023BF40 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vivaldi Italic.ttf"; sourceTree = "<group>"; };
+		163CF0F81544A90300B0397C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		1682E987153F818E0065F9FA /* glicious5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glicious5.png; sourceTree = "<group>"; };
+		1682E9911540CBDE0065F9FA /* glicious-banner-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner-3.png"; sourceTree = "<group>"; };
+		1682E9921540CBDE0065F9FA /* glicious-banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner1.png"; sourceTree = "<group>"; };
+		1682E9931540CBDE0065F9FA /* glicious-banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner2.png"; sourceTree = "<group>"; };
+		1682E9941540CBDE0065F9FA /* glicious-banner4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner4.png"; sourceTree = "<group>"; };
+		1682E9951540CBDE0065F9FA /* glicious-banner5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner5.png"; sourceTree = "<group>"; };
+		1682E9961540CBDE0065F9FA /* glicious-banner6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner6.png"; sourceTree = "<group>"; };
+		1682E9971540CBDE0065F9FA /* glicious-banner7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner7.png"; sourceTree = "<group>"; };
 		168D0810152A2C6A005B690E /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		168D0811152A2C6A005B690E /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
+		16A83B35154678540097FCF2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -293,6 +311,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */,
 				1615AC07151A9C03006947DF /* QuartzCore.framework in Frameworks */,
 				314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */,
 				E1A0C530145324470072BE76 /* UIKit.framework in Frameworks */,
@@ -464,6 +483,7 @@
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
+				16A83B35154678540097FCF2 /* MessageUI.framework */,
 				1615AC06151A9C03006947DF /* QuartzCore.framework */,
 				314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */,
 				E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */,
@@ -562,6 +582,7 @@
 			children = (
 				E1A806E7147853A500ABBDDA /* black-button.png */,
 				E1A806E9147853B900ABBDDA /* green-button.png */,
+				163CF0F81544A90300B0397C /* iTunesArtwork */,
 				16058369153F7E88006D83D8 /* Icon.png */,
 				1605836F153F80EE006D83D8 /* Icon-72.png */,
 				16058370153F80EE006D83D8 /* Icon-Small-50.png */,
@@ -569,6 +590,13 @@
 				16058372153F80EE006D83D8 /* Icon-Small@2x.png */,
 				161A7E4B153F813A0023BF40 /* Icon@2x.png */,
 				1682E987153F818E0065F9FA /* glicious5.png */,
+				1682E9911540CBDE0065F9FA /* glicious-banner-3.png */,
+				1682E9921540CBDE0065F9FA /* glicious-banner1.png */,
+				1682E9931540CBDE0065F9FA /* glicious-banner2.png */,
+				1682E9941540CBDE0065F9FA /* glicious-banner4.png */,
+				1682E9951540CBDE0065F9FA /* glicious-banner5.png */,
+				1682E9961540CBDE0065F9FA /* glicious-banner6.png */,
+				1682E9971540CBDE0065F9FA /* glicious-banner7.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -733,6 +761,14 @@
 				161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */,
 				1605836A153F7E88006D83D8 /* Icon.png in Resources */,
 				1682E988153F818E0065F9FA /* glicious5.png in Resources */,
+				1682E9981540CBDE0065F9FA /* glicious-banner-3.png in Resources */,
+				1682E9991540CBDE0065F9FA /* glicious-banner1.png in Resources */,
+				1682E99A1540CBDE0065F9FA /* glicious-banner2.png in Resources */,
+				1682E99B1540CBDE0065F9FA /* glicious-banner4.png in Resources */,
+				1682E99C1540CBDE0065F9FA /* glicious-banner5.png in Resources */,
+				1682E99D1540CBDE0065F9FA /* glicious-banner6.png in Resources */,
+				1682E99E1540CBDE0065F9FA /* glicious-banner7.png in Resources */,
+				163CF0F91544A90300B0397C /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,6 +883,69 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		163CF0F31544A2FD00B0397C /* Ad hoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = "Ad hoc Distribution";
+		};
+		163CF0F41544A2FD00B0397C /* Ad hoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Maijid Moujaled";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",
+					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D694310D-0E51-4BB8-AE41-2221A8AA9C8C";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad hoc Distribution";
+		};
+		163CF0F51544A2FD00B0397C /* Ad hoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grinnell-Menu-iOS.app/Grinnell-Menu-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grinnell-Menu-iOSTests/Grinnell-Menu-iOSTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Grinnell-Menu-iOSTests/Grinnell-Menu-iOSTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Ad hoc Distribution";
+		};
 		E1A0C566145324490072BE76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -979,6 +1078,7 @@
 			buildConfigurations = (
 				E1A0C566145324490072BE76 /* Debug */,
 				E1A0C567145324490072BE76 /* Release */,
+				163CF0F31544A2FD00B0397C /* Ad hoc Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -988,6 +1088,7 @@
 			buildConfigurations = (
 				E1A0C569145324490072BE76 /* Debug */,
 				E1A0C56A145324490072BE76 /* Release */,
+				163CF0F41544A2FD00B0397C /* Ad hoc Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -997,6 +1098,7 @@
 			buildConfigurations = (
 				E1A0C56C145324490072BE76 /* Debug */,
 				E1A0C56D145324490072BE76 /* Release */,
+				163CF0F51544A2FD00B0397C /* Ad hoc Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -66,11 +66,10 @@
     
     //Here we fill the venues array to contain all the venues. 
     for (NSString *venuename in menuVenueNamesFromJSON) {
-        NSLog(@"venuenames: %@", venuename);
+      //  NSLog(@"venuenames: %@", venuename);
         Venue *gvenue = [[Venue alloc] init];
         gvenue.name = venuename;
         if ([gvenue.name isEqualToString:@"ENTREES                  "] && [key isEqualToString:@"LUNCH"]) {
-            NSLog(@"Found it here");
                 continue;
         }
        // NSLog(@"Adding object: %@", gvenue);
@@ -159,12 +158,12 @@
     self.title = @"Venues";
     menuchoiceLabel.text = self.mealChoice;
     
-    NSLog(@"Date: %@", date);
+   // NSLog(@"Date: %@", date);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
    // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter  setDateFormat:@"MMM dd"];
+    [dateFormatter  setDateFormat:@"EEE MMM dd"];
     NSString *formattedDate = [dateFormatter stringFromDate:date];
-    NSLog(@"Date: %@", formattedDate);
+   // NSLog(@"Date: %@", formattedDate);
     
     dateLabel.text = formattedDate;
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
@@ -222,6 +221,16 @@
             dish.vegan = d.vegan;
             dish.ovolacto = d.ovolacto;
             dish.hasNutrition = d.hasNutrition;
+            
+            //Duct tape fix for illegal desserts. This should be removed when we modify it in our php scripts. 
+            if ([dish.name isEqualToString:@"Chocolate Chip Cookies"] ||
+                [dish.name isEqualToString:@"Cookies Big Chocolate Chip"] ||
+                [dish.name isEqualToString:@"Cookies Big Monster W/peanut Butter"] ||
+                [dish.name isEqualToString:@"Rice Krispie Bars"] 
+                ) {
+                continue;
+            }
+
             [venue.dishes addObject:dish];
         }
         [mainDelegate.venues addObject:venue];
@@ -340,7 +349,7 @@
     
     if (indexPath.section % 2)
     {
-       [cell setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:1 alpha:1]];
+        [cell setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:1 alpha:1]];
 
     }
     else 

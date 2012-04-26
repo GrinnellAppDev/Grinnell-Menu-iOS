@@ -72,7 +72,7 @@
         //Check to see if the file has previously been cached. 
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             self.jsonDict = [[NSDictionary alloc] initWithContentsOfFile:path];
-            NSLog(@"Loading Json from iPhone cache");
+           // NSLog(@"Loading Json from iPhone cache");
         }
     
         //if not, go get it from server.
@@ -87,7 +87,7 @@
                 URLwithDate = [NSURL URLWithString:url];
 
                 [self fetchprelimdataWithURL:URLwithDate]; 
-                NSLog(@"Saving new json from server");
+              //  NSLog(@"Saving new json from server");
                 [jsonDict writeToFile:path atomically:YES];
         
             }
@@ -160,7 +160,7 @@
        [datePicker setMinimumDate:now];    
         
         //Determines the available days to appropriately set the datePicker
-       // NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
+      //  NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
         NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
 
         NSError *error;
@@ -188,13 +188,13 @@
     //If the available days returned is -1, there are no menus found.. 
         NSString *dayStr = [availableDaysJson objectForKey:@"days"];
         int day = dayStr.intValue;
-        NSLog(@"Available days: %@", dayStr);
-        NSLog(@"Available json: %@", availableDaysJson);
+       // NSLog(@"Available days: %@", dayStr);
+       // NSLog(@"Available json: %@", availableDaysJson);
 
         if (day < 0) {
             alert = @"network";
             UIAlertView *network = [[UIAlertView alloc] 
-                                initWithTitle:@"No Menus Found" 
+                                initWithTitle:@"No Menus are available" 
                                 message:@"Please check back later"
                                 delegate:self 
                                 cancelButtonTitle:@"OK"

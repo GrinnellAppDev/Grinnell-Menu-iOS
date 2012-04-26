@@ -518,9 +518,9 @@
 			children = (
 				E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */,
 				E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */,
-				E1A0C546145324480072BE76 /* MainWindow.xib */,
 				E1A0C549145324480072BE76 /* RootViewController.h */,
 				E1A0C54A145324480072BE76 /* RootViewController.m */,
+				E1A0C546145324480072BE76 /* MainWindow.xib */,
 				E1A0C54C145324480072BE76 /* RootViewController.xib */,
 				314CC43214EA0A410004F963 /* Reachability.h */,
 				314CC43314EA0A410004F963 /* Reachability.m */,

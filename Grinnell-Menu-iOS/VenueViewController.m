@@ -353,8 +353,7 @@
 
     }
     else 
-        //[cell setBackgroundColor:[UIColor colorWithRed:0.8 green:0.5 blue:.5 alpha:1]];
- [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
+        [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
     return cell;
 }
 

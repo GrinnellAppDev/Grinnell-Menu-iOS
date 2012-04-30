@@ -82,8 +82,8 @@
         
 
         
-            //    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
-                NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
+                NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
+            //    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
                 URLwithDate = [NSURL URLWithString:url];
 
                 [self fetchprelimdataWithURL:URLwithDate]; 
@@ -160,8 +160,8 @@
        [datePicker setMinimumDate:now];    
         
         //Determines the available days to appropriately set the datePicker
-      //  NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
-        NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
+        NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
+      // NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
 
         NSError *error;
         NSData *data = [NSData dataWithContentsOfURL:datesURL];
@@ -253,11 +253,7 @@
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    /*
-    if (alert == @"server"){
-        exit(0);
-    }
-     */
+
     
     VenueViewController *venueView = 
     [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];

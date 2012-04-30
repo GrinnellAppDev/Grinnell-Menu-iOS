@@ -31,11 +31,11 @@
                      andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
     
     //Development Analytics Testing. (maybe we might just disable this in the future, since we don't need analytics from developement. 
-    [FlurryAnalytics startSession:@"CGUQXVSN77GEBKAK2ZWL"];
+    //[FlurryAnalytics startSession:@"CGUQXVSN77GEBKAK2ZWL"];
     
     
     //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry. 
-    //[FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
+    [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
 
 
 }

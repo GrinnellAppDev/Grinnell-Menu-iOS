@@ -1,4 +1,7 @@
 .DS_Store
 UserInterfaceState.xcuserstate
 Grinnell-Menu-iOS.xcodeproj/project.xcworkspace/xcuserdata/Tremblay.xcuserdatad/UserInterfaceState.xcuserstate
-.xcuserdatad/UserInterfaceState.xcuserstate
+Tremblay.xcuserdatad/UserInterfaceState.xcuserstate
+Tremblay.xcuserdatad/*
+*.xcuserstate
+.xcuserstate

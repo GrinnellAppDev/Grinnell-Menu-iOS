@@ -155,10 +155,16 @@
     if (self.networkCheck) {
     if (!notFirstTime){
         NSDate *now = [[NSDate alloc] init];
+        [datePicker setMinimumDate:now];    
+        NSCalendar *current = [NSCalendar currentCalendar];
+        NSDateComponents *currentComponents = [current components:NSHourCalendarUnit fromDate:now];
+        
+        // If dinner is over, set date picker date to tomorrow
+        if (currentComponents.hour > 20)
+            now = [NSDate dateWithTimeIntervalSinceNow:60*60*(24 - currentComponents.hour)];
         
        [datePicker setDate:now animated:YES];
-       [datePicker setMinimumDate:now];    
-        
+
         //Determines the available days to appropriately set the datePicker
         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
       // NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];

@@ -97,6 +97,14 @@
                 dish.vegan = YES;
             if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"]) 
                 dish.ovolacto = YES;
+            if (![[actualdish objectForKey:@"passover"] isEqualToString:@"false"]) 
+                dish.passover = YES;
+            if (![[actualdish objectForKey:@"halal"] isEqualToString:@"false"]) 
+                dish.halal = YES;
+            if (![[actualdish objectForKey:@"nutrition"] isEqualToString:@"nill"]) {
+                dish.hasNutrition = YES;
+                dish.nutrition = [actualdish objectForKey:@"nutrition"];
+            }
             //then finally we add this new dish to it's venue
             [gVenue.dishes addObject:dish];
         }
@@ -360,7 +368,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishView" bundle:nil];
+    DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
     dishView.dishRow = indexPath.row;
     dishView.dishSection = indexPath.section;
     

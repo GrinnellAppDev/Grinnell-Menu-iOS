@@ -9,6 +9,6 @@
 #import "Dish.h"
 
 @implementation Dish
-@synthesize name, venue, nutAllergen, glutenFree, vegetarian, vegan, ovolacto, hasNutrition, nutrition;
+@synthesize name, venue, nutAllergen, glutenFree, vegetarian, vegan, passover, halal, ovolacto, hasNutrition, nutrition;
 
 @end

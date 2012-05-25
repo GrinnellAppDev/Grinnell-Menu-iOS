@@ -17,6 +17,8 @@
 @property (nonatomic, assign) BOOL vegetarian;
 @property (nonatomic, assign) BOOL vegan;
 @property (nonatomic, assign) BOOL ovolacto;
+@property (nonatomic, assign) BOOL passover;
+@property (nonatomic, assign) BOOL halal;
 @property (nonatomic, assign) BOOL hasNutrition;
-@property (nonatomic, strong) NSString *nutrition;
+@property (nonatomic, strong) NSDictionary *nutrition;
 @end

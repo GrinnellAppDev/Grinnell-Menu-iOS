@@ -6,9 +6,6 @@
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
-//FOR TESTING
-#define kDiningMenu [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/menu.php?mon=12&day=14&year=2011"]
-
 #import "VenueViewController.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "Dish.h"
@@ -92,7 +89,6 @@
             NSDictionary *actualdish = [dishesInVenue objectAtIndex:i];
             
             dish.name = [actualdish objectForKey:@"name"];
-            
             if (![[actualdish objectForKey:@"vegan"] isEqualToString:@"false"]) 
                 dish.vegan = YES;
             if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"]) 
@@ -101,7 +97,7 @@
                 dish.passover = YES;
             if (![[actualdish objectForKey:@"halal"] isEqualToString:@"false"]) 
                 dish.halal = YES;
-            if (![[actualdish objectForKey:@"nutrition"] isEqualToString:@"nill"]) {
+            if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]){
                 dish.hasNutrition = YES;
                 dish.nutrition = [actualdish objectForKey:@"nutrition"];
             }
@@ -229,6 +225,9 @@
             dish.vegan = d.vegan;
             dish.ovolacto = d.ovolacto;
             dish.hasNutrition = d.hasNutrition;
+            dish.nutrition = d.nutrition;
+            dish.halal = d.halal;
+            dish.passover = d.passover;
             
             //Duct tape fix for illegal desserts. This should be removed when we modify it in our php scripts. 
             if ([dish.name isEqualToString:@"Chocolate Chip Cookies"] ||
@@ -345,14 +344,20 @@
     
     cell.textLabel.text = dish.name;
     
+    // Not needed when we have a tray view
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
     // accessory type
     if (!dish.hasNutrition){
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // Needed for when we have a tray view
+        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else{
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        // Needed for when we have a tray view
+       // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     
     if (indexPath.section % 2)

@@ -79,14 +79,15 @@
         else {
     
             if (self.networkCheck) {
-        
+                NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~tremblay/menu/%d-%d-%d.json", month, day, year];
 
-        
-                NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
+             //  NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
             //    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
+
                 URLwithDate = [NSURL URLWithString:url];
 
-                [self fetchprelimdataWithURL:URLwithDate]; 
+                [self fetchprelimdataWithURL:URLwithDate];
+
               //  NSLog(@"Saving new json from server");
                 [jsonDict writeToFile:path atomically:YES];
         
@@ -166,7 +167,10 @@
        [datePicker setDate:now animated:YES];
 
         //Determines the available days to appropriately set the datePicker
-        NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
+        
+        //TODO DONT FORGET THIS ISNT ACCESSING THE REAL JSON right now...
+         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~tremblay/menu/available_days_json_FAKE.php"];
+     //   NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
       // NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
 
         NSError *error;

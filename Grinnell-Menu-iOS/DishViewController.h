@@ -8,7 +8,7 @@
 
 @interface DishViewController : UIViewController
 
-- (IBAction)backToMainMenu:(id)sender;
+//- (IBAction)backToMainMenu:(id)sender;
 - (IBAction)toVenueView:(id)sender;
 
 @property (nonatomic, strong) IBOutlet UITextView *nutritionDetails;

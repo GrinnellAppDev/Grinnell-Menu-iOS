@@ -79,10 +79,10 @@
         else {
     
             if (self.networkCheck) {
-                NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~tremblay/menu/%d-%d-%d.json", month, day, year];
+               // NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~tremblay/menu/%d-%d-%d.json", month, day, year];
 
              //  NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
-            //    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
+                NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
 
                 URLwithDate = [NSURL URLWithString:url];
 
@@ -169,9 +169,9 @@
         //Determines the available days to appropriately set the datePicker
         
         //TODO DONT FORGET THIS ISNT ACCESSING THE REAL JSON right now...
-         NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~tremblay/menu/available_days_json_FAKE.php"];
+      //   NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~tremblay/menu/available_days_json_FAKE.php"];
      //   NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
-      // NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
+       NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
 
         NSError *error;
         NSData *data = [NSData dataWithContentsOfURL:datesURL];
@@ -201,7 +201,7 @@
        // NSLog(@"Available days: %@", dayStr);
        // NSLog(@"Available json: %@", availableDaysJson);
 
-        if (day < 0) {
+        if (day <= 0) {
             alert = @"network";
             UIAlertView *network = [[UIAlertView alloc] 
                                 initWithTitle:@"No Menus are available" 
@@ -211,9 +211,10 @@
                                 otherButtonTitles:nil
                                 ];
             [network show];
-    //        go.enabled = NO;
-        
+            go.enabled = NO;
         }
+        else
+            go.enabled = YES;
         
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];

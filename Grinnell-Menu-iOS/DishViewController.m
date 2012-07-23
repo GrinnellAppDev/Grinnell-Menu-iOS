@@ -62,6 +62,7 @@
                              [dish.nutrition objectForKey:@"FE"], 
                              [dish.nutrition objectForKey:@"CA"]];
     self.title = dish.name;
+    
     [super viewWillAppear:animated];
     
 //    self.backgroundImageView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -98,7 +99,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-   return @"Nutritional Information";
+    //I wanted the padding so it centered... so i put a tab =] Feel free to do this better...
+   return @"     Nutritional Information";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

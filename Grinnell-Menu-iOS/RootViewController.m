@@ -79,10 +79,10 @@
         else {
     
             if (self.networkCheck) {
-               // NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~tremblay/menu/%d-%d-%d.json", month, day, year];
+                NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~tremblay/menu/%d-%d-%d.json", month, day, year];
 
              //  NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
-                NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
+              //  NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
 
                 URLwithDate = [NSURL URLWithString:url];
 
@@ -156,7 +156,7 @@
     if (self.networkCheck) {
     if (!notFirstTime){
         NSDate *now = [[NSDate alloc] init];
-        [datePicker setMinimumDate:now];    
+//        [datePicker setMinimumDate:now];    
         NSCalendar *current = [NSCalendar currentCalendar];
         NSDateComponents *currentComponents = [current components:NSHourCalendarUnit fromDate:now];
         
@@ -211,7 +211,7 @@
                                 otherButtonTitles:nil
                                 ];
             [network show];
-            go.enabled = NO;
+//            go.enabled = NO;
         }
         else
             go.enabled = YES;
@@ -219,7 +219,7 @@
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
-        [datePicker setMaximumDate:max];
+//        [datePicker setMaximumDate:max];
         notFirstTime = YES;
           
     }

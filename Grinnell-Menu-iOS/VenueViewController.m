@@ -12,6 +12,7 @@
 #import "Venue.h"
 #import "SettingsViewController.h"
 #import "DishViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 #import "FlurryAnalytics.h"
 
@@ -23,6 +24,7 @@
 @synthesize grinnellDiningLabel;
 @synthesize dateLabel;
 @synthesize menuchoiceLabel;
+@synthesize topImageView;
 
 @synthesize anotherTableView, date, mealChoice, mainURL, jsonDict;
 
@@ -177,6 +179,12 @@
     
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
+    
+    //Customize topImageview - Set the drop shadow
+    self.topImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.5);
+    self.topImageView.layer.shadowOpacity = 0.7;
+    self.topImageView.layer.shadowRadius = 1.5;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -195,6 +203,7 @@
     [self setGrinnellDiningLabel:nil];
     [self setDateLabel:nil];
     [self setMenuchoiceLabel:nil];
+    [self setTopImageView:nil];
     [super viewDidUnload];
 }
 
@@ -376,6 +385,8 @@
     DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
     dishView.dishRow = indexPath.row;
     dishView.dishSection = indexPath.section;
+    
+
     
 	[self.navigationController pushViewController:dishView animated:YES];
 }

@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *grinnellDiningLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *menuchoiceLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
 
 @end

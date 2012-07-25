@@ -103,7 +103,7 @@
 						<string key="NSFrame">{{32, 45}, {268, 348}}</string>
 						<reference key="NSSuperview" ref="770739462"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="910881353"/>
+						<reference key="NSNextKeyView" ref="228566929"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -127,7 +127,7 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="910881353">
+					<object class="IBUIImageView" id="228566929">
 						<reference key="NSNextResponder" ref="770739462"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 416}</string>
@@ -149,7 +149,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="308504368"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor" id="965551379">
+						<object class="NSColor" key="IBUIBackgroundColor" id="894734893">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -158,7 +158,6 @@
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
 						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
 						<int key="IBUIStyle">1</int>
-						<int key="IBUISeparatorStyle">2</int>
 						<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 						<bool key="IBUIAllowsSelection">NO</bool>
 						<float key="IBUIRowHeight">44</float>
@@ -4559,7 +4558,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 								</object>
 							</object>
 						</object>
-						<reference key="NSColor" ref="965551379"/>
+						<reference key="NSColor" ref="894734893"/>
 					</object>
 					<string key="IBUIColorCocoaTouchKeyPath">scrollViewTexturedBackgroundColor</string>
 				</object>
@@ -4654,7 +4653,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<reference ref="442722748"/>
 							<reference ref="308504368"/>
 							<reference ref="133991803"/>
-							<reference ref="910881353"/>
+							<reference ref="228566929"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4680,7 +4679,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">70</int>
-						<reference key="object" ref="910881353"/>
+						<reference key="object" ref="228566929"/>
 						<reference key="parent" ref="770739462"/>
 					</object>
 				</object>

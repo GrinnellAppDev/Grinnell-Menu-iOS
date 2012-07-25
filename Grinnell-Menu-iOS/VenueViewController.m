@@ -173,9 +173,11 @@
     
     dateLabel.text = formattedDate;
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
+    /*
     grinnellDiningLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
     dateLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
     menuchoiceLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
+     */
     
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
@@ -185,6 +187,11 @@
     self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.5);
     self.topImageView.layer.shadowOpacity = 0.7;
     self.topImageView.layer.shadowRadius = 1.5;
+    
+    [self.topImageView.layer shouldRasterize];
+    
+    
+//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.12 green:0.1 blue:0.1 alpha:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -369,6 +376,10 @@
        // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     
+    
+    //Modify the colours. 
+    
+    /*
     if (indexPath.section % 2)
     {
         [cell setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:1 alpha:1]];
@@ -376,6 +387,12 @@
     }
     else 
         [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
+     */
+    
+    [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
+
+    
+    
     return cell;
 }
 

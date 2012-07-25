@@ -95,6 +95,9 @@
 		161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */; };
 		163C85A715BDCBA400FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
+		163C860415C0932800FC8578 /* red-texture-wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 163C860315C0932800FC8578 /* red-texture-wallpaper.jpg */; };
+		163C860F15C0A2C300FC8578 /* root_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C860E15C0A2C300FC8578 /* root_bg.png */; };
+		163C861115C0A5A500FC8578 /* root_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C861015C0A5A500FC8578 /* root_background.png */; };
 		163CF0F91544A90300B0397C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 163CF0F81544A90300B0397C /* iTunesArtwork */; };
 		1682E988153F818E0065F9FA /* glicious5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E987153F818E0065F9FA /* glicious5.png */; };
 		1682E9981540CBDE0065F9FA /* glicious-banner-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9911540CBDE0065F9FA /* glicious-banner-3.png */; };
@@ -265,6 +268,9 @@
 		161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vivaldi Italic.ttf"; sourceTree = "<group>"; };
 		163C85A515BDCBA300FC8578 /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
 		163C85A615BDCBA300FC8578 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
+		163C860315C0932800FC8578 /* red-texture-wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "red-texture-wallpaper.jpg"; sourceTree = "<group>"; };
+		163C860E15C0A2C300FC8578 /* root_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = root_bg.png; sourceTree = "<group>"; };
+		163C861015C0A5A500FC8578 /* root_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = root_background.png; sourceTree = "<group>"; };
 		163CF0F81544A90300B0397C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		1682E987153F818E0065F9FA /* glicious5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glicious5.png; sourceTree = "<group>"; };
 		1682E9911540CBDE0065F9FA /* glicious-banner-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner-3.png"; sourceTree = "<group>"; };
@@ -594,6 +600,9 @@
 		E1AE39CF148730620078DC40 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				163C861015C0A5A500FC8578 /* root_background.png */,
+				163C860E15C0A2C300FC8578 /* root_bg.png */,
+				163C860315C0932800FC8578 /* red-texture-wallpaper.jpg */,
 				1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */,
 				1610B0CB15B5EFA2001A2D3A /* ingredients-list@2x.png */,
 				1610B0C615B5EF5A001A2D3A /* nutrition-details.png */,
@@ -790,6 +799,9 @@
 				1610B0C915B5EF5A001A2D3A /* nutrition-details@2x .png in Resources */,
 				1610B0CC15B5EFA2001A2D3A /* ingredients-list.png in Resources */,
 				1610B0CD15B5EFA2001A2D3A /* ingredients-list@2x.png in Resources */,
+				163C860415C0932800FC8578 /* red-texture-wallpaper.jpg in Resources */,
+				163C860F15C0A2C300FC8578 /* root_bg.png in Resources */,
+				163C861115C0A5A500FC8578 /* root_background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

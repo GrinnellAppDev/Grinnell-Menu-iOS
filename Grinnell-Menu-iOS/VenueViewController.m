@@ -184,7 +184,7 @@
     
     //Customize topImageview - Set the drop shadow
     self.topImageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.5);
+    self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.7);
     self.topImageView.layer.shadowOpacity = 0.7;
     self.topImageView.layer.shadowRadius = 1.5;
     

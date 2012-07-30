@@ -14,6 +14,10 @@
 #import "TDBadgedCell.h"
 
 @implementation DishViewController
+{
+    UIColor *EvenbadgeColor;
+    UIColor *OddbadgeColor;
+}
 @synthesize theTableView;
 @synthesize backgroundImageView;
 @synthesize nutritionDetails, dishRow, dishSection;
@@ -78,6 +82,10 @@
     //[self.navigationItem setRightBarButtonItem:toMainMenuButton];
     
     [super viewDidLoad];
+    OddbadgeColor = [UIColor colorWithRed:0.192 green:0.512 blue:0.792 alpha:1.0];
+    EvenbadgeColor = [UIColor colorWithRed:0.192 green:0.432 blue:0.792 alpha:1];
+    
+    OddbadgeColor = [UIColor blackColor];
 }
 
 - (void)viewDidUnload{
@@ -154,15 +162,12 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badge.radius = 9;
         cell.badgeString = [NSString stringWithFormat:@"%@", [dish.nutrition objectForKey:@"KCAL"]];
-        cell.badgeColor = [UIColor colorWithRed:0.792 green:0.197 blue:0.219 alpha:1.000];
-    
     }
     
     else if (indexPath.row == 1) {
         cell.textLabel.text = @"Saturated Fat"; 
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%@g", [dish.nutrition objectForKey:@"SFA"]];
-        cell.badgeColor = [UIColor colorWithRed:0.197 green:0.592 blue:0.219 alpha:1.000];
         cell.badge.radius = 9;
     }
     
@@ -170,35 +175,30 @@
         cell.textLabel.text = @"Trans Fat";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%@g", [dish.nutrition objectForKey:@"FATRN"]];
-        cell.badgeColor = [UIColor colorWithRed:0.197 green:0.592 blue:0.219 alpha:1.000];
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 3) {
         cell.textLabel.text = @"Sodium";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%@mg", [dish.nutrition objectForKey:@"NA"]];
-        cell.badgeColor = [UIColor colorWithRed:0.197 green:0.592 blue:0.219 alpha:1.000];
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 4) {
         cell.textLabel.text = @"Sugar";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%@g", [dish.nutrition objectForKey:@"SUGR"]];
-        cell.badgeColor = [UIColor blueColor];
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 5) {
         cell.textLabel.text = @"Dietary Fiber";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%@g", [dish.nutrition objectForKey:@"TDFB"]];
-        cell.badgeColor = [UIColor colorWithRed:0.197 green:0.592 blue:0.219 alpha:1.000];
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 6) {
         cell.textLabel.text = @"Cholesterol";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%@mg", [dish.nutrition objectForKey:@"CHOL"]];
-        cell.badgeColor = [UIColor colorWithRed:0.197 green:0.592 blue:0.219 alpha:1.000];
         cell.badge.radius = 9;
     }
     
@@ -207,12 +207,14 @@
     
     if (indexPath.row % 2)
     {
-//        [cell setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:1 alpha:1]];
         [cell setBackgroundColor:[UIColor colorWithRed:0.93 green:0.9 blue:0.9 alpha:1]];
+        cell.badgeColor = EvenbadgeColor;
         
     }
-    else 
+    else {
         [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
+        cell.badgeColor = OddbadgeColor;
+    }
     
     return cell;
 }

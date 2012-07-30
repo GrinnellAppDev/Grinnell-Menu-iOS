@@ -6,11 +6,11 @@
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "DatePickerViewController.h"
 #import "VenueViewController.h"
 #import "Reachability.h"
 
-@implementation RootViewController {
+@implementation DatePickerViewController {
     NSString *alert;
     NSURL *URLwithDate;
     BOOL notFirstTime;

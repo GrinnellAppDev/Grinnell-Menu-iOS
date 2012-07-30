@@ -20,6 +20,8 @@
     NSArray *menuVenueNamesFromJSON;
     NSMutableArray *originalVenues;
     NSString *alert;
+    
+    BOOL firstTime;
 }
 @synthesize grinnellDiningLabel;
 @synthesize dateLabel;
@@ -152,9 +154,20 @@
 }
 
 - (void)viewDidLoad{
+    firstTime = YES;
+    if (firstTime) {
+      [self fixStuff];
+    }
+
+
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     UIBarButtonItem *changeMeal = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
     [self.navigationItem setRightBarButtonItem:changeMeal];
+    
+    
+//    //We should make this a pic of a calendar
+//    UIBarButtonItem *changeDate = [[UIBarButtonItem alloc] initWithTitle:@"Change Date" style:UIBarButtonItemStyleBordered target:self action:@selector(changeDate)];
+//    [self.navigationItem setLeftBarButtonItem:changeDate];
     
     [super viewDidLoad];
     
@@ -192,6 +205,8 @@
     
     
 //    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.12 green:0.1 blue:0.1 alpha:1];
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -428,6 +443,47 @@
         [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 
     }
+}
+
+
+
+- (void)fixStuff
+{
+    //Testing Methods
+    //Grab today's date
+    NSDate *today = [NSDate date];
+    NSLog(@"Today is %@", today);
+    
+    //Pick selected date
+    //    NSDate *selectedate = [NSDate dateWithTimeIntervalSince1970:150000000];
+    NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 80 ];
+    
+    NSLog(@"Selected date is %@", selectedate);
+    self.date = selectedate;
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:selectedate];
+    NSInteger day = [components day];
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
+    
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    
+    NSError *error = nil;
+    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                    options:kNilOptions
+                                                      error:&error];
+//    NSLog(@"jsondict is %@", self.jsonDict);
+    self.mealChoice = @"Dinner";
+
+    firstTime = NO;
+    
+}
+
+- (void)changeDate
+{
+    
 }
 
 @end

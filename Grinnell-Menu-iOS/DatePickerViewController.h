@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController : UIViewController
+@interface DatePickerViewController : UIViewController
 
 - (IBAction)showVenues:(id)sender;
 - (BOOL)networkCheck;

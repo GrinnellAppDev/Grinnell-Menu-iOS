@@ -95,7 +95,7 @@
 		161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */; };
 		163C85A715BDCBA400FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
-		163C861315C0AA9F00FC8578 /* root_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C861215C0AA9F00FC8578 /* root_background.png */; };
+		163C861315C0AA9F00FC8578 /* datePicker_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C861215C0AA9F00FC8578 /* datePicker_background.png */; };
 		163CF0F91544A90300B0397C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 163CF0F81544A90300B0397C /* iTunesArtwork */; };
 		1682E988153F818E0065F9FA /* glicious5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E987153F818E0065F9FA /* glicious5.png */; };
 		1682E9981540CBDE0065F9FA /* glicious-banner-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9911540CBDE0065F9FA /* glicious-banner-3.png */; };
@@ -119,8 +119,8 @@
 		E1A0C53F145324470072BE76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C53E145324470072BE76 /* main.m */; };
 		E1A0C542145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */; };
 		E1A0C548145324480072BE76 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C546145324480072BE76 /* MainWindow.xib */; };
-		E1A0C54B145324480072BE76 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C54A145324480072BE76 /* RootViewController.m */; };
-		E1A0C54E145324480072BE76 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C54C145324480072BE76 /* RootViewController.xib */; };
+		E1A0C54B145324480072BE76 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C54A145324480072BE76 /* DatePickerViewController.m */; };
+		E1A0C54E145324480072BE76 /* DatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1A0C54C145324480072BE76 /* DatePickerViewController.xib */; };
 		E1A0C555145324480072BE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C52F145324470072BE76 /* UIKit.framework */; };
 		E1A0C556145324480072BE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C531145324470072BE76 /* Foundation.framework */; };
 		E1A0C557145324480072BE76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C533145324470072BE76 /* CoreGraphics.framework */; };
@@ -265,9 +265,9 @@
 		1615AC06151A9C03006947DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		161A7E4B153F813A0023BF40 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vivaldi Italic.ttf"; sourceTree = "<group>"; };
-		163C85A515BDCBA300FC8578 /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
-		163C85A615BDCBA300FC8578 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
-		163C861215C0AA9F00FC8578 /* root_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = root_background.png; sourceTree = "<group>"; };
+		163C85A515BDCBA300FC8578 /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBadgedCell.h; path = "Grinnell-Menu-iOS/TDBadgedCell.h"; sourceTree = "<group>"; };
+		163C85A615BDCBA300FC8578 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBadgedCell.m; path = "Grinnell-Menu-iOS/TDBadgedCell.m"; sourceTree = "<group>"; };
+		163C861215C0AA9F00FC8578 /* datePicker_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = datePicker_background.png; sourceTree = "<group>"; };
 		163CF0F81544A90300B0397C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		1682E987153F818E0065F9FA /* glicious5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glicious5.png; sourceTree = "<group>"; };
 		1682E9911540CBDE0065F9FA /* glicious-banner-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner-3.png"; sourceTree = "<group>"; };
@@ -281,11 +281,11 @@
 		168D0811152A2C6A005B690E /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		16A83B35154678540097FCF2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		16FF360815C7058700C9DC09 /* red_textured_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_textured_background.png; sourceTree = "<group>"; };
-		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Grinnell-Menu-iOS/Reachability.h"; sourceTree = "<group>"; };
+		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Grinnell-Menu-iOS/Reachability.m"; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Venue.h; path = "Grinnell-Menu-iOS/Venue.h"; sourceTree = "<group>"; };
+		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Venue.m; path = "Grinnell-Menu-iOS/Venue.m"; sourceTree = "<group>"; };
 		E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grinnell-Menu-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A0C52F145324470072BE76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1A0C531145324470072BE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -295,12 +295,12 @@
 		E1A0C53B145324470072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1A0C53D145324470072BE76 /* Grinnell-Menu-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grinnell-Menu-iOS-Prefix.pch"; sourceTree = "<group>"; };
 		E1A0C53E145324470072BE76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grinnell_Menu_iOSAppDelegate.h; sourceTree = "<group>"; };
-		E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Grinnell_Menu_iOSAppDelegate.m; sourceTree = "<group>"; };
+		E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Grinnell_Menu_iOSAppDelegate.h; path = "Grinnell-Menu-iOS/Grinnell_Menu_iOSAppDelegate.h"; sourceTree = "<group>"; };
+		E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Grinnell_Menu_iOSAppDelegate.m; path = "Grinnell-Menu-iOS/Grinnell_Menu_iOSAppDelegate.m"; sourceTree = "<group>"; };
 		E1A0C547145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		E1A0C549145324480072BE76 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		E1A0C54A145324480072BE76 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		E1A0C54D145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		E1A0C549145324480072BE76 /* DatePickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
+		E1A0C54A145324480072BE76 /* DatePickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
+		E1A0C54D145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DatePickerViewController.xib; sourceTree = "<group>"; };
 		E1A0C554145324480072BE76 /* Grinnell-Menu-iOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grinnell-Menu-iOSTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A0C55D145324490072BE76 /* Grinnell-Menu-iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grinnell-Menu-iOSTests-Info.plist"; sourceTree = "<group>"; };
 		E1A0C55F145324490072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -318,8 +318,8 @@
 		E1A806F31478569600ABBDDA /* DishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishViewController.h; sourceTree = "<group>"; };
 		E1A806F41478569600ABBDDA /* DishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishViewController.m; sourceTree = "<group>"; };
 		E1A806F51478569600ABBDDA /* DishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishViewController.xib; sourceTree = "<group>"; };
-		E1DBA2FE145C922A0099E8CE /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
-		E1DBA2FF145C922B0099E8CE /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
+		E1DBA2FE145C922A0099E8CE /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dish.h; path = "Grinnell-Menu-iOS/Dish.h"; sourceTree = "<group>"; };
+		E1DBA2FF145C922B0099E8CE /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Dish.m; path = "Grinnell-Menu-iOS/Dish.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,9 +496,37 @@
 			path = FlurryAnalytics;
 			sourceTree = "<group>";
 		};
+		16FF361415C7087600C9DC09 /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				314CC43214EA0A410004F963 /* Reachability.h */,
+				314CC43314EA0A410004F963 /* Reachability.m */,
+				163C85A515BDCBA300FC8578 /* TDBadgedCell.h */,
+				163C85A615BDCBA300FC8578 /* TDBadgedCell.m */,
+				E1DBA2FE145C922A0099E8CE /* Dish.h */,
+				E1DBA2FF145C922B0099E8CE /* Dish.m */,
+				87B46E9E146A3ED7001007BA /* Venue.h */,
+				87B46E9F146A3ED7001007BA /* Venue.m */,
+			);
+			name = "Helper Classes";
+			sourceTree = "<group>";
+		};
+		16FF361615C708BB00C9DC09 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */,
+				E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */,
+				E1A0C546145324480072BE76 /* MainWindow.xib */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
+				E1AE39CF148730620078DC40 /* Assets */,
+				16FF361615C708BB00C9DC09 /* AppDelegate */,
+				16FF361415C7087600C9DC09 /* Helper Classes */,
 				E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */,
 				E1A0C55B145324480072BE76 /* Grinnell-Menu-iOSTests */,
 				E1A0C52E145324460072BE76 /* Frameworks */,
@@ -532,18 +560,9 @@
 		E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */,
-				E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */,
-				E1A0C549145324480072BE76 /* RootViewController.h */,
-				E1A0C54A145324480072BE76 /* RootViewController.m */,
-				E1A0C546145324480072BE76 /* MainWindow.xib */,
-				E1A0C54C145324480072BE76 /* RootViewController.xib */,
-				314CC43214EA0A410004F963 /* Reachability.h */,
-				314CC43314EA0A410004F963 /* Reachability.m */,
-				E1DBA2FE145C922A0099E8CE /* Dish.h */,
-				E1DBA2FF145C922B0099E8CE /* Dish.m */,
-				87B46E9E146A3ED7001007BA /* Venue.h */,
-				87B46E9F146A3ED7001007BA /* Venue.m */,
+				E1A0C549145324480072BE76 /* DatePickerViewController.h */,
+				E1A0C54A145324480072BE76 /* DatePickerViewController.m */,
+				E1A0C54C145324480072BE76 /* DatePickerViewController.xib */,
 				E1A0C576145326010072BE76 /* VenueViewController.h */,
 				E1A0C577145326010072BE76 /* VenueViewController.m */,
 				E1A0C578145326010072BE76 /* VenueViewController.xib */,
@@ -553,11 +572,8 @@
 				E1A806F31478569600ABBDDA /* DishViewController.h */,
 				E1A806F41478569600ABBDDA /* DishViewController.m */,
 				E1A806F51478569600ABBDDA /* DishViewController.xib */,
-				163C85A515BDCBA300FC8578 /* TDBadgedCell.h */,
-				163C85A615BDCBA300FC8578 /* TDBadgedCell.m */,
 				168D080F152A2C6A005B690E /* FlurryAnalytics */,
 				1615AB50151A9BD5006947DF /* CrittercismSDK */,
-				E1AE39CF148730620078DC40 /* Images */,
 				E1A0C538145324470072BE76 /* Supporting Files */,
 			);
 			path = "Grinnell-Menu-iOS";
@@ -595,11 +611,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E1AE39CF148730620078DC40 /* Images */ = {
+		E1AE39CF148730620078DC40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				16FF360815C7058700C9DC09 /* red_textured_background.png */,
-				163C861215C0AA9F00FC8578 /* root_background.png */,
+				163C861215C0AA9F00FC8578 /* datePicker_background.png */,
 				1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */,
 				1610B0CB15B5EFA2001A2D3A /* ingredients-list@2x.png */,
 				1610B0C615B5EF5A001A2D3A /* nutrition-details.png */,
@@ -622,7 +638,8 @@
 				1682E9961540CBDE0065F9FA /* glicious-banner6.png */,
 				1682E9971540CBDE0065F9FA /* glicious-banner7.png */,
 			);
-			name = Images;
+			name = Assets;
+			path = "Grinnell-Menu-iOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -702,7 +719,7 @@
 				16058376153F80EE006D83D8 /* Icon-Small@2x.png in Resources */,
 				E1A0C53C145324470072BE76 /* InfoPlist.strings in Resources */,
 				E1A0C548145324480072BE76 /* MainWindow.xib in Resources */,
-				E1A0C54E145324480072BE76 /* RootViewController.xib in Resources */,
+				E1A0C54E145324480072BE76 /* DatePickerViewController.xib in Resources */,
 				E1A0C57A145326010072BE76 /* VenueViewController.xib in Resources */,
 				E1A0C58A1453270D0072BE76 /* SettingsViewController.xib in Resources */,
 				E1A806E8147853A500ABBDDA /* black-button.png in Resources */,
@@ -796,7 +813,7 @@
 				1610B0C915B5EF5A001A2D3A /* nutrition-details@2x .png in Resources */,
 				1610B0CC15B5EFA2001A2D3A /* ingredients-list.png in Resources */,
 				1610B0CD15B5EFA2001A2D3A /* ingredients-list@2x.png in Resources */,
-				163C861315C0AA9F00FC8578 /* root_background.png in Resources */,
+				163C861315C0AA9F00FC8578 /* datePicker_background.png in Resources */,
 				16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -836,7 +853,7 @@
 				163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */,
 				E1A0C53F145324470072BE76 /* main.m in Sources */,
 				E1A0C542145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m in Sources */,
-				E1A0C54B145324480072BE76 /* RootViewController.m in Sources */,
+				E1A0C54B145324480072BE76 /* DatePickerViewController.m in Sources */,
 				E1A0C579145326010072BE76 /* VenueViewController.m in Sources */,
 				E1A0C5891453270D0072BE76 /* SettingsViewController.m in Sources */,
 				E1DBA300145C922C0099E8CE /* Dish.m in Sources */,
@@ -880,14 +897,15 @@
 				E1A0C547145324480072BE76 /* en */,
 			);
 			name = MainWindow.xib;
+			path = "Grinnell-Menu-iOS";
 			sourceTree = "<group>";
 		};
-		E1A0C54C145324480072BE76 /* RootViewController.xib */ = {
+		E1A0C54C145324480072BE76 /* DatePickerViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				E1A0C54D145324480072BE76 /* en */,
 			);
-			name = RootViewController.xib;
+			name = DatePickerViewController.xib;
 			sourceTree = "<group>";
 		};
 		E1A0C55E145324490072BE76 /* InfoPlist.strings */ = {

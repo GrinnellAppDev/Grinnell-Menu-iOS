@@ -6,11 +6,13 @@
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
+@class VenueViewController;
 
 @interface Grinnell_Menu_iOSAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, strong) VenueViewController *venueViewController;
 @property (nonatomic, strong) NSMutableArray *venues;
 
 

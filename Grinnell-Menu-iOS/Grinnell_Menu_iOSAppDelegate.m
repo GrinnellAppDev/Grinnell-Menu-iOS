@@ -71,6 +71,7 @@
     
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:datepickercontroller];
     [self.navigationController pushViewController:self.venueViewController animated:NO];
+  
     
     // Set the global tint on the navigation bar --hmm? Which to pick?
 	[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];

@@ -108,6 +108,9 @@
 		168D0812152A2C6A005B690E /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 168D0811152A2C6A005B690E /* libFlurryAnalytics.a */; };
 		16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A83B35154678540097FCF2 /* MessageUI.framework */; };
 		16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF360815C7058700C9DC09 /* red_textured_background.png */; };
+		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
+		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
+		16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362315C72BC500C9DC09 /* Calendar-Week.png */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
@@ -281,6 +284,9 @@
 		168D0811152A2C6A005B690E /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		16A83B35154678540097FCF2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		16FF360815C7058700C9DC09 /* red_textured_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_textured_background.png; sourceTree = "<group>"; };
+		16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day-of-Week.png"; sourceTree = "<group>"; };
+		16FF362215C72BC500C9DC09 /* Calendar-Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day.png"; sourceTree = "<group>"; };
+		16FF362315C72BC500C9DC09 /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Grinnell-Menu-iOS/Reachability.h"; sourceTree = "<group>"; };
 		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Grinnell-Menu-iOS/Reachability.m"; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -614,6 +620,9 @@
 		E1AE39CF148730620078DC40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */,
+				16FF362215C72BC500C9DC09 /* Calendar-Day.png */,
+				16FF362315C72BC500C9DC09 /* Calendar-Week.png */,
 				16FF360815C7058700C9DC09 /* red_textured_background.png */,
 				163C861215C0AA9F00FC8578 /* datePicker_background.png */,
 				1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */,
@@ -815,6 +824,9 @@
 				1610B0CD15B5EFA2001A2D3A /* ingredients-list@2x.png in Resources */,
 				163C861315C0AA9F00FC8578 /* datePicker_background.png in Resources */,
 				16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */,
+				16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */,
+				16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */,
+				16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,6 +937,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -932,6 +945,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -954,7 +968,7 @@
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46ADE5CD-99AF-4087-83CC-C3C8CAA91E8C";
+				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -991,6 +1005,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1000,6 +1015,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -1019,7 +1035,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "A096F1DA-D581-42CA-9E0D-9BCA6256F787";
+				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A096F1DA-D581-42CA-9E0D-9BCA6256F787";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1044,7 +1060,7 @@
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46ADE5CD-99AF-4087-83CC-C3C8CAA91E8C";
+				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1068,7 +1084,7 @@
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46ADE5CD-99AF-4087-83CC-C3C8CAA91E8C";
+				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;

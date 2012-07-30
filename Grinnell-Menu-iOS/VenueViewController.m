@@ -16,33 +16,39 @@
 
 #import "FlurryAnalytics.h"
 
-@implementation VenueViewController{
+@implementation VenueViewController
+{
     NSArray *menuVenueNamesFromJSON;
     NSMutableArray *originalVenues;
     NSString *alert;
+    Grinnell_Menu_iOSAppDelegate *mainDelegate;
     
-    BOOL firstTime;
 }
 @synthesize grinnellDiningLabel;
 @synthesize dateLabel;
 @synthesize menuchoiceLabel;
 @synthesize topImageView;
 
-@synthesize anotherTableView, date, mealChoice, mainURL, jsonDict;
+@synthesize anotherTableView, date, mealChoice, jsonDict;
 
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
 //We add this method here because when the VenueviewController is waking up. Turning on screen. We would also like to take advantage of that and do some initialization of our own. i.e loading the items
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    if ((self = [super initWithCoder:aDecoder])) {         
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+    {
+        mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     }
     return self;
 }
 
--(void)getDishes {
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+
+-(void)getDishes
+{
     [originalVenues removeAllObjects];
     [mainDelegate.venues removeAllObjects];
     
@@ -113,9 +119,11 @@
     [self applyFilters];
 }
 
-- (IBAction)showInfo:(id)sender{ 
+- (IBAction)showInfo:(id)sender
+{
     
-    // Records when user goes to info, pushes to Flurry
+    // Records when user goes to info Screen, records data in Flurry.
+    // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
     [FlurryAnalytics logEvent:@"Flipped to Settings"];
      
     SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
@@ -135,11 +143,10 @@
                                 otherButtonTitles:nil
                                 ];
     
-    //Completely remove text from JSON output when menu is not present. in other words.. Removes the button from the alert view if no meal is present for that day.    
+    //Removes the button from the alert view if no meal is present for that day.    
     if ([jsonDict objectForKey:@"BREAKFAST"]) {
         [mealmessage addButtonWithTitle:@"Breakfast"];
     }
-    
     if ([jsonDict objectForKey:@"LUNCH"]) {
         [mealmessage addButtonWithTitle:@"Lunch"];
     }
@@ -149,23 +156,26 @@
     if ([jsonDict objectForKey:@"OUTTAKES"]) {
         [mealmessage addButtonWithTitle:@"Outtakes"];
     }
-    
     [mealmessage show];
 }
 
-- (void)viewDidLoad{
-      [self fixStuff];
+- (void)viewDidLoad
+{
+    [self loadNextMenu]; //Called only when the view is loaded initially
     
-
-
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //We should probably also find a suitable image for Change Meal
     UIBarButtonItem *changeMeal = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
     [self.navigationItem setRightBarButtonItem:changeMeal];
     
     
-//    //We should make this a pic of a calendar
-//    UIBarButtonItem *changeDate = [[UIBarButtonItem alloc] initWithTitle:@"Change Date" style:UIBarButtonItemStyleBordered target:self action:@selector(changeDate)];
-//    [self.navigationItem setLeftBarButtonItem:changeDate];
+   // These icons are released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
+
+    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
+    [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc] initWithCustomView:someButton];
+    self.navigationItem.leftBarButtonItem = changeDate;
+
     
     [super viewDidLoad];
     
@@ -202,7 +212,6 @@
     [self.topImageView.layer shouldRasterize];
     
     
-//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.12 green:0.1 blue:0.1 alpha:1];
     
     
 }
@@ -252,8 +261,8 @@
 }
 
 
-- (void)applyFilters{
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+- (void)applyFilters
+{
     NSPredicate *veganPred, *ovoPred;
     BOOL ovoSwitch, veganSwitch;
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
@@ -331,18 +340,17 @@
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     // Return the number of sections.
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     return mainDelegate.venues.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     Venue *venue = [mainDelegate.venues objectAtIndex:section];
     return venue.name; 
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     if ([self tableView:tableView titleForHeaderInSection:section] != nil) {
         return 40;
     }
@@ -377,15 +385,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section{
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     Venue *venue = [mainDelegate.venues objectAtIndex:section];
     return venue.dishes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+    static NSString *CellIdentifier = @"CellIdentifier";
+    
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil)
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
     // Configure the cell...    
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     
@@ -409,21 +421,8 @@
     
     
     //Modify the colours. 
-    
-    /*
-    if (indexPath.section % 2)
-    {
-        [cell setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:1 alpha:1]];
-
-    }
-    else 
-        [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
-     */
-    
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
 
-    
-    
     return cell;
 }
 
@@ -463,16 +462,15 @@
 
 
 
-- (void)fixStuff
+- (void)loadNextMenu
 {
-    NSLog(@"Fixing stuff....");
+    NSLog(@"Loading next menu Harcoded to pick Friday May 11th for now.");
     //Testing Methods
     //Grab today's date
     NSDate *today = [NSDate date];
     NSLog(@"Today is %@", today);
     
     //Pick selected date
-    //    NSDate *selectedate = [NSDate dateWithTimeIntervalSince1970:150000000];
     NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 80 ];
     
     NSLog(@"Selected date is %@", selectedate);
@@ -494,14 +492,13 @@
                                                       error:&error];
 //    NSLog(@"jsondict is %@", self.jsonDict);
     self.mealChoice = @"Dinner";
-
-    firstTime = NO;
     
 }
 
 - (void)changeDate
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 @end

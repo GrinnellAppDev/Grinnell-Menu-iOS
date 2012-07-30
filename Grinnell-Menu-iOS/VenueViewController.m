@@ -170,10 +170,12 @@
     
    // These icons are released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
 
-    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
     [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
     [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc] initWithCustomView:someButton];
+    
+   
+    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc]  initWithCustomView:someButton];
     self.navigationItem.leftBarButtonItem = changeDate;
 
     
@@ -464,14 +466,14 @@
 
 - (void)loadNextMenu
 {
-    NSLog(@"Loading next menu Harcoded to pick Friday May 11th for now.");
+    NSLog(@"Loading next menu Harcoded to pick July 10th for now.");
     //Testing Methods
     //Grab today's date
     NSDate *today = [NSDate date];
     NSLog(@"Today is %@", today);
     
     //Pick selected date
-    NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 80 ];
+    NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 20 ];
     
     NSLog(@"Selected date is %@", selectedate);
     self.date = selectedate;
@@ -481,8 +483,9 @@
     NSInteger month = [components month];
     NSInteger year = [components year];
     
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
     
+
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     
     NSError *error = nil;

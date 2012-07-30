@@ -9,6 +9,7 @@
 #import "DatePickerViewController.h"
 #import "VenueViewController.h"
 #import "Reachability.h"
+#import "Grinnell_Menu_iOSAppDelegate.h"
 
 @implementation DatePickerViewController {
     NSString *alert;
@@ -266,19 +267,30 @@
     
 
     
-    VenueViewController *venueView = 
-    [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+//    VenueViewController *venueView = 
+//    [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+//    
+//    
     
-    venueView.jsonDict = [[NSDictionary alloc] initWithDictionary:self.jsonDict];
+//    venueView.jsonDict = [[NSDictionary alloc] initWithDictionary:self.jsonDict];
+    
+    //We want access to the venueViewController that was created on launch. (Instead of instantiating a new  one)
+    
+    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    mainDelegate.venueViewController.jsonDict = self.jsonDict;
+
     
     if (buttonIndex == alertView.cancelButtonIndex)    {
         return;
     }
     
     NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
-    venueView.mealChoice = titlePressed;
-    venueView.date = datePicker.date;
-    [self.navigationController pushViewController:venueView animated:YES];
+    mainDelegate.venueViewController.mealChoice = titlePressed;
+    mainDelegate.venueViewController.date = datePicker.date;
+    
+    NSLog(@"Load new tableview");
+    [mainDelegate.venueViewController.anotherTableView reloadData];
+    [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
 }
 
 

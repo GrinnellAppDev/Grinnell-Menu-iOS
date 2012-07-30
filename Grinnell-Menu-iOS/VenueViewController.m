@@ -154,10 +154,8 @@
 }
 
 - (void)viewDidLoad{
-    firstTime = YES;
-    if (firstTime) {
       [self fixStuff];
-    }
+    
 
 
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -173,18 +171,18 @@
     
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
-    [self getDishes];
-    self.title = @"Venues";
-    menuchoiceLabel.text = self.mealChoice;
+   
     
-   // NSLog(@"Date: %@", date);
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-   // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    NSString *formattedDate = [dateFormatter stringFromDate:date];
-   // NSLog(@"Date: %@", formattedDate);
     
-    dateLabel.text = formattedDate;
+    
+    
+    ///Used to be here. 
+    
+    
+    
+    
+    
+    
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
     /*
     grinnellDiningLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
@@ -230,9 +228,27 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self getDishes];
+    self.title = @"Venues";
+    menuchoiceLabel.text = self.mealChoice;
+    
+    // NSLog(@"Date: %@", date);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter  setDateFormat:@"EEE MMM dd"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    // NSLog(@"Date: %@", formattedDate);
+    
+    dateLabel.text = formattedDate;
+
+    
     [self applyFilters];
     [anotherTableView reloadData];
     [super viewWillAppear:YES];
+    
+    NSLog(@"View will appear");
+    
+    
 }
 
 
@@ -449,6 +465,7 @@
 
 - (void)fixStuff
 {
+    NSLog(@"Fixing stuff....");
     //Testing Methods
     //Grab today's date
     NSDate *today = [NSDate date];
@@ -471,6 +488,7 @@
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     
     NSError *error = nil;
+    
     self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                     options:kNilOptions
                                                       error:&error];

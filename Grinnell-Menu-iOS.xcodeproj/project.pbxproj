@@ -111,6 +111,10 @@
 		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
 		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
 		16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362315C72BC500C9DC09 /* Calendar-Week.png */; };
+		16FF366515C769CB00C9DC09 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366415C769CB00C9DC09 /* splash.png */; };
+		16FF366715C76A2100C9DC09 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366615C76A2000C9DC09 /* Default.png */; };
+		16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
+		16FF367215C7789C00C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
@@ -287,6 +291,10 @@
 		16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day-of-Week.png"; sourceTree = "<group>"; };
 		16FF362215C72BC500C9DC09 /* Calendar-Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day.png"; sourceTree = "<group>"; };
 		16FF362315C72BC500C9DC09 /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
+		16FF366415C769CB00C9DC09 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		16FF366615C76A2000C9DC09 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		16FF366815C7748500C9DC09 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		16FF366915C7748500C9DC09 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Grinnell-Menu-iOS/Reachability.h"; sourceTree = "<group>"; };
 		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Grinnell-Menu-iOS/Reachability.m"; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -505,6 +513,8 @@
 		16FF361415C7087600C9DC09 /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				16FF366815C7748500C9DC09 /* MBProgressHUD.h */,
+				16FF366915C7748500C9DC09 /* MBProgressHUD.m */,
 				314CC43214EA0A410004F963 /* Reachability.h */,
 				314CC43314EA0A410004F963 /* Reachability.m */,
 				163C85A515BDCBA300FC8578 /* TDBadgedCell.h */,
@@ -530,6 +540,7 @@
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
+				16FF366615C76A2000C9DC09 /* Default.png */,
 				E1AE39CF148730620078DC40 /* Assets */,
 				16FF361615C708BB00C9DC09 /* AppDelegate */,
 				16FF361415C7087600C9DC09 /* Helper Classes */,
@@ -620,6 +631,7 @@
 		E1AE39CF148730620078DC40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				16FF366415C769CB00C9DC09 /* splash.png */,
 				16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */,
 				16FF362215C72BC500C9DC09 /* Calendar-Day.png */,
 				16FF362315C72BC500C9DC09 /* Calendar-Week.png */,
@@ -827,6 +839,8 @@
 				16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */,
 				16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */,
 				16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */,
+				16FF366515C769CB00C9DC09 /* splash.png in Resources */,
+				16FF366715C76A2100C9DC09 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,6 +886,7 @@
 				87B46EA0146A3ED7001007BA /* Venue.m in Sources */,
 				E1A806F61478569700ABBDDA /* DishViewController.m in Sources */,
 				314CC43414EA0A410004F963 /* Reachability.m in Sources */,
+				16FF367215C7789C00C9DC09 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +896,7 @@
 			files = (
 				E1A0C565145324490072BE76 /* Grinnell_Menu_iOSTests.m in Sources */,
 				163C85A715BDCBA400FC8578 /* TDBadgedCell.m in Sources */,
+				16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

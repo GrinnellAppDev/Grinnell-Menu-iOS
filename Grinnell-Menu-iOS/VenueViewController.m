@@ -13,6 +13,7 @@
 #import "SettingsViewController.h"
 #import "DishViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Reachability.h"
 
 #import "FlurryAnalytics.h"
 
@@ -31,6 +32,8 @@
 
 @synthesize anotherTableView, date, mealChoice, jsonDict;
 
+dispatch_queue_t myQueue;
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -44,6 +47,15 @@
         mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     }
     return self;
+}
+
+//Method to determine the availability of network Connections using the Reachability Class
+- (BOOL)networkCheck
+{
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    
+    return (!(networkStatus == NotReachable));
 }
 
 
@@ -161,37 +173,40 @@
 
 - (void)viewDidLoad
 {
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Grabbing Menu";
+	
+	[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
+    
     [self loadNextMenu]; //Called only when the view is loaded initially
     
     //We should probably also find a suitable image for Change Meal
-    UIBarButtonItem *changeMeal = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
-    [self.navigationItem setRightBarButtonItem:changeMeal];
+    UIBarButtonItem *changeMealButton = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
+    [self.navigationItem setRightBarButtonItem:changeMealButton];
     
     
    // These icons are released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
-
-    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
-    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
-    [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
+//    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
+//    [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc]  initWithCustomView:someButton];
     
-   
-    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc]  initWithCustomView:someButton];
-    self.navigationItem.leftBarButtonItem = changeDate;
+    UIBarButtonItem *changeDateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Calendar-Week"] style:UIBarButtonItemStyleBordered target:self action:@selector(changeDate)];
+    
+    self.navigationItem.leftBarButtonItem = changeDateButton;
 
     
     [super viewDidLoad];
     
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
-   
-    
-    
     
     
     ///Used to be here. 
-    
-    
-    
     
     
     
@@ -201,9 +216,15 @@
     dateLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
     menuchoiceLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
      */
+
     
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
+    
+    dateLabel.alpha = 0;
+    menuchoiceLabel.alpha = 0;
+    grinnellDiningLabel.alpha = 0;
+    
     
     //Customize topImageview - Set the drop shadow
     self.topImageView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -214,7 +235,13 @@
     [self.topImageView.layer shouldRasterize];
     
     
+    [UIView animateWithDuration:0.5 animations:^{
+        dateLabel.alpha = 1;
+        menuchoiceLabel.alpha = 1;
+        grinnellDiningLabel.alpha = 1;
+    }];
     
+
     
 }
 
@@ -238,9 +265,10 @@
     [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [self getDishes];
-    self.title = @"Venues";
+    self.title = @"Stations";
     menuchoiceLabel.text = self.mealChoice;
     
     // NSLog(@"Date: %@", date);
@@ -258,6 +286,8 @@
     [super viewWillAppear:YES];
     
     NSLog(@"View will appear");
+    
+
     
     
 }
@@ -445,7 +475,8 @@
 
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if (buttonIndex == alertView.cancelButtonIndex) {
         return;
     }
@@ -466,7 +497,7 @@
 
 - (void)loadNextMenu
 {
-    NSLog(@"Loading next menu Harcoded to pick July 10th for now.");
+    NSLog(@"Loading next menu Harcoded to pick July 10th Dinner for now.");
     //Testing Methods
     //Grab today's date
     NSDate *today = [NSDate date];
@@ -486,15 +517,104 @@
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
     
 
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    
-    NSError *error = nil;
-    
-    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                    options:kNilOptions
-                                                      error:&error];
-//    NSLog(@"jsondict is %@", self.jsonDict);
     self.mealChoice = @"Dinner";
+    
+    //You should test for a network connection before here.
+    if ([self networkCheck])
+    {
+        myQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
+        
+        
+        //OK great. There's a network connection. Before Pulling in any real data. Let's check if there is any data available.
+        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
+
+        NSError *error;
+        NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
+        
+        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
+        
+        @try {
+            availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
+                                                                options:kNilOptions
+                                                                  error:&error];
+        }
+        @catch (NSException *e) {
+            alert = @"server";
+            UIAlertView *network = [[UIAlertView alloc]
+                                    initWithTitle:@"Network Error"
+                                    message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
+                                    delegate:self
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil
+                                    ];
+            [network show];
+            return;
+        }
+        
+        //If the available days returned is -1, there are no menus found..
+        NSString *dayStr = [availableDaysJson objectForKey:@"days"];
+        int day = dayStr.intValue;
+        // NSLog(@"Available days: %@", dayStr);
+        // NSLog(@"Available json: %@", availableDaysJson);
+        
+        if (day <= 0) {
+            alert = @"network";
+            UIAlertView *network = [[UIAlertView alloc]
+                                    initWithTitle:@"No Menus are available"
+                                    message:@"Please check back later"
+                                    delegate:self
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil
+                                    ];
+//            [network show];
+            //Make sure to uncomment this return line  here.
+            //return;
+        }
+            
+            
+        //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it! 
+        
+        dispatch_async(myQueue, ^{
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+            
+            NSError *error = nil;
+            
+            if (data) {
+                self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:kNilOptions
+                                                                  error:&error];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *dataNilAlert = [[UIAlertView alloc]
+                                                 initWithTitle:@"An error occurred pulling in the data"
+                                                 message:nil
+                                                 delegate:self
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+                    [dataNilAlert show];
+                });
+            }
+            
+            if (jsonDict)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self getDishes];
+                    [anotherTableView reloadData];
+                });
+            }
+        });
+    }
+    else
+    {
+        UIAlertView *network = [[UIAlertView alloc]
+                                initWithTitle:@"No Network Connection"
+                                message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
+                                cancelButtonTitle:@"OK"
+                                otherButtonTitles:nil
+                                ];
+        [network show];
+        return;
+    }
     
 }
 
@@ -503,5 +623,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
+}
 
 @end

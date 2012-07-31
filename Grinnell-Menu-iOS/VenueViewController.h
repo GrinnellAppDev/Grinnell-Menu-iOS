@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
-@interface VenueViewController : UIViewController
+@interface VenueViewController : UIViewController <MBProgressHUDDelegate>
+{
+    MBProgressHUD *HUD;
+
+}
 
 - (IBAction)showInfo:(id)sender;
+- (void)loadNextMenu;
+
 - (void)getDishes;
 - (void)applyFilters;
 
@@ -24,5 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *menuchoiceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *topImageView;
+
+
 
 @end

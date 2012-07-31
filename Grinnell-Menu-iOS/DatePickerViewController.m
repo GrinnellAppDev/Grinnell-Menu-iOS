@@ -288,7 +288,6 @@
     mainDelegate.venueViewController.mealChoice = titlePressed;
     mainDelegate.venueViewController.date = datePicker.date;
     
-    NSLog(@"Load new tableview");
     [mainDelegate.venueViewController.anotherTableView reloadData];
     [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
 }

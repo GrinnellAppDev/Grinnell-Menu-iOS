@@ -14,7 +14,6 @@
 #import "DishViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Reachability.h"
-
 #import "FlurryAnalytics.h"
 
 @implementation VenueViewController
@@ -32,14 +31,15 @@
 
 @synthesize anotherTableView, date, mealChoice, jsonDict;
 
-dispatch_queue_t myQueue;
+//We create a second Queue which we is in the multithreaded code when grabbing the dishes.
+dispatch_queue_t requestQueue;
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
-//We add this method here because when the VenueviewController is waking up. Turning on screen. We would also like to take advantage of that and do some initialization of our own. i.e loading the items
+//Do some initialization of our own
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
@@ -58,7 +58,7 @@ dispatch_queue_t myQueue;
     return (!(networkStatus == NotReachable));
 }
 
-
+//Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes
 {
     [originalVenues removeAllObjects];
@@ -131,6 +131,7 @@ dispatch_queue_t myQueue;
     [self applyFilters];
 }
 
+//Flip over to the SettingsViewController
 - (IBAction)showInfo:(id)sender
 {
     
@@ -188,7 +189,7 @@ dispatch_queue_t myQueue;
     [self.navigationItem setRightBarButtonItem:changeMealButton];
     
     
-   // These icons are released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
+   // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
 //
 //    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
 //    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
@@ -205,22 +206,16 @@ dispatch_queue_t myQueue;
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
     
-    
-    ///Used to be here. 
-    
+        
     
     
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
-    /*
-    grinnellDiningLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
-    dateLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
-    menuchoiceLabel.textColor = [UIColor colorWithRed:.8 green:.8 blue:1 alpha:1];
-     */
 
     
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     
+    //Beginning of the animation
     dateLabel.alpha = 0;
     menuchoiceLabel.alpha = 0;
     grinnellDiningLabel.alpha = 0;
@@ -231,18 +226,14 @@ dispatch_queue_t myQueue;
     self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.7);
     self.topImageView.layer.shadowOpacity = 0.7;
     self.topImageView.layer.shadowRadius = 1.5;
+
     
-    [self.topImageView.layer shouldRasterize];
-    
-    
-    [UIView animateWithDuration:0.5 animations:^{
+    //Begin Animations when the view is loaded
+    [UIView animateWithDuration:1 animations:^{
         dateLabel.alpha = 1;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
     }];
-    
-
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -284,15 +275,10 @@ dispatch_queue_t myQueue;
     [self applyFilters];
     [anotherTableView reloadData];
     [super viewWillAppear:YES];
-    
-    NSLog(@"View will appear");
-    
-
-    
-    
 }
 
 
+//Applying the various filters to the dishes in the tableView
 - (void)applyFilters
 {
     NSPredicate *veganPred, *ovoPred;
@@ -392,7 +378,8 @@ dispatch_queue_t myQueue;
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
 
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
    // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
@@ -464,9 +451,7 @@ dispatch_queue_t myQueue;
     DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
     dishView.dishRow = indexPath.row;
     dishView.dishSection = indexPath.section;
-    
 
-    
 	[self.navigationController pushViewController:dishView animated:YES];
 }
 
@@ -497,13 +482,13 @@ dispatch_queue_t myQueue;
 
 - (void)loadNextMenu
 {
-    NSLog(@"Loading next menu Harcoded to pick July 10th Dinner for now.");
+    NSLog(@"Loading next menu - Harcoded to pick July 10th Dinner for now. - Menu on server not current at time of writing");
     //Testing Methods
     //Grab today's date
     NSDate *today = [NSDate date];
     NSLog(@"Today is %@", today);
     
-    //Pick selected date
+    //Pick selected date - July 10th
     NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 20 ];
     
     NSLog(@"Selected date is %@", selectedate);
@@ -516,16 +501,23 @@ dispatch_queue_t myQueue;
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
     
-
+    //Determine Time of Day in order to set the mealChoice correctly - Hardcoding Dinner for now.
+    /*  TODO::
+     *
+     *
+     *
+     */
     self.mealChoice = @"Dinner";
     
     //You should test for a network connection before here.
     if ([self networkCheck])
     {
-        myQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
+        //Instantiate the queue we will run the downloading data process in
+        requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
         
         
-        //OK great. There's a network connection. Before Pulling in any real data. Let's check if there is any data available.
+        //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
+        //Using the available days json to do this. Is there a better way? Even though this works. 
         NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
 
         NSError *error;
@@ -554,8 +546,6 @@ dispatch_queue_t myQueue;
         //If the available days returned is -1, there are no menus found..
         NSString *dayStr = [availableDaysJson objectForKey:@"days"];
         int day = dayStr.intValue;
-        // NSLog(@"Available days: %@", dayStr);
-        // NSLog(@"Available json: %@", availableDaysJson);
         
         if (day <= 0) {
             alert = @"network";
@@ -566,15 +556,15 @@ dispatch_queue_t myQueue;
                                     cancelButtonTitle:@"OK"
                                     otherButtonTitles:nil
                                     ];
-//            [network show];
-            //Make sure to uncomment this return line  here.
+            //[network show];
+            //Make sure to uncomment this return line  here for production
             //return;
         }
             
             
         //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it! 
-        
-        dispatch_async(myQueue, ^{
+        //Perform downloading asynchronously on a different thread(queue) - error check throughout process
+        dispatch_async(requestQueue, ^{
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
             
             NSError *error = nil;
@@ -584,6 +574,7 @@ dispatch_queue_t myQueue;
                                                                 options:kNilOptions
                                                                   error:&error];
             } else {
+                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
                 dispatch_async(dispatch_get_main_queue(), ^{
                     UIAlertView *dataNilAlert = [[UIAlertView alloc]
                                                  initWithTitle:@"An error occurred pulling in the data"
@@ -597,15 +588,17 @@ dispatch_queue_t myQueue;
             
             if (jsonDict)
             {
+                [self getDishes];
+                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self getDishes];
                     [anotherTableView reloadData];
                 });
             }
-        });
+        }); //Done with multithreaded code
     }
     else
     {
+        //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app) 
         UIAlertView *network = [[UIAlertView alloc]
                                 initWithTitle:@"No Network Connection"
                                 message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
@@ -615,8 +608,8 @@ dispatch_queue_t myQueue;
         [network show];
         return;
     }
-    
 }
+
 
 - (void)changeDate
 {
@@ -624,9 +617,10 @@ dispatch_queue_t myQueue;
 }
 
 #pragma mark MBProgressHUDDelegate methods
-
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidded
+//Remove HUD after view is loaded
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
+	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
 }

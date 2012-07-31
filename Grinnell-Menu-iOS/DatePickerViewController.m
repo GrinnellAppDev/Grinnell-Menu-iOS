@@ -17,21 +17,33 @@
     BOOL notFirstTime;
 }
 @synthesize grinnellDiningLabel;
-
 @synthesize go, datePicker, jsonDict;
 
 //Fetches the data from server. jsonDict is passed on to VenueViewController. 
--(void)fetchprelimdataWithURL:(NSURL *)URL {
+- (BOOL)fetchprelimdataWithURL:(NSURL *)URL {
     NSData *data = [NSData dataWithContentsOfURL:URL];
     
     NSError * error;
     
-    //NSJSON takes data and then gives you back a foundation object. dict or array. 
-    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                               options:kNilOptions 
-                                                 error:&error];
-    if (error) {
-        NSLog(@"Could not fetch data");
+    if (data)
+    {
+        //NSJSON takes data and then gives you back a foundation object. dict or array.
+        self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                        options:kNilOptions
+                                                          error:&error];
+        return YES;
+    }
+
+    else
+    {
+        UIAlertView *dataNilAlert = [[UIAlertView alloc]
+                                     initWithTitle:@"An error occurred pulling in the data from the server"
+                                     message:nil
+                                     delegate:self
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil];
+        [dataNilAlert show];
+        return NO;;
     }
 }
 
@@ -44,15 +56,9 @@
 }
 
 
-- (IBAction)showVenues:(id)sender {
-    
-   //Simple Crash test for Crittercism 
-    /*   [NSException raise:NSInvalidArgumentException
-                format:@"Foo must not be nil"];
-    */
-
-    
-    
+- (IBAction)showVenues:(id)sender
+{
+        
         NSDate *date = [self.datePicker date];
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
         NSInteger day = [components day];    
@@ -60,9 +66,7 @@
         NSInteger year = [components year];
     
     
-    //File Directories used.
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
+        //File Directories used.
         NSString *tempPath = NSTemporaryDirectory();
     
         NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", month, day, year];
@@ -87,7 +91,9 @@
 
                 URLwithDate = [NSURL URLWithString:url];
 
-                [self fetchprelimdataWithURL:URLwithDate];
+                if (![self fetchprelimdataWithURL:URLwithDate])
+                    return;
+                
 
               //  NSLog(@"Saving new json from server");
                 [jsonDict writeToFile:path atomically:YES];
@@ -148,7 +154,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Choose a date";
+    self.title = @"Pick a date";
     self.grinnellDiningLabel.text = @"GrinnellDining";
     self.grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:38];
 }
@@ -250,13 +256,15 @@
 }
 
 
-- (void)viewDidUnload{
+- (void)viewDidUnload
+{
     [self setGrinnellDiningLabel:nil];
     [super viewDidUnload];
     self.datePicker = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -266,23 +274,15 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
 
-    
-//    VenueViewController *venueView = 
-//    [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
-//    
-//    
-    
-//    venueView.jsonDict = [[NSDictionary alloc] initWithDictionary:self.jsonDict];
-    
     //We want access to the venueViewController that was created on launch. (Instead of instantiating a new  one)
     
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.venueViewController.jsonDict = self.jsonDict;
 
     
-    if (buttonIndex == alertView.cancelButtonIndex)    {
+    if (buttonIndex == alertView.cancelButtonIndex)    
         return;
-    }
+    
     
     NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
     mainDelegate.venueViewController.mealChoice = titlePressed;

@@ -115,6 +115,7 @@
 		16FF366715C76A2100C9DC09 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366615C76A2000C9DC09 /* Default.png */; };
 		16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		16FF367215C7789C00C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; };
+		16FF367815C7953900C9DC09 /* DatePickerViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C549145324480072BE76 /* DatePickerViewController.h */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
@@ -312,7 +313,7 @@
 		E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Grinnell_Menu_iOSAppDelegate.h; path = "Grinnell-Menu-iOS/Grinnell_Menu_iOSAppDelegate.h"; sourceTree = "<group>"; };
 		E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Grinnell_Menu_iOSAppDelegate.m; path = "Grinnell-Menu-iOS/Grinnell_Menu_iOSAppDelegate.m"; sourceTree = "<group>"; };
 		E1A0C547145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		E1A0C549145324480072BE76 /* DatePickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
+		E1A0C549145324480072BE76 /* DatePickerViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = DatePickerViewController.h; sourceTree = "<group>"; };
 		E1A0C54A145324480072BE76 /* DatePickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 		E1A0C54D145324480072BE76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DatePickerViewController.xib; sourceTree = "<group>"; };
 		E1A0C554145324480072BE76 /* Grinnell-Menu-iOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grinnell-Menu-iOSTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -887,6 +888,7 @@
 				E1A806F61478569700ABBDDA /* DishViewController.m in Sources */,
 				314CC43414EA0A410004F963 /* Reachability.m in Sources */,
 				16FF367215C7789C00C9DC09 /* MBProgressHUD.m in Sources */,
+				16FF367815C7953900C9DC09 /* DatePickerViewController.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

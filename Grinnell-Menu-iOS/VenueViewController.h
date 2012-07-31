@@ -17,6 +17,7 @@
 
 - (IBAction)showInfo:(id)sender;
 - (void)loadNextMenu;
+- (void)refreshScreen;
 
 - (void)getDishes;
 - (void)applyFilters;

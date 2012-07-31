@@ -288,7 +288,8 @@
     mainDelegate.venueViewController.mealChoice = titlePressed;
     mainDelegate.venueViewController.date = datePicker.date;
     
-    [mainDelegate.venueViewController.anotherTableView reloadData];
+    //The refresh screen methods refreshes the tableview as well as makes sure it starts from the top (instead of somewhere in the middle)
+    [mainDelegate.venueViewController refreshScreen];
     [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
 }
 

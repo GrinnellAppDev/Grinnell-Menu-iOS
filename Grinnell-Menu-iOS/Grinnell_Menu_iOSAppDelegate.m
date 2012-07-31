@@ -92,6 +92,11 @@
 	 Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 	 Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 	 */
+    
+    //Make sure we start on the venueViewController when the app is going to be reloaded.
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self.navigationController pushViewController:self.venueViewController animated:NO];
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -100,11 +105,7 @@
 	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	 */
-    NSLog(@"Glicious in the background");
-//    self.venueViewController.view = nil;
-//    self.datePickerViewController.view = nil;
-//    self.venueViewController = nil;
-        
+
     
 }
 
@@ -113,20 +114,6 @@
 	/*
 	 Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	 */
-    NSLog(@"Glicious now in the foreground");
-//    self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
-//    
-//    self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
-//    
-//    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
-//    self.venueViewController.navigationItem.hidesBackButton = YES;
-//    [self.navigationController pushViewController:self.venueViewController animated:NO];
-//    NSLog(@"S.veneuv: %@", self.venueViewController);
-//    [self.venueViewController reloadInputViews];
-//    NSLog(@"datepicker: %@", self.datePickerViewController);
-//
-    
-    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -134,6 +121,10 @@
 	/*
 	 Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	 */
+    NSLog(@"Application did become active");
+
+    
+    [self.venueViewController loadNextMenu];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

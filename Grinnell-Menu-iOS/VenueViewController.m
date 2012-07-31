@@ -175,6 +175,7 @@ dispatch_queue_t requestQueue;
 
 - (void)viewDidLoad
 {
+    NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -183,7 +184,7 @@ dispatch_queue_t requestQueue;
 	
 	[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
     
-    [self loadNextMenu]; //Called only when the view is loaded initially
+//    [self loadNextMenu]; //Called only when the view is loaded initially
     
     
     //We should probably also find a suitable image for Change Meal
@@ -482,16 +483,22 @@ dispatch_queue_t requestQueue;
 
 - (void)loadNextMenu
 {
+
+    
+    
+    
+    
+    
     NSLog(@"Loading next menu - Harcoded to pick July 10th Dinner for now. - Menu on server not current at time of writing");
     //Testing Methods
     //Grab today's date
     NSDate *today = [NSDate date];
-    NSLog(@"Today is %@", today);
+//    NSLog(@"Today is %@", today);
     
     //Pick selected date - July 10th
     NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 20 ];
     
-    NSLog(@"Selected date is %@", selectedate);
+//    NSLog(@"Selected date is %@", selectedate);
     self.date = selectedate;
     
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:selectedate];
@@ -508,6 +515,50 @@ dispatch_queue_t requestQueue;
      *
      */
     self.mealChoice = @"Dinner";
+    
+    
+    
+    
+    //BROUGHT IN FROM VIEWDIDLOAD
+    
+    //Beginning of the animation
+    dateLabel.alpha = 0;
+    menuchoiceLabel.alpha = 0;
+    grinnellDiningLabel.alpha = 0;
+    
+    
+    
+    //Begin Animations when the view is loaded
+    [UIView animateWithDuration:1 animations:^{
+        dateLabel.alpha = 1;
+        menuchoiceLabel.alpha = 1;
+        grinnellDiningLabel.alpha = 1;
+    }];
+    
+    [self getDishes];
+    self.title = @"Stations";
+    menuchoiceLabel.text = self.mealChoice;
+    
+    // NSLog(@"Date: %@", date);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter  setDateFormat:@"EEE MMM dd"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    // NSLog(@"Date: %@", formattedDate);
+    
+    dateLabel.text = formattedDate;
+    
+    
+    [self applyFilters];
+    [anotherTableView reloadData];
+    
+    
+    //END OF BROUGHT IN
+    
+    
+    
+    
+    
     
     //You should test for a network connection before here.
     if ([self networkCheck])
@@ -591,7 +642,8 @@ dispatch_queue_t requestQueue;
                 [self getDishes];
                 //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [anotherTableView reloadData];
+//                    [anotherTableView reloadData];
+                    [self refreshScreen];
                     [self showMealHUD];
                 });
             }
@@ -647,15 +699,14 @@ dispatch_queue_t requestQueue;
 	[HUD hide:YES afterDelay:1];
 }
 
-- (void)dealloc
-{
-    NSLog(@"VenueView dealloced");
-}
 
--(void)forceUnload {
-    NSLog(@"forceUnload.enter");
-    [super didReceiveMemoryWarning];
-    NSLog(@"forceUnload.leave");
+- (void) refreshScreen
+{
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [anotherTableView reloadData];
+    menuchoiceLabel.text = self.mealChoice;
+    [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
 }
 
 @end

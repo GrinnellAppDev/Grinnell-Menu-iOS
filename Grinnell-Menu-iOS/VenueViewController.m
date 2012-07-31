@@ -206,11 +206,7 @@ dispatch_queue_t requestQueue;
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
     
-        
-    
-    
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
-
     
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];

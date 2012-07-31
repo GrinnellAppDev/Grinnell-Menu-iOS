@@ -54,7 +54,7 @@ If you would like to contribute, shoot us a pull request.
 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
 To-Do List
-	Customize Dish Detail View
+	Determine Correct Meal choice in VenueViewController - Depends on Time of Day
 
 Possible Features for Later Release
 	Create nutrition adder

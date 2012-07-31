@@ -10,7 +10,7 @@ Authors:	David Cowden
 		Maijid Moujaled
 		Dugan Knoll
 
-Date:     	Tuesday 1st August 2012
+Date:     	Wednesday 1st August 2012
 
 +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
 License:
@@ -55,7 +55,11 @@ If you would like to contribute, shoot us a pull request.
 
 To-Do List
 	Determine Correct Meal choice in VenueViewController - Depends on Time of Day.
-	Show a HUD on first screen load saying which Menu just loaded up - Eliminate Confusion
+	
+	Show a HUD on first screen load saying which Menu just loaded up - Eliminate Confusion - DONE
+		Update this HUD to be smart and show correct menu shown (Currently showing static "Dinner" string) 
+	
+		
 
 Possible Features for Later Release
 	Create nutrition adder

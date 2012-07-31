@@ -100,9 +100,11 @@
 	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	 */
-    
-
-
+    NSLog(@"Glicious in the background");
+//    self.venueViewController.view = nil;
+//    self.datePickerViewController.view = nil;
+//    self.venueViewController = nil;
+        
     
 }
 
@@ -111,6 +113,20 @@
 	/*
 	 Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	 */
+    NSLog(@"Glicious now in the foreground");
+//    self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+//    
+//    self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
+//    
+//    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
+//    self.venueViewController.navigationItem.hidesBackButton = YES;
+//    [self.navigationController pushViewController:self.venueViewController animated:NO];
+//    NSLog(@"S.veneuv: %@", self.venueViewController);
+//    [self.venueViewController reloadInputViews];
+//    NSLog(@"datepicker: %@", self.datePickerViewController);
+//
+    
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

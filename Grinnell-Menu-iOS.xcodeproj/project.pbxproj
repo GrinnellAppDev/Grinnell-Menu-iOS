@@ -116,6 +116,8 @@
 		16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		16FF367215C7789C00C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; };
 		16FF367815C7953900C9DC09 /* DatePickerViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C549145324480072BE76 /* DatePickerViewController.h */; };
+		16FF368315C83F6900C9DC09 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */; };
+		16FF368415C83F6900C9DC09 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
@@ -296,6 +298,8 @@
 		16FF366615C76A2000C9DC09 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		16FF366815C7748500C9DC09 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		16FF366915C7748500C9DC09 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
+		16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Grinnell-Menu-iOS/Reachability.h"; sourceTree = "<group>"; };
 		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Grinnell-Menu-iOS/Reachability.m"; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -632,6 +636,8 @@
 		E1AE39CF148730620078DC40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */,
+				16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */,
 				16FF366415C769CB00C9DC09 /* splash.png */,
 				16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */,
 				16FF362215C72BC500C9DC09 /* Calendar-Day.png */,
@@ -842,6 +848,8 @@
 				16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */,
 				16FF366515C769CB00C9DC09 /* splash.png in Resources */,
 				16FF366715C76A2100C9DC09 /* Default.png in Resources */,
+				16FF368315C83F6900C9DC09 /* 37x-Checkmark.png in Resources */,
+				16FF368415C83F6900C9DC09 /* 37x-Checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

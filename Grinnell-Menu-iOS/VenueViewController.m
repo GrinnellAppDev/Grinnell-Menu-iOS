@@ -170,6 +170,7 @@ dispatch_queue_t requestQueue;
         [mealmessage addButtonWithTitle:@"Outtakes"];
     }
     [mealmessage show];
+    
 }
 
 - (void)viewDidLoad
@@ -183,6 +184,7 @@ dispatch_queue_t requestQueue;
 	[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
     
     [self loadNextMenu]; //Called only when the view is loaded initially
+    
     
     //We should probably also find a suitable image for Change Meal
     UIBarButtonItem *changeMealButton = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
@@ -245,15 +247,16 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewDidUnload {
+    [super viewDidUnload];
     [self setGrinnellDiningLabel:nil];
     [self setDateLabel:nil];
     [self setMenuchoiceLabel:nil];
     [self setTopImageView:nil];
-    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"VenueView Will Appear");
     [self getDishes];
     self.title = @"Stations";
     menuchoiceLabel.text = self.mealChoice;
@@ -466,11 +469,12 @@ dispatch_queue_t requestQueue;
         self.mealChoice = titlePressed;
 
         [self getDishes];
+        [self showMealHUD];
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [anotherTableView reloadData];
         menuchoiceLabel.text = self.mealChoice;
         [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-
+        
     }
 }
 
@@ -588,6 +592,7 @@ dispatch_queue_t requestQueue;
                 //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [anotherTableView reloadData];
+                    [self showMealHUD];
                 });
             }
         }); //Done with multithreaded code
@@ -619,6 +624,38 @@ dispatch_queue_t requestQueue;
 	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
+}
+
+- (void)showMealHUD
+{
+    
+    
+	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	// The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
+	// Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+	HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+	
+	// Set custom view mode
+	HUD.mode = MBProgressHUDModeCustomView;
+	
+	HUD.delegate = self;
+	HUD.labelText = @"Today's Dinner";
+	
+	[HUD show:YES];
+	[HUD hide:YES afterDelay:1];
+}
+
+- (void)dealloc
+{
+    NSLog(@"VenueView dealloced");
+}
+
+-(void)forceUnload {
+    NSLog(@"forceUnload.enter");
+    [super didReceiveMemoryWarning];
+    NSLog(@"forceUnload.leave");
 }
 
 @end

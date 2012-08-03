@@ -496,8 +496,8 @@ dispatch_queue_t requestQueue;
 //    NSLog(@"Today is %@", today);
     
     //Pick selected date - July 10th
-    NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 20 ];
-    
+   // NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 20 ];
+    NSDate *selectedate = today;
 //    NSLog(@"Selected date is %@", selectedate);
     self.date = selectedate;
     
@@ -693,7 +693,61 @@ dispatch_queue_t requestQueue;
 	HUD.mode = MBProgressHUDModeCustomView;
 	
 	HUD.delegate = self;
-	HUD.labelText = @"Today's Dinner";
+    
+    // TO DO ---- Add functionatlity here
+    // Currently "Today" is hard coded
+    NSDateComponents *selected = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
+    NSInteger selectDay = [selected day];
+    NSInteger selectMonth = [selected month];
+
+    NSString *dayStr;
+    
+    NSDate *today = [[NSDate alloc] init];
+    NSDateComponents *todayComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:today];
+    NSInteger todayDay = [todayComps day];
+    NSInteger todayMonth = [todayComps month];
+    NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
+    NSDateComponents *tomorrowComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:tomorrow];
+    NSInteger tomorrowDay = [tomorrowComps day];
+    NSInteger tomorrowMonth = [tomorrowComps month];
+    
+    if (selectDay == todayDay && selectMonth == todayMonth)
+        dayStr = @"Today";
+    else if(selectDay == tomorrowDay && selectMonth == tomorrowMonth)
+        dayStr = @"Tomorrow";
+    else{
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:self.date];
+        NSInteger weekday = [comps weekday];
+       // NSLog(@"Weekday is %d", weekday);
+        switch (weekday) {
+            case 1:
+                dayStr = @"Sunday";
+                break;
+            case 2:
+                dayStr = @"Monday";
+                break;
+            case 3:
+                dayStr = @"Tuesday";
+                break;
+            case 4:
+                dayStr = @"Wednesday";
+                break;
+            case 5:
+                dayStr = @"Thursday";
+                break;
+            case 6:
+                dayStr = @"Friday";
+                break;
+            case 7:
+                dayStr = @"Saturday";
+                break;
+            default:
+                break;
+        }
+    }
+    NSMutableString *newstr = [NSMutableString stringWithFormat:@"%@'s %@", dayStr, self.mealChoice];
+	HUD.labelText = newstr;
 	
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:1];

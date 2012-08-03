@@ -163,7 +163,7 @@
     if (self.networkCheck) {
     if (!notFirstTime){
         NSDate *now = [[NSDate alloc] init];
-//        [datePicker setMinimumDate:now];    
+        [datePicker setMinimumDate:now];    
         NSCalendar *current = [NSCalendar currentCalendar];
         NSDateComponents *currentComponents = [current components:NSHourCalendarUnit fromDate:now];
         
@@ -226,7 +226,7 @@
         int range = 24 * 60 * 60 * day;
         NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
 
-//        [datePicker setMaximumDate:max];
+        [datePicker setMaximumDate:max];
         notFirstTime = YES;
           
     }

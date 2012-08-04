@@ -22,14 +22,9 @@
     NSMutableArray *originalVenues;
     NSString *alert;
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
-    
 }
-@synthesize grinnellDiningLabel;
-@synthesize dateLabel;
-@synthesize menuchoiceLabel;
-@synthesize topImageView;
 
-@synthesize anotherTableView, date, mealChoice, jsonDict;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, anotherTableView, date, mealChoice, jsonDict;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;
@@ -134,7 +129,6 @@ dispatch_queue_t requestQueue;
 //Flip over to the SettingsViewController
 - (IBAction)showInfo:(id)sender
 {
-    
     // Records when user goes to info Screen, records data in Flurry.
     // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
     [FlurryAnalytics logEvent:@"Flipped to Settings"];
@@ -170,7 +164,6 @@ dispatch_queue_t requestQueue;
         [mealmessage addButtonWithTitle:@"Outtakes"];
     }
     [mealmessage show];
-    
 }
 
 - (void)viewDidLoad
@@ -270,7 +263,6 @@ dispatch_queue_t requestQueue;
     // NSLog(@"Date: %@", formattedDate);
     
     dateLabel.text = formattedDate;
-
     
     [self applyFilters];
     [anotherTableView reloadData];
@@ -456,8 +448,6 @@ dispatch_queue_t requestQueue;
 }
 
 
-
-
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -479,26 +469,13 @@ dispatch_queue_t requestQueue;
     }
 }
 
-
-
 - (void)loadNextMenu
 {
-
-    
-    
-    
-    
-    
-    NSLog(@"Loading next menu - Harcoded to pick July 10th Dinner for now. - Menu on server not current at time of writing");
     //Testing Methods
-    //Grab today's date
+    //Grab today's date so we can properly initialize selected date to today
     NSDate *today = [NSDate date];
-//    NSLog(@"Today is %@", today);
-    
-    //Pick selected date - July 10th
-   // NSDate *selectedate = [NSDate dateWithTimeIntervalSinceNow:-1 * 24 * 60 * 60 * 20 ];
     NSDate *selectedate = today;
-//    NSLog(@"Selected date is %@", selectedate);
+    //NSLog(@"Selected date is %@", selectedate);
     self.date = selectedate;
     
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:selectedate];
@@ -511,7 +488,7 @@ dispatch_queue_t requestQueue;
     //Determine Time of Day in order to set the mealChoice correctly - Hardcoding Dinner for now.
     /*  TODO::
      *
-     *
+     *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      *
      */
     self.mealChoice = @"Dinner";
@@ -551,13 +528,7 @@ dispatch_queue_t requestQueue;
     
     [self applyFilters];
     [anotherTableView reloadData];
-    
-    
     //END OF BROUGHT IN
-    
-    
-    
-    
     
     
     //You should test for a network connection before here.
@@ -680,8 +651,6 @@ dispatch_queue_t requestQueue;
 
 - (void)showMealHUD
 {
-    
-    
 	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -694,14 +663,10 @@ dispatch_queue_t requestQueue;
 	
 	HUD.delegate = self;
     
-    // TO DO ---- Add functionatlity here
-    // Currently "Today" is hard coded
+    // Intelligently display selected meal (i.e. Today's Dinner or Wednesday's Outtakes)
     NSDateComponents *selected = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
     NSInteger selectDay = [selected day];
-    NSInteger selectMonth = [selected month];
-
-    NSString *dayStr;
-    
+    NSInteger selectMonth = [selected month];    
     NSDate *today = [[NSDate alloc] init];
     NSDateComponents *todayComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:today];
     NSInteger todayDay = [todayComps day];
@@ -710,7 +675,7 @@ dispatch_queue_t requestQueue;
     NSDateComponents *tomorrowComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:tomorrow];
     NSInteger tomorrowDay = [tomorrowComps day];
     NSInteger tomorrowMonth = [tomorrowComps month];
-    
+    NSString *dayStr;
     if (selectDay == todayDay && selectMonth == todayMonth)
         dayStr = @"Today";
     else if(selectDay == tomorrowDay && selectMonth == tomorrowMonth)
@@ -719,7 +684,6 @@ dispatch_queue_t requestQueue;
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:self.date];
         NSInteger weekday = [comps weekday];
-       // NSLog(@"Weekday is %d", weekday);
         switch (weekday) {
             case 1:
                 dayStr = @"Sunday";
@@ -746,8 +710,8 @@ dispatch_queue_t requestQueue;
                 break;
         }
     }
-    NSMutableString *newstr = [NSMutableString stringWithFormat:@"%@'s %@", dayStr, self.mealChoice];
-	HUD.labelText = newstr;
+    NSMutableString *HUDLabel = [NSMutableString stringWithFormat:@"%@'s %@", dayStr, self.mealChoice];
+	HUD.labelText = HUDLabel;
 	
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:1];
@@ -760,7 +724,6 @@ dispatch_queue_t requestQueue;
     [anotherTableView reloadData];
     menuchoiceLabel.text = self.mealChoice;
     [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
 }
 
 @end

@@ -20,12 +20,7 @@
 }
 @synthesize theTableView;
 @synthesize backgroundImageView;
-@synthesize nutritionDetails, dishRow, dishSection;
-
-/*
-- (IBAction)backToMainMenu:(id)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}*/
+@synthesize dishRow, dishSection;
 
 - (IBAction)toVenueView:(id)sender{
     [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:1] animated:YES]; 
@@ -41,30 +36,6 @@
     Venue *venue = [mainDelegate.venues objectAtIndex:dishSection];
     Dish *dish = [venue.dishes objectAtIndex:dishRow];
     
-
-    
-    
-    nutritionDetails.text = [NSString stringWithFormat:@"Calories %@\nTotal Fat %@g\n\tSaturated Fat %@g\n\tTrans Fat %@g\n\tPolyunsaturated Fat %@g\n\tMonounsaturated Fat %@g\nCholesterol %@mg\nSodium %@mg\nPotassium %@mg\nTotal Carbohydrate %@g\n\tDietary Fiber %@g\n\tSugars %@g\nProtein %@g\n\nVitamin A (IU): %@\nVitamin C %@mg\nVitamin B6 %@mg\nVitamin B12 %@mcg\nZinc %@mg\nIron %@mg\nCalcium %@mg", 
-                             [dish.nutrition objectForKey:@"KCAL"], 
-                             [dish.nutrition objectForKey:@"FAT"],
-                             [dish.nutrition objectForKey:@"SFA"],
-                             [dish.nutrition objectForKey:@"FATRN"],
-                             [dish.nutrition objectForKey:@"POLY"], 
-                             [dish.nutrition objectForKey:@"MONO"], 
-                             [dish.nutrition objectForKey:@"CHOL"], 
-                             [dish.nutrition objectForKey:@"NA"], 
-                             [dish.nutrition objectForKey:@"K"], 
-                             [dish.nutrition objectForKey:@"CHO"], 
-                             [dish.nutrition objectForKey:@"TDFB"],
-                             [dish.nutrition objectForKey:@"SUGR"],
-                             [dish.nutrition objectForKey:@"PRO"], 
-                             [dish.nutrition objectForKey:@"VTAIU"], 
-                             [dish.nutrition objectForKey:@"VITC"],
-                             [dish.nutrition objectForKey:@"B6"],
-                             [dish.nutrition objectForKey:@"B12"], 
-                             [dish.nutrition objectForKey:@"ZN"], 
-                             [dish.nutrition objectForKey:@"FE"], 
-                             [dish.nutrition objectForKey:@"CA"]];
     self.title = dish.name;
     
     [super viewWillAppear:animated];
@@ -76,15 +47,9 @@
 }
 
 - (void)viewDidLoad{
-    //Main Menu button
-    // The button takes away too much of the title space
-    //UIBarButtonItem *toMainMenuButton = [[UIBarButtonItem alloc] initWithTitle:@"Main Menu" style:UIBarButtonItemStyleBordered target:self action:@selector(backToMainMenu:)];
-    //[self.navigationItem setRightBarButtonItem:toMainMenuButton];
-    
     [super viewDidLoad];
     OddbadgeColor = [UIColor colorWithRed:0.192 green:0.512 blue:0.792 alpha:1.0];
     EvenbadgeColor = [UIColor colorWithRed:0.192 green:0.432 blue:0.792 alpha:1];
-    
     OddbadgeColor = [UIColor blackColor];
 }
 
@@ -97,8 +62,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -202,14 +165,9 @@
         cell.badge.radius = 9;
     }
     
-
-
-    
-    if (indexPath.row % 2)
-    {
+    if (indexPath.row % 2) {
         [cell setBackgroundColor:[UIColor colorWithRed:0.93 green:0.9 blue:0.9 alpha:1]];
         cell.badgeColor = EvenbadgeColor;
-        
     }
     else {
         [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
@@ -223,6 +181,5 @@
 {
     return nil;
 }
-
 
 @end

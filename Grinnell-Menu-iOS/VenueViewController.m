@@ -466,26 +466,71 @@ dispatch_queue_t requestQueue;
     //Grab today's date so we can properly initialize selected date to today
     NSDate *today = [NSDate date];
     NSDate *selectedate = today;
+    NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
     //NSLog(@"Selected date is %@", selectedate);
     self.date = selectedate;
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:selectedate];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     NSInteger day = [components day];
     NSInteger month = [components month];
     NSInteger year = [components year];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    NSInteger weekday = [components weekday];
+    //NSLog(@"hour: %d minute: %d day: %d month: %d year: %d weekday: %d", hour, minute, day, month, year, weekday);
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
     
-    //Determine Time of Day in order to set the mealChoice correctly - Hardcoding Dinner for now.
-    /*  TODO::
-     *
-     *!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     *
-     */
-    self.mealChoice = @"Dinner";
-    
-    
-    
+    //Use time and weekday to intelligently set the mealChoice 
+    //Sunday
+    if (weekday == 1){
+        if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 19)
+            self.mealChoice = @"Dinner";
+        else{
+            self.mealChoice = @"Breakfast";
+            self.date = tomorrow;
+        }
+    }
+    //Saturday
+    else if (weekday == 7){
+        if (hour < 10)
+            self.mealChoice = @"Breakfast";
+        else if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 19)
+            self.mealChoice = @"Dinner";
+        else{
+            self.mealChoice = @"Lunch";
+            self.date = tomorrow;
+        }
+    }
+    //Friday
+    else if (weekday == 6){
+        if (hour < 10)
+            self.mealChoice = @"Breakfast";
+        else if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 19)
+            self.mealChoice = @"Dinner";   
+        else{
+            self.mealChoice = @"Breakfast";
+            self.date = tomorrow;
+        }
+    }
+    //All other days
+    else{
+        if (hour < 10)
+            self.mealChoice = @"Breakfast";
+        else if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 20)
+            self.mealChoice = @"Dinner";
+        else{
+            self.mealChoice = @"Breakfast";
+            self.date = tomorrow;
+        }
+    }
     
     //BROUGHT IN FROM VIEWDIDLOAD
     
@@ -493,8 +538,6 @@ dispatch_queue_t requestQueue;
     dateLabel.alpha = 0;
     menuchoiceLabel.alpha = 0;
     grinnellDiningLabel.alpha = 0;
-    
-    
     
     //Begin Animations when the view is loaded
     [UIView animateWithDuration:1 animations:^{
@@ -655,7 +698,7 @@ dispatch_queue_t requestQueue;
 	HUD.delegate = self;
     
     // Intelligently display selected meal (i.e. Today's Dinner or Wednesday's Outtakes)
-    NSDateComponents *selected = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
+    NSDateComponents *selected = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     NSInteger selectDay = [selected day];
     NSInteger selectMonth = [selected month];    
     NSDate *today = [[NSDate alloc] init];
@@ -672,9 +715,7 @@ dispatch_queue_t requestQueue;
     else if(selectDay == tomorrowDay && selectMonth == tomorrowMonth)
         dayStr = @"Tomorrow";
     else{
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:self.date];
-        NSInteger weekday = [comps weekday];
+        NSInteger weekday = [selected weekday];
         switch (weekday) {
             case 1:
                 dayStr = @"Sunday";

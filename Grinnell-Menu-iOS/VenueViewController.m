@@ -294,15 +294,6 @@ dispatch_queue_t requestQueue;
             dish.nutrition = d.nutrition;
             dish.halal = d.halal;
             dish.passover = d.passover;
-            
-            //Duct tape fix for illegal desserts. This should be removed when we modify it in our php scripts. 
-            if ([dish.name isEqualToString:@"Chocolate Chip Cookies"] ||
-                [dish.name isEqualToString:@"Cookies Big Chocolate Chip"] ||
-                [dish.name isEqualToString:@"Cookies Big Monster W/peanut Butter"] ||
-                [dish.name isEqualToString:@"Rice Krispie Bars"] 
-                ) {
-                continue;
-            }
 
             [venue.dishes addObject:dish];
         }

@@ -182,19 +182,31 @@ dispatch_queue_t requestQueue;
     
     //We should probably also find a suitable image for Change Meal
     UIBarButtonItem *changeMealButton = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
-    [self.navigationItem setRightBarButtonItem:changeMealButton];
+    
+    UIBarButtonItem *changeM = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(changeMeal:)];
+    
+        UIBarButtonItem *changeMealll = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"change"] style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
+    
+    UIButton *someButtons = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
+    [someButtons setBackgroundImage:[UIImage imageNamed:@"change"] forState:UIControlStateNormal];
+    [someButtons addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *chM =[[UIBarButtonItem alloc]  initWithCustomView:someButtons];
+    
+    [self.navigationItem setRightBarButtonItem:chM];
     
     
    // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
 //
-//    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
-//    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
-//    [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc]  initWithCustomView:someButton];
+    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
+    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
+    [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc]  initWithCustomView:someButton];
     
     UIBarButtonItem *changeDateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Calendar-Week"] style:UIBarButtonItemStyleBordered target:self action:@selector(changeDate)];
     
-    self.navigationItem.leftBarButtonItem = changeDateButton;
+    UIBarButtonItem *changD = [[UIBarButtonItem alloc ] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(changeDate)];
+    
+    self.navigationItem.leftBarButtonItem = changeDate;
 
     
     [super viewDidLoad];

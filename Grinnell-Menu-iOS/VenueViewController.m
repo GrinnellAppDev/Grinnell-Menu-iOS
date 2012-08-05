@@ -177,36 +177,25 @@ dispatch_queue_t requestQueue;
 	
 	[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
     
-//    [self loadNextMenu]; //Called only when the view is loaded initially
+
     
+    //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this... 
+    UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
+    [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
+    [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
     
-    //We should probably also find a suitable image for Change Meal
-    UIBarButtonItem *changeMealButton = [[UIBarButtonItem alloc] initWithTitle:@"Change Meal" style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
-    
-    UIBarButtonItem *changeM = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(changeMeal:)];
-    
-        UIBarButtonItem *changeMealll = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"change"] style:UIBarButtonItemStyleBordered target:self action:@selector(changeMeal:)];
-    
-    UIButton *someButtons = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
-    [someButtons setBackgroundImage:[UIImage imageNamed:@"change"] forState:UIControlStateNormal];
-    [someButtons addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *chM =[[UIBarButtonItem alloc]  initWithCustomView:someButtons];
-    
-    [self.navigationItem setRightBarButtonItem:chM];
+    [self.navigationItem setRightBarButtonItem:changeMealButton];
     
     
    // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
-//
-    UIButton *someButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 25, 25)];
-    [someButton setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
-    [someButton addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *changeDate =[[UIBarButtonItem alloc]  initWithCustomView:someButton];
     
-    UIBarButtonItem *changeDateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Calendar-Week"] style:UIBarButtonItemStyleBordered target:self action:@selector(changeDate)];
-    
-    UIBarButtonItem *changD = [[UIBarButtonItem alloc ] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(changeDate)];
-    
-    self.navigationItem.leftBarButtonItem = changeDate;
+    UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
+    [cdb setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
+    [cdb addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
+
+    self.navigationItem.leftBarButtonItem = changeDateButton;
 
     
     [super viewDidLoad];
@@ -477,20 +466,21 @@ dispatch_queue_t requestQueue;
     //Testing Methods
     //Grab today's date so we can properly initialize selected date to today
     NSDate *today = [NSDate date];
-    NSDate *selectedate = today;
     NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
-    //NSLog(@"Selected date is %@", selectedate);
-    self.date = selectedate;
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
-    NSInteger day = [components day];
-    NSInteger month = [components month];
-    NSInteger year = [components year];
-    NSInteger hour = [components hour];
-    NSInteger minute = [components minute];
-    NSInteger weekday = [components weekday];
-    //NSLog(@"hour: %d minute: %d day: %d month: %d year: %d weekday: %d", hour, minute, day, month, year, weekday);
     
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
+    //By default, we work with today's menu.
+    self.date = today;
+    //Declare Date Components for today
+    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
+    NSInteger day = [todayComponents day];
+    NSInteger month = [todayComponents month];
+    NSInteger year = [todayComponents year];
+    NSInteger hour = [todayComponents hour];
+    NSInteger minute = [todayComponents minute];
+    NSInteger weekday = [todayComponents weekday];
+    NSLog(@"hour: %d minute: %d day: %d month: %d year: %d weekday: %d", hour, minute, day, month, year, weekday);
+    
+ 
     
     //Use time and weekday to intelligently set the mealChoice 
     //Sunday
@@ -543,6 +533,16 @@ dispatch_queue_t requestQueue;
             self.date = tomorrow;
         }
     }
+    
+    //We need to pick the right components in the cases self.date changes.
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+    NSInteger selectedDay = [components day];
+    NSInteger selectedMonth = [components month];
+    NSInteger selectedYear = [components year];
+    
+
+    
+       NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
     
     //BROUGHT IN FROM VIEWDIDLOAD
     

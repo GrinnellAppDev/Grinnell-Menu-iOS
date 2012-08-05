@@ -107,10 +107,11 @@
 		1682E99E1540CBDE0065F9FA /* glicious-banner7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9971540CBDE0065F9FA /* glicious-banner7.png */; };
 		168D0812152A2C6A005B690E /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 168D0811152A2C6A005B690E /* libFlurryAnalytics.a */; };
 		16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A83B35154678540097FCF2 /* MessageUI.framework */; };
+		16BF1DF515CE214E00C4D9CA /* changeMeal.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF415CE214E00C4D9CA /* changeMeal.png */; };
+		16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */; };
 		16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF360815C7058700C9DC09 /* red_textured_background.png */; };
 		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
 		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
-		16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362315C72BC500C9DC09 /* Calendar-Week.png */; };
 		16FF366515C769CB00C9DC09 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366415C769CB00C9DC09 /* splash.png */; };
 		16FF366715C76A2100C9DC09 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366615C76A2000C9DC09 /* Default.png */; };
 		16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
@@ -290,10 +291,11 @@
 		168D0810152A2C6A005B690E /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		168D0811152A2C6A005B690E /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		16A83B35154678540097FCF2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		16BF1DF415CE214E00C4D9CA /* changeMeal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changeMeal.png; sourceTree = "<group>"; };
+		16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
 		16FF360815C7058700C9DC09 /* red_textured_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_textured_background.png; sourceTree = "<group>"; };
 		16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day-of-Week.png"; sourceTree = "<group>"; };
 		16FF362215C72BC500C9DC09 /* Calendar-Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day.png"; sourceTree = "<group>"; };
-		16FF362315C72BC500C9DC09 /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
 		16FF366415C769CB00C9DC09 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		16FF366615C76A2000C9DC09 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		16FF366815C7748500C9DC09 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -641,7 +643,6 @@
 				16FF366415C769CB00C9DC09 /* splash.png */,
 				16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */,
 				16FF362215C72BC500C9DC09 /* Calendar-Day.png */,
-				16FF362315C72BC500C9DC09 /* Calendar-Week.png */,
 				16FF360815C7058700C9DC09 /* red_textured_background.png */,
 				163C861215C0AA9F00FC8578 /* datePicker_background.png */,
 				1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */,
@@ -665,6 +666,8 @@
 				1682E9951540CBDE0065F9FA /* glicious-banner5.png */,
 				1682E9961540CBDE0065F9FA /* glicious-banner6.png */,
 				1682E9971540CBDE0065F9FA /* glicious-banner7.png */,
+				16BF1DF415CE214E00C4D9CA /* changeMeal.png */,
+				16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */,
 			);
 			name = Assets;
 			path = "Grinnell-Menu-iOS";
@@ -715,7 +718,7 @@
 		E1A0C522145324450072BE76 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = E1A0C525145324460072BE76 /* Build configuration list for PBXProject "Grinnell-Menu-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -845,11 +848,12 @@
 				16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */,
 				16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */,
 				16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */,
-				16FF362615C72BC500C9DC09 /* Calendar-Week.png in Resources */,
 				16FF366515C769CB00C9DC09 /* splash.png in Resources */,
 				16FF366715C76A2100C9DC09 /* Default.png in Resources */,
 				16FF368315C83F6900C9DC09 /* 37x-Checkmark.png in Resources */,
 				16FF368415C83F6900C9DC09 /* 37x-Checkmark@2x.png in Resources */,
+				16BF1DF515CE214E00C4D9CA /* changeMeal.png in Resources */,
+				16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

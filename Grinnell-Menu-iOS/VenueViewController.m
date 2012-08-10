@@ -24,38 +24,32 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, anotherTableView, date, mealChoice, jsonDict;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, anotherTableView, date, mealChoice, jsonDict, availDay;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 //Do some initialization of our own
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
-    {
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     }
     return self;
 }
 
 //Method to determine the availability of network Connections using the Reachability Class
-- (BOOL)networkCheck
-{
+- (BOOL)networkCheck {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    
     return (!(networkStatus == NotReachable));
 }
 
 //Parse through JSON data downloaded from the server and create dish Objects
--(void)getDishes
-{
+-(void)getDishes {
     [originalVenues removeAllObjects];
     [mainDelegate.venues removeAllObjects];
     
@@ -69,24 +63,23 @@ dispatch_queue_t requestQueue;
     } else if ([self.mealChoice isEqualToString:@"Outtakes"]) {
         key = @"OUTTAKES";
     }
-        
+    
     NSDictionary *mainMenu = [self.jsonDict objectForKey:key]; 
     
     //Put data on screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue. 
-    
     menuVenueNamesFromJSON = [[NSArray alloc] init];
     menuVenueNamesFromJSON = [mainMenu allKeys];
     
     //Here we fill the venues array to contain all the venues. 
     for (NSString *venuename in menuVenueNamesFromJSON) {
-      //  NSLog(@"venuenames: %@", venuename);
+        //  NSLog(@"venuenames: %@", venuename);
         Venue *gvenue = [[Venue alloc] init];
         gvenue.name = venuename;
         if ([gvenue.name isEqualToString:@"ENTREES                  "] && [key isEqualToString:@"LUNCH"]) {
-                continue;
+            continue;
         }
-       // NSLog(@"Adding object: %@", gvenue);
+        // NSLog(@"Adding object: %@", gvenue);
         [mainDelegate.venues addObject:gvenue];
     }
     
@@ -114,7 +107,7 @@ dispatch_queue_t requestQueue;
                 dish.passover = YES;
             if (![[actualdish objectForKey:@"halal"] isEqualToString:@"false"]) 
                 dish.halal = YES;
-            if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]){
+            if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
                 dish.hasNutrition = YES;
                 dish.nutrition = [actualdish objectForKey:@"nutrition"];
             }
@@ -127,12 +120,10 @@ dispatch_queue_t requestQueue;
 }
 
 //Flip over to the SettingsViewController
-- (IBAction)showInfo:(id)sender
-{
+- (IBAction)showInfo:(id)sender {
     // Records when user goes to info Screen, records data in Flurry.
     // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
     [FlurryAnalytics logEvent:@"Flipped to Settings"];
-     
     SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
     navController.navigationBar.barStyle = UIBarStyleBlack;
@@ -140,8 +131,7 @@ dispatch_queue_t requestQueue;
     [self presentModalViewController:navController animated:YES];
 }
 
-- (IBAction)changeMeal:(id)sender{
-    
+- (IBAction)changeMeal:(id)sender {
     UIAlertView *mealmessage = [[UIAlertView alloc] 
                                 initWithTitle:@"Select Meal" 
                                 message:nil
@@ -166,45 +156,35 @@ dispatch_queue_t requestQueue;
     [mealmessage show];
 }
 
-- (void)viewDidLoad
-{
+#pragma mark - View lifecycle
+- (void)viewDidLoad {
     NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
 	HUD.delegate = self;
 	HUD.labelText = @"Grabbing Menu";
-	
 	[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
-    
-
     
     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this... 
     UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
-    
     [self.navigationItem setRightBarButtonItem:changeMealButton];
     
-    
-   // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
-    
+    // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
     UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cdb setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
     [cdb addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
-
     self.navigationItem.leftBarButtonItem = changeDateButton;
-
     
     [super viewDidLoad];
     
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
-    
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
-    
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     
@@ -213,13 +193,11 @@ dispatch_queue_t requestQueue;
     menuchoiceLabel.alpha = 0;
     grinnellDiningLabel.alpha = 0;
     
-    
     //Customize topImageview - Set the drop shadow
     self.topImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.7);
     self.topImageView.layer.shadowOpacity = 0.7;
     self.topImageView.layer.shadowRadius = 1.5;
-
     
     //Begin Animations when the view is loaded
     [UIView animateWithDuration:1 animations:^{
@@ -229,15 +207,15 @@ dispatch_queue_t requestQueue;
     }];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
 }
 
@@ -249,8 +227,7 @@ dispatch_queue_t requestQueue;
     [self setTopImageView:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     NSLog(@"VenueView Will Appear");
     [self getDishes];
     self.title = @"Stations";
@@ -258,11 +235,8 @@ dispatch_queue_t requestQueue;
     
     // NSLog(@"Date: %@", date);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter  setDateFormat:@"EEE MMM dd"];
     NSString *formattedDate = [dateFormatter stringFromDate:date];
-    // NSLog(@"Date: %@", formattedDate);
-    
     dateLabel.text = formattedDate;
     
     [self applyFilters];
@@ -270,10 +244,9 @@ dispatch_queue_t requestQueue;
     [super viewWillAppear:YES];
 }
 
-
+#pragma mark - Added methods
 //Applying the various filters to the dishes in the tableView
-- (void)applyFilters
-{
+- (void)applyFilters {
     NSPredicate *veganPred, *ovoPred;
     BOOL ovoSwitch, veganSwitch;
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
@@ -295,16 +268,14 @@ dispatch_queue_t requestQueue;
             dish.nutrition = d.nutrition;
             dish.halal = d.halal;
             dish.passover = d.passover;
-
             [venue.dishes addObject:dish];
         }
         [mainDelegate.venues addObject:venue];
     }
     
-    if (!ovoSwitch && !veganSwitch){
-    }
-    
-    else if (ovoSwitch){
+    if (!ovoSwitch && !veganSwitch)
+        ;
+    else if (ovoSwitch) {
         ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
         veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
         
@@ -314,12 +285,11 @@ dispatch_queue_t requestQueue;
         [preds addObject:veganPred];
         NSPredicate *compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
         
-        for (Venue *v in mainDelegate.venues){
+        for (Venue *v in mainDelegate.venues) {
             [v.dishes filterUsingPredicate:compoundPred];
         }
     }
-    
-    else if (veganSwitch){
+    else if (veganSwitch) {
         veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
         for (Venue *v in mainDelegate.venues) {
             [v.dishes filterUsingPredicate:veganPred];
@@ -335,24 +305,22 @@ dispatch_queue_t requestQueue;
     [mainDelegate.venues removeObjectsInArray:emptyVenues];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return mainDelegate.venues.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     Venue *venue = [mainDelegate.venues objectAtIndex:section];
     return venue.name; 
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self tableView:tableView titleForHeaderInSection:section] != nil) {
         return 40;
     }
@@ -362,11 +330,9 @@ dispatch_queue_t requestQueue;
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-   // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
+    // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
     if (sectionTitle == nil) {
         return nil;
     }
@@ -375,7 +341,7 @@ dispatch_queue_t requestQueue;
     label.frame = CGRectMake(20, 6, 300, 30);
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
-   // label.font = [UIFont fontWithName:@"Vivaldi" size:32];
+    // label.font = [UIFont fontWithName:@"Vivaldi" size:32];
     label.font = [UIFont boldSystemFontOfSize:20];
     //[UIFont fontWithName:@"Vivaldi" size:38]
     
@@ -387,28 +353,24 @@ dispatch_queue_t requestQueue;
     return view;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
     Venue *venue = [mainDelegate.venues objectAtIndex:section];
     return venue.dishes.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"CellIdentifier";
-    
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
+    
     // Configure the cell...    
     Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
-    
     cell.textLabel.text = dish.name;
     
     // Not needed when we have a tray view
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     
     // accessory type
     if (!dish.hasNutrition){
@@ -419,50 +381,45 @@ dispatch_queue_t requestQueue;
     else{
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         // Needed for when we have a tray view
-       // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
-    
     
     //Modify the colours. 
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
-
+    
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
     DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
-    dishView.dishRow = indexPath.row;
-    dishView.dishSection = indexPath.section;
-
-	[self.navigationController pushViewController:dishView animated:YES];
+    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
+    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
+    dishView.selectedDish = [[Dish alloc] init];
+    dishView.selectedDish = dish;
+    [self.navigationController pushViewController:dishView animated:YES];
 }
 
 
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == alertView.cancelButtonIndex) {
         return;
     }
     else {
         NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
         self.mealChoice = titlePressed;
-
         [self getDishes];
         [self showMealHUD];
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [anotherTableView reloadData];
         menuchoiceLabel.text = self.mealChoice;
         [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        
     }
 }
 
-- (void)loadNextMenu
-{
+- (void)loadNextMenu {
     //Testing Methods
     //Grab today's date so we can properly initialize selected date to today
     NSDate *today = [NSDate date];
@@ -471,16 +428,11 @@ dispatch_queue_t requestQueue;
     //By default, we work with today's menu.
     self.date = today;
     //Declare Date Components for today
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
-    NSInteger day = [todayComponents day];
-    NSInteger month = [todayComponents month];
-    NSInteger year = [todayComponents year];
+    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
     NSInteger hour = [todayComponents hour];
     NSInteger minute = [todayComponents minute];
     NSInteger weekday = [todayComponents weekday];
-    NSLog(@"hour: %d minute: %d day: %d month: %d year: %d weekday: %d", hour, minute, day, month, year, weekday);
-    
- 
+    //NSLog(@"hour: %d minute: %d weekday: %d", hour, minute, weekday);
     
     //Use time and weekday to intelligently set the mealChoice 
     //Sunday
@@ -540,12 +492,9 @@ dispatch_queue_t requestQueue;
     NSInteger selectedMonth = [components month];
     NSInteger selectedYear = [components year];
     
-
-    
-       NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
     
     //BROUGHT IN FROM VIEWDIDLOAD
-    
     //Beginning of the animation
     dateLabel.alpha = 0;
     menuchoiceLabel.alpha = 0;
@@ -562,37 +511,26 @@ dispatch_queue_t requestQueue;
     self.title = @"Stations";
     menuchoiceLabel.text = self.mealChoice;
     
-    // NSLog(@"Date: %@", date);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    // [dateFormatter  setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    NSString *formattedDate = [dateFormatter stringFromDate:date];
-    // NSLog(@"Date: %@", formattedDate);
-    
+    NSString *formattedDate = [dateFormatter stringFromDate:date];    
     dateLabel.text = formattedDate;
-    
     
     [self applyFilters];
     [anotherTableView reloadData];
     //END OF BROUGHT IN
     
-    
     //You should test for a network connection before here.
-    if ([self networkCheck])
-    {
+    if ([self networkCheck]) {
         //Instantiate the queue we will run the downloading data process in
         requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
         
-        
         //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
         //Using the available days json to do this. Is there a better way? Even though this works. 
-        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
-
+        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
         NSError *error;
         NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
-        
         NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
-        
         @try {
             availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
                                                                 options:kNilOptions
@@ -612,9 +550,15 @@ dispatch_queue_t requestQueue;
         }
         
         //If the available days returned is -1, there are no menus found..
-        NSString *dayStr = [availableDaysJson objectForKey:@"days"];
-        int day = dayStr.intValue;
-        
+        NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MM-dd-yyyy"];
+        NSDate *lastDate = [df dateFromString:dayStr];
+        NSUInteger unitFlags = NSDayCalendarUnit;
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
+        int day= [components day] + 1;
+        //Store the day so the date picker can access it
+        availDay = day;
         if (day <= 0) {
             alert = @"network";
             UIAlertView *network = [[UIAlertView alloc]
@@ -628,15 +572,12 @@ dispatch_queue_t requestQueue;
             //Make sure to uncomment this return line  here for production
             //return;
         }
-            
-            
+        
         //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it! 
         //Perform downloading asynchronously on a different thread(queue) - error check throughout process
         dispatch_async(requestQueue, ^{
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-            
             NSError *error = nil;
-            
             if (data) {
                 self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                                 options:kNilOptions
@@ -653,21 +594,18 @@ dispatch_queue_t requestQueue;
                     [dataNilAlert show];
                 });
             }
-            
-            if (jsonDict)
-            {
+            if (jsonDict) {
                 [self getDishes];
                 //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
                 dispatch_async(dispatch_get_main_queue(), ^{
-//                    [anotherTableView reloadData];
+                    // [anotherTableView reloadData];
                     [self refreshScreen];
                     [self showMealHUD];
                 });
             }
         }); //Done with multithreaded code
     }
-    else
-    {
+    else {
         //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app) 
         UIAlertView *network = [[UIAlertView alloc]
                                 initWithTitle:@"No Network Connection"
@@ -680,23 +618,19 @@ dispatch_queue_t requestQueue;
     }
 }
 
-
-- (void)changeDate
-{
+- (void)changeDate {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark MBProgressHUDDelegate methods
 //Remove HUD after view is loaded
-- (void)hudWasHidden:(MBProgressHUD *)hud
-{
+- (void)hudWasHidden:(MBProgressHUD *)hud {
 	// Remove HUD from screen when the HUD was hidden
 	[HUD removeFromSuperview];
 	HUD = nil;
 }
 
-- (void)showMealHUD
-{
+- (void)showMealHUD {
 	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -706,7 +640,7 @@ dispatch_queue_t requestQueue;
 	
 	// Set custom view mode
 	HUD.mode = MBProgressHUDModeCustomView;
-	
+    
 	HUD.delegate = self;
     
     // Intelligently display selected meal (i.e. Today's Dinner or Wednesday's Outtakes)
@@ -755,15 +689,12 @@ dispatch_queue_t requestQueue;
         }
     }
     NSMutableString *HUDLabel = [NSMutableString stringWithFormat:@"%@'s %@", dayStr, self.mealChoice];
-	HUD.labelText = HUDLabel;
-	
+	HUD.labelText = HUDLabel;	
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:1];
 }
 
-
-- (void) refreshScreen
-{
+- (void) refreshScreen {
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [anotherTableView reloadData];
     menuchoiceLabel.text = self.mealChoice;

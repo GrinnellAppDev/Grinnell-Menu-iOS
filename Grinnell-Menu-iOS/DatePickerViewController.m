@@ -16,26 +16,20 @@
     NSURL *URLwithDate;
     BOOL notFirstTime;
 }
-@synthesize grinnellDiningLabel;
-@synthesize go, datePicker, jsonDict;
+@synthesize grinnellDiningLabel, go, datePicker, jsonDict;
 
 //Fetches the data from server. jsonDict is passed on to VenueViewController. 
 - (BOOL)fetchprelimdataWithURL:(NSURL *)URL {
     NSData *data = [NSData dataWithContentsOfURL:URL];
-    
     NSError * error;
-    
-    if (data)
-    {
+    if (data) {
         //NSJSON takes data and then gives you back a foundation object. dict or array.
         self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                         options:kNilOptions
                                                           error:&error];
         return YES;
     }
-
-    else
-    {
+    else {
         UIAlertView *dataNilAlert = [[UIAlertView alloc]
                                      initWithTitle:@"An error occurred pulling in the data from the server"
                                      message:nil
@@ -51,107 +45,78 @@
 - (BOOL)networkCheck {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    
     return (!(networkStatus == NotReachable));
 }
 
-
-- (IBAction)showVenues:(id)sender
-{
-        
-        NSDate *date = [self.datePicker date];
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-        NSInteger day = [components day];    
-        NSInteger month = [components month];
-        NSInteger year = [components year];
+- (IBAction)showVenues:(id)sender {
+    NSDate *date = [self.datePicker date];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    NSInteger day = [components day];    
+    NSInteger month = [components month];
+    NSInteger year = [components year];
     
+    //File Directories used.
+    NSString *tempPath = NSTemporaryDirectory();
+    NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", month, day, year];
     
-        //File Directories used.
-        NSString *tempPath = NSTemporaryDirectory();
+    //either tempPath or Documentsdirectory - I went with tempPath
+    NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
     
-        NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", month, day, year];
+    //Check to see if the file has previously been cached. 
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        self.jsonDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+        // NSLog(@"Loading Json from iPhone cache");
+    }
     
-        //either tempPath or Documentsdirectory - I went with tempPath
-        NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
-    
-        //Check to see if the file has previously been cached. 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-            self.jsonDict = [[NSDictionary alloc] initWithContentsOfFile:path];
-           // NSLog(@"Loading Json from iPhone cache");
+    //if not, go get it from server.
+    else {
+        if (self.networkCheck) {
+            NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
+            URLwithDate = [NSURL URLWithString:url];
+            if (![self fetchprelimdataWithURL:URLwithDate])
+                return;
+            [jsonDict writeToFile:path atomically:YES];
         }
-    
-        //if not, go get it from server.
-        else {
-    
-            if (self.networkCheck) {
-               // NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~tremblay/menu/%d-%d-%d.json", month, day, year];
-
-             //  NSMutableString *url = [NSMutableString stringWithFormat:@"http://www.cs.grinnell.edu/~knolldug/parser/%d-%d-%d.json", month, day, year];
-                NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
-
-                URLwithDate = [NSURL URLWithString:url];
-
-                if (![self fetchprelimdataWithURL:URLwithDate])
-                    return;
-                
-
-              //  NSLog(@"Saving new json from server");
-                [jsonDict writeToFile:path atomically:YES];
-        
-            }
-        
-    
         //Else if there is not a network connection determined... give No Network Connection alert
-            else {
-                alert = @"network";
-                UIAlertView *network = [[UIAlertView alloc] 
+        else {
+            alert = @"network";
+            UIAlertView *network = [[UIAlertView alloc] 
                                     initWithTitle:@"No Network Connection" 
                                     message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self 
                                     cancelButtonTitle:@"OK"
                                     otherButtonTitles:nil
                                     ];
-                [network show];
-                return;
-            }
+            [network show];
+            return;
         }
+    }
     
-        
-        //At this point, we have a working jsonDict with menuitems. 
+    //At this point, we have a working jsonDict with menuitems.
+    UIAlertView *mealmessage = [[UIAlertView alloc] 
+                                initWithTitle:@"Select Meal" 
+                                message:nil
+                                delegate:self 
+                                cancelButtonTitle:@"Cancel" 
+                                otherButtonTitles:nil
+                                ];
     
-        UIAlertView *mealmessage = [[UIAlertView alloc] 
-                                    initWithTitle:@"Select Meal" 
-                                    message:nil
-                                    delegate:self 
-                                    cancelButtonTitle:@"Cancel" 
-                                    otherButtonTitles:nil
-                                    ];
-        
-        //Create alert buttons depending on the menus available.
-        if ([jsonDict objectForKey:@"BREAKFAST"]) {
-            [mealmessage addButtonWithTitle:@"Breakfast"];
-        }
-        
-        if ([jsonDict objectForKey:@"LUNCH"]) {
-            [mealmessage addButtonWithTitle:@"Lunch"];
-        }
-        if ([jsonDict objectForKey:@"DINNER"]) {
-            [mealmessage addButtonWithTitle:@"Dinner"];
-        }
-        if ([jsonDict objectForKey:@"OUTTAKES"]) {
-            [mealmessage addButtonWithTitle:@"Outtakes"];
-        }
-        
-        [mealmessage show];
-        
-         
+    //Create alert buttons depending on the menus available.
+    if ([jsonDict objectForKey:@"BREAKFAST"]) {
+        [mealmessage addButtonWithTitle:@"Breakfast"];
+    }
+    if ([jsonDict objectForKey:@"LUNCH"]) {
+        [mealmessage addButtonWithTitle:@"Lunch"];
+    }
+    if ([jsonDict objectForKey:@"DINNER"]) {
+        [mealmessage addButtonWithTitle:@"Dinner"];
+    }
+    if ([jsonDict objectForKey:@"OUTTAKES"]) {
+        [mealmessage addButtonWithTitle:@"Outtakes"];
+    }
+    [mealmessage show];
 }
-    
-
-
-
 
 #pragma mark - View lifecycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Pick a date";
@@ -161,86 +126,46 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if (self.networkCheck) {
-    if (!notFirstTime){
-        NSDate *now = [[NSDate alloc] init];
-        [datePicker setMinimumDate:now];    
-        NSCalendar *current = [NSCalendar currentCalendar];
-        NSDateComponents *currentComponents = [current components:NSHourCalendarUnit fromDate:now];
-        
-        // If dinner is over, set date picker date to tomorrow
-        if (currentComponents.hour > 20)
-            now = [NSDate dateWithTimeIntervalSinceNow:60*60*(24 - currentComponents.hour)];
-        
-       [datePicker setDate:now animated:YES];
-
-        //Determines the available days to appropriately set the datePicker
-        
-        //TODO DONT FORGET THIS ISNT ACCESSING THE REAL JSON right now...
-      //   NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~tremblay/menu/available_days_json_FAKE.php"];
-     //   NSURL *datesURL = [NSURL URLWithString:@"http://www.cs.grinnell.edu/~knolldug/parser/available_days_json.php"];
-       NSURL *datesURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/available_days_json.php"];
-
-        NSError *error;
-        NSData *data = [NSData dataWithContentsOfURL:datesURL];
-        
-        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
-    
-        @try {
-            availableDaysJson = [NSJSONSerialization JSONObjectWithData:data
-                                                  options:kNilOptions 
-                                                    error:&error];
+        if (!notFirstTime) {
+            NSDate *now = [[NSDate alloc] init];
+            [datePicker setMinimumDate:now];    
+            NSCalendar *current = [NSCalendar currentCalendar];
+            NSDateComponents *comps = [current components:NSHourCalendarUnit | NSWeekdayCalendarUnit fromDate:now];
+            
+            // If dinner is over, set date picker date to tomorrow
+            if (((comps.weekday == 1 || comps.weekday >= 6) && comps.hour > 19) || comps.hour > 20)
+                now = [NSDate dateWithTimeIntervalSinceNow:60*60*(24 - comps.hour)];
+            
+            [datePicker setDate:now animated:YES];
+            
+            //Gets the available days to appropriately set the datePicker
+            Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            int day = mainDelegate.venueViewController.availDay;
+            if (day <= 0) {
+                alert = @"network";
+                UIAlertView *network = [[UIAlertView alloc] 
+                                        initWithTitle:@"No Menus are available" 
+                                        message:@"Please check back later"
+                                        delegate:self 
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil
+                                        ];
+                [network show];
+            }
+            
+            int range = 24 * 60 * 60 * day;
+            NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
+            
+            [datePicker setMaximumDate:max];
+            notFirstTime = YES;
         }
-        @catch (NSException *e) {
-            alert = @"server";
-            UIAlertView *network = [[UIAlertView alloc] 
-                                initWithTitle:@"Network Error" 
-                                    message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
-                                delegate:self 
-                                cancelButtonTitle:@"OK"
-                                otherButtonTitles:nil
-                                ];
-            [network show];
-        }
-    
-    //If the available days returned is -1, there are no menus found.. 
-        NSString *dayStr = [availableDaysJson objectForKey:@"days"];
-        int day = dayStr.intValue;
-       // NSLog(@"Available days: %@", dayStr);
-       // NSLog(@"Available json: %@", availableDaysJson);
-
-        if (day <= 0) {
-            alert = @"network";
-            UIAlertView *network = [[UIAlertView alloc] 
-                                initWithTitle:@"No Menus are available" 
-                                message:@"Please check back later"
-                                delegate:self 
-                                cancelButtonTitle:@"OK"
-                                otherButtonTitles:nil
-                                ];
-            [network show];
-//            go.enabled = NO;
-        }
-        else
-            go.enabled = YES;
-        
-        int range = 24 * 60 * 60 * day;
-        NSDate *max = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
-
-        [datePicker setMaximumDate:max];
-        notFirstTime = YES;
-          
     }
-}
-    
-
-    else{
-        
+    else {
         NSDate *now = [[NSDate alloc] init];
         [datePicker setDate:now animated:YES];
         [datePicker setMinimumDate:now];
         [datePicker setMaximumDate:now];
-
-
         
         alert = @"network";
         UIAlertView *network = [[UIAlertView alloc] 
@@ -251,38 +176,28 @@
                                 otherButtonTitles:nil
                                 ];
         [network show];
-    }
-     
+    }     
 }
 
-
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [self setGrinnellDiningLabel:nil];
     [super viewDidUnload];
     self.datePicker = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     //We want access to the venueViewController that was created on launch. (Instead of instantiating a new  one)
-    
     Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.venueViewController.jsonDict = self.jsonDict;
-
     
     if (buttonIndex == alertView.cancelButtonIndex)    
         return;
-    
     
     NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
     mainDelegate.venueViewController.mealChoice = titlePressed;
@@ -293,6 +208,5 @@
     [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
     [mainDelegate.venueViewController showMealHUD];
 }
-
 
 @end

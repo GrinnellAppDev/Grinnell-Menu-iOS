@@ -21,13 +21,14 @@
 - (void)getDishes;
 - (void)applyFilters;
 
+@property (nonatomic, assign) int availDay;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *mealChoice;
 @property (nonatomic, strong) IBOutlet UITableView *anotherTableView;
 @property (nonatomic, strong) NSDictionary *jsonDict;
-@property (weak, nonatomic) IBOutlet UILabel *grinnellDiningLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *menuchoiceLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
+@property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel;
+@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *menuchoiceLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *topImageView;
 
 @end

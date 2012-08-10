@@ -10,42 +10,33 @@
 #import "VenueViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-
 @implementation SettingsViewController
-@synthesize gotIdeasTextLabel;
-@synthesize tipsTextView;
-@synthesize tipsLabel;
 
-@synthesize filtersNameArray, veganSwitch, ovoSwitch;
+@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, filtersNameArray, veganSwitch, ovoSwitch;
 
-
-
-
-- (void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)settingsDelegateDidFinish:(SettingsViewController *)controller{
+- (void)settingsDelegateDidFinish:(SettingsViewController *)controller {
     [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    
-
     cell.textLabel.text = [filtersNameArray objectAtIndex:indexPath.row];
     return cell;
 }
@@ -57,18 +48,15 @@
     else return @"Filters";
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     return @"Lookout for more filters soon!";
 }
 
-
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-   }
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+}
 
 #pragma mark - View lifecycle
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(settingsDelegateDidFinish:)];
     [[self navigationItem] setLeftBarButtonItem:backButton];
     [super viewDidLoad];
@@ -80,11 +68,9 @@
     //We set the switches to thier default values
     [veganSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"]];
     [ovoSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"]];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-
     //Customise tips Label
     tipsLabel.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1.0];
     gotIdeasTextLabel.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1.0];
@@ -92,30 +78,28 @@
     //[tipsTextView setFont:[UIFont boldSystemFontOfSize:16.0]];
     [tipsTextView setTextAlignment:UITextAlignmentLeft];
     [tipsTextView setEditable:NO];
-    
     // For the border and rounded corners
     [[tipsTextView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
     [[tipsTextView layer] setBorderWidth:2.3];
     [[tipsTextView layer] setCornerRadius:15];
     [tipsTextView setClipsToBounds: YES];
-        
-    
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     //When user clicks done, the default values of the filters are set to the values of the switches
     [[NSUserDefaults standardUserDefaults] setBool:veganSwitch.isOn forKey:@"VeganSwitchValue"];
     [[NSUserDefaults standardUserDefaults] setBool:ovoSwitch.isOn forKey:@"OvoSwitchValue"];
     [super viewWillDisappear:YES];
 }
 
-- (void)viewDidUnload{
+- (void)viewDidUnload {
     [self setTipsTextView:nil];
     [self setTipsLabel:nil];
     [self setGotIdeasTextLabel:nil];
     [super viewDidUnload];
 }
 
+#pragma mark - Added methods
 - (IBAction)contactUs:(id)sender {
     // From within your active view controller
     if([MFMailComposeViewController canSendMail]) {
@@ -129,14 +113,8 @@
     }
 }
 
-
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
-{
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     [self dismissModalViewControllerAnimated:YES];
 }
-
-
-
 
 @end

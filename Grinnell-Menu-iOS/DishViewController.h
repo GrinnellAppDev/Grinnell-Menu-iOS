@@ -6,14 +6,14 @@
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
 
+#import "Dish.h"
 
 @interface DishViewController : UIViewController
 
 - (IBAction)toVenueView:(id)sender;
 
-@property (nonatomic, assign) NSInteger dishSection;
-@property (nonatomic, assign) NSInteger dishRow;
-@property (weak, nonatomic) IBOutlet UITableView *theTableView;
-@property (weak, nonatomic) IBOutlet UITextView *backgroundImageView;
+@property (nonatomic, strong) Dish *selectedDish;
+@property (nonatomic, weak) IBOutlet UITableView *theTableView;
+@property (nonatomic, weak) IBOutlet UITextView *backgroundImageView;
 
 @end

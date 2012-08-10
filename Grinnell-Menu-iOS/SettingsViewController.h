@@ -10,16 +10,15 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import <MessageUI/MessageUI.h>
 
-
-
 @interface SettingsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 - (void)settingsDelegateDidFinish:(SettingsViewController *)controller;
-@property (weak, nonatomic) IBOutlet UISwitch *ovoSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *veganSwitch;
-@property (strong, nonatomic) NSArray *filtersNameArray;
-@property (weak, nonatomic) IBOutlet UILabel *gotIdeasTextLabel;
-@property (weak, nonatomic) IBOutlet UITextView *tipsTextView;
-@property (weak, nonatomic) IBOutlet UILabel *tipsLabel;
-@end
 
+@property (nonatomic, weak) IBOutlet UISwitch *ovoSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *veganSwitch;
+@property (nonatomic, weak) IBOutlet UILabel *gotIdeasTextLabel;
+@property (nonatomic, weak) IBOutlet UITextView *tipsTextView;
+@property (nonatomic, weak) IBOutlet UILabel *tipsLabel;
+@property (nonatomic, strong) NSArray *filtersNameArray;
+
+@end

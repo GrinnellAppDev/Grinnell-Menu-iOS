@@ -117,7 +117,8 @@
 }
 
 #pragma mark - View lifecycle
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.title = @"Pick a date";
     self.grinnellDiningLabel.text = @"GrinnellDining";

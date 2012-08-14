@@ -158,7 +158,9 @@ dispatch_queue_t requestQueue;
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
-    NSLog(@"VenueView loaded");
+    [super viewDidLoad];
+
+//    NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -180,7 +182,6 @@ dispatch_queue_t requestQueue;
     UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
     self.navigationItem.leftBarButtonItem = changeDateButton;
     
-    [super viewDidLoad];
     
     originalVenues = [[NSMutableArray alloc] init];
     mainDelegate.venues = [[NSMutableArray alloc] init];
@@ -228,7 +229,7 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"VenueView Will Appear");
+//    NSLog(@"VenueView Will Appear");
     [self getDishes];
     self.title = @"Stations";
     menuchoiceLabel.text = self.mealChoice;
@@ -494,21 +495,12 @@ dispatch_queue_t requestQueue;
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
     
-    //BROUGHT IN FROM VIEWDIDLOAD
-    //Beginning of the animation
+    //Setting up the fading animation of the labels 
     dateLabel.alpha = 0;
     menuchoiceLabel.alpha = 0;
     grinnellDiningLabel.alpha = 0;
     
-    //Begin Animations when the view is loaded
-    [UIView animateWithDuration:1 animations:^{
-        dateLabel.alpha = 1;
-        menuchoiceLabel.alpha = 1;
-        grinnellDiningLabel.alpha = 1;
-    }];
-    
-    [self getDishes];
-    self.title = @"Stations";
+ 
     menuchoiceLabel.text = self.mealChoice;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -516,9 +508,6 @@ dispatch_queue_t requestQueue;
     NSString *formattedDate = [dateFormatter stringFromDate:date];    
     dateLabel.text = formattedDate;
     
-    [self applyFilters];
-    [anotherTableView reloadData];
-    //END OF BROUGHT IN
     
     //You should test for a network connection before here.
     if ([self networkCheck]) {
@@ -568,9 +557,9 @@ dispatch_queue_t requestQueue;
                                     cancelButtonTitle:@"OK"
                                     otherButtonTitles:nil
                                     ];
-            //[network show];
+            [network show];
             //Make sure to uncomment this return line  here for production
-            //return;
+            return;
         }
         
         //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it! 
@@ -598,7 +587,6 @@ dispatch_queue_t requestQueue;
                 [self getDishes];
                 //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    // [anotherTableView reloadData];
                     [self refreshScreen];
                     [self showMealHUD];
                 });
@@ -616,6 +604,14 @@ dispatch_queue_t requestQueue;
         [network show];
         return;
     }
+    
+    
+    //Finish up animations when the view is done loading...
+    [UIView animateWithDuration:1 animations:^{
+        dateLabel.alpha = 1;
+        menuchoiceLabel.alpha = 1;
+        grinnellDiningLabel.alpha = 1;
+    }];
 }
 
 - (void)changeDate {

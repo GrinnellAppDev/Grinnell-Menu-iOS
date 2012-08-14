@@ -65,7 +65,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
     
     self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
@@ -73,16 +72,24 @@
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
     self.venueViewController.navigationItem.hidesBackButton = YES;
     [self.navigationController pushViewController:self.venueViewController animated:NO];
-  
     
-    // Set the global tint on the navigation bar --hmm? Which to pick?
-	[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    
+    // Set the global tint on the navigation bar - Black
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     
     self.window.rootViewController = self.navigationController;
     
-    //    [window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
+    
+    //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry.
+    //A flurry account is free. Want to see app statistics? Email me to add you to the Grinnell Appdev team on Flurry. @DrJid
+    // [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
+    
+    //Allows us to send push notification to users who experience a crash - If we want to...
+    //    [Crittercism initWithAppID: @"4f67e3f4b0931560c200000c"
+    //                        andKey:@"gznvtmrwkvkp7rupb69jn3ux1d8o"
+    //                     andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
+    
     return YES;
 }
 
@@ -93,10 +100,6 @@
 	 Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 	 */
     
-    //Make sure we start on the venueViewController when the app is going to be reloaded.
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [self.navigationController pushViewController:self.venueViewController animated:NO];
-
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -105,6 +108,11 @@
 	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	 */
+    
+    //Make sure we start on the venueViewController when the app is going to be reloaded.
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self.navigationController pushViewController:self.venueViewController animated:NO];
+
 
     
 }
@@ -114,6 +122,7 @@
 	/*
 	 Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	 */
+    [self.venueViewController loadNextMenu];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -121,10 +130,6 @@
 	/*
 	 Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	 */
-    NSLog(@"Application did become active");
-
-    
-    [self.venueViewController loadNextMenu];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

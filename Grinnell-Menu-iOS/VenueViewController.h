@@ -31,4 +31,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *menuchoiceLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *topImageView;
 
+@property BOOL isSecondVenueViewController;
+
 @end

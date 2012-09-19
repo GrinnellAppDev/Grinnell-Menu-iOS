@@ -24,7 +24,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, anotherTableView, date, mealChoice, jsonDict, availDay;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, anotherTableView, date, mealChoice, jsonDict, availDay, isSecondVenueViewController;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;
@@ -45,6 +45,12 @@ dispatch_queue_t requestQueue;
 - (BOOL)networkCheck {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    return (!(networkStatus == NotReachable));
+}
+
+- (BOOL)tcdbcheck {
+    Reachability *tcdbReachability = [Reachability reachabilityWithHostname:@"http://tcdb.grinnell.edu"];
+    NetworkStatus networkStatus = [tcdbReachability currentReachabilityStatus];
     return (!(networkStatus == NotReachable));
 }
 
@@ -206,6 +212,19 @@ dispatch_queue_t requestQueue;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
     }];
+    
+    //Add custom tap recognizer
+    UISwipeGestureRecognizer *oneFingerSwipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerSwipeLeft)];
+    [oneFingerSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    
+    UISwipeGestureRecognizer *oneFingerSwipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerSwipeRight)];
+    [oneFingerSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    
+    
+    //Add gesture Recognizers to views.
+    [[self view] addGestureRecognizer:oneFingerSwipeLeft];
+    [[self view] addGestureRecognizer:oneFingerSwipeRight];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -229,20 +248,26 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-//    NSLog(@"VenueView Will Appear");
-    [self getDishes];
-    self.title = @"Stations";
-    menuchoiceLabel.text = self.mealChoice;
-    
-    // NSLog(@"Date: %@", date);
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    NSString *formattedDate = [dateFormatter stringFromDate:date];
-    dateLabel.text = formattedDate;
-    
-    [self applyFilters];
-    [anotherTableView reloadData];
+    //    NSLog(@"VenueView Will Appear");
     [super viewWillAppear:YES];
+    self.title = @"Stations";
+
+    
+    if (!isSecondVenueViewController) {
+        NSLog(@"It is the second view controller");
+        
+        [self getDishes];
+        menuchoiceLabel.text = self.mealChoice;
+        
+        // NSLog(@"Date: %@", date);
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+        NSString *formattedDate = [dateFormatter stringFromDate:date];
+        dateLabel.text = formattedDate;
+        
+        [self applyFilters];
+        [anotherTableView reloadData];
+    }
 }
 
 #pragma mark - Added methods
@@ -494,7 +519,6 @@ dispatch_queue_t requestQueue;
     NSInteger selectedYear = [components year];
     
     NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
-    
     //Setting up the fading animation of the labels 
     dateLabel.alpha = 0;
     menuchoiceLabel.alpha = 0;
@@ -567,10 +591,16 @@ dispatch_queue_t requestQueue;
         dispatch_async(requestQueue, ^{
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
             NSError *error = nil;
-            if (data) {
+            if (data)
+            {
                 self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                                 options:kNilOptions
                                                                   error:&error];
+                NSLog(@"Downloaded new data");
+                if (error) {
+                    NSLog(@"There was an error: %@", [error localizedDescription]);
+                }
+
             } else {
                 //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -615,7 +645,8 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)changeDate {
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark MBProgressHUDDelegate methods
@@ -690,11 +721,47 @@ dispatch_queue_t requestQueue;
 	[HUD hide:YES afterDelay:1];
 }
 
-- (void) refreshScreen {
+- (void) refreshScreen
+{
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [anotherTableView reloadData];
     menuchoiceLabel.text = self.mealChoice;
     [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
+
+
+#pragma mark - Methods for Gesture Recognizers.
+- (void) oneFingerSwipeLeft{
+ 
+    //We create another VenueViewController and set it up.. This part still needs some work.... It doesn't work as expected?
+    VenueViewController *scrollingRightVenueViewController = [[VenueViewController alloc] init];
+    
+    NSLog(@"Key is |%@|" , self.mealChoice);
+    
+    if ([self.mealChoice isEqualToString:@"Breakfast"]) {
+        scrollingRightVenueViewController.mealChoice = @"Lunch";
+    } else if ([self.mealChoice isEqualToString:@"Lunch"]) {
+        scrollingRightVenueViewController.mealChoice = @"Dinner";
+    } else if ([self.mealChoice isEqualToString:@"Dinner"]) {
+        scrollingRightVenueViewController.mealChoice = @"Outtakes";
+    } else if ([self.mealChoice isEqualToString:@"Outtakes"]) {
+        scrollingRightVenueViewController.mealChoice = @"Breakfast";
+    }
+    //I tried using a boolean to determine if this was a secondVenueViewController, so that it doesn't download data if this boolean is true.
+    scrollingRightVenueViewController.isSecondVenueViewController = YES;
+    scrollingRightVenueViewController.jsonDict = self.jsonDict;
+    
+
+        [self.navigationController pushViewController:scrollingRightVenueViewController animated:YES];
+    
+}
+
+- (void) oneFingerSwipeRight {
+
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 
 @end

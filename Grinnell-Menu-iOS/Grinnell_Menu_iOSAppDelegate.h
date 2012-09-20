@@ -16,6 +16,7 @@
 @property (nonatomic, strong) VenueViewController *venueViewController;
 @property (nonatomic, strong) DatePickerViewController *datePickerViewController;
 @property (nonatomic, strong) NSMutableArray *venues;
+@property BOOL passover;
 
 
 @end

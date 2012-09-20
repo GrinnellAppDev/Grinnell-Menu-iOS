@@ -14,7 +14,6 @@
 @property (nonatomic, strong) NSString *venue;
 @property (nonatomic, assign) BOOL nutAllergen;
 @property (nonatomic, assign) BOOL glutenFree;
-@property (nonatomic, assign) BOOL vegetarian;
 @property (nonatomic, assign) BOOL vegan;
 @property (nonatomic, assign) BOOL ovolacto;
 @property (nonatomic, assign) BOOL passover;

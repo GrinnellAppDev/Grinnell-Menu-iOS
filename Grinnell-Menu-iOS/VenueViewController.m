@@ -111,8 +111,8 @@ dispatch_queue_t requestQueue;
                 dish.ovolacto = YES;
             if (![[actualdish objectForKey:@"passover"] isEqualToString:@"false"]) 
                 dish.passover = YES;
-            if (![[actualdish objectForKey:@"halal"] isEqualToString:@"false"]) 
-                dish.halal = YES;
+            if (![[actualdish objectForKey:@"gluten_free"] isEqualToString:@"false"]) 
+                dish.glutenFree = YES;
             if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
                 dish.hasNutrition = YES;
                 dish.nutrition = [actualdish objectForKey:@"nutrition"];
@@ -286,10 +286,12 @@ dispatch_queue_t requestQueue;
 #pragma mark - Added methods
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
-    NSPredicate *veganPred, *ovoPred;
-    BOOL ovoSwitch, veganSwitch;
+    NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
+    BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
+    gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
+    passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
     [mainDelegate.venues removeAllObjects];
     for (Venue *v in originalVenues) {
         Venue *venue = [[Venue alloc] init];
@@ -300,40 +302,148 @@ dispatch_queue_t requestQueue;
             dish.venue = d.venue;
             dish.nutAllergen = d.nutAllergen;
             dish.glutenFree = d.glutenFree;
-            dish.vegetarian = d.vegetarian;
             dish.vegan = d.vegan;
             dish.ovolacto = d.ovolacto;
             dish.hasNutrition = d.hasNutrition;
             dish.nutrition = d.nutrition;
-            dish.halal = d.halal;
             dish.passover = d.passover;
             [venue.dishes addObject:dish];
         }
         [mainDelegate.venues addObject:venue];
     }
     
-    if (!ovoSwitch && !veganSwitch)
-        ;
-    else if (ovoSwitch) {
-        ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-        veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-        
-        NSMutableArray *preds = [[NSMutableArray alloc] init];
-        [preds removeAllObjects];
-        [preds addObject:ovoPred];
-        [preds addObject:veganPred];
-        NSPredicate *compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-        
+    //Set up the filters
+    BOOL filter;
+    NSPredicate *compoundPred;
+    NSMutableArray *preds = [[NSMutableArray alloc] init];
+    if (mainDelegate.passover && passSwitch)
+    {
+        passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+        if (!ovoSwitch && !veganSwitch && !gfSwitch){
+            [preds removeAllObjects];
+            [preds addObject:passPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (ovoSwitch && gfSwitch){
+            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+            [preds removeAllObjects];
+            [preds addObject:ovoPred];
+            [preds addObject:veganPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            [preds removeAllObjects];
+            [preds addObject:gfPred];
+            [preds addObject:passPred];
+            [preds addObject:compoundPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (veganSwitch && gfSwitch){
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+            [preds removeAllObjects];
+            [preds addObject:gfPred];
+            [preds addObject:veganPred];
+            [preds addObject:passPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (ovoSwitch) {
+            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+            [preds removeAllObjects];
+            [preds addObject:ovoPred];
+            [preds addObject:veganPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            [preds removeAllObjects];            
+            [preds addObject:passPred];
+            [preds addObject:compoundPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (veganSwitch) {
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+            [preds removeAllObjects];
+            [preds addObject:veganPred];
+            [preds addObject:passPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (gfSwitch) {
+            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+            [preds removeAllObjects];
+            [preds addObject:gfPred];
+            [preds addObject:passPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+    }
+    else
+    {
+        if (!ovoSwitch && !veganSwitch && !gfSwitch){
+            filter = false;
+        }
+        else if (ovoSwitch && gfSwitch){
+            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+            [preds removeAllObjects];
+            [preds addObject:ovoPred];
+            [preds addObject:veganPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            [preds removeAllObjects];
+            [preds addObject:gfPred];
+            [preds addObject:compoundPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (veganSwitch && gfSwitch){
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+            [preds removeAllObjects];
+            [preds addObject:gfPred];
+            [preds addObject:veganPred];
+            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (ovoSwitch) {
+            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            [preds removeAllObjects];
+            [preds addObject:ovoPred];
+            [preds addObject:veganPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (veganSwitch) {
+            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+            [preds removeAllObjects];
+            [preds addObject:veganPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+        else if (gfSwitch) {
+            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+            [preds removeAllObjects];
+            [preds addObject:gfPred];
+            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+            filter = true;
+        }
+    }
+    
+    //Run the filter
+    if (filter && compoundPred != NULL)
         for (Venue *v in mainDelegate.venues) {
             [v.dishes filterUsingPredicate:compoundPred];
         }
-    }
-    else if (veganSwitch) {
-        veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-        for (Venue *v in mainDelegate.venues) {
-            [v.dishes filterUsingPredicate:veganPred];
-        }
-    }
+    
     //Remove empty venues if all items are filtered out of a venue
     NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
     for (Venue *v in mainDelegate.venues) {
@@ -462,13 +572,13 @@ dispatch_queue_t requestQueue;
     
     
     
-//    menuchoiceLabel.text = self.mealChoice;
-//    
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter  setDateFormat:@"EEE MMM dd"];
-//    NSString *formattedDate = [dateFormatter stringFromDate:date];
-//    dateLabel.text = formattedDate;
-//    
+    //    menuchoiceLabel.text = self.mealChoice;
+    //
+    //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //    [dateFormatter  setDateFormat:@"EEE MMM dd"];
+    //    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    //    dateLabel.text = formattedDate;
+    //
     
     if (!self.isSecondVenueViewController) {
         
@@ -553,13 +663,13 @@ dispatch_queue_t requestQueue;
         menuchoiceLabel.alpha = 0;
         grinnellDiningLabel.alpha = 0;
         
-//        
-//        menuchoiceLabel.text = self.mealChoice;
-//        
-//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter  setDateFormat:@"EEE MMM dd"];
-//        NSString *formattedDate = [dateFormatter stringFromDate:date];
-//        dateLabel.text = formattedDate;
+        //
+        //        menuchoiceLabel.text = self.mealChoice;
+        //
+        //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+        //        NSString *formattedDate = [dateFormatter stringFromDate:date];
+        //        dateLabel.text = formattedDate;
         
         
         //You should test for a network connection before here.
@@ -664,32 +774,32 @@ dispatch_queue_t requestQueue;
             return;
         }
         
-        
-        
+    } else {
+    
         //Finish up animations when the view is done loading...
         [UIView animateWithDuration:1 animations:^{
             dateLabel.alpha = 1;
             menuchoiceLabel.alpha = 1;
             grinnellDiningLabel.alpha = 1;
         }];
-    } else {
-
-//        NSLog(@"My mealchoice is %@", self.mealChoice);
-//        [self getDishes];
-//        menuchoiceLabel.text = self.mealChoice;
-//        
-//       [self showMealHUD];
-//
+        //    } else {
+        
+        //        NSLog(@"My mealchoice is %@", self.mealChoice);
+        //        [self getDishes];
+        //        menuchoiceLabel.text = self.mealChoice;
+        //
+        //       [self showMealHUD];
+        //
         NSLog(@"DATE: %@", self.date);
         self.date = [NSDate date];
         NSLog(@"DATE: %@", self.date);
-       NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-       [dateFormatter  setDateFormat:@"EEE MMM dd"];
-       NSString *formattedDate = [dateFormatter stringFromDate:self.date];
-       dateLabel.text = formattedDate;
-//        
-
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+        NSString *formattedDate = [dateFormatter stringFromDate:self.date];
+        dateLabel.text = formattedDate;
+        //
     }
+    
 }
 
 - (void)changeDate {
@@ -832,6 +942,7 @@ dispatch_queue_t requestQueue;
     }
 
 }
+
 
 
 

@@ -8,11 +8,22 @@
 
 #import "SettingsViewController.h"
 #import "VenueViewController.h"
+#import "Grinnell_Menu_iOSAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation SettingsViewController
+@implementation SettingsViewController{
+    Grinnell_Menu_iOSAppDelegate *mainDelegate;
+}
 
-@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, filtersNameArray, veganSwitch, ovoSwitch;
+@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, filtersNameArray, veganSwitch, ovoSwitch, gfSwitch, passSwitch;
+
+//Do some initialization of our own
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    return self;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -32,7 +43,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    if (mainDelegate.passover){
+        passSwitch.hidden = false;
+        return 4;
+    }
+    else{
+        passSwitch.hidden = true;
+        return 3;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -42,14 +60,11 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return @"Tips";
-    }
-    else return @"Filters";
+    return @"Filters";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return @"Lookout for more filters soon!";
+    return @"";
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -62,12 +77,18 @@
     [super viewDidLoad];
     self.title = @"Settings"; 
     
-    //filtersNameArray contains the names of all the filters. If you want to add more filters, You can add the name to this array. Change the number of rows to be returned. And then drag in a switch into the nib file for that particular filter. 
-    filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", nil];
+    //filtersNameArray contains the names of all the filters. If you want to add more filters, You can add the name to this array. Change the number of rows to be returned. And then drag in a switch into the nib file for that particular filter.
+    if (mainDelegate.passover)
+        filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", @"Gluten Free Filter", @"Passover Filter", nil];
+    else
+        filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", @"Gluten Free Filter", nil];
     
     //We set the switches to thier default values
     [veganSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"]];
     [ovoSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"]];
+    [gfSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"]];
+    [passSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"]];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -89,6 +110,8 @@
     //When user clicks done, the default values of the filters are set to the values of the switches
     [[NSUserDefaults standardUserDefaults] setBool:veganSwitch.isOn forKey:@"VeganSwitchValue"];
     [[NSUserDefaults standardUserDefaults] setBool:ovoSwitch.isOn forKey:@"OvoSwitchValue"];
+    [[NSUserDefaults standardUserDefaults] setBool:gfSwitch.isOn forKey:@"GFSwitchValue"];
+    [[NSUserDefaults standardUserDefaults] setBool:passSwitch.isOn forKey:@"PassSwitchValue"];
     [super viewWillDisappear:YES];
 }
 

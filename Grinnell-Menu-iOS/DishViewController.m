@@ -94,7 +94,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -144,6 +144,12 @@
         cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"CHOL"]];
         cell.badge.radius = 9;
     }
+    else if (indexPath.row == 7) {
+        cell.textLabel.text = @"Protein";
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"PRO"]];
+        cell.badge.radius = 9;
+    }
     if (indexPath.row % 2) {
         [cell setBackgroundColor:[UIColor colorWithRed:0.93 green:0.9 blue:0.9 alpha:1]];
         cell.badgeColor = EvenbadgeColor;
@@ -156,7 +162,8 @@
     return cell;
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return nil;
 }
 

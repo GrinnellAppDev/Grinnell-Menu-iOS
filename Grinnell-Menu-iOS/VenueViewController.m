@@ -166,15 +166,25 @@ dispatch_queue_t requestQueue;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSLog(@"viewdidload date: %@", self.date);
+    
 //    NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
 	HUD.delegate = self;
-	HUD.labelText = @"Grabbing Menu";
-	[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
     
-    //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this... 
+    if (!self.isSecondVenueViewController) {
+        HUD.labelText = @"Grabbing Menu";
+        [HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
+    }
+    
+    if (self.isSecondVenueViewController) {
+        [self loadNextMenu];
+        [self showMealHUD];
+    }
+    
+    //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
     UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
@@ -253,7 +263,7 @@ dispatch_queue_t requestQueue;
     self.title = @"Stations";
 
     
-    if (!isSecondVenueViewController) {
+
         NSLog(@"It is the second view controller");
         
         [self getDishes];
@@ -264,10 +274,13 @@ dispatch_queue_t requestQueue;
         [dateFormatter  setDateFormat:@"EEE MMM dd"];
         NSString *formattedDate = [dateFormatter stringFromDate:date];
         dateLabel.text = formattedDate;
-        
+    
+    //The problem with this is that it shows the HUD EVERY SINGLE TIME THE SCREEN IS VIEWED. I have it do this so when you swipe back you can see the hud as well.
+    [self showMealHUD];
+    
         [self applyFilters];
         [anotherTableView reloadData];
-    }
+    
 }
 
 #pragma mark - Added methods
@@ -446,202 +459,237 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)loadNextMenu {
-    //Testing Methods
-    //Grab today's date so we can properly initialize selected date to today
-    NSDate *today = [NSDate date];
-    NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
-    
-    //By default, we work with today's menu.
-    self.date = today;
-    //Declare Date Components for today
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
-    NSInteger hour = [todayComponents hour];
-    NSInteger minute = [todayComponents minute];
-    NSInteger weekday = [todayComponents weekday];
-    //NSLog(@"hour: %d minute: %d weekday: %d", hour, minute, weekday);
-    
-    //Use time and weekday to intelligently set the mealChoice 
-    //Sunday
-    if (weekday == 1){
-        if (hour < 13 || (hour < 14 && minute < 30))
-            self.mealChoice = @"Lunch";
-        else if (hour < 19)
-            self.mealChoice = @"Dinner";
-        else{
-            self.mealChoice = @"Breakfast";
-            self.date = tomorrow;
-        }
-    }
-    //Saturday
-    else if (weekday == 7){
-        if (hour < 10)
-            self.mealChoice = @"Breakfast";
-        else if (hour < 13 || (hour < 14 && minute < 30))
-            self.mealChoice = @"Lunch";
-        else if (hour < 19)
-            self.mealChoice = @"Dinner";
-        else{
-            self.mealChoice = @"Lunch";
-            self.date = tomorrow;
-        }
-    }
-    //Friday
-    else if (weekday == 6){
-        if (hour < 10)
-            self.mealChoice = @"Breakfast";
-        else if (hour < 13 || (hour < 14 && minute < 30))
-            self.mealChoice = @"Lunch";
-        else if (hour < 19)
-            self.mealChoice = @"Dinner";   
-        else{
-            self.mealChoice = @"Breakfast";
-            self.date = tomorrow;
-        }
-    }
-    //All other days
-    else{
-        if (hour < 10)
-            self.mealChoice = @"Breakfast";
-        else if (hour < 13 || (hour < 14 && minute < 30))
-            self.mealChoice = @"Lunch";
-        else if (hour < 20)
-            self.mealChoice = @"Dinner";
-        else{
-            self.mealChoice = @"Breakfast";
-            self.date = tomorrow;
-        }
-    }
-    
-    //We need to pick the right components in the cases self.date changes.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
-    NSInteger selectedDay = [components day];
-    NSInteger selectedMonth = [components month];
-    NSInteger selectedYear = [components year];
-    
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
-    //Setting up the fading animation of the labels 
-    dateLabel.alpha = 0;
-    menuchoiceLabel.alpha = 0;
-    grinnellDiningLabel.alpha = 0;
-    
- 
-    menuchoiceLabel.text = self.mealChoice;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    NSString *formattedDate = [dateFormatter stringFromDate:date];    
-    dateLabel.text = formattedDate;
     
     
-    //You should test for a network connection before here.
-    if ([self networkCheck]) {
-        //Instantiate the queue we will run the downloading data process in
-        requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
+    
+//    menuchoiceLabel.text = self.mealChoice;
+//    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter  setDateFormat:@"EEE MMM dd"];
+//    NSString *formattedDate = [dateFormatter stringFromDate:date];
+//    dateLabel.text = formattedDate;
+//    
+    
+    if (!self.isSecondVenueViewController) {
         
-        //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
-        //Using the available days json to do this. Is there a better way? Even though this works. 
-        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
-        NSError *error;
-        NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
-        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
-        @try {
-            availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
-                                                                options:kNilOptions
-                                                                  error:&error];
+        NSLog(@"A new menu has been loaded");
+        
+        //Testing Methods
+        //Grab today's date so we can properly initialize selected date to today
+        NSDate *today = [NSDate date];
+        NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
+        
+        //By default, we work with today's menu.
+        self.date = today;
+        //Declare Date Components for today
+        NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
+        NSInteger hour = [todayComponents hour];
+        NSInteger minute = [todayComponents minute];
+        NSInteger weekday = [todayComponents weekday];
+        //NSLog(@"hour: %d minute: %d weekday: %d", hour, minute, weekday);
+        
+        //Use time and weekday to intelligently set the mealChoice
+        //Sunday
+        
+        if (weekday == 1){
+            if (hour < 13 || (hour < 14 && minute < 30))
+                self.mealChoice = @"Lunch";
+            else if (hour < 19)
+                self.mealChoice = @"Dinner";
+            else{
+                self.mealChoice = @"Breakfast";
+                self.date = tomorrow;
+            }
         }
-        @catch (NSException *e) {
-            alert = @"server";
-            UIAlertView *network = [[UIAlertView alloc]
-                                    initWithTitle:@"Network Error"
-                                    message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
-                                    delegate:self
-                                    cancelButtonTitle:@"OK"
-                                    otherButtonTitles:nil
-                                    ];
-            [network show];
-            return;
+        //Saturday
+        else if (weekday == 7){
+            if (hour < 10)
+                self.mealChoice = @"Breakfast";
+            else if (hour < 13 || (hour < 14 && minute < 30))
+                self.mealChoice = @"Lunch";
+            else if (hour < 19)
+                self.mealChoice = @"Dinner";
+            else{
+                self.mealChoice = @"Lunch";
+                self.date = tomorrow;
+            }
+        }
+        //Friday
+        else if (weekday == 6){
+            if (hour < 10)
+                self.mealChoice = @"Breakfast";
+            else if (hour < 13 || (hour < 14 && minute < 30))
+                self.mealChoice = @"Lunch";
+            else if (hour < 19)
+                self.mealChoice = @"Dinner";
+            else{
+                self.mealChoice = @"Breakfast";
+                self.date = tomorrow;
+            }
+        }
+        //All other days
+        else{
+            if (hour < 10)
+                self.mealChoice = @"Breakfast";
+            else if (hour < 13 || (hour < 14 && minute < 30))
+                self.mealChoice = @"Lunch";
+            else if (hour < 20)
+                self.mealChoice = @"Dinner";
+            else{
+                self.mealChoice = @"Breakfast";
+                self.date = tomorrow;
+            }
         }
         
-        //If the available days returned is -1, there are no menus found..
-        NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"MM-dd-yyyy"];
-        NSDate *lastDate = [df dateFromString:dayStr];
-        NSUInteger unitFlags = NSDayCalendarUnit;
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
-        int day= [components day] + 1;
-        //Store the day so the date picker can access it
-        availDay = day;
-        if (day <= 0) {
-            alert = @"network";
-            UIAlertView *network = [[UIAlertView alloc]
-                                    initWithTitle:@"No Menus are available"
-                                    message:@"Please check back later"
-                                    delegate:self
-                                    cancelButtonTitle:@"OK"
-                                    otherButtonTitles:nil
-                                    ];
-            [network show];
-            //Make sure to uncomment this return line  here for production
-            return;
-        }
+        //We need to pick the right components in the cases self.date changes.
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+        NSInteger selectedDay = [components day];
+        NSInteger selectedMonth = [components month];
+        NSInteger selectedYear = [components year];
         
-        //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it! 
-        //Perform downloading asynchronously on a different thread(queue) - error check throughout process
-        dispatch_async(requestQueue, ^{
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-            NSError *error = nil;
-            if (data)
-            {
-                self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                                options:kNilOptions
-                                                                  error:&error];
-                NSLog(@"Downloaded new data");
-                if (error) {
-                    NSLog(@"There was an error: %@", [error localizedDescription]);
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        //Setting up the fading animation of the labels
+        dateLabel.alpha = 0;
+        menuchoiceLabel.alpha = 0;
+        grinnellDiningLabel.alpha = 0;
+        
+//        
+//        menuchoiceLabel.text = self.mealChoice;
+//        
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+//        NSString *formattedDate = [dateFormatter stringFromDate:date];
+//        dateLabel.text = formattedDate;
+        
+        
+        //You should test for a network connection before here.
+        if ([self networkCheck]) {
+            //Instantiate the queue we will run the downloading data process in
+            requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
+            
+            //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
+            //Using the available days json to do this. Is there a better way? Even though this works.
+            NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
+            NSError *error;
+            NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
+            NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
+            @try {
+                availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
+                                                                    options:kNilOptions
+                                                                      error:&error];
+            }
+            @catch (NSException *e) {
+                alert = @"server";
+                UIAlertView *network = [[UIAlertView alloc]
+                                        initWithTitle:@"Network Error"
+                                        message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
+                                        delegate:self
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil
+                                        ];
+                [network show];
+                return;
+            }
+            
+            //If the available days returned is -1, there are no menus found..
+            NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"MM-dd-yyyy"];
+            NSDate *lastDate = [df dateFromString:dayStr];
+            NSUInteger unitFlags = NSDayCalendarUnit;
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
+            int day= [components day] + 1;
+            //Store the day so the date picker can access it
+            availDay = day;
+            if (day <= 0) {
+                alert = @"network";
+                UIAlertView *network = [[UIAlertView alloc]
+                                        initWithTitle:@"No Menus are available"
+                                        message:@"Please check back later"
+                                        delegate:self
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil
+                                        ];
+                [network show];
+                //Make sure to uncomment this return line  here for production
+                return;
+            }
+            
+            //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it!
+            //Perform downloading asynchronously on a different thread(queue) - error check throughout process
+            dispatch_async(requestQueue, ^{
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+                NSError *error = nil;
+                if (data)
+                {
+                    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:kNilOptions
+                                                                      error:&error];
+                    NSLog(@"Downloaded new data");
+                    if (error) {
+                        NSLog(@"There was an error: %@", [error localizedDescription]);
+                    }
+                    
+                } else {
+                    //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *dataNilAlert = [[UIAlertView alloc]
+                                                     initWithTitle:@"An error occurred pulling in the data"
+                                                     message:nil
+                                                     delegate:self
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+                        [dataNilAlert show];
+                    });
                 }
+                if (jsonDict) {
+                    [self getDishes];
+                    //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self refreshScreen];
+                        [self showMealHUD];
+                    });
+                }
+            }); //Done with multithreaded code
+        }
+        else {
+            //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
+            UIAlertView *network = [[UIAlertView alloc]
+                                    initWithTitle:@"No Network Connection"
+                                    message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil
+                                    ];
+            [network show];
+            return;
+        }
+        
+        
+        
+        //Finish up animations when the view is done loading...
+        [UIView animateWithDuration:1 animations:^{
+            dateLabel.alpha = 1;
+            menuchoiceLabel.alpha = 1;
+            grinnellDiningLabel.alpha = 1;
+        }];
+    } else {
 
-            } else {
-                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *dataNilAlert = [[UIAlertView alloc]
-                                                 initWithTitle:@"An error occurred pulling in the data"
-                                                 message:nil
-                                                 delegate:self
-                                                 cancelButtonTitle:@"OK"
-                                                 otherButtonTitles:nil];
-                    [dataNilAlert show];
-                });
-            }
-            if (jsonDict) {
-                [self getDishes];
-                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self refreshScreen];
-                    [self showMealHUD];
-                });
-            }
-        }); //Done with multithreaded code
+//        NSLog(@"My mealchoice is %@", self.mealChoice);
+//        [self getDishes];
+//        menuchoiceLabel.text = self.mealChoice;
+//        
+//       [self showMealHUD];
+//
+        NSLog(@"DATE: %@", self.date);
+        self.date = [NSDate date];
+        NSLog(@"DATE: %@", self.date);
+       NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+       [dateFormatter  setDateFormat:@"EEE MMM dd"];
+       NSString *formattedDate = [dateFormatter stringFromDate:self.date];
+       dateLabel.text = formattedDate;
+//        
+
     }
-    else {
-        //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app) 
-        UIAlertView *network = [[UIAlertView alloc]
-                                initWithTitle:@"No Network Connection"
-                                message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
-                                cancelButtonTitle:@"OK"
-                                otherButtonTitles:nil
-                                ];
-        [network show];
-        return;
-    }
-    
-    
-    //Finish up animations when the view is done loading...
-    [UIView animateWithDuration:1 animations:^{
-        dateLabel.alpha = 1;
-        menuchoiceLabel.alpha = 1;
-        grinnellDiningLabel.alpha = 1;
-    }];
 }
 
 - (void)changeDate {
@@ -731,7 +779,7 @@ dispatch_queue_t requestQueue;
 
 
 #pragma mark - Methods for Gesture Recognizers.
-- (void) oneFingerSwipeLeft{
+- (void) oneFingerSwipeLeft {
  
     //We create another VenueViewController and set it up.. This part still needs some work.... It doesn't work as expected?
     VenueViewController *scrollingRightVenueViewController = [[VenueViewController alloc] init];
@@ -747,19 +795,42 @@ dispatch_queue_t requestQueue;
     } else if ([self.mealChoice isEqualToString:@"Outtakes"]) {
         scrollingRightVenueViewController.mealChoice = @"Breakfast";
     }
+    
     //I tried using a boolean to determine if this was a secondVenueViewController, so that it doesn't download data if this boolean is true.
     scrollingRightVenueViewController.isSecondVenueViewController = YES;
     scrollingRightVenueViewController.jsonDict = self.jsonDict;
     
-
-        [self.navigationController pushViewController:scrollingRightVenueViewController animated:YES];
+    [self.navigationController pushViewController:scrollingRightVenueViewController animated:YES];
     
 }
 
 - (void) oneFingerSwipeRight {
-
     
-    [self.navigationController popViewControllerAnimated:YES];
+    int viewControllersCount = self.navigationController.viewControllers.count;
+    int uc = viewControllersCount - 2;
+//    NSLog(@"Controller count: %d", [self.navigationController.viewControllers count]);
+    
+    //We need to cast it to get access to the visible view controller
+    NSLog(@"Visible View Controller: %@", [(VenueViewController *) self.navigationController.visibleViewController mealChoice]);
+    
+    //Accessing the parent view controller (n-2) in the navigation stack
+    
+    NSLog(@"Parent View Controller: %@", [self.navigationController.viewControllers objectAtIndex:uc]);
+    
+    if ([self.navigationController.viewControllers count] > 2) {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        //Get the previous viewController and ask it to show meal HUD? Didn't get this thought to work. 
+//        NSLog(@"Current index: %d", [self.navigationController.viewControllers indexOfObject:self]);
+//        [(VenueViewController *)self.navigationController.visibleViewController showMealHUD];
+//        [[self.navigationController.viewControllers objectAtIndex:uc] showMealHUD];
+    }
+    else {
+        //If the count is two or less, then we are at the "beginning" of the navigation stack. And we would need to figure out what do to here exactly. I'm displaying an alert for now. This also means that we need to have swiping right ALWAYS go to the next available meal and not cycle through.
+        UIAlertView *noswipealert = [[UIAlertView alloc] initWithTitle:nil message:@"Meals beyond this point shouldn't interesting to you right?" delegate:self cancelButtonTitle:@"That's true!" otherButtonTitles:nil];
+        [noswipealert show];
+    }
+
 }
 
 

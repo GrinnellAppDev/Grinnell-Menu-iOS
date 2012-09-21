@@ -580,6 +580,8 @@ dispatch_queue_t requestQueue;
     //    dateLabel.text = formattedDate;
     //
     
+
+    
     if (!self.isSecondVenueViewController) {
         
         NSLog(@"A new menu has been loaded");
@@ -761,6 +763,15 @@ dispatch_queue_t requestQueue;
                     });
                 }
             }); //Done with multithreaded code
+            
+            //Finish up animations when the view is done loading...
+            [UIView animateWithDuration:1 animations:^{
+                dateLabel.alpha = 1;
+                menuchoiceLabel.alpha = 1;
+                grinnellDiningLabel.alpha = 1;
+            }];
+            
+            
         }
         else {
             //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
@@ -777,11 +788,11 @@ dispatch_queue_t requestQueue;
     } else {
     
         //Finish up animations when the view is done loading...
-        [UIView animateWithDuration:1 animations:^{
-            dateLabel.alpha = 1;
-            menuchoiceLabel.alpha = 1;
-            grinnellDiningLabel.alpha = 1;
-        }];
+//        [UIView animateWithDuration:1 animations:^{
+//            dateLabel.alpha = 1;
+//            menuchoiceLabel.alpha = 1;
+//            grinnellDiningLabel.alpha = 1;
+//        }];
         //    } else {
         
         //        NSLog(@"My mealchoice is %@", self.mealChoice);

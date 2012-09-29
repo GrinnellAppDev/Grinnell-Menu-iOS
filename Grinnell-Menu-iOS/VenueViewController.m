@@ -73,17 +73,31 @@ dispatch_queue_t requestQueue;
         key = @"OUTTAKES";
     }
     
+    //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
-    
+    NSLog(@"maniMenu: %@", self.jsonDict);
     //Put data on screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue.
+    
+    
     mealNamesFromJSON = [[NSArray alloc] init];
     mealNamesFromJSON = [mainMenu allKeys];
-    
-    for (NSDictionary *mealName in mainMenu){
-        NSMutableArray *meal = [[NSMutableArray init] alloc];
+        
+    //for each mealName, i.e each of Breakfast, Lunch, Dinner, Outtakes...
+    for (NSString *mealName in mainMenu) {
+        
+        //When the mealName is passover, we get an error because it is expecting an NSDictionary and PASSOVER returns a string ( true or false). So we just skip over passover.
+        if ([mealName isEqualToString:@"PASSOVER"]) {
+            //skip
+            break;
+        }
+        NSDictionary *mealDict = [mainMenu objectForKey:mealName];
+        
+        NSLog(@"mealName is %@", mealName);
+        //We create an array to begin forming each meal's menu
+        NSMutableArray *meal = [[NSMutableArray alloc] initWithCapacity:5];
         venueNamesFromJSON = [[NSArray alloc] init];
-        venueNamesFromJSON = [mealName allKeys];
+        venueNamesFromJSON = [mealDict allKeys];
         //Here we fill the venues array to contain all the venues.
         for (NSString *venuename in venueNamesFromJSON) {
             //  NSLog(@"venuenames: %@", venuename);

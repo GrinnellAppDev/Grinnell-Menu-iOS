@@ -15,7 +15,7 @@
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, strong) VenueViewController *venueViewController;
 @property (nonatomic, strong) DatePickerViewController *datePickerViewController;
-@property (nonatomic, strong) NSMutableArray *venues;
+@property (nonatomic, strong) NSMutableArray *allMenus;
 @property BOOL passover;
 
 

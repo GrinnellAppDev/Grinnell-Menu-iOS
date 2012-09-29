@@ -15,16 +15,19 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Reachability.h"
 #import "FlurryAnalytics.h"
+#import "PanelsViewController.h"
+#import "PanelView.h"
+#import "SamplePanelView.h"
 
 @implementation VenueViewController
 {
-    NSArray *menuVenueNamesFromJSON;
-    NSMutableArray *originalVenues;
+    NSArray *mealNamesFromJSON, *venueNamesFromJSON;
+    NSMutableArray *originalMenu;
     NSString *alert;
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, anotherTableView, date, mealChoice, jsonDict, availDay, isSecondVenueViewController;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;
@@ -56,8 +59,8 @@ dispatch_queue_t requestQueue;
 
 //Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes {
-    [originalVenues removeAllObjects];
-    [mainDelegate.venues removeAllObjects];
+    [originalMenu removeAllObjects];
+    [mainDelegate.allMenus removeAllObjects];
     
     NSString *key = [[NSString alloc] init];
     if ([self.mealChoice isEqualToString:@"Breakfast"]) {
@@ -70,30 +73,33 @@ dispatch_queue_t requestQueue;
         key = @"OUTTAKES";
     }
     
-    NSDictionary *mainMenu = [self.jsonDict objectForKey:key]; 
+    NSDictionary *mainMenu = self.jsonDict;
     
     //Put data on screen
-    //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue. 
-    menuVenueNamesFromJSON = [[NSArray alloc] init];
-    menuVenueNamesFromJSON = [mainMenu allKeys];
+    //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue.
+    mealNamesFromJSON = [[NSArray alloc] init];
+    mealNamesFromJSON = [mainMenu allKeys];
     
-    //Here we fill the venues array to contain all the venues. 
-    for (NSString *venuename in menuVenueNamesFromJSON) {
-        //  NSLog(@"venuenames: %@", venuename);
-        Venue *gvenue = [[Venue alloc] init];
-        gvenue.name = venuename;
-        if ([gvenue.name isEqualToString:@"ENTREES                  "] && [key isEqualToString:@"LUNCH"]) {
-            continue;
+    for (NSDictionary *mealName in mainMenu){
+        NSMutableArray *meal = [[NSMutableArray init] alloc];
+        venueNamesFromJSON = [[NSArray alloc] init];
+        venueNamesFromJSON = [mealName allKeys];
+        //Here we fill the venues array to contain all the venues.
+        for (NSString *venuename in venueNamesFromJSON) {
+            //  NSLog(@"venuenames: %@", venuename);
+            Venue *gvenue = [[Venue alloc] init];
+            gvenue.name = venuename;
+            if ([gvenue.name isEqualToString:@"ENTREES                  "] && [key isEqualToString:@"LUNCH"]) {
+                    continue;
+            }
+            // NSLog(@"Adding object: %@", gvenue);
+            [meal addObject:gvenue];
         }
-        // NSLog(@"Adding object: %@", gvenue);
-        [mainDelegate.venues addObject:gvenue];
-    }
     
-    //Remove the Entree venue
-    [mainDelegate.venues removeObject:@"ENTREES"];
+    
     
     //So for each Venue...
-    for (Venue *gVenue in mainDelegate.venues) {
+    for (Venue *gVenue in meal) {
         
         //We create a dish
         gVenue.dishes = [[NSMutableArray alloc] initWithCapacity:10];
@@ -121,7 +127,15 @@ dispatch_queue_t requestQueue;
             [gVenue.dishes addObject:dish];
         }
     }
-    [originalVenues setArray:mainDelegate.venues];    
+    
+    
+    [mainDelegate.allMenus addObject:meal];
+    }
+    NSLog(@"Allmenus: %@", mainDelegate.allMenus);
+    //Remove the Entree venue
+    [mainDelegate.allMenus removeObject:@"ENTREES"];
+    
+    [originalMenu setArray:mainDelegate.allMenus];
     [self applyFilters];
 }
 
@@ -174,17 +188,11 @@ dispatch_queue_t requestQueue;
 	
 	HUD.delegate = self;
     
-    if (!self.isSecondVenueViewController) {
         HUD.labelText = @"Grabbing Menu";
         [HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
-    }
     
-    if (self.isSecondVenueViewController) {
-        [self loadNextMenu];
-        [self showMealHUD];
-    }
     
-    //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
+     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
     UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
@@ -199,8 +207,8 @@ dispatch_queue_t requestQueue;
     self.navigationItem.leftBarButtonItem = changeDateButton;
     
     
-    originalVenues = [[NSMutableArray alloc] init];
-    mainDelegate.venues = [[NSMutableArray alloc] init];
+    originalMenu = [[NSMutableArray alloc] init];
+    mainDelegate.allMenus = [[NSMutableArray alloc] init];
     grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:35];
     dateLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
     menuchoiceLabel.font = [UIFont fontWithName:@"Vivaldi" size:20];
@@ -222,18 +230,6 @@ dispatch_queue_t requestQueue;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
     }];
-    
-    //Add custom tap recognizer
-    UISwipeGestureRecognizer *oneFingerSwipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerSwipeLeft)];
-    [oneFingerSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    
-    UISwipeGestureRecognizer *oneFingerSwipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerSwipeRight)];
-    [oneFingerSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    
-    
-    //Add gesture Recognizers to views.
-    [[self view] addGestureRecognizer:oneFingerSwipeLeft];
-    [[self view] addGestureRecognizer:oneFingerSwipeRight];
     
 }
 
@@ -261,39 +257,41 @@ dispatch_queue_t requestQueue;
     //    NSLog(@"VenueView Will Appear");
     [super viewWillAppear:YES];
     self.title = @"Stations";
-
-    
-
-        NSLog(@"It is the second view controller");
+    [self getDishes];
+    menuchoiceLabel.text = self.mealChoice;
         
-        [self getDishes];
-        menuchoiceLabel.text = self.mealChoice;
-        
-        // NSLog(@"Date: %@", date);
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter  setDateFormat:@"EEE MMM dd"];
-        NSString *formattedDate = [dateFormatter stringFromDate:date];
-        dateLabel.text = formattedDate;
-    
-    //The problem with this is that it shows the HUD EVERY SINGLE TIME THE SCREEN IS VIEWED. I have it do this so when you swipe back you can see the hud as well.
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter  setDateFormat:@"EEE MMM dd"];
+    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    dateLabel.text = formattedDate;
+
     [self showMealHUD];
-    
-        [self applyFilters];
-        [anotherTableView reloadData];
-    
+    [self applyFilters];
+    //[anotherTableView reloadData];
 }
 
 #pragma mark - Added methods
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
+    /*
     NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
     BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    [mainDelegate.venues removeAllObjects];
-    for (Venue *v in originalVenues) {
+    [mainDelegate.allMenus removeAllObjects];
+    int i = 0;
+    if ([menuchoiceLabel.text isEqualToString:@"Breakfast"])
+        i = 0;
+    else if ([menuchoiceLabel.text isEqualToString:@"Lunch"])
+        i = 1;
+    else if ([menuchoiceLabel.text isEqualToString:@"Dinner"])
+        i = 2;
+    else if ([menuchoiceLabel.text isEqualToString:@"Outtakes"])
+        i = 3;
+    
+    for (Venue *v in originalMenu[i]) {
         Venue *venue = [[Venue alloc] init];
         venue.name = v.name;
         for (Dish *d in v.dishes) {
@@ -309,7 +307,7 @@ dispatch_queue_t requestQueue;
             dish.passover = d.passover;
             [venue.dishes addObject:dish];
         }
-        [mainDelegate.venues addObject:venue];
+        [mainDelegate.allMenus addObject:venue];
     }
     
     //Set up the filters
@@ -452,6 +450,7 @@ dispatch_queue_t requestQueue;
         }
     }
     [mainDelegate.venues removeObjectsInArray:emptyVenues];
+     */
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -459,27 +458,37 @@ dispatch_queue_t requestQueue;
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return mainDelegate.venues.count;
+
+- (NSInteger)numberOfPanels
+{
+	if (jsonDict != NULL)
+        return jsonDict.count - 1;
+    else
+        return 4;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    Venue *venue = [mainDelegate.venues objectAtIndex:section];
-    return venue.name; 
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([self tableView:tableView titleForHeaderInSection:section] != nil) {
+
+- (NSString *)panelView:(id)panelView titleForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section {
+    if (mainDelegate.allMenus != NULL){
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
+    return venue.name;
+    }
+    else return @"";
+}
+/*
+- (CGFloat)panelView:(id)panelView heightForRowAtIndexPath:(PanelIndexPath *)indexPath{
+    if ([self panelView:panelView titleForHeaderInPage:<#(NSInteger)#> section:<#(NSInteger)#> != nil) {
         return 40;
     }
     else {
         // If no section header title, no section header needed
         return 0;
     }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+}*/
+/*
+- (UIView)panelView:(PanelView *)panelView viewForHeaderInSection:(NSInteger)page section:(NSInteger)section
+{
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
     // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
     if (sectionTitle == nil) {
@@ -501,20 +510,62 @@ dispatch_queue_t requestQueue;
     [view addSubview:label];
     return view;
 }
+*/
 
-- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
-    Venue *venue = [mainDelegate.venues objectAtIndex:section];
+/**
+ *
+ * - (NSInteger)panelView:(PanelView *)panelView numberOfRowsInPage:(NSInteger)page section:(NSInteger)section
+ * set number of rows for different panel & section
+ *
+ */
+- (NSInteger)panelView:(PanelView *)panelView numberOfRowsInPage:(NSInteger)page section:(NSInteger)section
+{
+    if (mainDelegate.allMenus != NULL)
+    {
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:page] objectAtIndex:section];
+    //NSLog(@"Count: %d",venue.dishes.count );
     return venue.dishes.count;
+    }
+    else
+        return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"CellIdentifier";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil)
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+/**
+ *
+ *
+ */
+- (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber
+{
+    if (jsonDict)
+        return [[mainDelegate.allMenus objectAtIndex:pageNumber] count];
+    else
+        return 0;
     
-    // Configure the cell...    
-    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
+}
+
+/**
+ *
+ * - (UITableViewCell *)panelView:(PanelView *)panelView cellForRowAtIndexPath:(PanelIndexPath *)indexPath
+ * use this method to change table view cells for different panel, section, and row
+ *
+ */
+- (UITableViewCell *)panelView:(PanelView *)panelView cellForRowAtIndexPath:(PanelIndexPath *)indexPath
+{
+	static NSString *identity = @"UITableViewCell";
+	UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:identity];
+	if (cell == nil)
+	{
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
+	}
+    
+    //
+    //    // Configure the cell...
+    //    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
+    //    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
+    //    cell.textLabel.text = dish.name;
+    
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
+
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     cell.textLabel.text = dish.name;
     
@@ -533,21 +584,43 @@ dispatch_queue_t requestQueue;
         // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     
-    //Modify the colours. 
+    //Modify the colours.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+/**
+ *
+ * - (PanelView *)panelForPage:(NSInteger)page
+ * use this method to change panel types
+ * SamplePanelView should subclass PanelView
+ *
+ */
+- (PanelView *)panelForPage:(NSInteger)page
+{
+	static NSString *identifier = @"SamplePanelView";
+	SamplePanelView *panelView = (SamplePanelView*)[self dequeueReusablePageWithIdentifier:identifier];
+	if (panelView == nil)
+	{
+		panelView = [[SamplePanelView alloc] initWithIdentifier:identifier];
+	}
+	return panelView;
+}
+
+//Added implementation DrJid
+-(void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath *)indexPath
+{
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
+   // [tableView deselectRowAtIndexPath:indexPath animated:NO];
     DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
-    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     dishView.selectedDish = [[Dish alloc] init];
     dishView.selectedDish = dish;
     [self.navigationController pushViewController:dishView animated:YES];
 }
+
 
 
 #pragma mark UIAlertViewDelegate Methods
@@ -561,10 +634,10 @@ dispatch_queue_t requestQueue;
         self.mealChoice = titlePressed;
         [self getDishes];
         [self showMealHUD];
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [anotherTableView reloadData];
+      //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+      //  [anotherTableView reloadData];
         menuchoiceLabel.text = self.mealChoice;
-        [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+       //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
 
@@ -582,7 +655,6 @@ dispatch_queue_t requestQueue;
     
 
     
-    if (!self.isSecondVenueViewController) {
         
         NSLog(@"A new menu has been loaded");
         
@@ -784,33 +856,6 @@ dispatch_queue_t requestQueue;
             [network show];
             return;
         }
-        
-    } else {
-    
-        //Finish up animations when the view is done loading...
-//        [UIView animateWithDuration:1 animations:^{
-//            dateLabel.alpha = 1;
-//            menuchoiceLabel.alpha = 1;
-//            grinnellDiningLabel.alpha = 1;
-//        }];
-        //    } else {
-        
-        //        NSLog(@"My mealchoice is %@", self.mealChoice);
-        //        [self getDishes];
-        //        menuchoiceLabel.text = self.mealChoice;
-        //
-        //       [self showMealHUD];
-        //
-        NSLog(@"DATE: %@", self.date);
-        self.date = [NSDate date];
-        NSLog(@"DATE: %@", self.date);
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter  setDateFormat:@"EEE MMM dd"];
-        NSString *formattedDate = [dateFormatter stringFromDate:self.date];
-        dateLabel.text = formattedDate;
-        //
-    }
-    
 }
 
 - (void)changeDate {
@@ -892,69 +937,11 @@ dispatch_queue_t requestQueue;
 
 - (void) refreshScreen
 {
-    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [anotherTableView reloadData];
+   // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+   // [anotherTableView reloadData];
     menuchoiceLabel.text = self.mealChoice;
-    [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+   // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
-
-
-#pragma mark - Methods for Gesture Recognizers.
-- (void) oneFingerSwipeLeft {
- 
-    //We create another VenueViewController and set it up.. This part still needs some work.... It doesn't work as expected?
-    VenueViewController *scrollingRightVenueViewController = [[VenueViewController alloc] init];
-    
-    NSLog(@"Key is |%@|" , self.mealChoice);
-    
-    if ([self.mealChoice isEqualToString:@"Breakfast"]) {
-        scrollingRightVenueViewController.mealChoice = @"Lunch";
-    } else if ([self.mealChoice isEqualToString:@"Lunch"]) {
-        scrollingRightVenueViewController.mealChoice = @"Dinner";
-    } else if ([self.mealChoice isEqualToString:@"Dinner"]) {
-        scrollingRightVenueViewController.mealChoice = @"Outtakes";
-    } else if ([self.mealChoice isEqualToString:@"Outtakes"]) {
-        scrollingRightVenueViewController.mealChoice = @"Breakfast";
-    }
-    
-    //I tried using a boolean to determine if this was a secondVenueViewController, so that it doesn't download data if this boolean is true.
-    scrollingRightVenueViewController.isSecondVenueViewController = YES;
-    scrollingRightVenueViewController.jsonDict = self.jsonDict;
-    
-    [self.navigationController pushViewController:scrollingRightVenueViewController animated:YES];
-    
-}
-
-- (void) oneFingerSwipeRight {
-    
-    int viewControllersCount = self.navigationController.viewControllers.count;
-    int uc = viewControllersCount - 2;
-//    NSLog(@"Controller count: %d", [self.navigationController.viewControllers count]);
-    
-    //We need to cast it to get access to the visible view controller
-    NSLog(@"Visible View Controller: %@", [(VenueViewController *) self.navigationController.visibleViewController mealChoice]);
-    
-    //Accessing the parent view controller (n-2) in the navigation stack
-    
-    NSLog(@"Parent View Controller: %@", [self.navigationController.viewControllers objectAtIndex:uc]);
-    
-    if ([self.navigationController.viewControllers count] > 2) {
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        //Get the previous viewController and ask it to show meal HUD? Didn't get this thought to work. 
-//        NSLog(@"Current index: %d", [self.navigationController.viewControllers indexOfObject:self]);
-//        [(VenueViewController *)self.navigationController.visibleViewController showMealHUD];
-//        [[self.navigationController.viewControllers objectAtIndex:uc] showMealHUD];
-    }
-    else {
-        //If the count is two or less, then we are at the "beginning" of the navigation stack. And we would need to figure out what do to here exactly. I'm displaying an alert for now. This also means that we need to have swiping right ALWAYS go to the next available meal and not cycle through.
-        UIAlertView *noswipealert = [[UIAlertView alloc] initWithTitle:nil message:@"Meals beyond this point shouldn't interesting to you right?" delegate:self cancelButtonTitle:@"That's true!" otherButtonTitles:nil];
-        [noswipealert show];
-    }
-
-}
-
-
 
 
 @end

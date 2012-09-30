@@ -55,8 +55,6 @@
 - (void)loadView
 {
 	[super loadView];
-	[self.view setBackgroundColor:[UIColor clearColor]];
-	
 	CGRect frame = [self scrollViewFrame];
 	_scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,0,frame.size.width+2*GAP,frame.size.height)];
 	[_scrollView setScrollsToTop:YES];
@@ -64,8 +62,8 @@
 	[_scrollView setShowsHorizontalScrollIndicator:NO];
 	[_scrollView setPagingEnabled:YES];
 	[_scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    [_scrollView setBackgroundColor:[UIColor clearColor]];
-	[self.view addSubview:self.scrollView];
+    
+    [self.view addSubview:self.scrollView];
 	[_scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*[self numberOfPanels],_scrollView.frame.size.height)];
 	
 	_recycledPages = [NSMutableSet set];
@@ -98,9 +96,6 @@
 {
 	PanelView *panelView = [self panelViewAtPage:self.currentPage];
 	[panelView pageWillAppear];
-    self.scrollView.backgroundColor = [UIColor clearColor];
-    panelView.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -142,7 +137,6 @@
 		[self.scrollView setTransform:CGAffineTransformMakeScale(1, 1)];
 		
 	}
-
 	[UIView commitAnimations];
 }
 
@@ -232,9 +226,9 @@
 		if (self.currentPage < [self numberOfPanels])
 		{
 			PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+i];
-            panelView.backgroundColor = [UIColor clearColor];
 			[panelView showNextPanel];
 			[panelView pageWillAppear];
+            //TODO figure out whether this is working and whether there is a better place for this
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
            [panelView.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 		}
@@ -293,7 +287,6 @@
 	
 	for (PanelView *panel in self.visiblePages)
 	{
-        panel.backgroundColor = [UIColor clearColor];
 		if (panel.pageNumber < firstNeededPageIndex || panel.pageNumber > lastNeededPageIndex)
 		{
 			[self.recycledPages addObject:panel];
@@ -318,8 +311,6 @@
 			[panel setTag:TAG_PAGE+index];
 			[panel setPageNumber:index];
 			[panel pageWillAppear];
-            panel.backgroundColor = [UIColor clearColor];
-            self.scrollView.backgroundColor = [UIColor clearColor];
 			[self.scrollView addSubview:panel];
 			[self.visiblePages addObject:panel];
 			[panel shouldWiggle:self.isEditing];
@@ -331,7 +322,6 @@
 {
 	for (PanelView *page in self.visiblePages)
 	{
-        page.backgroundColor = [UIColor clearColor];
 		if (page.pageNumber==index) return YES;
 	}
 	return NO;
@@ -342,7 +332,6 @@
 	int x = ([self.view bounds].size.width+2*GAP)*index + GAP;
 	CGRect pageFrame = CGRectMake(x,0,[self.view bounds].size.width,[self.view bounds].size.height);
 	[page setFrame:pageFrame];
-    [page setBackgroundColor:[UIColor clearColor]];
 	[page setPageNumber:index];
 	[page pageWillAppear];
 }
@@ -376,7 +365,7 @@
 	{
 		panelView = [[PanelView alloc] initWithIdentifier:identifier];
 	}
-	return panelView;
+    return panelView;
 }
 
 - (NSInteger)numberOfPanels

@@ -61,20 +61,12 @@ dispatch_queue_t requestQueue;
 -(void)getDishes {
     [originalMenu removeAllObjects];
     [mainDelegate.allMenus removeAllObjects];
-    [mainDelegate.allMenus addObject:@""];
-    [mainDelegate.allMenus addObject:@""];
-    [mainDelegate.allMenus addObject:@""];
-    [mainDelegate.allMenus addObject:@""];
-    NSString *key = [[NSString alloc] init];
-    if ([self.mealChoice isEqualToString:@"Breakfast"]) {
-        key = @"BREAKFAST";
-    } else if ([self.mealChoice isEqualToString:@"Lunch"]) {
-        key = @"LUNCH";
-    } else if ([self.mealChoice isEqualToString:@"Dinner"]) {
-        key = @"DINNER";
-    } else if ([self.mealChoice isEqualToString:@"Outtakes"]) {
-        key = @"OUTTAKES";
-    }
+    NSString *emptyStr = @"";
+    [mainDelegate.allMenus addObject:emptyStr];
+    [mainDelegate.allMenus addObject:emptyStr];
+    [mainDelegate.allMenus addObject:emptyStr];
+    [mainDelegate.allMenus addObject:emptyStr];
+
     
     //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
@@ -108,7 +100,7 @@ dispatch_queue_t requestQueue;
             //  NSLog(@"venuenames: %@", venuename);
             Venue *gvenue = [[Venue alloc] init];
             gvenue.name = venuename;
-            if ([gvenue.name isEqualToString:@"ENTREES                  "] && [key isEqualToString:@"LUNCH"]) {
+            if ([gvenue.name isEqualToString:@"ENTREES                  "] && [mealName isEqualToString:@"LUNCH"]) {
                     continue;
             }
             // NSLog(@"Adding object: %@", gvenue);
@@ -171,14 +163,38 @@ dispatch_queue_t requestQueue;
             i = 3;
         }
         NSLog(@"Storing meal: %@ at index: %d", mealName, i);
-        [mainDelegate.allMenus insertObject:meal atIndex:i];
+        [mainDelegate.allMenus replaceObjectAtIndex:i withObject:meal];
     }
     //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
-    
+   // [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
     [originalMenu setArray:mainDelegate.allMenus];
     [self applyFilters];
-    //[super reloadData:[super panelViewAtPage:[super currentPage]]];
-    [super viewWillAppear:YES];
+    
+    
+    NSLog(@"The menu is: %@", mainDelegate.allMenus);
+    
+    
+    
+    //TODO Make this work... This should cause it to start on the desired menu
+    // Probably would be best to write a new method in PanelsViewController for pushing to a given index
+    //TODO Handle weekends
+    if ([self.mealChoice isEqualToString:@"BREAKFAST"])
+        [super reloadData:[super panelViewAtPage:0]];
+    else if (![self.mealChoice isEqualToString:@"LUNCH"]){
+        [super pushNextPage];
+        [super reloadData:[super panelViewAtPage:1]];
+    }
+    else if (![self.mealChoice isEqualToString:@"DINNER"]){
+        [super pushNextPage];
+        [super pushNextPage];
+        [super reloadData:[super panelViewAtPage:2]];
+    }
+    else if (![self.mealChoice isEqualToString:@"OUTTAKES"]){
+        [super pushNextPage];
+        [super pushNextPage];
+        [super pushNextPage];
+        [super reloadData:[super panelViewAtPage:3]];
+    }
 }
 
 //Flip over to the SettingsViewController
@@ -309,13 +325,10 @@ dispatch_queue_t requestQueue;
 
     [self showMealHUD];
     [self applyFilters];
-    
-    //[super viewWillAppear:YES];
-    [super reloadData:[super panelViewAtPage:[super currentPage]]];
-    //[anotherTableView reloadData];
 }
 
 #pragma mark - Added methods
+//TODO re-implement this
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
     /*
@@ -502,12 +515,12 @@ dispatch_queue_t requestQueue;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Table view data source
+#pragma mark - Panel view data source
 
 - (NSInteger)numberOfPanels
 {
 	if (jsonDict){
-            NSLog(@"json count %d", jsonDict.count);
+        //NSLog(@"json count %d", jsonDict.count);
         return (jsonDict.count - 1);
     }
     else
@@ -522,6 +535,8 @@ dispatch_queue_t requestQueue;
     else
         return @"";
 }
+
+//TODO: Update the old methods for creating the title. This is the only way to make it look good.
 /*
 - (CGFloat)panelView:(id)panelView heightForRowAtIndexPath:(PanelIndexPath *)indexPath{
     if ([self panelView:panelView titleForHeaderInPage:<#(NSInteger)#> section:<#(NSInteger)#> != nil) {
@@ -608,7 +623,7 @@ dispatch_queue_t requestQueue;
     //    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
     //    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     //    cell.textLabel.text = dish.name;
-    NSLog(@"page number is: %d", indexPath.page);
+    //NSLog(@"page number is: %d", indexPath.page);
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
     if (indexPath.row < [venue.dishes count]){
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
@@ -680,9 +695,7 @@ dispatch_queue_t requestQueue;
         [self getDishes];
         [self showMealHUD];
       //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-      //  [anotherTableView reloadData];
         [super reloadData:[super panelViewAtPage:[super currentPage]]];
-        //[super viewWillAppear:YES];
         menuchoiceLabel.text = self.mealChoice;
        //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
@@ -994,9 +1007,7 @@ dispatch_queue_t requestQueue;
 - (void) refreshScreen
 {
    // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-   // [anotherTableView reloadData];
     [super reloadData:[super panelViewAtPage:[super currentPage]]];
-    //[super viewWillAppear:YES];
     menuchoiceLabel.text = self.mealChoice;
    // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }

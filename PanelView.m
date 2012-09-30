@@ -43,12 +43,11 @@
 {
     if (self = [super initWithFrame:frame]) 
 	{
-		[self setBackgroundColor:[UIColor whiteColor]];
-		
-		_tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.backgroundView = nil;
-//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,30,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
+        //Set up our background
+        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red_textured_background.png"]];
+        [tempImageView setFrame:_tableView.frame];
+        [_tableView setBackgroundView:tempImageView];
         
 		[self addSubview:_tableView];
 		[_tableView setDelegate:self];

@@ -75,7 +75,7 @@ dispatch_queue_t requestQueue;
     
     //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
-    NSLog(@"maniMenu: %@", self.jsonDict);
+    NSLog(@"mainMenu: %@", self.jsonDict);
     //Put data on screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue.
     
@@ -92,10 +92,11 @@ dispatch_queue_t requestQueue;
             break;
         }
         NSDictionary *mealDict = [mainMenu objectForKey:mealName];
+        //NSLog(@"mealName is %@", mealName);
+        //NSLog(@"mealDict: %@", mealDict);
         
-        NSLog(@"mealName is %@", mealName);
         //We create an array to begin forming each meal's menu
-        NSMutableArray *meal = [[NSMutableArray alloc] initWithCapacity:5];
+        NSMutableArray *meal = [[NSMutableArray alloc] init];
         venueNamesFromJSON = [[NSArray alloc] init];
         venueNamesFromJSON = [mealDict allKeys];
         //Here we fill the venues array to contain all the venues.
@@ -110,14 +111,15 @@ dispatch_queue_t requestQueue;
             [meal addObject:gvenue];
         }
     
-    
+        //Remove the Entree venue
+        [mainDelegate.allMenus removeObject:@"ENTREES"];
     
     //So for each Venue...
     for (Venue *gVenue in meal) {
         
         //We create a dish
-        gVenue.dishes = [[NSMutableArray alloc] initWithCapacity:10];
-        NSArray *dishesInVenue = [mainMenu objectForKey:gVenue.name];
+        gVenue.dishes = [[NSMutableArray alloc] init];
+        NSArray *dishesInVenue = [mealDict objectForKey:gVenue.name];
         
         for (int i = 0; i < dishesInVenue.count; i++) {
             Dish *dish = [[Dish alloc] init];
@@ -138,19 +140,18 @@ dispatch_queue_t requestQueue;
                 dish.nutrition = [actualdish objectForKey:@"nutrition"];
             }
             //then finally we add this new dish to it's venue
+            //NSLog(@"Dish: %@", dish);
             [gVenue.dishes addObject:dish];
         }
     }
-    
-    
+   // NSLog(@"Meal: %@", meal);
     [mainDelegate.allMenus addObject:meal];
     }
-    NSLog(@"Allmenus: %@", mainDelegate.allMenus);
-    //Remove the Entree venue
-    [mainDelegate.allMenus removeObject:@"ENTREES"];
+    //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
     
     [originalMenu setArray:mainDelegate.allMenus];
     [self applyFilters];
+    [super viewWillAppear:YES];
 }
 
 //Flip over to the SettingsViewController
@@ -281,6 +282,8 @@ dispatch_queue_t requestQueue;
 
     [self showMealHUD];
     [self applyFilters];
+    
+    [super viewWillAppear:YES];
     //[anotherTableView reloadData];
 }
 
@@ -488,7 +491,8 @@ dispatch_queue_t requestQueue;
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
     return venue.name;
     }
-    else return @"";
+    else
+        return @"";
 }
 /*
 - (CGFloat)panelView:(id)panelView heightForRowAtIndexPath:(PanelIndexPath *)indexPath{
@@ -554,7 +558,6 @@ dispatch_queue_t requestQueue;
         return [[mainDelegate.allMenus objectAtIndex:pageNumber] count];
     else
         return 0;
-    
 }
 
 /**
@@ -578,7 +581,23 @@ dispatch_queue_t requestQueue;
     //    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     //    cell.textLabel.text = dish.name;
     
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
+    int i = 0;
+    if ([menuchoiceLabel.text isEqualToString:@"Breakfast"])
+        i = 0;
+    else if ([menuchoiceLabel.text isEqualToString:@"Lunch"])
+        i = 1;
+    else if ([menuchoiceLabel.text isEqualToString:@"Dinner"])
+        i = 2;
+    else if ([menuchoiceLabel.text isEqualToString:@"Outtakes"])
+        i = 3;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+    NSUInteger weekday = [components weekday];
+    //If Sunday, no breakfast so subtract 1
+    if (weekday == 1)
+        i--;
+    
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:i] objectAtIndex:indexPath.section];
 
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     cell.textLabel.text = dish.name;
@@ -650,6 +669,8 @@ dispatch_queue_t requestQueue;
         [self showMealHUD];
       //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
       //  [anotherTableView reloadData];
+        
+        [super viewWillAppear:YES];
         menuchoiceLabel.text = self.mealChoice;
        //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
@@ -953,6 +974,8 @@ dispatch_queue_t requestQueue;
 {
    // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
    // [anotherTableView reloadData];
+    
+    [super viewWillAppear:YES];
     menuchoiceLabel.text = self.mealChoice;
    // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }

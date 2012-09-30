@@ -155,7 +155,7 @@
  */
 - (CGRect)scrollViewFrame
 {
-	return CGRectMake(0,0,[self.view bounds].size.width,[self.view bounds].size.height);
+	return CGRectMake(0,0,[self.view bounds].size.width,[self.view bounds].size.height - 44);
 }
 
 - (CGSize)panelViewSize
@@ -301,7 +301,8 @@
 		{
 			PanelView *panel = [self panelForPage:index];
 			int x = ([self panelViewSize].width+2*GAP)*index + GAP;
-			CGRect panelFrame = CGRectMake(x,0,[self panelViewSize].width,[self scrollViewFrame].size.height);
+            //CHANGED HERE TO MAKE IT SIT BELOW THE TITLE BAR
+			CGRect panelFrame = CGRectMake(x,47,[self panelViewSize].width,[self scrollViewFrame].size.height);
 			
 			[panel setFrame:panelFrame];
 			[panel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];

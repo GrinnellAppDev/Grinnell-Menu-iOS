@@ -61,7 +61,10 @@ dispatch_queue_t requestQueue;
 -(void)getDishes {
     [originalMenu removeAllObjects];
     [mainDelegate.allMenus removeAllObjects];
-    
+    [mainDelegate.allMenus addObject:@""];
+    [mainDelegate.allMenus addObject:@""];
+    [mainDelegate.allMenus addObject:@""];
+    [mainDelegate.allMenus addObject:@""];
     NSString *key = [[NSString alloc] init];
     if ([self.mealChoice isEqualToString:@"Breakfast"]) {
         key = @"BREAKFAST";
@@ -75,26 +78,27 @@ dispatch_queue_t requestQueue;
     
     //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
-    NSLog(@"mainMenu: %@", self.jsonDict);
+    //NSLog(@"mainMenu: %@", self.jsonDict);
     //Put data on screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue.
     
     
     mealNamesFromJSON = [[NSArray alloc] init];
     mealNamesFromJSON = [mainMenu allKeys];
-        
+    
+    NSMutableArray *mealNames = [[NSMutableArray alloc] init];
     //for each mealName, i.e each of Breakfast, Lunch, Dinner, Outtakes...
     for (NSString *mealName in mainMenu) {
         
         //When the mealName is passover, we get an error because it is expecting an NSDictionary and PASSOVER returns a string ( true or false). So we just skip over passover.
         if ([mealName isEqualToString:@"PASSOVER"]) {
             //skip
-            break;
+            continue;
         }
         NSDictionary *mealDict = [mainMenu objectForKey:mealName];
-        //NSLog(@"mealName is %@", mealName);
+        NSLog(@"mealName is %@", mealName);
         //NSLog(@"mealDict: %@", mealDict);
-        
+        [mealNames addObject:mealName];
         //We create an array to begin forming each meal's menu
         NSMutableArray *meal = [[NSMutableArray alloc] init];
         venueNamesFromJSON = [[NSArray alloc] init];
@@ -112,7 +116,7 @@ dispatch_queue_t requestQueue;
         }
     
         //Remove the Entree venue
-        [mainDelegate.allMenus removeObject:@"ENTREES"];
+        [meal removeObject:@"ENTREES"];
     
     //So for each Venue...
     for (Venue *gVenue in meal) {
@@ -145,12 +149,35 @@ dispatch_queue_t requestQueue;
         }
     }
    // NSLog(@"Meal: %@", meal);
-    [mainDelegate.allMenus addObject:meal];
+        int i = 0;
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+        NSUInteger weekday = [components weekday];
+        if (weekday == 1){
+            if ([mealName isEqualToString:@"LUNCH"])
+                i = 0;
+            else if ([mealName isEqualToString:@"DINNER"])
+                i = 1;
+        }
+        // if today isn't sunday
+        else{
+        if ([mealName isEqualToString:@"BREAKFAST"])
+            i = 0;
+        else if ([mealName isEqualToString:@"LUNCH"])
+            i = 1;
+        else if ([mealName isEqualToString:@"DINNER"])
+            i = 2;
+        else if ([mealName isEqualToString:@"OUTTAKES"] && weekday != 7)
+            i = 3;
+        }
+        NSLog(@"Storing meal: %@ at index: %d", mealName, i);
+        [mainDelegate.allMenus insertObject:meal atIndex:i];
     }
     //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
     
     [originalMenu setArray:mainDelegate.allMenus];
     [self applyFilters];
+    //[super reloadData:[super panelViewAtPage:[super currentPage]]];
     [super viewWillAppear:YES];
 }
 
@@ -283,7 +310,8 @@ dispatch_queue_t requestQueue;
     [self showMealHUD];
     [self applyFilters];
     
-    [super viewWillAppear:YES];
+    //[super viewWillAppear:YES];
+    [super reloadData:[super panelViewAtPage:[super currentPage]]];
     //[anotherTableView reloadData];
 }
 
@@ -478,18 +506,18 @@ dispatch_queue_t requestQueue;
 
 - (NSInteger)numberOfPanels
 {
-	if (jsonDict != NULL)
-        return jsonDict.count - 1;
+	if (jsonDict){
+            NSLog(@"json count %d", jsonDict.count);
+        return (jsonDict.count - 1);
+    }
     else
         return 4;
 }
 
-
-
 - (NSString *)panelView:(id)panelView titleForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section {
     if (mainDelegate.allMenus != NULL){
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
-    return venue.name;
+        Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
+        return venue.name;
     }
     else
         return @"";
@@ -536,13 +564,11 @@ dispatch_queue_t requestQueue;
  * set number of rows for different panel & section
  *
  */
-- (NSInteger)panelView:(PanelView *)panelView numberOfRowsInPage:(NSInteger)page section:(NSInteger)section
-{
-    if (mainDelegate.allMenus != NULL)
-    {
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:page] objectAtIndex:section];
-    //NSLog(@"Count: %d",venue.dishes.count );
-    return venue.dishes.count;
+- (NSInteger)panelView:(PanelView *)panelView numberOfRowsInPage:(NSInteger)page section:(NSInteger)section {
+    if (mainDelegate.allMenus != NULL) {
+        Venue *venue = [[mainDelegate.allMenus objectAtIndex:page] objectAtIndex:section];
+        //NSLog(@"Count: %d",venue.dishes.count );
+        return venue.dishes.count;
     }
     else
         return 0;
@@ -552,10 +578,13 @@ dispatch_queue_t requestQueue;
  *
  *
  */
-- (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber
-{
-    if (jsonDict)
-        return [[mainDelegate.allMenus objectAtIndex:pageNumber] count];
+- (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber {
+    //TODO FIX THIS
+    if (jsonDict){
+        NSMutableArray *meal = [mainDelegate.allMenus objectAtIndex:pageNumber];
+        NSLog(@"meal %@", meal);
+        return meal.count;
+    }
     else
         return 0;
 }
@@ -580,25 +609,9 @@ dispatch_queue_t requestQueue;
     //    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
     //    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     //    cell.textLabel.text = dish.name;
-    
-    int i = 0;
-    if ([menuchoiceLabel.text isEqualToString:@"Breakfast"])
-        i = 0;
-    else if ([menuchoiceLabel.text isEqualToString:@"Lunch"])
-        i = 1;
-    else if ([menuchoiceLabel.text isEqualToString:@"Dinner"])
-        i = 2;
-    else if ([menuchoiceLabel.text isEqualToString:@"Outtakes"])
-        i = 3;
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
-    NSUInteger weekday = [components weekday];
-    //If Sunday, no breakfast so subtract 1
-    if (weekday == 1)
-        i--;
-    
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:i] objectAtIndex:indexPath.section];
-
+    NSLog(@"page number is: %d", [super currentPage]);
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:[super currentPage]] objectAtIndex:indexPath.section];
+    if (indexPath.row < [venue.dishes count]){
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     cell.textLabel.text = dish.name;
     
@@ -616,7 +629,7 @@ dispatch_queue_t requestQueue;
         // Needed for when we have a tray view
         // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
-    
+    }
     //Modify the colours.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
     
@@ -669,8 +682,8 @@ dispatch_queue_t requestQueue;
         [self showMealHUD];
       //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
       //  [anotherTableView reloadData];
-        
-        [super viewWillAppear:YES];
+        [super reloadData:[super panelViewAtPage:[super currentPage]]];
+        //[super viewWillAppear:YES];
         menuchoiceLabel.text = self.mealChoice;
        //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
@@ -974,8 +987,8 @@ dispatch_queue_t requestQueue;
 {
    // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
    // [anotherTableView reloadData];
-    
-    [super viewWillAppear:YES];
+    [super reloadData:[super panelViewAtPage:[super currentPage]]];
+    //[super viewWillAppear:YES];
     menuchoiceLabel.text = self.mealChoice;
    // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }

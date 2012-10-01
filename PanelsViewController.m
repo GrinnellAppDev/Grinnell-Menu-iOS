@@ -416,7 +416,8 @@
         
 }
 
-
-
+- (void)reloadData:(PanelView *)panelView{
+    [panelView.tableView reloadData];
+}
 
 @end

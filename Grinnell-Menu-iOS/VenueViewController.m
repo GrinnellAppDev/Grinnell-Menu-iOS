@@ -608,8 +608,8 @@ dispatch_queue_t requestQueue;
     //    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
     //    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     //    cell.textLabel.text = dish.name;
-    NSLog(@"page number is: %d", [super currentPage]);
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:[super currentPage]] objectAtIndex:indexPath.section];
+    NSLog(@"page number is: %d", indexPath.page);
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
     if (indexPath.row < [venue.dishes count]){
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     cell.textLabel.text = dish.name;
@@ -980,6 +980,15 @@ dispatch_queue_t requestQueue;
 	HUD.labelText = HUDLabel;	
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:1];
+}
+
+- (void)pushNextPage{
+    [super pushNextPage];
+    [super reloadData:[super panelViewAtPage:[super currentPage]]];
+}
+- (void)jumpToPreviousPage{
+    [super jumpToPreviousPage];
+    [super reloadData:[super panelViewAtPage:[super currentPage]]];
 }
 
 - (void) refreshScreen

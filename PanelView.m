@@ -46,6 +46,8 @@
 		[self setBackgroundColor:[UIColor whiteColor]];
 		
 		_tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.backgroundView = nil;
 //        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,30,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
         
 		[self addSubview:_tableView];

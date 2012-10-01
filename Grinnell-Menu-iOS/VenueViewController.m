@@ -579,11 +579,10 @@ dispatch_queue_t requestQueue;
  *
  */
 - (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber {
-    //TODO FIX THIS
     if (jsonDict){
-        NSMutableArray *meal = [mainDelegate.allMenus objectAtIndex:pageNumber];
-        NSLog(@"meal %@", meal);
-        return meal.count;
+        if ([[mainDelegate.allMenus objectAtIndex:pageNumber] isKindOfClass:[NSMutableArray class]])
+            return [[mainDelegate.allMenus objectAtIndex:pageNumber] count];
+        else return 0;
     }
     else
         return 0;

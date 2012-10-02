@@ -527,14 +527,14 @@ dispatch_queue_t requestQueue;
         return 4;
 }
 
-- (NSString *)panelView:(id)panelView titleForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section {
-    if (mainDelegate.allMenus != NULL){
-        Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
-        return venue.name;
-    }
-    else
-        return @"";
-}
+//- (NSString *)panelView:(id)panelView titleForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section {
+//    if (mainDelegate.allMenus != NULL){
+//        Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
+//        return venue.name;
+//    }
+//    else
+//        return @"";
+//}
 
 //TODO: Update the old methods for creating the title. This is the only way to make it look good.
 /*
@@ -547,14 +547,11 @@ dispatch_queue_t requestQueue;
         return 0;
     }
 }*/
-/*
-- (UIView)panelView:(PanelView *)panelView viewForHeaderInSection:(NSInteger)page section:(NSInteger)section
+
+
+- (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section
 {
-    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-    // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
-    if (sectionTitle == nil) {
-        return nil;
-    }
+
     // Create label with section title
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(20, 6, 300, 30);
@@ -564,14 +561,21 @@ dispatch_queue_t requestQueue;
     label.font = [UIFont boldSystemFontOfSize:20];
     //[UIFont fontWithName:@"Vivaldi" size:38]
     
-    label.text = sectionTitle;
+    
+    if (mainDelegate.allMenus != NULL)
+    {
+        Venue *venue = [[mainDelegate.allMenus objectAtIndex:pageNumber] objectAtIndex:section];
+        label.text = venue.name;
+    }
+    else
+        label.text = @"";
     
     // Create header view and add label as a subview
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     [view addSubview:label];
     return view;
 }
-*/
+
 
 /**
  *
@@ -1011,6 +1015,25 @@ dispatch_queue_t requestQueue;
     menuchoiceLabel.text = self.mealChoice;
    // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
+
+#pragma mark - scroll view delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView_
+{
+	//This is called after the scrolling is complete and the user actually changed the page. 
+	if (self.currentPage!=self.lastDisplayedPage)
+	{
+		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
+		[panelView pageDidAppear];
+
+        [super reloadData:[super panelViewAtPage:[super currentPage]]];
+        [self showMealHUD];
+
+	}
+	
+	self.lastDisplayedPage = self.currentPage;
+}
+
+
 
 
 @end

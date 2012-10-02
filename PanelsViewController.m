@@ -230,7 +230,7 @@
 			[panelView pageWillAppear];
             //TODO figure out whether this is working and whether there is a better place for this
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-           [panelView.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+          // [panelView.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 		}
 		
 	}
@@ -262,6 +262,7 @@
 	{
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
 		[panelView pageDidAppear];
+        NSLog(@"scrolll...");
 	}
 	
 	self.lastDisplayedPage = self.currentPage;
@@ -414,6 +415,11 @@
 - (void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath*)indexPath
 {
         
+}
+
+- (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section
+{
+    
 }
 
 - (void)reloadData:(PanelView *)panelView{

@@ -45,6 +45,8 @@
 
 //Our own Implementations. Maijid
 - (void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath*)indexPath;
+- (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section;
+
 
 @end
 

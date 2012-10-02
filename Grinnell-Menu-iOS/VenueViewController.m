@@ -177,7 +177,7 @@ dispatch_queue_t requestQueue;
     
     //TODO Make this work... This should cause it to start on the desired menu
     // Probably would be best to write a new method in PanelsViewController for pushing to a given index
-    //TODO Handle weekends
+    //@drJid - Agreed. Would look in this soon.     //TODO Handle weekends
     if ([self.mealChoice isEqualToString:@"BREAKFAST"])
         [super reloadData:[super panelViewAtPage:0]];
     else if (![self.mealChoice isEqualToString:@"LUNCH"]){
@@ -1024,9 +1024,13 @@ dispatch_queue_t requestQueue;
 	{
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
 		[panelView pageDidAppear];
-
-        [super reloadData:[super panelViewAtPage:[super currentPage]]];
+        //TODO - not important - but maybe.. we could have reload nicely (faded?) instead of the sudden appearance which can be surprising? Again, not THAT important.
+        
+        //Hmm where do we actually change the self.mealChoice
+        [self refreshScreen];
+        //This HUD takes a long time it seems? 
         [self showMealHUD];
+  
 
 	}
 	

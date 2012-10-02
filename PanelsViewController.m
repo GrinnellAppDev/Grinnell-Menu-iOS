@@ -229,7 +229,7 @@
 			[panelView showNextPanel];
 			[panelView pageWillAppear];
             //TODO figure out whether this is working and whether there is a better place for this
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
           // [panelView.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 		}
 		

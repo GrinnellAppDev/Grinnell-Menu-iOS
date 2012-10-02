@@ -323,7 +323,7 @@ dispatch_queue_t requestQueue;
     NSString *formattedDate = [dateFormatter stringFromDate:date];
     dateLabel.text = formattedDate;
 
-    [self showMealHUD];
+//    [self showMealHUD];
     [self applyFilters];
 }
 

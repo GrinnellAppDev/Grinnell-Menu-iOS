@@ -43,7 +43,7 @@
 {
     if (self = [super initWithFrame:frame]) 
 	{
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(5,0,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
         //Set up our background
         UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red_textured_background.png"]];
         [tempImageView setFrame:_tableView.frame];
@@ -56,9 +56,9 @@
         
 //        _tableView.layer.cornerRadius = 20;
 //        _tableView.layer.masksToBounds = YES;
-        [_tableView.layer setCornerRadius:8.0f];
+        [_tableView.layer setCornerRadius:4.0f];
         _tableView.layer.borderColor = [UIColor blackColor].CGColor;
-        _tableView.layer.borderWidth = 2.0f;
+        _tableView.layer.borderWidth = 1.0f;
         [_tableView.layer setMasksToBounds:YES];
     }
     return self;
@@ -78,7 +78,8 @@
 	[super setFrame:frame];
 	
 	CGRect tableViewFrame = [self.tableView frame];
-	tableViewFrame.size.width = self.frame.size.width - 10;
+//	tableViewFrame.size.width = self.frame.size.width - 10;
+    tableViewFrame.size.width = self.frame.size.width;
 	tableViewFrame.size.height = self.frame.size.height - 50;
 	[self.tableView setFrame:tableViewFrame];
 }
@@ -426,8 +427,5 @@
     }
     return nil;
 }
-
-
-
 
 @end

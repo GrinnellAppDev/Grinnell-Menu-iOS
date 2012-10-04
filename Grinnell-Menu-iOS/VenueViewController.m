@@ -289,6 +289,8 @@ dispatch_queue_t requestQueue;
         grinnellDiningLabel.alpha = 1;
     }];
     
+    
+    [super skipToOffset:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -414,16 +414,21 @@
 //Our Own Custom Implementations!
 - (void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath*)indexPath
 {
-        
+       
 }
 
 - (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section
 {
-    
+    return nil;
 }
 
 - (void)reloadData:(PanelView *)panelView{
     [panelView.tableView reloadData];
+}
+
+-(void)skipToOffset:(int)offset
+{
+    [self.scrollView setContentOffset:CGPointMake((self.panelViewSize.width + 2*GAP) * offset, 20)];
 }
 
 @end

@@ -262,7 +262,6 @@
 	{
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
 		[panelView pageDidAppear];
-        NSLog(@"scrolll...");
 	}
 	
 	self.lastDisplayedPage = self.currentPage;
@@ -428,7 +427,7 @@
 
 -(void)skipToOffset:(int)offset
 {
-    [self.scrollView setContentOffset:CGPointMake((self.panelViewSize.width + 2*GAP) * offset, 20)];
+    [self.scrollView setContentOffset:CGPointMake((self.panelViewSize.width + 2*GAP) * offset, 0)];
 }
 
 @end

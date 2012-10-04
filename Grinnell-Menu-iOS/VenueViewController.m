@@ -66,7 +66,7 @@ dispatch_queue_t requestQueue;
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
-
+    
     
     //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
@@ -101,46 +101,46 @@ dispatch_queue_t requestQueue;
             Venue *gvenue = [[Venue alloc] init];
             gvenue.name = venuename;
             if ([gvenue.name isEqualToString:@"ENTREES                  "] && [mealName isEqualToString:@"LUNCH"]) {
-                    continue;
+                continue;
             }
             // NSLog(@"Adding object: %@", gvenue);
             [meal addObject:gvenue];
         }
-    
+        
         //Remove the Entree venue
         [meal removeObject:@"ENTREES"];
-    
-    //So for each Venue...
-    for (Venue *gVenue in meal) {
         
-        //We create a dish
-        gVenue.dishes = [[NSMutableArray alloc] init];
-        NSArray *dishesInVenue = [mealDict objectForKey:gVenue.name];
-        
-        for (int i = 0; i < dishesInVenue.count; i++) {
-            Dish *dish = [[Dish alloc] init];
-            //loop through for the number of dishes
-            NSDictionary *actualdish = [dishesInVenue objectAtIndex:i];
+        //So for each Venue...
+        for (Venue *gVenue in meal) {
             
-            dish.name = [actualdish objectForKey:@"name"];
-            if (![[actualdish objectForKey:@"vegan"] isEqualToString:@"false"]) 
-                dish.vegan = YES;
-            if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"]) 
-                dish.ovolacto = YES;
-            if (![[actualdish objectForKey:@"passover"] isEqualToString:@"false"]) 
-                dish.passover = YES;
-            if (![[actualdish objectForKey:@"gluten_free"] isEqualToString:@"false"]) 
-                dish.glutenFree = YES;
-            if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
-                dish.hasNutrition = YES;
-                dish.nutrition = [actualdish objectForKey:@"nutrition"];
+            //We create a dish
+            gVenue.dishes = [[NSMutableArray alloc] init];
+            NSArray *dishesInVenue = [mealDict objectForKey:gVenue.name];
+            
+            for (int i = 0; i < dishesInVenue.count; i++) {
+                Dish *dish = [[Dish alloc] init];
+                //loop through for the number of dishes
+                NSDictionary *actualdish = [dishesInVenue objectAtIndex:i];
+                
+                dish.name = [actualdish objectForKey:@"name"];
+                if (![[actualdish objectForKey:@"vegan"] isEqualToString:@"false"])
+                    dish.vegan = YES;
+                if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"])
+                    dish.ovolacto = YES;
+                if (![[actualdish objectForKey:@"passover"] isEqualToString:@"false"])
+                    dish.passover = YES;
+                if (![[actualdish objectForKey:@"gluten_free"] isEqualToString:@"false"])
+                    dish.glutenFree = YES;
+                if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
+                    dish.hasNutrition = YES;
+                    dish.nutrition = [actualdish objectForKey:@"nutrition"];
+                }
+                //then finally we add this new dish to it's venue
+                //NSLog(@"Dish: %@", dish);
+                [gVenue.dishes addObject:dish];
             }
-            //then finally we add this new dish to it's venue
-            //NSLog(@"Dish: %@", dish);
-            [gVenue.dishes addObject:dish];
         }
-    }
-   // NSLog(@"Meal: %@", meal);
+        // NSLog(@"Meal: %@", meal);
         int i = 0;
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
@@ -153,20 +153,20 @@ dispatch_queue_t requestQueue;
         }
         // if today isn't sunday
         else{
-        if ([mealName isEqualToString:@"BREAKFAST"])
-            i = 0;
-        else if ([mealName isEqualToString:@"LUNCH"])
-            i = 1;
-        else if ([mealName isEqualToString:@"DINNER"])
-            i = 2;
-        else if ([mealName isEqualToString:@"OUTTAKES"] && weekday != 7)
-            i = 3;
+            if ([mealName isEqualToString:@"BREAKFAST"])
+                i = 0;
+            else if ([mealName isEqualToString:@"LUNCH"])
+                i = 1;
+            else if ([mealName isEqualToString:@"DINNER"])
+                i = 2;
+            else if ([mealName isEqualToString:@"OUTTAKES"] && weekday != 7)
+                i = 3;
         }
         NSLog(@"Storing meal: %@ at index: %d", mealName, i);
         [mainDelegate.allMenus replaceObjectAtIndex:i withObject:meal];
     }
     //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
-   // [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
+    // [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
     [originalMenu setArray:mainDelegate.allMenus];
     [self applyFilters];
     
@@ -174,25 +174,49 @@ dispatch_queue_t requestQueue;
     NSLog(@"The menu is: %@", mainDelegate.allMenus);
     
     
-    
     //TODO Make this work... This should cause it to start on the desired menu
     // Probably would be best to write a new method in PanelsViewController for pushing to a given index
     //@drJid - Agreed. Would look in this soon.     //TODO Handle weekends
-    if ([self.mealChoice isEqualToString:@"BREAKFAST"])
-        [super reloadData:[super panelViewAtPage:0]];
-    else if (![self.mealChoice isEqualToString:@"LUNCH"]){
-        [super pushNextPage];
-        [super reloadData:[super panelViewAtPage:1]];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+    NSUInteger weekday = [components weekday];
+    
+    
+    NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
+//    self.mealChoice = @"Outtakes";
+    if ([self.mealChoice isEqualToString:@"Breakfast"]) {
+        NSLog(@"Selected meal is Breakfast");
+        [super skipToOffset:0];
     }
-    else if (![self.mealChoice isEqualToString:@"DINNER"]){
-        [super pushNextPage];
-        [super pushNextPage];
+    //        [super reloadData:[super panelViewAtPage:0]];
+    else if ([self.mealChoice isEqualToString:@"Lunch"]){
+        //        [super pushNextPage];
+        if (weekday == 1) {
+            [super skipToOffset:0];
+        } else {
+            [super skipToOffset:1];
+        }
+        [super reloadData:[super panelViewAtPage:1]];
+        
+    }
+    else if ([self.mealChoice isEqualToString:@"Dinner"]){
+        NSLog(@"Selected meal is dinner");
+        if (weekday == 1) {
+            [super skipToOffset:1];
+        } else {
+            [super skipToOffset:2];
+        }
+        //        [super pushNextPage];
+        //        [super pushNextPage];
         [super reloadData:[super panelViewAtPage:2]];
     }
-    else if (![self.mealChoice isEqualToString:@"OUTTAKES"]){
-        [super pushNextPage];
-        [super pushNextPage];
-        [super pushNextPage];
+    else if ([self.mealChoice isEqualToString:@"Outtakes"]){
+        NSLog(@"Selected meal is Outtakes");
+        [super skipToOffset:3];
+        //        [super pushNextPage];
+        //        [super pushNextPage];
+        //        [super pushNextPage];
         [super reloadData:[super panelViewAtPage:3]];
     }
 }
@@ -210,15 +234,15 @@ dispatch_queue_t requestQueue;
 }
 
 - (IBAction)changeMeal:(id)sender {
-    UIAlertView *mealmessage = [[UIAlertView alloc] 
-                                initWithTitle:@"Select Meal" 
+    UIAlertView *mealmessage = [[UIAlertView alloc]
+                                initWithTitle:@"Select Meal"
                                 message:nil
-                                delegate:self 
-                                cancelButtonTitle:@"Cancel" 
+                                delegate:self
+                                cancelButtonTitle:@"Cancel"
                                 otherButtonTitles:nil
                                 ];
     
-    //Removes the button from the alert view if no meal is present for that day.    
+    //Removes the button from the alert view if no meal is present for that day.
     if ([jsonDict objectForKey:@"BREAKFAST"]) {
         [mealmessage addButtonWithTitle:@"Breakfast"];
     }
@@ -237,20 +261,20 @@ dispatch_queue_t requestQueue;
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     NSLog(@"viewdidload date: %@", self.date);
     
-//    NSLog(@"VenueView loaded");
+    //    NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
 	HUD.delegate = self;
     
-        HUD.labelText = @"Grabbing Menu";
-        [HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
+    HUD.labelText = @"Grabbing Menu";
+    [HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
     
     
-     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
+    //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
     UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
@@ -290,7 +314,6 @@ dispatch_queue_t requestQueue;
     }];
     
     
-    [super skipToOffset:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -319,13 +342,13 @@ dispatch_queue_t requestQueue;
     self.title = @"Stations";
     [self getDishes];
     menuchoiceLabel.text = self.mealChoice;
-        
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter  setDateFormat:@"EEE MMM dd"];
     NSString *formattedDate = [dateFormatter stringFromDate:date];
     dateLabel.text = formattedDate;
-
-//    [self showMealHUD];
+    
+    //    [self showMealHUD];
     [self applyFilters];
 }
 
@@ -334,182 +357,182 @@ dispatch_queue_t requestQueue;
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
     /*
-    NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
-    BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
-    veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
-    ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
-    gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
-    passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    [mainDelegate.allMenus removeAllObjects];
-    int i = 0;
-    if ([menuchoiceLabel.text isEqualToString:@"Breakfast"])
-        i = 0;
-    else if ([menuchoiceLabel.text isEqualToString:@"Lunch"])
-        i = 1;
-    else if ([menuchoiceLabel.text isEqualToString:@"Dinner"])
-        i = 2;
-    else if ([menuchoiceLabel.text isEqualToString:@"Outtakes"])
-        i = 3;
-    
-    for (Venue *v in originalMenu[i]) {
-        Venue *venue = [[Venue alloc] init];
-        venue.name = v.name;
-        for (Dish *d in v.dishes) {
-            Dish *dish = [[Dish alloc] init];
-            dish.name = d.name;
-            dish.venue = d.venue;
-            dish.nutAllergen = d.nutAllergen;
-            dish.glutenFree = d.glutenFree;
-            dish.vegan = d.vegan;
-            dish.ovolacto = d.ovolacto;
-            dish.hasNutrition = d.hasNutrition;
-            dish.nutrition = d.nutrition;
-            dish.passover = d.passover;
-            [venue.dishes addObject:dish];
-        }
-        [mainDelegate.allMenus addObject:venue];
-    }
-    
-    //Set up the filters
-    BOOL filter;
-    NSPredicate *compoundPred;
-    NSMutableArray *preds = [[NSMutableArray alloc] init];
-    if (mainDelegate.passover && passSwitch)
-    {
-        passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-        if (!ovoSwitch && !veganSwitch && !gfSwitch){
-            [preds removeAllObjects];
-            [preds addObject:passPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (ovoSwitch && gfSwitch){
-            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            [preds removeAllObjects];
-            [preds addObject:ovoPred];
-            [preds addObject:veganPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            [preds removeAllObjects];
-            [preds addObject:gfPred];
-            [preds addObject:passPred];
-            [preds addObject:compoundPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (veganSwitch && gfSwitch){
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            [preds removeAllObjects];
-            [preds addObject:gfPred];
-            [preds addObject:veganPred];
-            [preds addObject:passPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (ovoSwitch) {
-            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-            [preds removeAllObjects];
-            [preds addObject:ovoPred];
-            [preds addObject:veganPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            [preds removeAllObjects];            
-            [preds addObject:passPred];
-            [preds addObject:compoundPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (veganSwitch) {
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-            [preds removeAllObjects];
-            [preds addObject:veganPred];
-            [preds addObject:passPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (gfSwitch) {
-            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-            [preds removeAllObjects];
-            [preds addObject:gfPred];
-            [preds addObject:passPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-    }
-    else
-    {
-        if (!ovoSwitch && !veganSwitch && !gfSwitch){
-            filter = false;
-        }
-        else if (ovoSwitch && gfSwitch){
-            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            [preds removeAllObjects];
-            [preds addObject:ovoPred];
-            [preds addObject:veganPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            [preds removeAllObjects];
-            [preds addObject:gfPred];
-            [preds addObject:compoundPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (veganSwitch && gfSwitch){
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            [preds removeAllObjects];
-            [preds addObject:gfPred];
-            [preds addObject:veganPred];
-            compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (ovoSwitch) {
-            ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            [preds removeAllObjects];
-            [preds addObject:ovoPred];
-            [preds addObject:veganPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (veganSwitch) {
-            veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-            [preds removeAllObjects];
-            [preds addObject:veganPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-        else if (gfSwitch) {
-            gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-            [preds removeAllObjects];
-            [preds addObject:gfPred];
-            compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-            filter = true;
-        }
-    }
-    
-    //Run the filter
-    if (filter && compoundPred != NULL)
-        for (Venue *v in mainDelegate.venues) {
-            [v.dishes filterUsingPredicate:compoundPred];
-        }
-    
-    //Remove empty venues if all items are filtered out of a venue
-    NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
-    for (Venue *v in mainDelegate.venues) {
-        if (v.dishes.count == 0){
-            [emptyVenues addObject:v];
-        }
-    }
-    [mainDelegate.venues removeObjectsInArray:emptyVenues];
+     NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
+     BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
+     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
+     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
+     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
+     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
+     [mainDelegate.allMenus removeAllObjects];
+     int i = 0;
+     if ([menuchoiceLabel.text isEqualToString:@"Breakfast"])
+     i = 0;
+     else if ([menuchoiceLabel.text isEqualToString:@"Lunch"])
+     i = 1;
+     else if ([menuchoiceLabel.text isEqualToString:@"Dinner"])
+     i = 2;
+     else if ([menuchoiceLabel.text isEqualToString:@"Outtakes"])
+     i = 3;
+     
+     for (Venue *v in originalMenu[i]) {
+     Venue *venue = [[Venue alloc] init];
+     venue.name = v.name;
+     for (Dish *d in v.dishes) {
+     Dish *dish = [[Dish alloc] init];
+     dish.name = d.name;
+     dish.venue = d.venue;
+     dish.nutAllergen = d.nutAllergen;
+     dish.glutenFree = d.glutenFree;
+     dish.vegan = d.vegan;
+     dish.ovolacto = d.ovolacto;
+     dish.hasNutrition = d.hasNutrition;
+     dish.nutrition = d.nutrition;
+     dish.passover = d.passover;
+     [venue.dishes addObject:dish];
+     }
+     [mainDelegate.allMenus addObject:venue];
+     }
+     
+     //Set up the filters
+     BOOL filter;
+     NSPredicate *compoundPred;
+     NSMutableArray *preds = [[NSMutableArray alloc] init];
+     if (mainDelegate.passover && passSwitch)
+     {
+     passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+     if (!ovoSwitch && !veganSwitch && !gfSwitch){
+     [preds removeAllObjects];
+     [preds addObject:passPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (ovoSwitch && gfSwitch){
+     ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+     gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+     [preds removeAllObjects];
+     [preds addObject:ovoPred];
+     [preds addObject:veganPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     [preds removeAllObjects];
+     [preds addObject:gfPred];
+     [preds addObject:passPred];
+     [preds addObject:compoundPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (veganSwitch && gfSwitch){
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+     gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+     [preds removeAllObjects];
+     [preds addObject:gfPred];
+     [preds addObject:veganPred];
+     [preds addObject:passPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (ovoSwitch) {
+     ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+     [preds removeAllObjects];
+     [preds addObject:ovoPred];
+     [preds addObject:veganPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     [preds removeAllObjects];
+     [preds addObject:passPred];
+     [preds addObject:compoundPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (veganSwitch) {
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+     [preds removeAllObjects];
+     [preds addObject:veganPred];
+     [preds addObject:passPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (gfSwitch) {
+     gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+     passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+     [preds removeAllObjects];
+     [preds addObject:gfPred];
+     [preds addObject:passPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     }
+     else
+     {
+     if (!ovoSwitch && !veganSwitch && !gfSwitch){
+     filter = false;
+     }
+     else if (ovoSwitch && gfSwitch){
+     ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+     [preds removeAllObjects];
+     [preds addObject:ovoPred];
+     [preds addObject:veganPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     [preds removeAllObjects];
+     [preds addObject:gfPred];
+     [preds addObject:compoundPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (veganSwitch && gfSwitch){
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+     [preds removeAllObjects];
+     [preds addObject:gfPred];
+     [preds addObject:veganPred];
+     compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (ovoSwitch) {
+     ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     [preds removeAllObjects];
+     [preds addObject:ovoPred];
+     [preds addObject:veganPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (veganSwitch) {
+     veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+     [preds removeAllObjects];
+     [preds addObject:veganPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     else if (gfSwitch) {
+     gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+     [preds removeAllObjects];
+     [preds addObject:gfPred];
+     compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+     filter = true;
+     }
+     }
+     
+     //Run the filter
+     if (filter && compoundPred != NULL)
+     for (Venue *v in mainDelegate.venues) {
+     [v.dishes filterUsingPredicate:compoundPred];
+     }
+     
+     //Remove empty venues if all items are filtered out of a venue
+     NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
+     for (Venue *v in mainDelegate.venues) {
+     if (v.dishes.count == 0){
+     [emptyVenues addObject:v];
+     }
+     }
+     [mainDelegate.venues removeObjectsInArray:emptyVenues];
      */
 }
 
@@ -540,20 +563,20 @@ dispatch_queue_t requestQueue;
 
 //TODO: Update the old methods for creating the title. This is the only way to make it look good.
 /*
-- (CGFloat)panelView:(id)panelView heightForRowAtIndexPath:(PanelIndexPath *)indexPath{
-    if ([self panelView:panelView titleForHeaderInPage:<#(NSInteger)#> section:<#(NSInteger)#> != nil) {
-        return 40;
-    }
-    else {
-        // If no section header title, no section header needed
-        return 0;
-    }
-}*/
+ - (CGFloat)panelView:(id)panelView heightForRowAtIndexPath:(PanelIndexPath *)indexPath{
+ if ([self panelView:panelView titleForHeaderInPage:<#(NSInteger)#> section:<#(NSInteger)#> != nil) {
+ return 40;
+ }
+ else {
+ // If no section header title, no section header needed
+ return 0;
+ }
+ }*/
 
 
 - (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section
 {
-
+    
     // Create label with section title
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(20, 6, 300, 30);
@@ -632,23 +655,23 @@ dispatch_queue_t requestQueue;
     //NSLog(@"page number is: %d", indexPath.page);
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
     if (indexPath.row < [venue.dishes count]){
-    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
-    cell.textLabel.text = dish.name;
-    
-    // Not needed when we have a tray view
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    // accessory type
-    if (!dish.hasNutrition){
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        // Needed for when we have a tray view
-        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    else{
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        // Needed for when we have a tray view
-        // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    }
+        Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
+        cell.textLabel.text = dish.name;
+        
+        // Not needed when we have a tray view
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        // accessory type
+        if (!dish.hasNutrition){
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            // Needed for when we have a tray view
+            //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        else{
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            // Needed for when we have a tray view
+            // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        }
     }
     //Modify the colours.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
@@ -679,7 +702,7 @@ dispatch_queue_t requestQueue;
 -(void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath *)indexPath
 {
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
-   // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    // [tableView deselectRowAtIndexPath:indexPath animated:NO];
     DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
     dishView.selectedDish = [[Dish alloc] init];
@@ -700,10 +723,10 @@ dispatch_queue_t requestQueue;
         self.mealChoice = titlePressed;
         [self getDishes];
         [self showMealHUD];
-      //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [super reloadData:[super panelViewAtPage:[super currentPage]]];
         menuchoiceLabel.text = self.mealChoice;
-       //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
 
@@ -719,213 +742,213 @@ dispatch_queue_t requestQueue;
     //    dateLabel.text = formattedDate;
     //
     
-
     
-        
-        NSLog(@"A new menu has been loaded");
-        
-        //Testing Methods
-        //Grab today's date so we can properly initialize selected date to today
-        NSDate *today = [NSDate date];
-        NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
-        
-        //By default, we work with today's menu.
-        self.date = today;
-        //Declare Date Components for today
-        NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
-        NSInteger hour = [todayComponents hour];
-        NSInteger minute = [todayComponents minute];
-        NSInteger weekday = [todayComponents weekday];
-        //NSLog(@"hour: %d minute: %d weekday: %d", hour, minute, weekday);
-        
-        //Use time and weekday to intelligently set the mealChoice
-        //Sunday
-        
-        if (weekday == 1){
-            if (hour < 13 || (hour < 14 && minute < 30))
-                self.mealChoice = @"Lunch";
-            else if (hour < 19)
-                self.mealChoice = @"Dinner";
-            else{
-                self.mealChoice = @"Breakfast";
-                self.date = tomorrow;
-            }
-        }
-        //Saturday
-        else if (weekday == 7){
-            if (hour < 10)
-                self.mealChoice = @"Breakfast";
-            else if (hour < 13 || (hour < 14 && minute < 30))
-                self.mealChoice = @"Lunch";
-            else if (hour < 19)
-                self.mealChoice = @"Dinner";
-            else{
-                self.mealChoice = @"Lunch";
-                self.date = tomorrow;
-            }
-        }
-        //Friday
-        else if (weekday == 6){
-            if (hour < 10)
-                self.mealChoice = @"Breakfast";
-            else if (hour < 13 || (hour < 14 && minute < 30))
-                self.mealChoice = @"Lunch";
-            else if (hour < 19)
-                self.mealChoice = @"Dinner";
-            else{
-                self.mealChoice = @"Breakfast";
-                self.date = tomorrow;
-            }
-        }
-        //All other days
+    
+    
+    NSLog(@"A new menu has been loaded");
+    
+    //Testing Methods
+    //Grab today's date so we can properly initialize selected date to today
+    NSDate *today = [NSDate date];
+    NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
+    
+    //By default, we work with today's menu.
+    self.date = today;
+    //Declare Date Components for today
+    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
+    NSInteger hour = [todayComponents hour];
+    NSInteger minute = [todayComponents minute];
+    NSInteger weekday = [todayComponents weekday];
+    //NSLog(@"hour: %d minute: %d weekday: %d", hour, minute, weekday);
+    
+    //Use time and weekday to intelligently set the mealChoice
+    //Sunday
+    
+    if (weekday == 1){
+        if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 19)
+            self.mealChoice = @"Dinner";
         else{
-            if (hour < 10)
-                self.mealChoice = @"Breakfast";
-            else if (hour < 13 || (hour < 14 && minute < 30))
-                self.mealChoice = @"Lunch";
-            else if (hour < 20)
-                self.mealChoice = @"Dinner";
-            else{
-                self.mealChoice = @"Breakfast";
-                self.date = tomorrow;
-            }
+            self.mealChoice = @"Breakfast";
+            self.date = tomorrow;
         }
-        
-        //We need to pick the right components in the cases self.date changes.
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
-        NSInteger selectedDay = [components day];
-        NSInteger selectedMonth = [components month];
-        NSInteger selectedYear = [components year];
-        
-        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
-        //Setting up the fading animation of the labels
-        dateLabel.alpha = 0;
-        menuchoiceLabel.alpha = 0;
-        grinnellDiningLabel.alpha = 0;
-        
-        //
-        //        menuchoiceLabel.text = self.mealChoice;
-        //
-        //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //        [dateFormatter  setDateFormat:@"EEE MMM dd"];
-        //        NSString *formattedDate = [dateFormatter stringFromDate:date];
-        //        dateLabel.text = formattedDate;
-        
-        
-        //You should test for a network connection before here.
-        if ([self networkCheck]) {
-            //Instantiate the queue we will run the downloading data process in
-            requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
-            
-            //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
-            //Using the available days json to do this. Is there a better way? Even though this works.
-            NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
-            NSError *error;
-            NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
-            NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
-            @try {
-                availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
-                                                                    options:kNilOptions
-                                                                      error:&error];
-            }
-            @catch (NSException *e) {
-                alert = @"server";
-                UIAlertView *network = [[UIAlertView alloc]
-                                        initWithTitle:@"Network Error"
-                                        message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
-                                        delegate:self
-                                        cancelButtonTitle:@"OK"
-                                        otherButtonTitles:nil
-                                        ];
-                [network show];
-                return;
-            }
-            
-            //If the available days returned is -1, there are no menus found..
-            NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
-            NSDateFormatter *df = [[NSDateFormatter alloc] init];
-            [df setDateFormat:@"MM-dd-yyyy"];
-            NSDate *lastDate = [df dateFromString:dayStr];
-            NSUInteger unitFlags = NSDayCalendarUnit;
-            NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
-            int day= [components day] + 1;
-            //Store the day so the date picker can access it
-            availDay = day;
-            if (day <= 0) {
-                alert = @"network";
-                UIAlertView *network = [[UIAlertView alloc]
-                                        initWithTitle:@"No Menus are available"
-                                        message:@"Please check back later"
-                                        delegate:self
-                                        cancelButtonTitle:@"OK"
-                                        otherButtonTitles:nil
-                                        ];
-                [network show];
-                //Make sure to uncomment this return line  here for production
-                return;
-            }
-            
-            //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it!
-            //Perform downloading asynchronously on a different thread(queue) - error check throughout process
-            dispatch_async(requestQueue, ^{
-                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-                NSError *error = nil;
-                if (data)
-                {
-                    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                                    options:kNilOptions
-                                                                      error:&error];
-                    NSLog(@"Downloaded new data");
-                    if (error) {
-                        NSLog(@"There was an error: %@", [error localizedDescription]);
-                    }
-                    
-                } else {
-                    //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertView *dataNilAlert = [[UIAlertView alloc]
-                                                     initWithTitle:@"An error occurred pulling in the data"
-                                                     message:nil
-                                                     delegate:self
-                                                     cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil];
-                        [dataNilAlert show];
-                    });
-                }
-                if (jsonDict) {
-                    [self getDishes];
-                    //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self refreshScreen];
-                        [self showMealHUD];
-                    });
-                }
-            }); //Done with multithreaded code
-            
-            //Finish up animations when the view is done loading...
-            [UIView animateWithDuration:1 animations:^{
-                dateLabel.alpha = 1;
-                menuchoiceLabel.alpha = 1;
-                grinnellDiningLabel.alpha = 1;
-            }];
-            
-            
+    }
+    //Saturday
+    else if (weekday == 7){
+        if (hour < 10)
+            self.mealChoice = @"Breakfast";
+        else if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 19)
+            self.mealChoice = @"Dinner";
+        else{
+            self.mealChoice = @"Lunch";
+            self.date = tomorrow;
         }
-        else {
-            //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
+    }
+    //Friday
+    else if (weekday == 6){
+        if (hour < 10)
+            self.mealChoice = @"Breakfast";
+        else if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 19)
+            self.mealChoice = @"Dinner";
+        else{
+            self.mealChoice = @"Breakfast";
+            self.date = tomorrow;
+        }
+    }
+    //All other days
+    else{
+        if (hour < 10)
+            self.mealChoice = @"Breakfast";
+        else if (hour < 13 || (hour < 14 && minute < 30))
+            self.mealChoice = @"Lunch";
+        else if (hour < 20)
+            self.mealChoice = @"Dinner";
+        else{
+            self.mealChoice = @"Breakfast";
+            self.date = tomorrow;
+        }
+    }
+    
+    //We need to pick the right components in the cases self.date changes.
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+    NSInteger selectedDay = [components day];
+    NSInteger selectedMonth = [components month];
+    NSInteger selectedYear = [components year];
+    
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+    //Setting up the fading animation of the labels
+    dateLabel.alpha = 0;
+    menuchoiceLabel.alpha = 0;
+    grinnellDiningLabel.alpha = 0;
+    
+    //
+    //        menuchoiceLabel.text = self.mealChoice;
+    //
+    //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+    //        NSString *formattedDate = [dateFormatter stringFromDate:date];
+    //        dateLabel.text = formattedDate;
+    
+    
+    //You should test for a network connection before here.
+    if ([self networkCheck]) {
+        //Instantiate the queue we will run the downloading data process in
+        requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
+        
+        //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
+        //Using the available days json to do this. Is there a better way? Even though this works.
+        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
+        NSError *error;
+        NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
+        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
+        @try {
+            availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
+                                                                options:kNilOptions
+                                                                  error:&error];
+        }
+        @catch (NSException *e) {
+            alert = @"server";
             UIAlertView *network = [[UIAlertView alloc]
-                                    initWithTitle:@"No Network Connection"
-                                    message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
+                                    initWithTitle:@"Network Error"
+                                    message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
+                                    delegate:self
                                     cancelButtonTitle:@"OK"
                                     otherButtonTitles:nil
                                     ];
             [network show];
             return;
         }
+        
+        //If the available days returned is -1, there are no menus found..
+        NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MM-dd-yyyy"];
+        NSDate *lastDate = [df dateFromString:dayStr];
+        NSUInteger unitFlags = NSDayCalendarUnit;
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
+        int day= [components day] + 1;
+        //Store the day so the date picker can access it
+        availDay = day;
+        if (day <= 0) {
+            alert = @"network";
+            UIAlertView *network = [[UIAlertView alloc]
+                                    initWithTitle:@"No Menus are available"
+                                    message:@"Please check back later"
+                                    delegate:self
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil
+                                    ];
+            [network show];
+            //Make sure to uncomment this return line  here for production
+            return;
+        }
+        
+        //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it!
+        //Perform downloading asynchronously on a different thread(queue) - error check throughout process
+        dispatch_async(requestQueue, ^{
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+            NSError *error = nil;
+            if (data)
+            {
+                self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:kNilOptions
+                                                                  error:&error];
+                NSLog(@"Downloaded new data");
+                if (error) {
+                    NSLog(@"There was an error: %@", [error localizedDescription]);
+                }
+                
+            } else {
+                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *dataNilAlert = [[UIAlertView alloc]
+                                                 initWithTitle:@"An error occurred pulling in the data"
+                                                 message:nil
+                                                 delegate:self
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+                    [dataNilAlert show];
+                });
+            }
+            if (jsonDict) {
+                [self getDishes];
+                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self refreshScreen];
+                    [self showMealHUD];
+                });
+            }
+        }); //Done with multithreaded code
+        
+        //Finish up animations when the view is done loading...
+        [UIView animateWithDuration:1 animations:^{
+            dateLabel.alpha = 1;
+            menuchoiceLabel.alpha = 1;
+            grinnellDiningLabel.alpha = 1;
+        }];
+        
+        
+    }
+    else {
+        //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
+        UIAlertView *network = [[UIAlertView alloc]
+                                initWithTitle:@"No Network Connection"
+                                message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
+                                cancelButtonTitle:@"OK"
+                                otherButtonTitles:nil
+                                ];
+        [network show];
+        return;
+    }
 }
 
 - (void)changeDate {
-//    [self.navigationController popViewControllerAnimated:YES];
+    //    [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -953,7 +976,7 @@ dispatch_queue_t requestQueue;
     // Intelligently display selected meal (i.e. Today's Dinner or Wednesday's Outtakes)
     NSDateComponents *selected = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     NSInteger selectDay = [selected day];
-    NSInteger selectMonth = [selected month];    
+    NSInteger selectMonth = [selected month];
     NSDate *today = [[NSDate alloc] init];
     NSDateComponents *todayComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:today];
     NSInteger todayDay = [todayComps day];
@@ -996,7 +1019,7 @@ dispatch_queue_t requestQueue;
         }
     }
     NSMutableString *HUDLabel = [NSMutableString stringWithFormat:@"%@'s %@", dayStr, self.mealChoice];
-	HUD.labelText = HUDLabel;	
+	HUD.labelText = HUDLabel;
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:1];
 }
@@ -1012,28 +1035,76 @@ dispatch_queue_t requestQueue;
 
 - (void) refreshScreen
 {
-   // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [super reloadData:[super panelViewAtPage:[super currentPage]]];
     menuchoiceLabel.text = self.mealChoice;
-   // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 #pragma mark - scroll view delegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView_
 {
-	//This is called after the scrolling is complete and the user actually changed the page. 
+	//This is called after the scrolling is complete and the user actually changed the page.
 	if (self.currentPage!=self.lastDisplayedPage)
 	{
+        
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+        NSUInteger weekday = [components weekday];
+        
+        
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
 		[panelView pageDidAppear];
         //TODO - not important - but maybe.. we could have reload nicely (faded?) instead of the sudden appearance which can be surprising? Again, not THAT important.
         
         //Hmm where do we actually change the self.mealChoice
         [self refreshScreen];
-        //This HUD takes a long time it seems? 
+        //This HUD takes a long time it seems?
+//        NSLog(@"PAgeNum loaded: %d",self.currentPage);
+        
+        if (weekday == 1) {
+            
+            switch (self.currentPage) {
+                case 0:
+                    self.mealChoice = @"Lunch";
+                    break;
+                    
+                case 1:
+                    self.mealChoice = @"Dinner";
+                    break;
+                    
+                default:
+                    break;
+            }
+        } else {
+            
+            switch (self.currentPage) {
+                case 0:
+                    self.mealChoice = @"Breakfast";
+                    break;
+                    
+                case 1:
+                    self.mealChoice = @"Lunch";
+                    break;
+                    
+                case 2:
+                    self.mealChoice = @"Dinner";
+                    break;
+                    
+                case 3:
+                    self.mealChoice = @"Outtakes";
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        
+        self.menuchoiceLabel.text = self.mealChoice;
         [self showMealHUD];
-  
-
+        
+        
 	}
 	
 	self.lastDisplayedPage = self.currentPage;

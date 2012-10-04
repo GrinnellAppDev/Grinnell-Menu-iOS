@@ -184,7 +184,7 @@ dispatch_queue_t requestQueue;
     
     
     NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
-//    self.mealChoice = @"Outtakes";
+    //    self.mealChoice = @"Outtakes";
     if ([self.mealChoice isEqualToString:@"Breakfast"]) {
         NSLog(@"Selected meal is Breakfast");
         [super skipToOffset:0];
@@ -1021,7 +1021,7 @@ dispatch_queue_t requestQueue;
     NSMutableString *HUDLabel = [NSMutableString stringWithFormat:@"%@'s %@", dayStr, self.mealChoice];
 	HUD.labelText = HUDLabel;
 	[HUD show:YES];
-	[HUD hide:YES afterDelay:1];
+	[HUD hide:YES afterDelay:0.5];
 }
 
 - (void)pushNextPage{
@@ -1101,12 +1101,16 @@ dispatch_queue_t requestQueue;
             }
         }
         
-        self.menuchoiceLabel.text = self.mealChoice;
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             self.menuchoiceLabel.alpha = 0.0f;
+                         }completion:^(BOOL finished) {
+                             self.menuchoiceLabel.alpha = 1.0f;
+                             self.menuchoiceLabel.text = self.mealChoice;
+                         }];
+        
         [self showMealHUD];
-        
-        
 	}
-	
 	self.lastDisplayedPage = self.currentPage;
 }
 

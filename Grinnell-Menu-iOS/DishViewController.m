@@ -62,7 +62,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    //I wanted the padding so it centered... so i put a tab =] Feel free to do this better...
+    //I wanted the padding so it centered... so i put a tab =] Feel free to do this better... DrJid
    return @"     Nutritional Information";
 }
 
@@ -106,48 +106,63 @@
         cell.textLabel.text = @"Calories";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badge.radius = 9;
-        cell.badgeString = [NSString stringWithFormat:@"%@", [selectedDish.nutrition objectForKey:@"KCAL"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@", [selectedDish.nutrition objectForKey:@"KCAL"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.3f", [[selectedDish.nutrition objectForKey:@"KCAL"] floatValue]];
+
     }
     else if (indexPath.row == 1) {
         cell.textLabel.text = @"Saturated Fat"; 
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"SFA"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"SFA"] floatValue]];
         cell.badge.radius = 9;
+        
     }
     else if (indexPath.row == 2) {
         cell.textLabel.text = @"Trans Fat";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"FATRN"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"FATRN"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.1fg", [[selectedDish.nutrition objectForKey:@"FATRN"] floatValue]];
+
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 3) {
         cell.textLabel.text = @"Sodium";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"NA"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"NA"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.3fmg", [[selectedDish.nutrition objectForKey:@"NA"] floatValue]];
+
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 4) {
         cell.textLabel.text = @"Sugar";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"SUGR"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"SUGR"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"SUGR"] floatValue]];
+
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 5) {
         cell.textLabel.text = @"Dietary Fiber";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"TDFB"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"TDFB"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.1fg", [[selectedDish.nutrition objectForKey:@"TDFB"] floatValue]];
+
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 6) {
         cell.textLabel.text = @"Cholesterol";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"CHOL"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"CHOL"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.3fmg", [[selectedDish.nutrition objectForKey:@"CHOL"] floatValue]];
+
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 7) {
         cell.textLabel.text = @"Protein";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"PRO"]];
+//        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"PRO"]];
+        cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"PRO"] floatValue]];
+
         cell.badge.radius = 9;
     }
     if (indexPath.row % 2) {
@@ -164,6 +179,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Disable selection on rows. 
     return nil;
 }
 

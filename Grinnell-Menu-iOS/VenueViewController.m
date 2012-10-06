@@ -59,12 +59,8 @@ dispatch_queue_t requestQueue;
 
 //Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes {
-    [mainDelegate.allMenus removeAllObjects];
     NSString *emptyStr = @"";
-    [mainDelegate.allMenus addObject:emptyStr];
-    [mainDelegate.allMenus addObject:emptyStr];
-    [mainDelegate.allMenus addObject:emptyStr];
-    [mainDelegate.allMenus addObject:emptyStr];
+
     [originalMenu removeAllObjects];
     [originalMenu addObject:emptyStr];
     [originalMenu addObject:emptyStr];
@@ -96,7 +92,6 @@ dispatch_queue_t requestQueue;
         [mealNames addObject:mealName];
         //We create an array to begin forming each meal's menu
         NSMutableArray *meal = [[NSMutableArray alloc] init];
-        NSMutableArray *meal2 = [[NSMutableArray alloc] init];
         venueNamesFromJSON = [[NSArray alloc] init];
         venueNamesFromJSON = [mealDict allKeys];
         //Here we fill the venues array to contain all the venues.
@@ -109,12 +104,10 @@ dispatch_queue_t requestQueue;
             }
             // NSLog(@"Adding object: %@", gvenue);
             [meal addObject:gvenue];
-            [meal2 addObject:gvenue];
         }
         
         //Remove the Entree venue
         [meal removeObject:@"ENTREES"];
-        [meal2 removeObject:@"ENTREES"];
         //So for each Venue...
         for (Venue *gVenue in meal) {
             
@@ -145,35 +138,7 @@ dispatch_queue_t requestQueue;
                 [gVenue.dishes addObject:dish];
             }
         }
-        for (Venue *gVenue in meal2) {
-            
-            //We create a dish
-            gVenue.dishes = [[NSMutableArray alloc] init];
-            NSArray *dishesInVenue = [mealDict objectForKey:gVenue.name];
-            
-            for (int i = 0; i < dishesInVenue.count; i++) {
-                Dish *dish = [[Dish alloc] init];
-                //loop through for the number of dishes
-                NSDictionary *actualdish = [dishesInVenue objectAtIndex:i];
-                
-                dish.name = [actualdish objectForKey:@"name"];
-                if (![[actualdish objectForKey:@"vegan"] isEqualToString:@"false"])
-                    dish.vegan = YES;
-                if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"])
-                    dish.ovolacto = YES;
-                if (![[actualdish objectForKey:@"passover"] isEqualToString:@"false"])
-                    dish.passover = YES;
-                if (![[actualdish objectForKey:@"gluten_free"] isEqualToString:@"false"])
-                    dish.glutenFree = YES;
-                if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
-                    dish.hasNutrition = YES;
-                    dish.nutrition = [actualdish objectForKey:@"nutrition"];
-                }
-                //then finally we add this new dish to it's venue
-                //NSLog(@"Dish: %@", dish);
-                [gVenue.dishes addObject:dish];
-            }
-        }
+        
         // NSLog(@"Meal: %@", meal);
         int i = 0;
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -197,17 +162,15 @@ dispatch_queue_t requestQueue;
                 i = 3;
         }
         NSLog(@"Storing meal: %@ at index: %d", mealName, i);
-        [mainDelegate.allMenus replaceObjectAtIndex:i withObject:meal];
-        [originalMenu replaceObjectAtIndex:i withObject:meal2];
+        [originalMenu replaceObjectAtIndex:i withObject:meal];
     }
     //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
-    [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
     [originalMenu removeObjectIdenticalTo:emptyStr];
     
     [self applyFilters];
     
     
-    NSLog(@"The menu is: %@", mainDelegate.allMenus);
+//    NSLog(@"The menu is: %@", mainDelegate.allMenus);
     
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -367,30 +330,38 @@ dispatch_queue_t requestQueue;
     dateLabel.text = formattedDate;
     
     //    [self showMealHUD];
-    [self applyFilters];
+//    [self applyFilters];
+    
+    [super reloadData:[super panelViewAtPage:[super currentPage]]];
 }
 
 #pragma mark - Added methods
-//TODO re-implement this
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
-    if (mainDelegate.allMenus.count == 0)
+    if (originalMenu.count == 0)
         return;
     
-    if (![[mainDelegate.allMenus objectAtIndex:0] isKindOfClass:[NSMutableArray class]])
-        return;
+    [mainDelegate.allMenus removeAllObjects];
+    NSString *emptyStr = @"";
+    [mainDelegate.allMenus addObject:emptyStr];
+    [mainDelegate.allMenus addObject:emptyStr];
+    [mainDelegate.allMenus addObject:emptyStr];
+    [mainDelegate.allMenus addObject:emptyStr];
+    for (int i = 0; i < originalMenu.count; i++){
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        [mainDelegate.allMenus replaceObjectAtIndex:i withObject:temp];
+    }
+    
+    [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
     NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
     BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    for (int i = 0; i < mainDelegate.allMenus.count; i++){
-        [[mainDelegate.allMenus objectAtIndex:i] removeAllObjects];
-        
-        NSLog(@"The menu is: %@", mainDelegate.allMenus);
-        NSLog(@"The original menu was: %@", originalMenu);
-        for (Venue *v in [originalMenu objectAtIndex:i]) {
+    for (int i = 0; i < originalMenu.count; i++){
+        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[originalMenu objectAtIndex:i]];
+        for (Venue *v in menu) {
             Venue *venue = [[Venue alloc] init];
             venue.name = v.name;
             for (Dish *d in v.dishes) {
@@ -545,6 +516,7 @@ dispatch_queue_t requestQueue;
         NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
         for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]) {
             if (v.dishes.count == 0){
+                // NSLog(@"%@ removed", v.name);
                 [emptyVenues addObject:v];
             }
         }
@@ -561,7 +533,7 @@ dispatch_queue_t requestQueue;
 - (NSInteger)numberOfPanels
 {
 	if (jsonDict){
-        //NSLog(@"json count %d", jsonDict.count);
+        NSLog(@"json count %d", jsonDict.count);
         return (jsonDict.count - 1);
     }
     else

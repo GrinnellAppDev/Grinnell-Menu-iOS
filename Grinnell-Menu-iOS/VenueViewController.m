@@ -785,14 +785,6 @@ dispatch_queue_t requestQueue;
         menuchoiceLabel.alpha = 0;
         grinnellDiningLabel.alpha = 0;
         
-        //
-        //        menuchoiceLabel.text = self.mealChoice;
-        //
-        //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //        [dateFormatter  setDateFormat:@"EEE MMM dd"];
-        //        NSString *formattedDate = [dateFormatter stringFromDate:date];
-        //        dateLabel.text = formattedDate;
-        
         
         //You should test for a network connection before here.
         if ([self networkCheck]) {
@@ -874,9 +866,9 @@ dispatch_queue_t requestQueue;
                     });
                 }
                 if (jsonDict) {
-                    [self getDishes];
                     //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [self getDishes];
                         [self refreshScreen];
                         [self showMealHUD];
                     });

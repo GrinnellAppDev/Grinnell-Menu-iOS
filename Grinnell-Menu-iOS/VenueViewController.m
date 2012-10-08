@@ -60,7 +60,7 @@ dispatch_queue_t requestQueue;
 //Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes {
     NSString *emptyStr = @"";
-
+    
     [originalMenu removeAllObjects];
     [originalMenu addObject:emptyStr];
     [originalMenu addObject:emptyStr];
@@ -170,19 +170,19 @@ dispatch_queue_t requestQueue;
     [self applyFilters];
     
     
-//    NSLog(@"The menu is: %@", mainDelegate.allMenus);
+    //    NSLog(@"The menu is: %@", mainDelegate.allMenus);
     
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
     NSUInteger weekday = [components weekday];
-
+    
     
     NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
     //    self.mealChoice = @"Outtakes";
     if ([self.mealChoice isEqualToString:@"Breakfast"]) {
         NSLog(@"Selected meal is Breakfast");
-
+        
         [super skipToOffset:0];
     }
     else if ([self.mealChoice isEqualToString:@"Lunch"]){
@@ -196,7 +196,7 @@ dispatch_queue_t requestQueue;
             [super skipToOffset:1];
         else
             [super skipToOffset:2];
-
+        
     }
     else if ([self.mealChoice isEqualToString:@"Outtakes"])
         [super skipToOffset:3];
@@ -330,9 +330,9 @@ dispatch_queue_t requestQueue;
     dateLabel.text = formattedDate;
     
     //    [self showMealHUD];
-//    [self applyFilters];
+    //    [self applyFilters];
     
-    [super reloadData:[super panelViewAtPage:[super currentPage]]];
+    [super reloadAllTables];
 }
 
 #pragma mark - Added methods
@@ -688,28 +688,13 @@ dispatch_queue_t requestQueue;
         NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
         self.mealChoice = titlePressed;
         [self getDishes];
+        [self refreshScreen];
         [self showMealHUD];
-        //  NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [super reloadData:[super panelViewAtPage:[super currentPage]]];
-        menuchoiceLabel.text = self.mealChoice;
-        //[anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
 
 - (void)loadNextMenu {
-    
-    
-    
-    //    menuchoiceLabel.text = self.mealChoice;
-    //
-    //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //    [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    //    NSString *formattedDate = [dateFormatter stringFromDate:date];
-    //    dateLabel.text = formattedDate;
-    //
-    
-    
-    
+    NSDate *tempDate = self.date;
     
     NSLog(@"A new menu has been loaded");
     
@@ -780,136 +765,153 @@ dispatch_queue_t requestQueue;
         }
     }
     
-    //We need to pick the right components in the cases self.date changes.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
-    NSInteger selectedDay = [components day];
-    NSInteger selectedMonth = [components month];
-    NSInteger selectedYear = [components year];
     
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
-    //Setting up the fading animation of the labels
-    dateLabel.alpha = 0;
-    menuchoiceLabel.alpha = 0;
-    grinnellDiningLabel.alpha = 0;
-    
-    //
-    //        menuchoiceLabel.text = self.mealChoice;
-    //
-    //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //        [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    //        NSString *formattedDate = [dateFormatter stringFromDate:date];
-    //        dateLabel.text = formattedDate;
+    //If correct jsonDict is already stored, don't get a new one
+    NSDateComponents* moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.date];
+    self.date = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
+    moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:tempDate];
+    tempDate = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
     
     
-    //You should test for a network connection before here.
-    if ([self networkCheck]) {
-        //Instantiate the queue we will run the downloading data process in
-        requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
-        
-        //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
-        //Using the available days json to do this. Is there a better way? Even though this works.
-        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
-        NSError *error;
-        NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
-        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
-        @try {
-            availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
-                                                                options:kNilOptions
-                                                                  error:&error];
-        }
-        @catch (NSException *e) {
-            alert = @"server";
-            UIAlertView *network = [[UIAlertView alloc]
-                                    initWithTitle:@"Network Error"
-                                    message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
-                                    delegate:self
-                                    cancelButtonTitle:@"OK"
-                                    otherButtonTitles:nil
-                                    ];
-            [network show];
-            return;
-        }
-        
-        //If the available days returned is -1, there are no menus found..
-        NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"MM-dd-yyyy"];
-        NSDate *lastDate = [df dateFromString:dayStr];
-        NSUInteger unitFlags = NSDayCalendarUnit;
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
-        int day= [components day] + 1;
-        //Store the day so the date picker can access it
-        availDay = day;
-        if (day <= 0) {
-            alert = @"network";
-            UIAlertView *network = [[UIAlertView alloc]
-                                    initWithTitle:@"No Menus are available"
-                                    message:@"Please check back later"
-                                    delegate:self
-                                    cancelButtonTitle:@"OK"
-                                    otherButtonTitles:nil
-                                    ];
-            [network show];
-            //Make sure to uncomment this return line  here for production
-            return;
-        }
-        
-        //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it!
-        //Perform downloading asynchronously on a different thread(queue) - error check throughout process
-        dispatch_async(requestQueue, ^{
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-            NSError *error = nil;
-            if (data)
-            {
-                self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
-                                                                options:kNilOptions
-                                                                  error:&error];
-                NSLog(@"Downloaded new data");
-                if (error) {
-                    NSLog(@"There was an error: %@", [error localizedDescription]);
-                }
-                
-            } else {
-                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *dataNilAlert = [[UIAlertView alloc]
-                                                 initWithTitle:@"An error occurred pulling in the data"
-                                                 message:nil
-                                                 delegate:self
-                                                 cancelButtonTitle:@"OK"
-                                                 otherButtonTitles:nil];
-                    [dataNilAlert show];
-                });
-            }
-            if (jsonDict) {
-                [self getDishes];
-                //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self refreshScreen];
-                    [self showMealHUD];
-                });
-            }
-        }); //Done with multithreaded code
-        
-        //Finish up animations when the view is done loading...
-        [UIView animateWithDuration:1 animations:^{
-            dateLabel.alpha = 1;
-            menuchoiceLabel.alpha = 1;
-            grinnellDiningLabel.alpha = 1;
-        }];
-        
-        
+    if ([tempDate isEqualToDate:self.date] && jsonDict){
+        [self getDishes];
+        [self refreshScreen];
+        [self showMealHUD];
     }
-    else {
-        //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
-        UIAlertView *network = [[UIAlertView alloc]
-                                initWithTitle:@"No Network Connection"
-                                message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
-                                cancelButtonTitle:@"OK"
-                                otherButtonTitles:nil
-                                ];
-        [network show];
-        return;
+    else{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+        NSString *formattedDate = [dateFormatter stringFromDate:self.date];
+        dateLabel.text = formattedDate;
+        //We need to pick the right components in the cases self.date changes.
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+        NSInteger selectedDay = [components day];
+        NSInteger selectedMonth = [components month];
+        NSInteger selectedYear = [components year];
+        
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        //Setting up the fading animation of the labels
+        dateLabel.alpha = 0;
+        menuchoiceLabel.alpha = 0;
+        grinnellDiningLabel.alpha = 0;
+        
+        //
+        //        menuchoiceLabel.text = self.mealChoice;
+        //
+        //        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //        [dateFormatter  setDateFormat:@"EEE MMM dd"];
+        //        NSString *formattedDate = [dateFormatter stringFromDate:date];
+        //        dateLabel.text = formattedDate;
+        
+        
+        //You should test for a network connection before here.
+        if ([self networkCheck]) {
+            //Instantiate the queue we will run the downloading data process in
+            requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
+            
+            //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
+            //Using the available days json to do this. Is there a better way? Even though this works.
+            NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
+            NSError *error;
+            NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
+            NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
+            @try {
+                availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
+                                                                    options:kNilOptions
+                                                                      error:&error];
+            }
+            @catch (NSException *e) {
+                alert = @"server";
+                UIAlertView *network = [[UIAlertView alloc]
+                                        initWithTitle:@"Network Error"
+                                        message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
+                                        delegate:self
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil
+                                        ];
+                [network show];
+                return;
+            }
+            
+            //If the available days returned is -1, there are no menus found..
+            NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"MM-dd-yyyy"];
+            NSDate *lastDate = [df dateFromString:dayStr];
+            NSUInteger unitFlags = NSDayCalendarUnit;
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
+            int day= [components day] + 1;
+            //Store the day so the date picker can access it
+            availDay = day;
+            if (day <= 0) {
+                alert = @"network";
+                UIAlertView *network = [[UIAlertView alloc]
+                                        initWithTitle:@"No Menus are available"
+                                        message:@"Please check back later"
+                                        delegate:self
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil
+                                        ];
+                [network show];
+                //Make sure to uncomment this return line  here for production
+                return;
+            }
+            
+            //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it!
+            //Perform downloading asynchronously on a different thread(queue) - error check throughout process
+            dispatch_async(requestQueue, ^{
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+                NSError *error = nil;
+                if (data)
+                {
+                    self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                    options:kNilOptions
+                                                                      error:&error];
+                    NSLog(@"Downloaded new data");
+                    if (error) {
+                        NSLog(@"There was an error: %@", [error localizedDescription]);
+                    }
+                    
+                } else {
+                    //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to present the alertview.
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *dataNilAlert = [[UIAlertView alloc]
+                                                     initWithTitle:@"An error occurred pulling in the data"
+                                                     message:nil
+                                                     delegate:self
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+                        [dataNilAlert show];
+                    });
+                }
+                if (jsonDict) {
+                    [self getDishes];
+                    //User interface elements can only be updated on the main thread. Hence we jump back to the main thread to reload the tableview
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self refreshScreen];
+                        [self showMealHUD];
+                    });
+                }
+            }); //Done with multithreaded code
+            
+            //Finish up animations when the view is done loading...
+            [UIView animateWithDuration:1 animations:^{
+                dateLabel.alpha = 1;
+                menuchoiceLabel.alpha = 1;
+                grinnellDiningLabel.alpha = 1;
+            }];
+        }
+        else {
+            //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
+            UIAlertView *network = [[UIAlertView alloc]
+                                    initWithTitle:@"No Network Connection"
+                                    message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
+                                    cancelButtonTitle:@"OK"
+                                    otherButtonTitles:nil
+                                    ];
+            [network show];
+            return;
+        }
     }
 }
 
@@ -992,18 +994,17 @@ dispatch_queue_t requestQueue;
 
 - (void)pushNextPage{
     [super pushNextPage];
-    [super reloadData:[super panelViewAtPage:[super currentPage]]];
 }
 - (void)jumpToPreviousPage{
     [super jumpToPreviousPage];
-    [super reloadData:[super panelViewAtPage:[super currentPage]]];
 }
 
 - (void) refreshScreen
 {
     // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [super reloadData:[super panelViewAtPage:[super currentPage]]];
+    [super reloadAllTables];
     menuchoiceLabel.text = self.mealChoice;
+    //[self showMealHUD];
     // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
@@ -1024,10 +1025,7 @@ dispatch_queue_t requestQueue;
 		[panelView pageDidAppear];
         //TODO - not important - but maybe.. we could have reload nicely (faded?) instead of the sudden appearance which can be surprising? Again, not THAT important.
         
-        //Hmm where do we actually change the self.mealChoice
-        [self refreshScreen];
-        //This HUD takes a long time it seems?
-//        NSLog(@"PAgeNum loaded: %d",self.currentPage);
+        //        NSLog(@"PAgeNum loaded: %d",self.currentPage);
         
         if (weekday == 1) {
             
@@ -1075,6 +1073,9 @@ dispatch_queue_t requestQueue;
                              self.menuchoiceLabel.text = self.mealChoice;
                          }];
         
+        //Hmm where do we actually change the self.mealChoice
+        [self refreshScreen];
+        //This HUD takes a long time it seems?
         [self showMealHUD];
 	}
 	self.lastDisplayedPage = self.currentPage;

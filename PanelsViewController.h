@@ -71,6 +71,7 @@
 
 - (NSInteger)numberOfPanels;
 - (void)reloadData:(PanelView *)panelView;
+- (void)reloadAllTables;
 - (void)skipToOffset:(int)offset;
 
 @end

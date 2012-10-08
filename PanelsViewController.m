@@ -425,6 +425,12 @@
     [panelView.tableView reloadData];
 }
 
+- (void)reloadAllTables{
+    for (PanelView *p in self.visiblePages) {
+        [p.tableView reloadData];
+    }
+}
+
 -(void)skipToOffset:(int)offset
 {
     [self.scrollView setContentOffset:CGPointMake((self.panelViewSize.width + 2*GAP) * offset, 0)];

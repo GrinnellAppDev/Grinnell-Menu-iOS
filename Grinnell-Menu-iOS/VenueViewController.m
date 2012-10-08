@@ -59,6 +59,10 @@ dispatch_queue_t requestQueue;
 
 //Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:self.date];
+    NSUInteger weekday = [components weekday];
+    
     NSString *emptyStr = @"";
     
     [originalMenu removeAllObjects];
@@ -141,9 +145,6 @@ dispatch_queue_t requestQueue;
         
         // NSLog(@"Meal: %@", meal);
         int i = 0;
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
-        NSUInteger weekday = [components weekday];
         if (weekday == 1){
             if ([mealName isEqualToString:@"LUNCH"])
                 i = 0;
@@ -171,20 +172,11 @@ dispatch_queue_t requestQueue;
     
     
     //    NSLog(@"The menu is: %@", mainDelegate.allMenus);
-    
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
-    NSUInteger weekday = [components weekday];
-    
-    
+ 
     NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
     //    self.mealChoice = @"Outtakes";
-    if ([self.mealChoice isEqualToString:@"Breakfast"]) {
-        NSLog(@"Selected meal is Breakfast");
-        
+    if ([self.mealChoice isEqualToString:@"Breakfast"])
         [super skipToOffset:0];
-    }
     else if ([self.mealChoice isEqualToString:@"Lunch"]){
         if (weekday == 1)
             [super skipToOffset:0];
@@ -196,7 +188,6 @@ dispatch_queue_t requestQueue;
             [super skipToOffset:1];
         else
             [super skipToOffset:2];
-        
     }
     else if ([self.mealChoice isEqualToString:@"Outtakes"])
         [super skipToOffset:3];
@@ -530,9 +521,8 @@ dispatch_queue_t requestQueue;
 
 #pragma mark - Panel view data source
 
-- (NSInteger)numberOfPanels
-{
-	if (jsonDict){
+- (NSInteger)numberOfPanels {
+	if (jsonDict) {
         NSLog(@"json count %d", jsonDict.count);
         return (jsonDict.count - 1);
     }
@@ -540,8 +530,7 @@ dispatch_queue_t requestQueue;
         return 4;
 }
 
-- (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section
-{
+- (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section {
     
     // Create label with section title
     UILabel *label = [[UILabel alloc] init];
@@ -765,14 +754,15 @@ dispatch_queue_t requestQueue;
         }
     }
     
-    
+    if (tempDate != Nil){
     //If correct jsonDict is already stored, don't get a new one
+    // Strip the time component from the two dates so they can be compared
     NSDateComponents* moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.date];
     self.date = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
     moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:tempDate];
     tempDate = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
     
-    
+    }
     if ([tempDate isEqualToDate:self.date] && jsonDict){
         [self getDishes];
         [self refreshScreen];
@@ -784,7 +774,7 @@ dispatch_queue_t requestQueue;
         NSString *formattedDate = [dateFormatter stringFromDate:self.date];
         dateLabel.text = formattedDate;
         //We need to pick the right components in the cases self.date changes.
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
         NSInteger selectedDay = [components day];
         NSInteger selectedMonth = [components month];
         NSInteger selectedYear = [components year];
@@ -838,8 +828,7 @@ dispatch_queue_t requestQueue;
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setDateFormat:@"MM-dd-yyyy"];
             NSDate *lastDate = [df dateFromString:dayStr];
-            NSUInteger unitFlags = NSDayCalendarUnit;
-            NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:today toDate:lastDate options:0];
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:today toDate:lastDate options:0];
             int day= [components day] + 1;
             //Store the day so the date picker can access it
             availDay = day;
@@ -942,24 +931,24 @@ dispatch_queue_t requestQueue;
 	HUD.delegate = self;
     
     // Intelligently display selected meal (i.e. Today's Dinner or Wednesday's Outtakes)
-    NSDateComponents *selected = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
-    NSInteger selectDay = [selected day];
-    NSInteger selectMonth = [selected month];
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+    NSInteger selectDay = [comps day];
+    NSInteger selectMonth = [comps month];
+    NSInteger weekday = [comps weekday];
     NSDate *today = [[NSDate alloc] init];
-    NSDateComponents *todayComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:today];
-    NSInteger todayDay = [todayComps day];
-    NSInteger todayMonth = [todayComps month];
+    comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit fromDate:today];
+    NSInteger todayDay = [comps day];
+    NSInteger todayMonth = [comps month];
     NSDate *tomorrow = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24];
-    NSDateComponents *tomorrowComps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:tomorrow];
-    NSInteger tomorrowDay = [tomorrowComps day];
-    NSInteger tomorrowMonth = [tomorrowComps month];
+    comps = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit fromDate:tomorrow];
+    NSInteger tomorrowDay = [comps day];
+    NSInteger tomorrowMonth = [comps month];
     NSString *dayStr;
     if (selectDay == todayDay && selectMonth == todayMonth)
         dayStr = @"Today";
     else if(selectDay == tomorrowDay && selectMonth == tomorrowMonth)
         dayStr = @"Tomorrow";
     else{
-        NSInteger weekday = [selected weekday];
         switch (weekday) {
             case 1:
                 dayStr = @"Sunday";
@@ -1012,14 +1001,10 @@ dispatch_queue_t requestQueue;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView_
 {
 	//This is called after the scrolling is complete and the user actually changed the page.
-	if (self.currentPage!=self.lastDisplayedPage)
-	{
-        
-        
+	if (self.currentPage!=self.lastDisplayedPage) {
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
         NSUInteger weekday = [components weekday];
-        
         
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
 		[panelView pageDidAppear];
@@ -1028,38 +1013,31 @@ dispatch_queue_t requestQueue;
         //        NSLog(@"PAgeNum loaded: %d",self.currentPage);
         
         if (weekday == 1) {
-            
             switch (self.currentPage) {
                 case 0:
                     self.mealChoice = @"Lunch";
                     break;
-                    
                 case 1:
                     self.mealChoice = @"Dinner";
                     break;
-                    
                 default:
                     break;
             }
-        } else {
-            
+        }
+        else {
             switch (self.currentPage) {
                 case 0:
                     self.mealChoice = @"Breakfast";
                     break;
-                    
                 case 1:
                     self.mealChoice = @"Lunch";
                     break;
-                    
                 case 2:
                     self.mealChoice = @"Dinner";
                     break;
-                    
                 case 3:
                     self.mealChoice = @"Outtakes";
                     break;
-                    
                 default:
                     break;
             }
@@ -1080,8 +1058,5 @@ dispatch_queue_t requestQueue;
 	}
 	self.lastDisplayedPage = self.currentPage;
 }
-
-
-
 
 @end

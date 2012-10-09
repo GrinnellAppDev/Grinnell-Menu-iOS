@@ -10,7 +10,7 @@ Authors:	David Cowden
 		Maijid Moujaled
 		Dugan Knoll
 
-Date:     	Wednesday 1st August 2012
+Date:     	Tuesday 9th October 2012
 
 +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
 License:
@@ -55,8 +55,7 @@ If you would like to contribute, shoot us a pull request.
 
 To-Do List
         Link to Mobile Grinnell app
-        Add halal and Passover filters
-        Gluten free filter (requires server side update first)
+        Add halal filter (Requires more info from Dhall)
 
 Possible Features for Later Release
 	Create nutrition adder

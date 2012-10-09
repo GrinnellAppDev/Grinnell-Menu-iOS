@@ -59,6 +59,9 @@ dispatch_queue_t requestQueue;
 
 //Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes {
+    if (self.jsonDict == NULL){
+        return;
+    }
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:self.date];
     NSUInteger weekday = [components weekday];
@@ -86,12 +89,11 @@ dispatch_queue_t requestQueue;
     for (NSString *mealName in mainMenu) {
         
         //When the mealName is passover, we get an error because it is expecting an NSDictionary and PASSOVER returns a string ( true or false). So we just skip over passover.
-        if ([mealName isEqualToString:@"PASSOVER"]) {
-            //skip
+        if ([mealName isEqualToString:@"PASSOVER"])
             continue;
-        }
+        
         NSDictionary *mealDict = [mainMenu objectForKey:mealName];
-        NSLog(@"mealName is %@", mealName);
+        //NSLog(@"mealName is %@", mealName);
         //NSLog(@"mealDict: %@", mealDict);
         [mealNames addObject:mealName];
         //We create an array to begin forming each meal's menu
@@ -162,7 +164,7 @@ dispatch_queue_t requestQueue;
             else if ([mealName isEqualToString:@"OUTTAKES"] && weekday != 7)
                 i = 3;
         }
-        NSLog(@"Storing meal: %@ at index: %d", mealName, i);
+        //NSLog(@"Storing meal: %@ at index: %d", mealName, i);
         [originalMenu replaceObjectAtIndex:i withObject:meal];
     }
     //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
@@ -170,11 +172,9 @@ dispatch_queue_t requestQueue;
     
     [self applyFilters];
     
+    //NSLog(@"The menu is: %@", mainDelegate.allMenus);
+    //NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
     
-    //    NSLog(@"The menu is: %@", mainDelegate.allMenus);
- 
-    NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
-    //    self.mealChoice = @"Outtakes";
     if ([self.mealChoice isEqualToString:@"Breakfast"])
         [super skipToOffset:0];
     else if ([self.mealChoice isEqualToString:@"Lunch"]){
@@ -236,7 +236,7 @@ dispatch_queue_t requestQueue;
     
     NSLog(@"viewdidload date: %@", self.date);
     
-    //    NSLog(@"VenueView loaded");
+    //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -309,7 +309,7 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    //    NSLog(@"VenueView Will Appear");
+    //NSLog(@"VenueView Will Appear");
     [super viewWillAppear:YES];
     self.title = @"Stations";
     [self getDishes];
@@ -317,11 +317,8 @@ dispatch_queue_t requestQueue;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    NSString *formattedDate = [dateFormatter stringFromDate:date];
+    NSString *formattedDate = [dateFormatter stringFromDate:self.date];
     dateLabel.text = formattedDate;
-    
-    //    [self showMealHUD];
-    //    [self applyFilters];
     
     [super reloadAllTables];
 }
@@ -523,6 +520,8 @@ dispatch_queue_t requestQueue;
 
 - (NSInteger)numberOfPanels {
 	if (jsonDict) {
+        if ([super numberOfPanels] != (jsonDict.count -1))
+            [super fixWeekends:jsonDict.count-1];
         NSLog(@"json count %d", jsonDict.count);
         return (jsonDict.count - 1);
     }
@@ -602,11 +601,7 @@ dispatch_queue_t requestQueue;
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
 	}
     
-    //
-    //    // Configure the cell...
-    //    Venue *venue = [mainDelegate.venues objectAtIndex:indexPath.section];
-    //    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
-    //    cell.textLabel.text = dish.name;
+    // Configure the cell...
     //NSLog(@"page number is: %d", indexPath.page);
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
     if (indexPath.row < [venue.dishes count]){
@@ -683,7 +678,12 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)loadNextMenu {
-    NSDate *tempDate = self.date;
+    NSDate *tempDate;
+    if (self.date == Nil)
+        tempDate = Nil;
+    else
+        tempDate = self.date;
+    
     
     NSLog(@"A new menu has been loaded");
     
@@ -755,13 +755,13 @@ dispatch_queue_t requestQueue;
     }
     
     if (tempDate != Nil){
-    //If correct jsonDict is already stored, don't get a new one
-    // Strip the time component from the two dates so they can be compared
-    NSDateComponents* moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.date];
-    self.date = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
-    moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:tempDate];
-    tempDate = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
-    
+        //If correct jsonDict is already stored, don't get a new one
+        // Strip the time component from the two dates so they can be compared
+        NSDateComponents* moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:self.date];
+        self.date = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
+        moreComps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:tempDate];
+        tempDate = [[NSCalendar currentCalendar] dateFromComponents:moreComps];
+        
     }
     if ([tempDate isEqualToDate:self.date] && jsonDict){
         [self getDishes];
@@ -897,7 +897,6 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)changeDate {
-    //    [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -985,7 +984,6 @@ dispatch_queue_t requestQueue;
     // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [super reloadAllTables];
     menuchoiceLabel.text = self.mealChoice;
-    //[self showMealHUD];
     // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
@@ -995,7 +993,7 @@ dispatch_queue_t requestQueue;
 	//This is called after the scrolling is complete and the user actually changed the page.
 	if (self.currentPage!=self.lastDisplayedPage) {
         NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:date];
+        NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:self.date];
         NSUInteger weekday = [components weekday];
         
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];

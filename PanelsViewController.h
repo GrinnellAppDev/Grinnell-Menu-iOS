@@ -73,5 +73,5 @@
 - (void)reloadData:(PanelView *)panelView;
 - (void)reloadAllTables;
 - (void)skipToOffset:(int)offset;
-
+- (void)fixWeekends:(int)visible;
 @end

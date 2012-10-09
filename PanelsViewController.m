@@ -179,7 +179,6 @@
 
 - (void)addPage
 {
-	//numberOfPages += 1;
 	[self.scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*[self numberOfPanels],self.scrollView.frame.size.width)];
 }
 
@@ -436,4 +435,7 @@
     [self.scrollView setContentOffset:CGPointMake((self.panelViewSize.width + 2*GAP) * offset, 0)];
 }
 
+- (void)fixWeekends:(int)visible{
+    [self.scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*visible,self.scrollView.frame.size.width)];
+}
 @end

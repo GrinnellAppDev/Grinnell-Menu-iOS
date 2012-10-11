@@ -114,7 +114,6 @@
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
 		3B7F6E8B16176F79004D43FC /* SamplePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8A16176F79004D43FC /* SamplePanelView.m */; };
-		3B7F6E8D16177A60004D43FC /* SamplePanelView.h in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8916176F79004D43FC /* SamplePanelView.h */; };
 		3B7F6E8E16177A60004D43FC /* SamplePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8A16176F79004D43FC /* SamplePanelView.m */; };
 		3BD235BD1614DAD700C2F901 /* PanelIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD235B81614DAD700C2F901 /* PanelIndexPath.m */; };
 		3BD235BE1614DAD700C2F901 /* PanelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD235BA1614DAD700C2F901 /* PanelsViewController.m */; };
@@ -875,7 +874,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B7F6E8D16177A60004D43FC /* SamplePanelView.h in Sources */,
 				3B7F6E8E16177A60004D43FC /* SamplePanelView.m in Sources */,
 				163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */,
 				E1A0C53F145324470072BE76 /* main.m in Sources */,

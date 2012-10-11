@@ -13,9 +13,10 @@
 - (IBAction)showVenues:(id)sender;
 - (BOOL)networkCheck;
 
-@property (nonatomic, strong) IBOutlet UIButton *go;
+@property (nonatomic, strong) IBOutlet UIButton *go, *go2;
 @property (nonatomic, strong) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, strong) NSDictionary *jsonDict;
 @property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *banner;
 
 @end

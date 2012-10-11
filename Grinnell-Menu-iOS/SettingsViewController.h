@@ -20,6 +20,8 @@
 @property (nonatomic, weak) IBOutlet UISwitch *passSwitch;
 @property (nonatomic, weak) IBOutlet UILabel *gotIdeasTextLabel;
 @property (nonatomic, weak) IBOutlet UITextView *tipsTextView;
+@property (nonatomic, weak) IBOutlet UIButton *contactButton;
+@property (nonatomic, weak) IBOutlet UIImageView *banner;
 @property (nonatomic, weak) IBOutlet UILabel *tipsLabel;
 @property (nonatomic, strong) NSArray *filtersNameArray;
 

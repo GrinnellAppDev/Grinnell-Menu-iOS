@@ -16,7 +16,7 @@
     NSURL *URLwithDate;
     BOOL notFirstTime;
 }
-@synthesize grinnellDiningLabel, go, datePicker, jsonDict;
+@synthesize grinnellDiningLabel, go, go2, datePicker, jsonDict, banner;
 
 //Fetches the data from server. jsonDict is passed on to VenueViewController. 
 - (BOOL)fetchprelimdataWithURL:(NSURL *)URL {
@@ -185,7 +185,25 @@
     [super viewDidUnload];
     self.datePicker = nil;
 }
-
+/*
+- (void)viewWillLayoutSubviews
+{
+    if (UIInterfaceOrientationIsPortrait(
+                                         [UIApplication sharedApplication].statusBarOrientation))
+    {
+        grinnellDiningLabel.hidden = NO;
+        banner.hidden = NO;
+        go.hidden = NO;
+        go2.hidden = YES;
+    }
+    else
+    {
+        grinnellDiningLabel.hidden = YES;
+        banner.hidden = YES;
+        go.hidden = YES;
+        go2.hidden = NO;
+    }
+}*/
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }

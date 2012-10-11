@@ -272,7 +272,7 @@ dispatch_queue_t requestQueue;
     menuchoiceLabel.alpha = 0;
     grinnellDiningLabel.alpha = 0;
     
-    //Customize topImageview - Set the drop shadow
+    //Customize topImageview - Set the drop shadow=
     self.topImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.topImageView.layer.shadowOffset = CGSizeMake(0, 1.7);
     self.topImageView.layer.shadowOpacity = 0.7;

@@ -15,7 +15,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, filtersNameArray, veganSwitch, ovoSwitch, gfSwitch, passSwitch;
+@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, banner, contactButton, filtersNameArray, veganSwitch, ovoSwitch, gfSwitch, passSwitch;
 
 //Do some initialization of our own
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -24,7 +24,28 @@
     }
     return self;
 }
-
+/*
+- (void)viewWillLayoutSubviews
+{
+    if (UIInterfaceOrientationIsPortrait(
+                                         [UIApplication sharedApplication].statusBarOrientation))
+    {
+        gotIdeasTextLabel.hidden = NO;
+        tipsTextView.hidden = NO;
+        tipsLabel.hidden = NO;
+        contactButton.hidden = NO;
+        banner.hidden = NO;
+    }
+    else
+    {
+        gotIdeasTextLabel.hidden = YES;
+        tipsTextView.hidden = YES;
+        tipsLabel.hidden = YES;
+        contactButton.hidden = YES;
+        if (mainDelegate.passover)
+            banner.hidden = YES;
+    }
+}*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

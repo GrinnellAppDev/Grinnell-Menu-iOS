@@ -65,6 +65,8 @@
     
     [self.view addSubview:self.scrollView];
 	[_scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*[self numberOfPanels],_scrollView.frame.size.height)];
+    //Push the scrollview beneath the top banner so the shadow shows. Arbitrarily picked -9. The most negative value goes behind everything. 
+    _scrollView.layer.zPosition = -9;
 	
 	_recycledPages = [NSMutableSet set];
 	_visiblePages = [NSMutableSet set];

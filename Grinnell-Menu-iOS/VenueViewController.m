@@ -4,7 +4,6 @@
 //
 //  Created by Colin Tremblay on 10/22/11.
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
-//
 
 #import "VenueViewController.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
@@ -234,7 +233,7 @@ dispatch_queue_t requestQueue;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"viewdidload date: %@", self.date);
+   // NSLog(@"viewdidload date: %@", self.date);
     
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -251,7 +250,7 @@ dispatch_queue_t requestQueue;
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
-    [self.navigationItem setRightBarButtonItem:changeMealButton];
+   [self.navigationItem setRightBarButtonItem:changeMealButton];
     
     // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
     UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
@@ -279,13 +278,12 @@ dispatch_queue_t requestQueue;
     self.topImageView.layer.shadowRadius = 1.5;
     
     //Begin Animations when the view is loaded
+    
     [UIView animateWithDuration:1 animations:^{
         dateLabel.alpha = 1;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
-    }];
-    
-    
+    }]; 
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -309,7 +307,6 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    //NSLog(@"VenueView Will Appear");
     [super viewWillAppear:YES];
     self.title = @"Stations";
     [self getDishes];
@@ -522,7 +519,7 @@ dispatch_queue_t requestQueue;
 	if (jsonDict) {
         if ([super numberOfPanels] != (jsonDict.count -1))
             [super fixWeekends:jsonDict.count-1];
-        NSLog(@"json count %d", jsonDict.count);
+       // NSLog(@"json count %d", jsonDict.count);
         return (jsonDict.count - 1);
     }
     else
@@ -685,7 +682,7 @@ dispatch_queue_t requestQueue;
         tempDate = self.date;
     
     
-    NSLog(@"A new menu has been loaded");
+   // NSLog(@"A new menu has been loaded");
     
     //Testing Methods
     //Grab today's date so we can properly initialize selected date to today
@@ -848,7 +845,7 @@ dispatch_queue_t requestQueue;
                     self.jsonDict = [NSJSONSerialization JSONObjectWithData:data
                                                                     options:kNilOptions
                                                                       error:&error];
-                    NSLog(@"Downloaded new data");
+                    //NSLog(@"Downloaded new data");
                     if (error) {
                         NSLog(@"There was an error: %@", [error localizedDescription]);
                     }

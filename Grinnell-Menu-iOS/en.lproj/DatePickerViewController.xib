@@ -4837,17 +4837,13 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>banner</string>
 							<string>datePicker</string>
 							<string>go</string>
-							<string>go2</string>
 							<string>grinnellDiningLabel</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UIImageView</string>
 							<string>UIDatePicker</string>
-							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UILabel</string>
 						</object>
@@ -4856,28 +4852,18 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>banner</string>
 							<string>datePicker</string>
 							<string>go</string>
-							<string>go2</string>
 							<string>grinnellDiningLabel</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">banner</string>
-								<string key="candidateClassName">UIImageView</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">datePicker</string>
 								<string key="candidateClassName">UIDatePicker</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">go</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">go2</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">

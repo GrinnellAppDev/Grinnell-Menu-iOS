@@ -51,7 +51,7 @@
 @end
 
 @implementation PanelsViewController
-
+@synthesize currentPage, lastDisplayedPage;
 - (void)loadView
 {
 	[super loadView];

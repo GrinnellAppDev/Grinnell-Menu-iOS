@@ -8,7 +8,7 @@
 
 #import "Dish.h"
 
-@interface DishViewController : UIViewController
+@interface DishViewController : UIViewController <UISplitViewControllerDelegate>
 
 - (IBAction)toVenueView:(id)sender;
 

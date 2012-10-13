@@ -9,6 +9,7 @@
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "DatePickerViewController.h"
 #import "VenueViewController.h"
+#import "DishViewController.h"
 #import "Crittercism.h"
 #import "FlurryAnalytics.h"
 
@@ -65,6 +66,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
     self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
     
     self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
@@ -72,12 +76,25 @@
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
     self.venueViewController.navigationItem.hidesBackButton = YES;
     [self.navigationController pushViewController:self.venueViewController animated:NO];
-    
-    
+    self.window.rootViewController = self.navigationController;
+    }
+    else{
+        self.venueViewController = [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.venueViewController];
+        
+        DishViewController *dishViewController = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+        UINavigationController *dishNavigationController = [[UINavigationController alloc] initWithRootViewController:dishViewController];
+    	
+    	venueViewController.dishViewController = dishViewController;
+    	
+        self.splitViewController = [[UISplitViewController alloc] init];
+        self.splitViewController.delegate = dishViewController;
+        self.splitViewController.viewControllers = @[masterNavigationController, dishNavigationController];
+        
+        self.window.rootViewController = self.splitViewController;
+    }
     // Set the global tint on the navigation bar - Black
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-    
-    self.window.rootViewController = self.navigationController;
     
     [window makeKeyAndVisible];
     

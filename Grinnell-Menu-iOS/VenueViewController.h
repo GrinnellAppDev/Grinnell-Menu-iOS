@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 #import "PanelsViewController.h"
+#import "DishViewController.h"
 
 @interface VenueViewController : PanelsViewController <MBProgressHUDDelegate>
 {
@@ -21,12 +22,15 @@
 - (void)showMealHUD;
 - (void)getDishes;
 - (void)applyFilters;
+@property (strong, nonatomic) DishViewController *dishViewController;
 @property (nonatomic, strong) NSMutableArray *panelsArray;
 @property (nonatomic, assign) int availDay;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *mealChoice;
 @property (nonatomic, strong) NSDictionary *jsonDict;
-@property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel, *dateLabel, *menuchoiceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel;
+@property (nonatomic, weak) IBOutlet UILabel *menuchoiceLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *topImageView;
 
 @end

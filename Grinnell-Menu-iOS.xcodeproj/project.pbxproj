@@ -114,6 +114,8 @@
 		16FF368415C83F6900C9DC09 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
 		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
+		3B0DE2BC1629D4A2004797DD /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B0DE2BA1629D4A2004797DD /* MainWindow-iPad.xib */; };
+		3B0DE3031629E31D004797DD /* VenueViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B0DE3021629E31D004797DD /* VenueViewController-iPad.xib */; };
 		3B7F6E8B16176F79004D43FC /* SamplePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8A16176F79004D43FC /* SamplePanelView.m */; };
 		3B7F6E8E16177A60004D43FC /* SamplePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8A16176F79004D43FC /* SamplePanelView.m */; };
 		3BD235BD1614DAD700C2F901 /* PanelIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD235B81614DAD700C2F901 /* PanelIndexPath.m */; };
@@ -296,6 +298,8 @@
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Grinnell-Menu-iOS/Reachability.h"; sourceTree = "<group>"; };
 		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Grinnell-Menu-iOS/Reachability.m"; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3B0DE2BB1629D4A2004797DD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		3B0DE3021629E31D004797DD /* VenueViewController-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "VenueViewController-iPad.xib"; path = "../VenueViewController-iPad.xib"; sourceTree = "<group>"; };
 		3B7F6E8916176F79004D43FC /* SamplePanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePanelView.h; sourceTree = "<group>"; };
 		3B7F6E8A16176F79004D43FC /* SamplePanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SamplePanelView.m; sourceTree = "<group>"; };
 		3BD235B71614DAD700C2F901 /* PanelIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelIndexPath.h; sourceTree = "<group>"; };
@@ -529,6 +533,7 @@
 				E1A0C540145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.h */,
 				E1A0C541145324470072BE76 /* Grinnell_Menu_iOSAppDelegate.m */,
 				E1A0C546145324480072BE76 /* MainWindow.xib */,
+				3B0DE2BA1629D4A2004797DD /* MainWindow-iPad.xib */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -578,6 +583,7 @@
 				E1A0C576145326010072BE76 /* VenueViewController.h */,
 				E1A0C577145326010072BE76 /* VenueViewController.m */,
 				E1A0C578145326010072BE76 /* VenueViewController.xib */,
+				3B0DE3021629E31D004797DD /* VenueViewController-iPad.xib */,
 				3B7F6E8916176F79004D43FC /* SamplePanelView.h */,
 				3B7F6E8A16176F79004D43FC /* SamplePanelView.m */,
 				E1A0C57E1453270B0072BE76 /* SettingsViewController.h */,
@@ -839,6 +845,8 @@
 				16BF1DF515CE214E00C4D9CA /* changeMeal.png in Resources */,
 				16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */,
 				1632A59516287BF90097C330 /* Default-568h@2x.png in Resources */,
+				3B0DE2BC1629D4A2004797DD /* MainWindow-iPad.xib in Resources */,
+				3B0DE3031629E31D004797DD /* VenueViewController-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,6 +923,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3B0DE2BA1629D4A2004797DD /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B0DE2BB1629D4A2004797DD /* en */,
+			);
+			name = "MainWindow-iPad.xib";
+			path = "Grinnell-Menu-iOS";
+			sourceTree = "<group>";
+		};
 		E1A0C53A145324470072BE76 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -990,7 +1007,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B898FFC9-AE8F-4602-9622-D3EA1D7C2453";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1083,7 +1100,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B898FFC9-AE8F-4602-9622-D3EA1D7C2453";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1108,7 +1125,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B898FFC9-AE8F-4602-9622-D3EA1D7C2453";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

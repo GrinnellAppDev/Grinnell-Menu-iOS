@@ -17,6 +17,6 @@
 @property (nonatomic, strong) DatePickerViewController *datePickerViewController;
 @property (nonatomic, strong) NSMutableArray *allMenus;
 @property BOOL passover;
-
+@property (strong, nonatomic) UISplitViewController *splitViewController;
 
 @end

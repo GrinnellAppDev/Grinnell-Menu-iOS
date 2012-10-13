@@ -232,7 +232,6 @@ dispatch_queue_t requestQueue;
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
    // NSLog(@"viewdidload date: %@", self.date);
     
     //NSLog(@"VenueView loaded");

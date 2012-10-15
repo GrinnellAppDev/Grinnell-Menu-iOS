@@ -1,34 +1,34 @@
 /**
  * Copyright (c) 2009 Muh Hon Cheng
  * Created by honcheng on 11/27/10.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining 
- * a copy of this software and associated documentation files (the 
- * "Software"), to deal in the Software without restriction, including 
- * without limitation the rights to use, copy, modify, merge, publish, 
- * distribute, sublicense, and/or sell copies of the Software, and to 
- * permit persons to whom the Software is furnished to do so, subject 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject
  * to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be 
+ *
+ * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
- * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR 
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT 
- * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
- * IN CONNECTION WITH THE SOFTWARE OR 
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+ * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+ * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  * @author 		Muh Hon Cheng <honcheng@gmail.com>
  * @copyright	2010	Muh Hon Cheng
  * @version
- * 
+ *
  */
 
 #import "PanelsViewController.h"
@@ -56,6 +56,8 @@
 {
 	[super loadView];
 	CGRect frame = [self scrollViewFrame];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
+        frame.size.height += 44;
 	_scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,0,frame.size.width+2*GAP,frame.size.height)];
 	[_scrollView setScrollsToTop:YES];
 	[_scrollView setDelegate:self];
@@ -65,7 +67,7 @@
     
     [self.view addSubview:self.scrollView];
 	[_scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*[self numberOfPanels],_scrollView.frame.size.height)];
-    //Push the scrollview beneath the top banner so the shadow shows. Arbitrarily picked -9. The most negative value goes behind everything. 
+    //Push the scrollview beneath the top banner so the shadow shows. Arbitrarily picked -9. The most negative value goes behind everything.
     _scrollView.layer.zPosition = -9;
 	
 	_recycledPages = [NSMutableSet set];
@@ -132,7 +134,7 @@
 		[self.scrollView setTransform:CGAffineTransformMakeScale(0.5, 0.5)];
 		[self.scrollView setClipsToBounds:NO];
 	}
-	else 
+	else
 	{
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(onEditingAnimationStopped)];
@@ -185,7 +187,7 @@
 }
 
 - (void)removeCurrentPage
-{	
+{
 	if (self.currentPage==[self numberOfPanels] && self.currentPage!=0)
 	{
 		// this is the last page
@@ -204,7 +206,7 @@
 		[panelView showPanel:NO animated:YES];
 		[self removeContentOfPage:self.currentPage];
 	}
-	else 
+	else
 	{
 		PanelView *panelView = (PanelView*)[self.scrollView viewWithTag:TAG_PAGE+self.currentPage];
 		[panelView showPanel:NO animated:YES];
@@ -230,8 +232,8 @@
 			[panelView showNextPanel];
 			[panelView pageWillAppear];
             //TODO figure out whether this is working and whether there is a better place for this
-//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-          // [panelView.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            //            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            // [panelView.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 		}
 		
 	}
@@ -275,7 +277,7 @@
 	CGRect visibleBounds = [self.scrollView bounds];
 	int firstNeededPageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds)) * [self numberOfVisiblePanels];
 	int lastNeededPageIndex = floorf((CGRectGetMaxX(visibleBounds)-1) / CGRectGetWidth(visibleBounds)) * [self numberOfVisiblePanels];
-
+    
 	firstNeededPageIndex = MAX(firstNeededPageIndex,0);
 	lastNeededPageIndex = MIN(lastNeededPageIndex, [self numberOfPanels]-1) + [self numberOfVisiblePanels];
 	
@@ -402,7 +404,7 @@
 
 - (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber
 {
-    //Can control the number of sections from here. 
+    //Can control the number of sections from here.
 	return 1;
 }
 
@@ -414,7 +416,7 @@
 //Our Own Custom Implementations!
 - (void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath*)indexPath
 {
-       
+    
 }
 
 - (UIView *)panelView:(id)panelView viewForHeaderInPage:(NSInteger)pageNumber section:(NSInteger)section

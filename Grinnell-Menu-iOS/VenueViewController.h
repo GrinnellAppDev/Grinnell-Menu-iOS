@@ -32,5 +32,5 @@
 @property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel;
 @property (nonatomic, weak) IBOutlet UILabel *menuchoiceLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *topImageView;
-
+@property (nonatomic, weak) IBOutlet UIToolbar *bottomBar;
 @end

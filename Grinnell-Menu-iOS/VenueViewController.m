@@ -232,7 +232,7 @@ dispatch_queue_t requestQueue;
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-   // NSLog(@"viewdidload date: %@", self.date);
+    // NSLog(@"viewdidload date: %@", self.date);
     
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -249,7 +249,7 @@ dispatch_queue_t requestQueue;
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
-   [self.navigationItem setRightBarButtonItem:changeMealButton];
+    [self.navigationItem setRightBarButtonItem:changeMealButton];
     
     // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
     UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
@@ -282,7 +282,7 @@ dispatch_queue_t requestQueue;
         dateLabel.alpha = 1;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
-    }]; 
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -306,6 +306,8 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
+        self.bottomBar.hidden = YES;
     [super viewWillAppear:YES];
     self.title = @"Stations";
     [self getDishes];
@@ -518,7 +520,7 @@ dispatch_queue_t requestQueue;
 	if (jsonDict) {
         if ([super numberOfPanels] != (jsonDict.count -1))
             [super fixWeekends:jsonDict.count-1];
-       // NSLog(@"json count %d", jsonDict.count);
+        // NSLog(@"json count %d", jsonDict.count);
         return (jsonDict.count - 1);
     }
     else
@@ -689,7 +691,7 @@ dispatch_queue_t requestQueue;
         tempDate = self.date;
     
     
-   // NSLog(@"A new menu has been loaded");
+    // NSLog(@"A new menu has been loaded");
     
     //Testing Methods
     //Grab today's date so we can properly initialize selected date to today

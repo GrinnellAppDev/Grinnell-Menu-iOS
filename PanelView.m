@@ -1,34 +1,34 @@
 /**
  * Copyright (c) 2009 Muh Hon Cheng
  * Created by honcheng on 11/27/10.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining 
- * a copy of this software and associated documentation files (the 
- * "Software"), to deal in the Software without restriction, including 
- * without limitation the rights to use, copy, modify, merge, publish, 
- * distribute, sublicense, and/or sell copies of the Software, and to 
- * permit persons to whom the Software is furnished to do so, subject 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject
  * to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be 
+ *
+ * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
- * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR 
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT 
- * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
- * IN CONNECTION WITH THE SOFTWARE OR 
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+ * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+ * SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  * @author 		Muh Hon Cheng <honcheng@gmail.com>
  * @copyright	2010	Muh Hon Cheng
  * @version
- * 
+ *
  */
 
 #import "PanelView.h"
@@ -39,9 +39,9 @@
 
 @implementation PanelView
 
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) 
+    if (self = [super initWithFrame:frame])
 	{
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,-3,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
         //Set up our background
@@ -54,8 +54,8 @@
 		[_tableView setDataSource:self];
 		[_tableView setScrollsToTop:NO];
         
-
-//        [_tableView.layer setCornerRadius:4.0f];
+        
+        //        [_tableView.layer setCornerRadius:4.0f];
         _tableView.layer.borderColor = [UIColor blackColor].CGColor;
         _tableView.layer.borderWidth = 1.0f;
         [_tableView.layer setMasksToBounds:YES];
@@ -78,7 +78,10 @@
 	
 	CGRect tableViewFrame = [self.tableView frame];
     tableViewFrame.size.width = self.frame.size.width;
-	tableViewFrame.size.height = self.frame.size.height - 14;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        tableViewFrame.size.height = self.frame.size.height - 14;
+    else
+        tableViewFrame.size.height = self.frame.size.height;
 	[self.tableView setFrame:tableViewFrame];
 }
 
@@ -90,12 +93,12 @@
 - (void)pageWillAppear
 {
 	[self.tableView reloadData];
-    //Commented this out to bring things back up. 
+    //Commented this out to bring things back up.
 	//[self restoreTableviewOffset];
-//    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-//    [self.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//    [self.tableView scrollsToTop]
-//    self.tableView.scrollsToTop = YES;
+    //    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    //    [self.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    //    [self.tableView scrollsToTop]
+    //    self.tableView.scrollsToTop = YES;
 }
 
 - (void)pageDidAppear
@@ -103,7 +106,7 @@
 	//NSLog(@"page did appear %i", pageNumber);
 	//[self showPanel:YES animated:YES];
 	[self.tableView setScrollsToTop:YES];
-
+    
 }
 
 - (void)pageWillDisappear
@@ -270,7 +273,7 @@
 	}
 }
 
-- (void)show:(BOOL)show 
+- (void)show:(BOOL)show
 {
 	if (show)
 	{
@@ -336,7 +339,7 @@
 {
 }
 
-- (CGAffineTransform)transformForOrientation 
+- (CGAffineTransform)transformForOrientation
 {
 	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
 	if (orientation == UIInterfaceOrientationLandscapeLeft) {

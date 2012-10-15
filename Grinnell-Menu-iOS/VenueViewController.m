@@ -648,12 +648,20 @@ dispatch_queue_t requestQueue;
 -(void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath *)indexPath
 {
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
-    // [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
-    dishView.selectedDish = [[Dish alloc] init];
-    dishView.selectedDish = dish;
-    [self.navigationController pushViewController:dishView animated:YES];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
+        // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+        dishView.selectedDish = [[Dish alloc] init];
+        dishView.selectedDish = dish;
+        [self.navigationController pushViewController:dishView animated:YES];
+    }
+    else{
+        mainDelegate.iPadselectedDish = [[Dish alloc] init];
+        mainDelegate.iPadselectedDish = dish;
+        NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
+        [[NSNotificationCenter defaultCenter] postNotification:notif];
+    }
 }
 
 

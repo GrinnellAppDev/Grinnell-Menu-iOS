@@ -5,7 +5,7 @@
 //  Created by Colin Tremblay on 10/22/11.
 //  Copyright 2011 __GrinnellAppDev__. All rights reserved.
 //
-
+#import "DishViewController.h"
 @class VenueViewController;
 @class DatePickerViewController;
 
@@ -18,5 +18,5 @@
 @property (nonatomic, strong) NSMutableArray *allMenus;
 @property BOOL passover;
 @property (strong, nonatomic) UISplitViewController *splitViewController;
-
+@property (nonatomic, strong) Dish *iPadselectedDish;
 @end

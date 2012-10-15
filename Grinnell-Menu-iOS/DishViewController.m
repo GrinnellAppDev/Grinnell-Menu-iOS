@@ -21,8 +21,17 @@
 {
     UIColor *EvenbadgeColor;
     UIColor *OddbadgeColor;
+    Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 @synthesize theTableView, backgroundImageView, selectedDish;
+
+//Do some initialization of our own
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    return self;
+}
 
 - (IBAction)toVenueView:(id)sender {
     [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:1] animated:YES]; 
@@ -47,11 +56,22 @@
     OddbadgeColor = [UIColor colorWithRed:0.192 green:0.512 blue:0.792 alpha:1.0];
     EvenbadgeColor = [UIColor colorWithRed:0.192 green:0.432 blue:0.792 alpha:1];
     OddbadgeColor = [UIColor blackColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(forceReload)
+                                                 name:@"reloadRequest"
+                                               object:nil];
+}
+
+- (void)forceReload{
+    self.selectedDish = mainDelegate.iPadselectedDish;
+    self.title = selectedDish.name;
+    [theTableView reloadData];
 }
 
 - (void)viewDidUnload {
     [self setBackgroundImageView:nil];
     [self setTheTableView:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
 }
 
@@ -97,7 +117,7 @@
     return view;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 8;
 }
 

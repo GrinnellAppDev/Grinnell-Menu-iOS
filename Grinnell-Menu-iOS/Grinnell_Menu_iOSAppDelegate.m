@@ -17,7 +17,7 @@
     NSString *alert;
 }
 
-@synthesize window, navigationController, allMenus, passover;
+@synthesize window, navigationController, allMenus, passover, iPadselectedDish;
 @synthesize datePickerViewController, venueViewController;
 
 #pragma mark -

@@ -17,6 +17,7 @@
 #import "PanelsViewController.h"
 #import "PanelView.h"
 #import "SamplePanelView.h"
+#import "DatePickerViewController.h"
 
 @implementation VenueViewController
 {
@@ -651,7 +652,8 @@ dispatch_queue_t requestQueue;
 {
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
     Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
         // [tableView deselectRowAtIndexPath:indexPath animated:NO];
         DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
         dishView.selectedDish = [[Dish alloc] init];
@@ -903,7 +905,27 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)changeDate {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else {
+        //It's iPad.
+        DatePickerViewController *datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
+        //datePickerViewController.delegate = self;
+        self.datePickerPopover = [[UIPopoverController alloc] initWithContentViewController:datePickerViewController];
+        [self.datePickerPopover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+//        if (_colorPicker == nil) {
+//            self.colorPicker = [[[ColorPickerController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+//            _colorPicker.delegate = self;
+//            self.colorPickerPopover = [[[UIPopoverController alloc] initWithContentViewController:_colorPicker] autorelease];
+//        }
+//        [self.colorPickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+
+    NSLog(@"Change date button pressed");
+        
+    }
 }
 
 #pragma mark MBProgressHUDDelegate methods

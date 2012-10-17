@@ -123,6 +123,10 @@
     self.title = @"Pick a date";
     self.grinnellDiningLabel.text = @"GrinnellDining";
     self.grinnellDiningLabel.font = [UIFont fontWithName:@"Vivaldi" size:38];
+    
+    ///For iPad view. Modify value to set the appropriate width and height for the content size. 
+    self.contentSizeForViewInPopover = CGSizeMake(320.0, 420.0);
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

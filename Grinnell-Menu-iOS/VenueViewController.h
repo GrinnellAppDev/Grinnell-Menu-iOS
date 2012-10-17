@@ -33,4 +33,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *menuchoiceLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *topImageView;
 @property (nonatomic, weak) IBOutlet UIToolbar *bottomBar;
+
+@property (nonatomic, strong) UIPopoverController *datePickerPopover;
+
 @end

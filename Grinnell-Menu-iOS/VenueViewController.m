@@ -17,7 +17,6 @@
 #import "PanelsViewController.h"
 #import "PanelView.h"
 #import "SamplePanelView.h"
-#import "DatePickerViewController.h"
 
 @implementation VenueViewController
 {
@@ -309,6 +308,7 @@ dispatch_queue_t requestQueue;
 - (void)viewWillAppear:(BOOL)animated {
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
         self.bottomBar.hidden = YES;
+    
     [super viewWillAppear:YES];
     self.title = @"Stations";
     [self getDishes];
@@ -319,6 +319,7 @@ dispatch_queue_t requestQueue;
     NSString *formattedDate = [dateFormatter stringFromDate:self.date];
     dateLabel.text = formattedDate;
     
+    NSLog(@"It reloaded all tables");
     [super reloadAllTables];
 }
 
@@ -911,19 +912,12 @@ dispatch_queue_t requestQueue;
     }
     else {
         //It's iPad.
-        DatePickerViewController *datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
-        //datePickerViewController.delegate = self;
-        self.datePickerPopover = [[UIPopoverController alloc] initWithContentViewController:datePickerViewController];
+        if (self.datePickerController == nil) {
+            DatePickerViewController *datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
+            datePickerViewController.delegate = self;
+            self.datePickerPopover = [[UIPopoverController alloc] initWithContentViewController:datePickerViewController];
+        }
         [self.datePickerPopover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
-//        if (_colorPicker == nil) {
-//            self.colorPicker = [[[ColorPickerController alloc] initWithStyle:UITableViewStylePlain] autorelease];
-//            _colorPicker.delegate = self;
-//            self.colorPickerPopover = [[[UIPopoverController alloc] initWithContentViewController:_colorPicker] autorelease];
-//        }
-//        [self.colorPickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-
-    NSLog(@"Change date button pressed");
         
     }
 }
@@ -1076,5 +1070,29 @@ dispatch_queue_t requestQueue;
 	}
 	self.lastDisplayedPage = self.currentPage;
 }
+
+#pragma mark DatePickerDelegate
+
+- (void)datePickerSelectedJsonDict:(NSDictionary *)selectedJsonDict andMealChoice:(NSString *)selectedMealChoice date:(NSDate *)selectedDate
+{
+    //Refresh the screen with these details.
+ 
+    self.jsonDict = selectedJsonDict;
+    self.mealChoice = selectedMealChoice;
+    self.date = selectedDate;
+    
+    [self getDishes];
+    [self refreshScreen];
+    [self showMealHUD];
+    
+    //We will need refactor this section too. We currently have alot of these dateformatters used in multiple places. 
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter  setDateFormat:@"EEE MMM dd"];
+    NSString *formattedDate = [dateFormatter stringFromDate:self.date];
+    dateLabel.text = formattedDate;
+    
+    [self.datePickerPopover dismissPopoverAnimated:YES];
+}
+
 
 @end

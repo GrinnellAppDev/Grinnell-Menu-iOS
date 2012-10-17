@@ -215,21 +215,39 @@
 #pragma mark UIAlertViewDelegate Methods
 // Called when an alert button is tapped.
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //We want access to the venueViewController that was created on launch. (Instead of instantiating a new  one)
-    Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    mainDelegate.venueViewController.jsonDict = self.jsonDict;
     
-    if (buttonIndex == alertView.cancelButtonIndex)    
+    if (buttonIndex == alertView.cancelButtonIndex)
         return;
     
     NSString *titlePressed = [alertView buttonTitleAtIndex:buttonIndex];
-    mainDelegate.venueViewController.mealChoice = titlePressed;
-    mainDelegate.venueViewController.date = datePicker.date;
     
-    //The refresh screen methods refreshes the tableview as well as makes sure it starts from the top (instead of somewhere in the middle)
-    [mainDelegate.venueViewController refreshScreen];
-    [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
-    [mainDelegate.venueViewController showMealHUD];
+    
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        //We want access to the venueViewController that was created on launch. (Instead of instantiating a new  one)
+        Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+        mainDelegate.venueViewController.jsonDict = self.jsonDict;
+        
+        mainDelegate.venueViewController.mealChoice = titlePressed;
+        mainDelegate.venueViewController.date = datePicker.date;
+        
+        //The refresh screen methods refreshes the tableview as well as makes sure it starts from the top (instead of somewhere in the middle)
+        [mainDelegate.venueViewController refreshScreen];
+        [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
+        [mainDelegate.venueViewController showMealHUD];
+        
+    } else {
+        //iPad
+        //Needs to do something different for iPad. Pass in the mealchoice the jsondict to the delegate
+        
+        NSLog(@"It still recognizes this");
+        if (self.delegate != nil) {
+            [self.delegate datePickerSelectedJsonDict:self.jsonDict andMealChoice:titlePressed date:datePicker.date];
+            
+        }
+    }
+    
 }
 
 @end

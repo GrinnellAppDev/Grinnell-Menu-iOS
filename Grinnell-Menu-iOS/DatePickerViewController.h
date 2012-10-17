@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol DatePickerDelegate <NSObject>
+- (void)datePickerSelectedJsonDict:(NSDictionary *)selectedJsonDict andMealChoice:(NSString *)selectedMealChoice date:(NSDate *)selectedDate;
+@end
+
+
 @interface DatePickerViewController : UIViewController
 
 - (IBAction)showVenues:(id)sender;
@@ -18,5 +24,7 @@
 @property (nonatomic, strong) NSDictionary *jsonDict;
 @property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *banner;
+
+@property (nonatomic, assign) id <DatePickerDelegate> delegate;
 
 @end

@@ -38,36 +38,36 @@
 @end
 
 @implementation PanelView
-
+@synthesize pageNumber, tableView, delegate, identifier;
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
 	{
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,-3,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,-3,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
         //Set up our background
         UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red_textured_background.png"]];
-        [tempImageView setFrame:_tableView.frame];
-        [_tableView setBackgroundView:tempImageView];
+        [tempImageView setFrame:self.tableView.frame];
+        [self.tableView setBackgroundView:tempImageView];
         
-		[self addSubview:_tableView];
-		[_tableView setDelegate:self];
-		[_tableView setDataSource:self];
-		[_tableView setScrollsToTop:NO];
+		[self addSubview:self.tableView];
+		[self.tableView setDelegate:self];
+		[self.tableView setDataSource:self];
+		[self.tableView setScrollsToTop:NO];
         
         
         //        [_tableView.layer setCornerRadius:4.0f];
-        _tableView.layer.borderColor = [UIColor blackColor].CGColor;
-        _tableView.layer.borderWidth = 1.0f;
-        [_tableView.layer setMasksToBounds:YES];
+        self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
+        self.tableView.layer.borderWidth = 1.0f;
+        [self.tableView.layer setMasksToBounds:YES];
     }
     return self;
 }
 
-- (id)initWithIdentifier:(NSString*)identifier
+- (id)initWithIdentifier:(NSString*)ident
 {
 	if (self = [super init])
 	{
-		_identifier = identifier;
+		self.identifier = ident;
 	}
 	return self;
 }
@@ -132,7 +132,8 @@
 	
 	if ([offsetArray count]<self.pageNumber+1)
 	{
-		[offsetArray addObject:@(y)];
+        NSNumber *z = [[NSNumber alloc] initWithFloat:y];
+		[offsetArray addObject:z];
 	}
 	else
 	{

@@ -18,7 +18,7 @@
 }
 
 @synthesize window, navigationController, allMenus, passover, iPadselectedDish;
-@synthesize datePickerViewController, venueViewController;
+@synthesize datePickerViewController, venueViewController, splitViewController;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -83,13 +83,17 @@
         UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.venueViewController];
         
         DishViewController *dishViewController = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+        
         UINavigationController *dishNavigationController = [[UINavigationController alloc] initWithRootViewController:dishViewController];
     	
     	venueViewController.dishViewController = dishViewController;
     	
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = dishViewController;
-        self.splitViewController.viewControllers = @[masterNavigationController, dishNavigationController];
+        NSArray *viewsArray = [[NSArray alloc] initWithObjects:masterNavigationController, dishNavigationController, nil];
+        self.splitViewController.viewControllers = viewsArray;
+        
+        //[masterNavigationController, dishNavigationController];
         
         self.window.rootViewController = self.splitViewController;
     }

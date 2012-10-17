@@ -34,7 +34,7 @@
 #import "PanelsViewController.h"
 
 @implementation UIScrollViewExt
-
+@synthesize isEditing;
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
 	if (self.isEditing) return self;
@@ -51,27 +51,27 @@
 @end
 
 @implementation PanelsViewController
-@synthesize currentPage, lastDisplayedPage;
+@synthesize currentPage, lastDisplayedPage, scrollView, recycledPages, visiblePages, isEditing;
 - (void)loadView
 {
 	[super loadView];
 	CGRect frame = [self scrollViewFrame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
         frame.size.height += 44;
-	_scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,0,frame.size.width+2*GAP,frame.size.height)];
-	[_scrollView setScrollsToTop:YES];
-	[_scrollView setDelegate:self];
-	[_scrollView setShowsHorizontalScrollIndicator:NO];
-	[_scrollView setPagingEnabled:YES];
-	[_scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+	self.scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,0,frame.size.width+2*GAP,frame.size.height)];
+	[self.scrollView setScrollsToTop:YES];
+	[self.scrollView setDelegate:self];
+	[self.scrollView setShowsHorizontalScrollIndicator:NO];
+	[self.scrollView setPagingEnabled:YES];
+	[self.scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     
     [self.view addSubview:self.scrollView];
-	[_scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*[self numberOfPanels],_scrollView.frame.size.height)];
+	[self.scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*[self numberOfPanels], self.scrollView.frame.size.height)];
     //Push the scrollview beneath the top banner so the shadow shows. Arbitrarily picked -9. The most negative value goes behind everything.
-    _scrollView.layer.zPosition = -9;
+    self.scrollView.layer.zPosition = -9;
 	
-	_recycledPages = [NSMutableSet set];
-	_visiblePages = [NSMutableSet set];
+	recycledPages = [NSMutableSet set];
+	visiblePages = [NSMutableSet set];
 	
 	[self tilePages];
 }
@@ -120,16 +120,16 @@
 	}
 }
 
-- (void)setEditing:(BOOL)isEditing
+- (void)setEditing:(BOOL)editing
 {
-	self.isEditing = isEditing;
+	self.isEditing = editing;
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 	[UIView setAnimationDuration:0.2];
-	[self.scrollView setIsEditing:isEditing];
-	[self shouldWiggle:isEditing];
-	if (isEditing)
+	[self.scrollView setIsEditing:editing];
+	[self shouldWiggle:editing];
+	if (editing)
 	{
 		[self.scrollView setTransform:CGAffineTransformMakeScale(0.5, 0.5)];
 		[self.scrollView setClipsToBounds:NO];

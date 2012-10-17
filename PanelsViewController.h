@@ -50,7 +50,7 @@
 #define TAG_PAGE 11000
 
 - (PanelView*)dequeueReusablePageWithIdentifier:(NSString*)identifier;
-- (PanelView*)panelViewAtPage:(NSInteger)page;
+- (PanelView*)panelViewAtPage:(NSInteger)_page;
 
 #pragma mark editing
 - (void)setEditing:(BOOL)isEditing;

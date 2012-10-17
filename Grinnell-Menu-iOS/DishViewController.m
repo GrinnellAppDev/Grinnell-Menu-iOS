@@ -23,7 +23,7 @@
     UIColor *OddbadgeColor;
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
-@synthesize theTableView, backgroundImageView, selectedDish;
+@synthesize theTableView, backgroundImageView, selectedDish, masterPopoverController;
 
 //Do some initialization of our own
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {

@@ -35,6 +35,7 @@
 
 
 @implementation PanelIndexPath
+@synthesize _page, _section, _row;
 
 - (id)initWithRow:(int)row section:(int)section page:(int)page
 {
@@ -58,7 +59,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"Page: %d, Section: %d, Row: %d", self.page, self.section, self.row];
+    return [NSString stringWithFormat:@"Page: %d, Section: %d, Row: %d", self._page, self._section, self._row];
 }
 
 @end

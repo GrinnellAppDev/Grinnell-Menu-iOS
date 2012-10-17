@@ -26,7 +26,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, datePickerController, bottomBar;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;
@@ -603,9 +603,9 @@ dispatch_queue_t requestQueue;
     
     // Configure the cell...
     //NSLog(@"page number is: %d", indexPath.page);
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
-    if (indexPath.row < [venue.dishes count]){
-        Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
+    if (indexPath._row < [venue.dishes count]){
+        Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
         cell.textLabel.text = dish.name;
         
         // Not needed when we have a tray view
@@ -651,8 +651,8 @@ dispatch_queue_t requestQueue;
 //Added implementation DrJid
 -(void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath *)indexPath
 {
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath.page] objectAtIndex:indexPath.section];
-    Dish *dish = [venue.dishes objectAtIndex:indexPath.row];
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
+    Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
         // [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -666,7 +666,7 @@ dispatch_queue_t requestQueue;
         mainDelegate.iPadselectedDish = dish;
         NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
         [[NSNotificationCenter defaultCenter] postNotification:notif];
-    }
+   }
 }
 
 

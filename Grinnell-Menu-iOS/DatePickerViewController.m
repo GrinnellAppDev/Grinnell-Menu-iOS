@@ -16,7 +16,7 @@
     NSURL *URLwithDate;
     BOOL notFirstTime;
 }
-@synthesize grinnellDiningLabel, go, go2, datePicker, jsonDict, banner;
+@synthesize grinnellDiningLabel, go, go2, datePicker, jsonDict, banner, delegate;
 
 //Fetches the data from server. jsonDict is passed on to VenueViewController. 
 - (BOOL)fetchprelimdataWithURL:(NSURL *)URL {

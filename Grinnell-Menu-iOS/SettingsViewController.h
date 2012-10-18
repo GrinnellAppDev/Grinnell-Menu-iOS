@@ -27,6 +27,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *banner;
 @property (nonatomic, weak) IBOutlet UILabel *tipsLabel;
 @property (nonatomic, strong) NSArray *filtersNameArray;
+
 @property (nonatomic, assign) id <SettingsDelegate> delegate;
 
 @end

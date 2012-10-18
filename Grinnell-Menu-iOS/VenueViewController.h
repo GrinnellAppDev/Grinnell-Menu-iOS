@@ -11,6 +11,7 @@
 #import "PanelsViewController.h"
 #import "DishViewController.h"
 #import "DatePickerViewController.h"
+#import "SettingsViewController.h"
 
 @interface VenueViewController : PanelsViewController <MBProgressHUDDelegate, DatePickerDelegate>
 {
@@ -39,6 +40,7 @@
 //Need these so the Ipad can adequately respond to them. 
 @property (nonatomic, strong) UIPopoverController *datePickerPopover;
 @property (nonatomic, strong) UIPopoverController *settingsPopover;
-@property (nonatomic, strong) DatePickerViewController *datePickerController;
+@property (nonatomic, strong) DatePickerViewController *datePickerViewController;
+@property (nonatomic, strong) SettingsViewController *settingsViewController;
 
 @end

@@ -9,7 +9,6 @@
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "Dish.h"
 #import "Venue.h"
-#import "SettingsViewController.h"
 #import "DishViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Reachability.h"
@@ -26,7 +25,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, datePickerController, bottomBar;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, datePickerViewController, bottomBar, settingsViewController;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;
@@ -206,12 +205,22 @@ dispatch_queue_t requestQueue;
     }
     else {
         //It's iPad.
-        SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-       //datePickerViewController.delegate = self;
-       self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
-       [self.settingsPopover presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        if (self.settingsViewController == nil) {
+            self.settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+            //self.settingsViewController.delegate = self;
+            self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:self.settingsViewController];
+        }
+
+        if ([self.settingsPopover isPopoverVisible]) {
+            [self.settingsPopover dismissPopoverAnimated:YES];
+        } else {
+            [self.settingsPopover presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        
     }
 }
+
+
 
 - (IBAction)changeMeal:(id)sender {
     UIAlertView *mealmessage = [[UIAlertView alloc]
@@ -930,13 +939,16 @@ dispatch_queue_t requestQueue;
     }
     else {
         //It's iPad.
-        if (self.datePickerController == nil) {
-            DatePickerViewController *datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
-            datePickerViewController.delegate = self;
-            self.datePickerPopover = [[UIPopoverController alloc] initWithContentViewController:datePickerViewController];
+        if (self.datePickerViewController == nil) {
+            self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
+            self.datePickerViewController.delegate = self;
+            self.datePickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.datePickerViewController];
         }
-        [self.datePickerPopover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
+        if ([self.datePickerPopover isPopoverVisible]) {
+            [self.datePickerPopover dismissPopoverAnimated:YES];
+        } else {
+            [self.datePickerPopover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
 }
 

@@ -194,6 +194,7 @@ dispatch_queue_t requestQueue;
 
 //Flip over to the SettingsViewController
 - (IBAction)showInfo:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
     // Records when user goes to info Screen, records data in Flurry.
     // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
     [FlurryAnalytics logEvent:@"Flipped to Settings"];
@@ -202,6 +203,14 @@ dispatch_queue_t requestQueue;
     navController.navigationBar.barStyle = UIBarStyleBlack;
     navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:navController animated:YES];
+    }
+    else {
+        //It's iPad.
+        SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+       //datePickerViewController.delegate = self;
+       self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:settingsViewController];
+       [self.settingsPopover presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (IBAction)changeMeal:(id)sender {
@@ -245,12 +254,21 @@ dispatch_queue_t requestQueue;
     
     
     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
     UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
     [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
     [self.navigationItem setRightBarButtonItem:changeMealButton];
-    
+    }
+    else{
+        //Put info button in top right
+        UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        [info addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *infoButton =[[UIBarButtonItem alloc]  initWithCustomView:info];
+        [self.navigationItem setRightBarButtonItem:infoButton];
+
+    }
     // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
     UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
     [cdb setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
@@ -1093,6 +1111,5 @@ dispatch_queue_t requestQueue;
     
     [self.datePickerPopover dismissPopoverAnimated:YES];
 }
-
 
 @end

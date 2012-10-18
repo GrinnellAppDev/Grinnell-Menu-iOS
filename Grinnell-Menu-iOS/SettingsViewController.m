@@ -110,6 +110,8 @@
     [gfSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"]];
     [passSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"]];
     
+    ///For iPad view. Modify value to set the appropriate width and height for the content size.
+    self.contentSizeForViewInPopover = CGSizeMake(280.0, 400.0);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -133,6 +135,7 @@
     [[NSUserDefaults standardUserDefaults] setBool:ovoSwitch.isOn forKey:@"OvoSwitchValue"];
     [[NSUserDefaults standardUserDefaults] setBool:gfSwitch.isOn forKey:@"GFSwitchValue"];
     [[NSUserDefaults standardUserDefaults] setBool:passSwitch.isOn forKey:@"PassSwitchValue"];
+    [mainDelegate.venueViewController loadNextMenu];
     [super viewWillDisappear:YES];
 }
 

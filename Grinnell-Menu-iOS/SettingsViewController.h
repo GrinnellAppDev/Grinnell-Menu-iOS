@@ -10,6 +10,9 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import <MessageUI/MessageUI.h>
 
+@protocol SettingsDelegate <NSObject>
+@end
+
 @interface SettingsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 - (void)settingsDelegateDidFinish:(SettingsViewController *)controller;
@@ -24,5 +27,6 @@
 @property (nonatomic, weak) IBOutlet UIImageView *banner;
 @property (nonatomic, weak) IBOutlet UILabel *tipsLabel;
 @property (nonatomic, strong) NSArray *filtersNameArray;
+@property (nonatomic, assign) id <SettingsDelegate> delegate;
 
 @end

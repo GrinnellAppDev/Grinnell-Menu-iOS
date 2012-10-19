@@ -16,11 +16,6 @@
 @interface SettingsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 - (void)settingsDelegateDidFinish:(SettingsViewController *)controller;
-
-@property (nonatomic, weak) IBOutlet UISwitch *ovoSwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *veganSwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *gfSwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *passSwitch;
 @property (nonatomic, weak) IBOutlet UILabel *gotIdeasTextLabel;
 @property (nonatomic, weak) IBOutlet UITextView *tipsTextView;
 @property (nonatomic, weak) IBOutlet UIButton *contactButton;

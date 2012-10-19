@@ -25,7 +25,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, datePickerViewController, bottomBar, settingsViewController;
+@synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, settingsPopover, datePickerViewController, bottomBar, settingsViewController;
 
 //We create a second Queue which we is in the multithreaded code when grabbing the dishes.
 dispatch_queue_t requestQueue;

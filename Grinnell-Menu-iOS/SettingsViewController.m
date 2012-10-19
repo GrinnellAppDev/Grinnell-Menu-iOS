@@ -15,7 +15,7 @@
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
 }
 
-@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, banner, contactButton, filtersNameArray, veganSwitch, ovoSwitch, gfSwitch, passSwitch;
+@synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, banner, contactButton, filtersNameArray, delegate;
 
 //Do some initialization of our own
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -64,22 +64,56 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section {
-    if (mainDelegate.passover){
-        passSwitch.hidden = false;
+    if (mainDelegate.passover)
         return 4;
-    }
-    else{
-        passSwitch.hidden = true;
+    else
         return 3;
-    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     cell.textLabel.text = [filtersNameArray objectAtIndex:indexPath.row];
+    UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+    cell.accessoryView = switchView;
+    switch (indexPath.row) {
+        case 0:
+            [switchView setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"]];
+            [switchView addTarget:self action:@selector(veganSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+            break;
+        case 1:
+            [switchView setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"]];
+            [switchView addTarget:self action:@selector(ovoSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+            break;
+        case 2:
+            [switchView setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"]];
+            [switchView addTarget:self action:@selector(gfSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+            break;
+        case 3:
+            [switchView setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"]];
+            [switchView addTarget:self action:@selector(passoverSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 
+- (void) veganSwitchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"VeganSwitchValue"];
+}
+- (void) ovoSwitchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"OvoSwitchValue"];
+}
+- (void) gfSwitchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"GFSwitchValue"];
+}
+- (void) passoverSwitchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"PassSwitchValue"];
+}
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Filters";
 }
@@ -104,12 +138,6 @@
     else
         filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", @"Gluten Free Filter", nil];
     
-    //We set the switches to thier default values
-    [veganSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"]];
-    [ovoSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"]];
-    [gfSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"]];
-    [passSwitch setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"]];
-    
     ///For iPad view. Modify value to set the appropriate width and height for the content size.
     self.contentSizeForViewInPopover = CGSizeMake(280.0, 400.0);
 }
@@ -130,11 +158,6 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    //When user clicks done, the default values of the filters are set to the values of the switches
-    [[NSUserDefaults standardUserDefaults] setBool:veganSwitch.isOn forKey:@"VeganSwitchValue"];
-    [[NSUserDefaults standardUserDefaults] setBool:ovoSwitch.isOn forKey:@"OvoSwitchValue"];
-    [[NSUserDefaults standardUserDefaults] setBool:gfSwitch.isOn forKey:@"GFSwitchValue"];
-    [[NSUserDefaults standardUserDefaults] setBool:passSwitch.isOn forKey:@"PassSwitchValue"];
     [mainDelegate.venueViewController loadNextMenu];
     [super viewWillDisappear:YES];
 }

@@ -66,8 +66,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
     self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
     
@@ -131,11 +129,10 @@
 	 */
     
     //Make sure we start on the venueViewController when the app is going to be reloaded.
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [self.navigationController pushViewController:self.venueViewController animated:NO];
-
-
-    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [self.navigationController pushViewController:self.venueViewController animated:NO];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

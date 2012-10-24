@@ -214,6 +214,8 @@ dispatch_queue_t requestQueue;
         if ([self.settingsPopover isPopoverVisible]) {
             [self.settingsPopover dismissPopoverAnimated:YES];
         } else {
+            if ([self.datePickerPopover isPopoverVisible])
+                [self.datePickerPopover dismissPopoverAnimated:YES];
             [self.settingsPopover presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         
@@ -947,6 +949,8 @@ dispatch_queue_t requestQueue;
         if ([self.datePickerPopover isPopoverVisible]) {
             [self.datePickerPopover dismissPopoverAnimated:YES];
         } else {
+            if ([self.settingsPopover isPopoverVisible])
+                [self.settingsPopover dismissPopoverAnimated:YES];
             [self.datePickerPopover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }

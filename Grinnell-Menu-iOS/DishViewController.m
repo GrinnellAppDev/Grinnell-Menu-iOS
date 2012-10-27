@@ -87,14 +87,21 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     //I wanted the padding so it centered... so i put a tab =] Feel free to do this better... DrJid
-   return @"     Nutritional Information";
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
+        return @"     Nutritional Information";
+    else
+        return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
+        return 40;
+    else
+        return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
     // NSString *formattedSectionTitle = [sectionTitle capitalizedString];
     if (sectionTitle == nil) {
@@ -115,10 +122,12 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     [view addSubview:label];
     return view;
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -127,6 +136,15 @@
     
     // Configure the cell...
     if (indexPath.row == 0) {
+        cell.textLabel.text = @"Serving Size";
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+        cell.badge.radius = 9;
+        //        cell.badgeString = [NSString stringWithFormat:@"%@", [selectedDish.nutrition objectForKey:@"KCAL"]];
+        cell.badgeString = [NSString stringWithFormat:@"%@", selectedDish.servSize];
+        NSLog(@"%@", selectedDish.servSize);
+        
+    }
+    if (indexPath.row == 1) {
         cell.textLabel.text = @"Calories";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badge.radius = 9;
@@ -134,14 +152,14 @@
         cell.badgeString = [NSString stringWithFormat:@"%.3f", [[selectedDish.nutrition objectForKey:@"KCAL"] floatValue]];
 
     }
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == 2) {
         cell.textLabel.text = @"Saturated Fat"; 
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"SFA"] floatValue]];
         cell.badge.radius = 9;
         
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == 3) {
         cell.textLabel.text = @"Trans Fat";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"FATRN"]];
@@ -149,7 +167,7 @@
 
         cell.badge.radius = 9;
     }
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == 4) {
         cell.textLabel.text = @"Sodium";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"NA"]];
@@ -157,7 +175,7 @@
 
         cell.badge.radius = 9;
     }
-    else if (indexPath.row == 4) {
+    else if (indexPath.row == 5) {
         cell.textLabel.text = @"Sugar";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"SUGR"]];
@@ -165,7 +183,7 @@
 
         cell.badge.radius = 9;
     }
-    else if (indexPath.row == 5) {
+    else if (indexPath.row == 6) {
         cell.textLabel.text = @"Dietary Fiber";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"TDFB"]];
@@ -173,7 +191,7 @@
 
         cell.badge.radius = 9;
     }
-    else if (indexPath.row == 6) {
+    else if (indexPath.row == 7) {
         cell.textLabel.text = @"Cholesterol";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"CHOL"]];
@@ -181,7 +199,7 @@
 
         cell.badge.radius = 9;
     }
-    else if (indexPath.row == 7) {
+    else if (indexPath.row == 8) {
         cell.textLabel.text = @"Protein";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"PRO"]];

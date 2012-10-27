@@ -136,7 +136,9 @@ dispatch_queue_t requestQueue;
                 if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
                     dish.hasNutrition = YES;
                     dish.nutrition = [actualdish objectForKey:@"nutrition"];
+                    dish.servSize = [actualdish objectForKey:@"ServSize"];
                 }
+                dish.ID = [[actualdish objectForKey:@"ID"] intValue];
                 //then finally we add this new dish to it's venue
                 //NSLog(@"Dish: %@", dish);
                 [gVenue.dishes addObject:dish];
@@ -935,7 +937,6 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)changeDate {
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }

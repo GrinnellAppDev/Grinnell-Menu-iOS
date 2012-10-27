@@ -394,6 +394,8 @@ dispatch_queue_t requestQueue;
                 dish.hasNutrition = d.hasNutrition;
                 dish.nutrition = d.nutrition;
                 dish.passover = d.passover;
+                dish.ID = d.ID;
+                dish.servSize = d.servSize;
                 [venue.dishes addObject:dish];
             }
             [[mainDelegate.allMenus objectAtIndex:i] addObject:venue];

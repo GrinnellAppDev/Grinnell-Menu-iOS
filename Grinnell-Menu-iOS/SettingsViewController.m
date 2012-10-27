@@ -13,6 +13,10 @@
 
 @implementation SettingsViewController{
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
+    BOOL veganChanged;
+    BOOL ovolactoChanged;
+    BOOL glutChanged;
+    BOOL passOverChanged;
 }
 
 @synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, banner, contactButton, filtersNameArray, delegate;
@@ -101,18 +105,22 @@
 - (void) veganSwitchChanged:(id)sender {
     UISwitch* switchControl = sender;
     [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"VeganSwitchValue"];
+    veganChanged = !veganChanged;
 }
 - (void) ovoSwitchChanged:(id)sender {
     UISwitch* switchControl = sender;
     [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"OvoSwitchValue"];
+    ovolactoChanged = !ovolactoChanged;
 }
 - (void) gfSwitchChanged:(id)sender {
     UISwitch* switchControl = sender;
     [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"GFSwitchValue"];
+    glutChanged = !glutChanged;
 }
 - (void) passoverSwitchChanged:(id)sender {
     UISwitch* switchControl = sender;
     [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"PassSwitchValue"];
+    passOverChanged = !passOverChanged;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Filters";
@@ -132,7 +140,7 @@
     [super viewDidLoad];
     self.title = @"Settings"; 
     
-    //filtersNameArray contains the names of all the filters. If you want to add more filters, You can add the name to this array. Change the number of rows to be returned. And then drag in a switch into the nib file for that particular filter.
+    //filtersNameArray contains the names of all the filters. If you want to add more filters, You can add the name to this array. Change the number of rows to be returned. And then programmatically create a new switch for that particular filter.
     if (mainDelegate.passover)
         filtersNameArray = [NSArray arrayWithObjects:@"Vegan Filter", @"Ovolacto Filter", @"Gluten Free Filter", @"Passover Filter", nil];
     else
@@ -155,11 +163,17 @@
     [[tipsTextView layer] setBorderWidth:2.3];
     [[tipsTextView layer] setCornerRadius:15];
     [tipsTextView setClipsToBounds: YES];
+    
+    veganChanged =  glutChanged = ovolactoChanged = passOverChanged = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [mainDelegate.venueViewController loadNextMenu];
+    
     [super viewWillDisappear:YES];
+    
+    if (veganChanged || glutChanged || ovolactoChanged || passOverChanged) {
+        [mainDelegate.venueViewController loadNextMenu];
+    }
 }
 
 - (void)viewDidUnload {
@@ -171,10 +185,13 @@
 
 #pragma mark - Added methods
 - (IBAction)contactUs:(id)sender {
+    
     // From within your active view controller
     if([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
         mailViewController.mailComposeDelegate = self;
+        
+        mailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         
         [mailViewController setSubject:@"Feedback - Glicious!"];
         [mailViewController setToRecipients:[NSArray arrayWithObject:@"appdev@grinnell.edu"]];

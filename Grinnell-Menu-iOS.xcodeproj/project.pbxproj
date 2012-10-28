@@ -86,6 +86,8 @@
 		161A7E4C153F813A0023BF40 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 161A7E4B153F813A0023BF40 /* Icon@2x.png */; };
 		161E4710153F778A00C51C2B /* Vivaldi Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */; };
 		1632A59516287BF90097C330 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1632A59416287BF90097C330 /* Default-568h@2x.png */; };
+		163C2F81163C9FA000A274A8 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C2F80163C9FA000A274A8 /* Default-Portrait.png */; };
+		163C2F84163CA50400A274A8 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C2F83163CA50400A274A8 /* Icon-72@2x.png */; };
 		163C85A715BDCBA400FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		163C861315C0AA9F00FC8578 /* datePicker_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C861215C0AA9F00FC8578 /* datePicker_background.png */; };
@@ -268,6 +270,8 @@
 		161A7E4B153F813A0023BF40 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		161E470F153F778A00C51C2B /* Vivaldi Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vivaldi Italic.ttf"; sourceTree = "<group>"; };
 		1632A59416287BF90097C330 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		163C2F80163C9FA000A274A8 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		163C2F83163CA50400A274A8 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
 		163C85A515BDCBA300FC8578 /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBadgedCell.h; path = "Grinnell-Menu-iOS/TDBadgedCell.h"; sourceTree = "<group>"; };
 		163C85A615BDCBA300FC8578 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBadgedCell.m; path = "Grinnell-Menu-iOS/TDBadgedCell.m"; sourceTree = "<group>"; };
 		163C861215C0AA9F00FC8578 /* datePicker_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = datePicker_background.png; sourceTree = "<group>"; };
@@ -631,6 +635,8 @@
 		E1AE39CF148730620078DC40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				163C2F83163CA50400A274A8 /* Icon-72@2x.png */,
+				163C2F80163C9FA000A274A8 /* Default-Portrait.png */,
 				1632A59416287BF90097C330 /* Default-568h@2x.png */,
 				16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */,
 				16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */,
@@ -843,6 +849,8 @@
 				16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */,
 				1632A59516287BF90097C330 /* Default-568h@2x.png in Resources */,
 				3B0DE2BC1629D4A2004797DD /* MainWindow-iPad.xib in Resources */,
+				163C2F81163C9FA000A274A8 /* Default-Portrait.png in Resources */,
+				163C2F84163CA50400A274A8 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

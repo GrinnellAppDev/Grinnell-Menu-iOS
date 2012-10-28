@@ -82,13 +82,18 @@
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    
+    if (!self.selectedDish) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     //I wanted the padding so it centered... so i put a tab =] Feel free to do this better... DrJid
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
-        return @"     Nutritional Information";
+        return @"       Nutritional Information";
     else
         return nil;
 }
@@ -141,7 +146,6 @@
         cell.badge.radius = 9;
         //        cell.badgeString = [NSString stringWithFormat:@"%@", [selectedDish.nutrition objectForKey:@"KCAL"]];
         cell.badgeString = [NSString stringWithFormat:@"%@", selectedDish.servSize];
-        NSLog(@"%@", selectedDish.servSize);
         
     }
     if (indexPath.row == 1) {
@@ -149,13 +153,29 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
         cell.badge.radius = 9;
 //        cell.badgeString = [NSString stringWithFormat:@"%@", [selectedDish.nutrition objectForKey:@"KCAL"]];
-        cell.badgeString = [NSString stringWithFormat:@"%.3f", [[selectedDish.nutrition objectForKey:@"KCAL"] floatValue]];
+        
+        float number = [[selectedDish.nutrition objectForKey:@"KCAL"] floatValue];
+        float roundedValue = round(2.0f * number) / 2.0f;
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setMaximumFractionDigits:3];
+        [formatter setRoundingMode: NSNumberFormatterRoundDown];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:roundedValue]];
+        
+        cell.badgeString = numberString;
+        
+      //  cell.badgeString = [NSString stringWithFormat:@"%.3f", [[selectedDish.nutrition objectForKey:@"KCAL"] floatValue]];
 
     }
     else if (indexPath.row == 2) {
         cell.textLabel.text = @"Saturated Fat"; 
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
-        cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"SFA"] floatValue]];
+        
+        float number = [[selectedDish.nutrition objectForKey:@"SFA"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@g",numberString];
         cell.badge.radius = 9;
         
     }
@@ -163,23 +183,44 @@
         cell.textLabel.text = @"Trans Fat";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"FATRN"]];
-        cell.badgeString = [NSString stringWithFormat:@"%.1fg", [[selectedDish.nutrition objectForKey:@"FATRN"] floatValue]];
-
+ //       cell.badgeString = [NSString stringWithFormat:@"%.1fg", [[selectedDish.nutrition objectForKey:@"FATRN"] floatValue]];
+        
+        float number = [[selectedDish.nutrition objectForKey:@"FATRN"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@g",numberString];
+        
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 4) {
         cell.textLabel.text = @"Sodium";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"NA"]];
-        cell.badgeString = [NSString stringWithFormat:@"%.3fmg", [[selectedDish.nutrition objectForKey:@"NA"] floatValue]];
-
+ //       cell.badgeString = [NSString stringWithFormat:@"%.3fmg", [[selectedDish.nutrition objectForKey:@"NA"] floatValue]];
+        
+        
+        float number = [[selectedDish.nutrition objectForKey:@"NA"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@mg",numberString];
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 5) {
         cell.textLabel.text = @"Sugar";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"SUGR"]];
-        cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"SUGR"] floatValue]];
+//        cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"SUGR"] floatValue]];
+        
+        float number = [[selectedDish.nutrition objectForKey:@"SUGR"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@g",numberString];
 
         cell.badge.radius = 9;
     }
@@ -187,16 +228,29 @@
         cell.textLabel.text = @"Dietary Fiber";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"TDFB"]];
-        cell.badgeString = [NSString stringWithFormat:@"%.1fg", [[selectedDish.nutrition objectForKey:@"TDFB"] floatValue]];
+ //       cell.badgeString = [NSString stringWithFormat:@"%.1fg", [[selectedDish.nutrition objectForKey:@"TDFB"] floatValue]];
 
+        float number = [[selectedDish.nutrition objectForKey:@"TDFB"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@g",numberString];
         cell.badge.radius = 9;
+        
     }
     else if (indexPath.row == 7) {
         cell.textLabel.text = @"Cholesterol";
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@mg", [selectedDish.nutrition objectForKey:@"CHOL"]];
         cell.badgeString = [NSString stringWithFormat:@"%.3fmg", [[selectedDish.nutrition objectForKey:@"CHOL"] floatValue]];
-
+        
+        float number = [[selectedDish.nutrition objectForKey:@"CHOL"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@mg",numberString];
         cell.badge.radius = 9;
     }
     else if (indexPath.row == 8) {
@@ -204,9 +258,16 @@
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
 //        cell.badgeString = [NSString stringWithFormat:@"%@g", [selectedDish.nutrition objectForKey:@"PRO"]];
         cell.badgeString = [NSString stringWithFormat:@"%.3fg", [[selectedDish.nutrition objectForKey:@"PRO"] floatValue]];
-
+        
+        float number = [[selectedDish.nutrition objectForKey:@"PRO"] floatValue];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:3];
+        NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:number]];
+        cell.badgeString = [NSString stringWithFormat:@"%@g",numberString];
         cell.badge.radius = 9;
     }
+    
     if (indexPath.row % 2) {
         [cell setBackgroundColor:[UIColor colorWithRed:0.93 green:0.9 blue:0.9 alpha:1]];
         cell.badgeColor = EvenbadgeColor;

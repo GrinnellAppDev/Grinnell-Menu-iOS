@@ -21,5 +21,6 @@
 @property (nonatomic, assign) BOOL passover;
 @property (nonatomic, assign) BOOL halal;
 @property (nonatomic, assign) BOOL hasNutrition;
+@property (nonatomic, assign) BOOL fave;
 @property (nonatomic, strong) NSDictionary *nutrition;
 @end

@@ -139,6 +139,12 @@ dispatch_queue_t requestQueue;
                     dish.servSize = [actualdish objectForKey:@"ServSize"];
                 }
                 dish.ID = [[actualdish objectForKey:@"ID"] intValue];
+if (dish.glutenFree)
+    dish.fave = YES;
+                // TODO - HAVE A WAY TO CHECK IF DISH HAS BEEN FAVORITED
+                //if (is_in_favorites_list(dish.ID))
+                //    dish.fave = YES;
+                
                 //then finally we add this new dish to it's venue
                 //NSLog(@"Dish: %@", dish);
                 [gVenue.dishes addObject:dish];
@@ -379,11 +385,13 @@ dispatch_queue_t requestQueue;
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
     for (int i = 0; i < originalMenu.count; i++){
+        Venue *faveVen = [[Venue alloc] init];
+        faveVen.name = @"FAVORITES";
         NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[originalMenu objectAtIndex:i]];
         for (Venue *v in menu) {
             Venue *venue = [[Venue alloc] init];
             venue.name = v.name;
-            for (Dish *d in v.dishes) {
+            for (Dish *d in v.dishes){
                 Dish *dish = [[Dish alloc] init];
                 dish.name = d.name;
                 dish.venue = d.venue;
@@ -396,17 +404,20 @@ dispatch_queue_t requestQueue;
                 dish.passover = d.passover;
                 dish.ID = d.ID;
                 dish.servSize = d.servSize;
+                if (d.fave){
+                    dish.fave = d.fave;
+                    [faveVen.dishes addObject:dish];
+                }
                 [venue.dishes addObject:dish];
             }
             [[mainDelegate.allMenus objectAtIndex:i] addObject:venue];
         }
-        
+        [[mainDelegate.allMenus objectAtIndex:i] insertObject:faveVen atIndex:0];
         //Set up the filters
         BOOL filter;
         NSPredicate *compoundPred;
         NSMutableArray *preds = [[NSMutableArray alloc] init];
-        if (mainDelegate.passover && passSwitch)
-        {
+        if (mainDelegate.passover && passSwitch){
             passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
             if (!ovoSwitch && !veganSwitch && !gfSwitch){
                 [preds removeAllObjects];
@@ -474,8 +485,7 @@ dispatch_queue_t requestQueue;
                 filter = true;
             }
         }
-        else
-        {
+        else{
             if (!ovoSwitch && !veganSwitch && !gfSwitch){
                 filter = false;
             }
@@ -529,13 +539,13 @@ dispatch_queue_t requestQueue;
         
         //Run the filter
         if (filter && compoundPred != NULL)
-            for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]) {
+            for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]){
                 [v.dishes filterUsingPredicate:compoundPred];
             }
         
         //Remove empty venues if all items are filtered out of a venue
         NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
-        for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]) {
+        for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]){
             if (v.dishes.count == 0){
                 // NSLog(@"%@ removed", v.name);
                 [emptyVenues addObject:v];

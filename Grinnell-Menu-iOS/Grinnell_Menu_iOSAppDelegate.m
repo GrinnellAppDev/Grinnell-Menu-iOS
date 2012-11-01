@@ -28,24 +28,24 @@
 //    // Override point for customization after app launch
 //    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
-//    
+//
 //    UIViewController *datepickercontroller = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
-//    
+//
 //    self.window.rootViewController = datepickercontroller;
-//    
+//
 ////    [window addSubview:[navigationController view]];
 //    [window makeKeyAndVisible];
 //    return YES;
-//    
+//
 ////    [Crittercism initWithAppID: @"4f67e3f4b0931560c200000c"
 ////                        andKey:@"gznvtmrwkvkp7rupb69jn3ux1d8o"
 ////                     andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
-//    
-//    //Development Analytics Testing. (maybe we might just disable this in the future, since we don't need analytics from development. 
+//
+//    //Development Analytics Testing. (maybe we might just disable this in the future, since we don't need analytics from development.
 ////    [FlurryAnalytics startSession:@"CGUQXVSN77GEBKAK2ZWL"];
-//    
-//    
-//    //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry. 
+//
+//
+//    //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry.
 ////    [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
 //
 //
@@ -67,14 +67,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
-    
-    self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
-    
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
-    self.venueViewController.navigationItem.hidesBackButton = YES;
-    [self.navigationController pushViewController:self.venueViewController animated:NO];
-    self.window.rootViewController = self.navigationController;
+        self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+        
+        self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
+        
+        self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
+        self.venueViewController.navigationItem.hidesBackButton = YES;
+        [self.navigationController pushViewController:self.venueViewController animated:NO];
+        self.window.rootViewController = self.navigationController;
     }
     else{
         self.venueViewController = [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];

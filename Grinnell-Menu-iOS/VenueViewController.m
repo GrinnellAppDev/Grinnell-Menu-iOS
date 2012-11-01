@@ -926,16 +926,21 @@ dispatch_queue_t requestQueue;
         }
         else {
             //Network Check Failed - Show Alert ( We could use the MBProgessHUD for this as well - Like in the Google Plus iPhone app)
-            UIAlertView *network = [[UIAlertView alloc]
-                                    initWithTitle:@"No Network Connection"
-                                    message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
-                                    cancelButtonTitle:@"OK"
-                                    otherButtonTitles:nil
-                                    ];
-            [network show];
+            [self performSelectorOnMainThread:@selector(showNoNetworkAlert) withObject:nil waitUntilDone:YES];
             return;
         }
     }
+}
+
+- (void)showNoNetworkAlert {
+    UIAlertView *network = [[UIAlertView alloc]
+                            initWithTitle:@"No Network Connection"
+                            message:@"Turn on cellular data or use Wi-Fi to access new data from the server"                            delegate:self
+                            cancelButtonTitle:@"OK"
+                            otherButtonTitles:nil
+                            ];
+    
+    [network show];
 }
 
 - (void)changeDate {
@@ -1102,7 +1107,6 @@ dispatch_queue_t requestQueue;
         
         //Hmm where do we actually change the self.mealChoice
         [self refreshScreen];
-        //This HUD takes a long time it seems?
         [self showMealHUD];
 	}
 	self.lastDisplayedPage = self.currentPage;

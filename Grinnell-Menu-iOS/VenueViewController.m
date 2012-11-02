@@ -139,8 +139,7 @@ dispatch_queue_t requestQueue;
                     dish.servSize = [actualdish objectForKey:@"ServSize"];
                 }
                 dish.ID = [[actualdish objectForKey:@"ID"] intValue];
-if (dish.glutenFree)
-    dish.fave = YES;
+
                 // TODO - HAVE A WAY TO CHECK IF DISH HAS BEEN FAVORITED
                 //if (is_in_favorites_list(dish.ID))
                 //    dish.fave = YES;
@@ -356,7 +355,7 @@ if (dish.glutenFree)
     NSString *formattedDate = [dateFormatter stringFromDate:self.date];
     dateLabel.text = formattedDate;
     
-    NSLog(@"It reloaded all tables");
+   // NSLog(@"It reloaded all tables");
     [super reloadAllTables];
 }
 

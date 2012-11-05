@@ -101,6 +101,7 @@
 		1682E99D1540CBDE0065F9FA /* glicious-banner6.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9961540CBDE0065F9FA /* glicious-banner6.png */; };
 		1682E99E1540CBDE0065F9FA /* glicious-banner7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9971540CBDE0065F9FA /* glicious-banner7.png */; };
 		168D0812152A2C6A005B690E /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 168D0811152A2C6A005B690E /* libFlurryAnalytics.a */; };
+		1698C43F164443D50003E586 /* DishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1698C43E164443D50003E586 /* DishCell.xib */; };
 		16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A83B35154678540097FCF2 /* MessageUI.framework */; };
 		16BF1DF515CE214E00C4D9CA /* changeMeal.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF415CE214E00C4D9CA /* changeMeal.png */; };
 		16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */; };
@@ -288,6 +289,7 @@
 		1682E9971540CBDE0065F9FA /* glicious-banner7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner7.png"; sourceTree = "<group>"; };
 		168D0810152A2C6A005B690E /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
 		168D0811152A2C6A005B690E /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
+		1698C43E164443D50003E586 /* DishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishCell.xib; sourceTree = "<group>"; };
 		16A83B35154678540097FCF2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		16BF1DF415CE214E00C4D9CA /* changeMeal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changeMeal.png; sourceTree = "<group>"; };
 		16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				E1A806F31478569600ABBDDA /* DishViewController.h */,
 				E1A806F41478569600ABBDDA /* DishViewController.m */,
 				E1A806F51478569600ABBDDA /* DishViewController.xib */,
+				1698C43E164443D50003E586 /* DishCell.xib */,
 				168D080F152A2C6A005B690E /* FlurryAnalytics */,
 				1615AB50151A9BD5006947DF /* CrittercismSDK */,
 				E1A0C538145324470072BE76 /* Supporting Files */,
@@ -859,6 +862,7 @@
 				163C2F84163CA50400A274A8 /* Icon-72@2x.png in Resources */,
 				3BD9513A16430FF80056AA11 /* starred.png in Resources */,
 				3BD9513B16430FF80056AA11 /* unstarred.png in Resources */,
+				1698C43F164443D50003E586 /* DishCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

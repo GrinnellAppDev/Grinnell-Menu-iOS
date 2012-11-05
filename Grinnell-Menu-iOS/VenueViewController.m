@@ -261,6 +261,9 @@ dispatch_queue_t requestQueue;
     [super viewDidLoad];
     // NSLog(@"viewdidload date: %@", self.date);
     
+
+    
+    
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
@@ -319,6 +322,9 @@ dispatch_queue_t requestQueue;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
     }];
+    
+    self.cellIdentifier = @"DishCell";
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -636,19 +642,35 @@ dispatch_queue_t requestQueue;
  */
 - (UITableViewCell *)panelView:(PanelView *)panelView cellForRowAtIndexPath:(PanelIndexPath *)indexPath
 {
-	static NSString *identity = @"UITableViewCell";
-	UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:identity];
+    
+    //Register the NIB cell object
+    [panelView.tableView registerNib:[UINib nibWithNibName:@"DishCell" bundle:nil] forCellReuseIdentifier:self.cellIdentifier];
+    
+//    UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
+    
+//	static NSString *identity = @"UITableViewCell";
+//	UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:identity];
+//	if (cell == nil)
+//	{
+//		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
+//	}
+    
+    UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
 	if (cell == nil)
 	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellIdentifier];
 	}
     
+    UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
+
+//    
     // Configure the cell...
     //NSLog(@"page number is: %d", indexPath.page);
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     if (indexPath._row < [venue.dishes count]){
         Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
-        cell.textLabel.text = dish.name;
+//        cell.textLabel.text = dish.name;
+        dishName.text = dish.name;
         
         // Not needed when we have a tray view
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -668,6 +690,22 @@ dispatch_queue_t requestQueue;
     //Modify the colours.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
     
+    //Make Favorites button
+//    UIView *favoritesButtonView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 70, 15)];
+//    UIButton *favoritesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 70, 15)];
+//    favoritesButton.tintColor = [UIColor blueColor];
+//    [cell.contentView addSubview:favoritesButtonView];
+
+    
+//    CGRect nameLabelRect = CGRectMake(0, 5, 70, 15);
+//    UILabel *nameLabel = [[UILabel alloc] initWithFrame:nameLabelRect];
+//    nameLabel.textAlignment = UITextAlignmentRight;
+//    nameLabel.text = @"Name:";
+//    nameLabel.font = [UIFont boldSystemFontOfSize:12];
+//    [cell.contentView addSubview: nameLabel];
+    
+    UIButton *favButton = (UIButton *)[cell viewWithTag:1002];
+    [favButton setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateHighlighted];
     return cell;
 }
 

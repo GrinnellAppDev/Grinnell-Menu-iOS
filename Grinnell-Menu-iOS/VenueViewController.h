@@ -36,6 +36,9 @@
 @property (nonatomic, weak) IBOutlet UIImageView *topImageView;
 @property (nonatomic, weak) IBOutlet UIToolbar *bottomBar;
 
+//For Custom Cell
+@property (nonatomic, strong) NSString *cellIdentifier;
+
 
 //Need these so the Ipad can adequately respond to them. 
 @property (nonatomic, strong) UIPopoverController *datePickerPopover;

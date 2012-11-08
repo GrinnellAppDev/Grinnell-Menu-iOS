@@ -17,12 +17,15 @@
 #import "PanelView.h"
 #import "SamplePanelView.h"
 
+#define kFavoritesListFileName @"favorites.plist"
+
 @implementation VenueViewController
 {
     NSArray *mealNamesFromJSON, *venueNamesFromJSON;
     NSMutableArray *originalMenu;
     NSString *alert;
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
+    NSMutableArray *favoritesIDArray;
 }
 
 @synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, settingsPopover, datePickerViewController, bottomBar, settingsViewController, cellIdentifier;
@@ -139,7 +142,10 @@ dispatch_queue_t requestQueue;
                     dish.servSize = [actualdish objectForKey:@"ServSize"];
                 }
                 dish.ID = [[actualdish objectForKey:@"ID"] intValue];
-                if (dish.glutenFree) dish.fave = YES;
+                //if (dish.glutenFree) dish.fave = YES;
+                if ([favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]]) {
+                    dish.fave = YES;
+                }
                 // TODO - HAVE A WAY TO CHECK IF DISH HAS BEEN FAVORITED
                 //if (is_in_favorites_list(dish.ID))
                 //    dish.fave = YES;
@@ -324,7 +330,19 @@ dispatch_queue_t requestQueue;
     }];
     
     self.cellIdentifier = @"DishCell";
-
+    
+    //Load up the favorites file if there is one. 
+    NSString *favoritesFilePath = [self dataFilePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
+        favoritesIDArray = [[NSMutableArray alloc] initWithContentsOfFile:favoritesFilePath];
+    } else {
+        //We still need to allocate memory for an empty array.
+        favoritesIDArray = [[NSMutableArray alloc] init];
+    }
+    
+    for (NSNumber *num in favoritesIDArray) {
+        NSLog(@"%@",num );
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -735,20 +753,32 @@ dispatch_queue_t requestQueue;
     UIView *contentView = [sender superview];
     UITableViewCell *cell = (UITableViewCell *)[contentView superview];
     PanelIndexPath *indexPath =  [super indexForCell:cell];
-    NSLog(@"index path: %@", indexPath);
 
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     if (indexPath._row < [venue.dishes count]){
         Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
+        
+        //If dish IS favorited and we're unfavoriting it, we have to remove it's ID from the dish Array.
+//        if (dish.fave) {
+//            dish.fave
+//        }
+//        
+        
         dish.fave = !dish.fave;
         
         if (dish.fave) {
             NSLog(@"Just favorited %@", dish.name);
             [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
+            [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
             
-        } else
+        } else {
             [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
+            [favoritesIDArray removeObject:[NSNumber numberWithInt:dish.ID]];
+        }
+        
+        [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
     }
+    
 }
 
 /**
@@ -1245,6 +1275,14 @@ dispatch_queue_t requestQueue;
     dateLabel.text = formattedDate;
     
     [self.datePickerPopover dismissPopoverAnimated:YES];
+}
+
+#pragma mark - Persistent Filing
+
+- (NSString *)dataFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:kFavoritesListFileName];
 }
 
 @end

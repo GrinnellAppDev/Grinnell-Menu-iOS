@@ -139,7 +139,7 @@ dispatch_queue_t requestQueue;
                     dish.servSize = [actualdish objectForKey:@"ServSize"];
                 }
                 dish.ID = [[actualdish objectForKey:@"ID"] intValue];
-
+                if (dish.glutenFree) dish.fave = YES;
                 // TODO - HAVE A WAY TO CHECK IF DISH HAS BEEN FAVORITED
                 //if (is_in_favorites_list(dish.ID))
                 //    dish.fave = YES;
@@ -682,10 +682,23 @@ dispatch_queue_t requestQueue;
             //cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else{
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             // Needed for when we have a tray view
             // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         }
+        
+        UIButton *favButton = (UIButton *)[cell viewWithTag:1002];
+        [favButton addTarget:self action:@selector(toggleFav:) forControlEvents:UIControlEventTouchUpInside];
+
+     //   [self performSelector:@selector(adding::)withObject:@"num1" withObject:@"num2"];
+
+        
+        if (dish.fave) {
+            [favButton setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
+            
+        } else
+            [favButton setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
+        
     }
     //Modify the colours.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
@@ -704,11 +717,39 @@ dispatch_queue_t requestQueue;
 //    nameLabel.font = [UIFont boldSystemFontOfSize:12];
 //    [cell.contentView addSubview: nameLabel];
     
-    UIButton *favButton = (UIButton *)[cell viewWithTag:1002];
-    [favButton setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateHighlighted];
+ 
+
     return cell;
 }
 
+-(void)togglefavButton
+{
+    [self performSelector:@selector(togglefav:)withObject:@"num1" ];
+}
+
+//-(void)adding:(NSString*)num1 to:(NSString*)num
+
+-(void)toggleFav:(id)sender {
+
+    //NSLog(@"Sender: %@", sender);
+    UIView *contentView = [sender superview];
+    UITableViewCell *cell = (UITableViewCell *)[contentView superview];
+    PanelIndexPath *indexPath =  [super indexForCell:cell];
+    NSLog(@"index path: %@", indexPath);
+
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
+    if (indexPath._row < [venue.dishes count]){
+        Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
+        dish.fave = !dish.fave;
+        
+        if (dish.fave) {
+            NSLog(@"Just favorited %@", dish.name);
+            [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
+            
+        } else
+            [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
+    }
+}
 
 /**
  *
@@ -731,24 +772,48 @@ dispatch_queue_t requestQueue;
 //Added implementation DrJid
 -(void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath *)indexPath
 {
-    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
-    Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {
-        // [tableView deselectRowAtIndexPath:indexPath animated:NO];
-        DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
-        dishView.selectedDish = [[Dish alloc] init];
-        dishView.selectedDish = dish;
-        [self.navigationController pushViewController:dishView animated:YES];
-    }
-    else{
-        mainDelegate.iPadselectedDish = [[Dish alloc] init];
-        mainDelegate.iPadselectedDish = dish;
-        NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
-        [[NSNotificationCenter defaultCenter] postNotification:notif];
-   }
+//    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
+//    Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
+//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+//    {
+//        // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//        DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+//        dishView.selectedDish = [[Dish alloc] init];
+//        dishView.selectedDish = dish;
+//        [self.navigationController pushViewController:dishView animated:YES];
+//    }
+//    else{
+//        mainDelegate.iPadselectedDish = [[Dish alloc] init];
+//        mainDelegate.iPadselectedDish = dish;
+//        NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
+//        [[NSNotificationCenter defaultCenter] postNotification:notif];
+//   }
 }
 
+- (void)panelView:(PanelView *)panelView didSelectRowAtIndexPath:(PanelIndexPath *)indexPath
+{
+    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
+    Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
+    
+    if (dish.hasNutrition)  {
+        
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+            DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+            dishView.selectedDish = [[Dish alloc] init];
+            dishView.selectedDish = dish;
+            [self.navigationController pushViewController:dishView animated:YES];
+        }
+        else{
+            mainDelegate.iPadselectedDish = [[Dish alloc] init];
+            mainDelegate.iPadselectedDish = dish;
+            NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
+            [[NSNotificationCenter defaultCenter] postNotification:notif];
+        }
+    }
+}
 
 
 #pragma mark UIAlertViewDelegate Methods

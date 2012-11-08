@@ -74,4 +74,5 @@
 - (void)reloadAllTables;
 - (void)skipToOffset:(int)offset;
 - (void)fixWeekends:(int)visible;
+- (PanelIndexPath *)indexForCell:(UITableViewCell *)cell;
 @end

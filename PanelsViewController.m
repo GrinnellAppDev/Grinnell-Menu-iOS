@@ -434,6 +434,18 @@
     }
 }
 
+- (PanelIndexPath *)indexForCell:(UITableViewCell *)cell{
+    NSIndexPath *temp;
+    PanelView *p = [self panelViewAtPage:self.currentPage];
+
+    temp = [p.tableView indexPathForCell:cell];
+        if (temp != NULL){
+            PanelIndexPath *result = [[PanelIndexPath alloc] initWithRow:temp.row section:temp.section page:self.currentPage];
+            return result;
+        }
+    return nil;
+}
+
 -(void)skipToOffset:(int)offset
 {
     [self.scrollView setContentOffset:CGPointMake((self.panelViewSize.width + 2*GAP) * offset, 0)];

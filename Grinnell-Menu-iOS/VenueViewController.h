@@ -24,6 +24,8 @@
 - (void)showMealHUD;
 - (void)getDishes;
 - (void)applyFilters;
+- (void)toggleFav:(id)sender;
+
 @property (strong, nonatomic) DishViewController *dishViewController;
 @property (nonatomic, strong) NSMutableArray *panelsArray;
 @property (nonatomic, assign) int availDay;
@@ -38,6 +40,7 @@
 
 //For Custom Cell
 @property (nonatomic, strong) NSString *cellIdentifier;
+
 
 
 //Need these so the Ipad can adequately respond to them. 

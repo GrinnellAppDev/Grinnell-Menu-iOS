@@ -407,6 +407,7 @@ dispatch_queue_t requestQueue;
     for (int i = 0; i < originalMenu.count; i++){
         Venue *faveVen = [[Venue alloc] init];
         faveVen.name = @"FAVORITES";
+        [faveVen.dishes removeAllObjects];
         NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[originalMenu objectAtIndex:i]];
         for (Venue *v in menu) {
             Venue *venue = [[Venue alloc] init];
@@ -739,16 +740,10 @@ dispatch_queue_t requestQueue;
 //    nameLabel.text = @"Name:";
 //    nameLabel.font = [UIFont boldSystemFontOfSize:12];
 //    [cell.contentView addSubview: nameLabel];
-    
- 
 
     return cell;
 }
 
--(void)togglefavButton
-{
-    [self performSelector:@selector(togglefav:)withObject:@"num1" ];
-}
 
 //-(void)adding:(NSString*)num1 to:(NSString*)num
 
@@ -775,10 +770,9 @@ dispatch_queue_t requestQueue;
             [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
             [favoritesIDArray removeObject:[NSNumber numberWithInt:dish.ID]];
         }
-        
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
+        [self reloadAllTables];
     }
-    
 }
 
 /**

@@ -426,8 +426,15 @@ dispatch_queue_t requestQueue;
                 dish.servSize = d.servSize;
                 if (d.fave){
                     dish.fave = d.fave;
-                    
-                    [faveVen.dishes addObject:dish];
+                    BOOL found = FALSE;
+                    for (Dish *favesDish in faveVen.dishes) {
+                        if (![favesDish.name isEqualToString:dish.name] && favesDish.ID != dish.ID)
+                            continue;
+                        found = TRUE;
+                        break;
+                    }
+                    if (!found)
+                        [faveVen.dishes addObject:dish];
                 }
                 [venue.dishes addObject:dish];
             }

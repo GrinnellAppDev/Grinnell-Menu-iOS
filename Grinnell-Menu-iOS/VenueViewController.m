@@ -142,14 +142,11 @@ dispatch_queue_t requestQueue;
                     dish.servSize = [actualdish objectForKey:@"ServSize"];
                 }
                 dish.ID = [[actualdish objectForKey:@"ID"] intValue];
-                //if (dish.glutenFree) dish.fave = YES;
+                
                 if ([favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]]) {
                     dish.fave = YES;
                 }
-                // TODO - HAVE A WAY TO CHECK IF DISH HAS BEEN FAVORITED
-                //if (is_in_favorites_list(dish.ID))
-                //    dish.fave = YES;
-                
+                                
                 //then finally we add this new dish to it's venue
                 //NSLog(@"Dish: %@", dish);
                 [gVenue.dishes addObject:dish];
@@ -429,6 +426,7 @@ dispatch_queue_t requestQueue;
                 dish.servSize = d.servSize;
                 if (d.fave){
                     dish.fave = d.fave;
+                    
                     [faveVen.dishes addObject:dish];
                 }
                 [venue.dishes addObject:dish];
@@ -759,17 +757,12 @@ dispatch_queue_t requestQueue;
         Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
         
         //If dish IS favorited and we're unfavoriting it, we have to remove it's ID from the dish Array.
-//        if (dish.fave) {
-//            dish.fave
-//        }
-//        
-        
         dish.fave = !dish.fave;
-        
         if (dish.fave) {
-            NSLog(@"Just favorited %@", dish.name);
+            //NSLog(@"Just favorited %@", dish.name);
             [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
-            [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
+            if (![favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]])
+                [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
             
         } else {
             [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];

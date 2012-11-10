@@ -16,7 +16,7 @@
     BOOL veganChanged;
     BOOL ovolactoChanged;
     BOOL glutChanged;
-    BOOL passOverChanged;
+    BOOL passoverChanged;
 }
 
 @synthesize gotIdeasTextLabel, tipsTextView, tipsLabel, banner, contactButton, filtersNameArray, delegate;
@@ -28,28 +28,7 @@
     }
     return self;
 }
-/*
-- (void)viewWillLayoutSubviews
-{
-    if (UIInterfaceOrientationIsPortrait(
-                                         [UIApplication sharedApplication].statusBarOrientation))
-    {
-        gotIdeasTextLabel.hidden = NO;
-        tipsTextView.hidden = NO;
-        tipsLabel.hidden = NO;
-        contactButton.hidden = NO;
-        banner.hidden = NO;
-    }
-    else
-    {
-        gotIdeasTextLabel.hidden = YES;
-        tipsTextView.hidden = YES;
-        tipsLabel.hidden = YES;
-        contactButton.hidden = YES;
-        if (mainDelegate.passover)
-            banner.hidden = YES;
-    }
-}*/
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -120,7 +99,7 @@
 - (void) passoverSwitchChanged:(id)sender {
     UISwitch* switchControl = sender;
     [[NSUserDefaults standardUserDefaults] setBool:switchControl.isOn forKey:@"PassSwitchValue"];
-    passOverChanged = !passOverChanged;
+    passoverChanged = !passoverChanged;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Filters";
@@ -164,15 +143,16 @@
     [[tipsTextView layer] setCornerRadius:15];
     [tipsTextView setClipsToBounds: YES];
     
-    veganChanged =  glutChanged = ovolactoChanged = passOverChanged = NO;
+    veganChanged =  glutChanged = ovolactoChanged = passoverChanged = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:YES];
     
-    if (veganChanged || glutChanged || ovolactoChanged || passOverChanged) {
-        [mainDelegate.venueViewController loadNextMenu];
+    if (veganChanged || glutChanged || ovolactoChanged || passoverChanged) {
+        [mainDelegate.venueViewController applyFilters];
+        [mainDelegate.venueViewController refreshScreen];
     }
 }
 

@@ -429,10 +429,10 @@ dispatch_queue_t requestQueue;
                     dish.fave = d.fave;
                     BOOL found = FALSE;
                     for (Dish *favesDish in faveVen.dishes) {
-                        if (![favesDish.name isEqualToString:dish.name] && favesDish.ID != dish.ID)
-                            continue;
-                        found = TRUE;
-                        break;
+                        if ([favesDish.name isEqualToString:dish.name] || favesDish.ID == dish.ID){
+                            found = TRUE;
+                            break;
+                        }
                     }
                     if (!found)
                         [faveVen.dishes addObject:dish];
@@ -714,32 +714,14 @@ dispatch_queue_t requestQueue;
         UIButton *favButton = (UIButton *)[cell viewWithTag:1002];
         [favButton addTarget:self action:@selector(toggleFav:) forControlEvents:UIControlEventTouchUpInside];
 
-     //   [self performSelector:@selector(adding::)withObject:@"num1" withObject:@"num2"];
-
-        
         if (dish.fave) {
             [favButton setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
-            
-        } else
+        }
+        else
             [favButton setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
-        
-    }
-    //Modify the colours.
+        }
+    //Modify the colors.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
-    
-    //Make Favorites button
-//    UIView *favoritesButtonView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 70, 15)];
-//    UIButton *favoritesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 70, 15)];
-//    favoritesButton.tintColor = [UIColor blueColor];
-//    [cell.contentView addSubview:favoritesButtonView];
-
-    
-//    CGRect nameLabelRect = CGRectMake(0, 5, 70, 15);
-//    UILabel *nameLabel = [[UILabel alloc] initWithFrame:nameLabelRect];
-//    nameLabel.textAlignment = UITextAlignmentRight;
-//    nameLabel.text = @"Name:";
-//    nameLabel.font = [UIFont boldSystemFontOfSize:12];
-//    [cell.contentView addSubview: nameLabel];
 
     return cell;
 }
@@ -761,17 +743,18 @@ dispatch_queue_t requestQueue;
         //If dish IS favorited and we're unfavoriting it, we have to remove it's ID from the dish Array.
         dish.fave = !dish.fave;
         if (dish.fave) {
-            //NSLog(@"Just favorited %@", dish.name);
             [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
             if (![favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]])
                 [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
-            
-        } else {
+        }
+        else {
             [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
             [favoritesIDArray removeObject:[NSNumber numberWithInt:dish.ID]];
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
-        [self reloadAllTables];
+        //[super reloadAllTables];
+        [self getDishes];
+        [self refreshScreen];
     }
 }
 

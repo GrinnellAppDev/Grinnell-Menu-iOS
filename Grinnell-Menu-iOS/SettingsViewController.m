@@ -127,6 +127,8 @@
     
     ///For iPad view. Modify value to set the appropriate width and height for the content size.
     self.contentSizeForViewInPopover = CGSizeMake(280.0, 400.0);
+    
+ 
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -184,4 +186,12 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+
+- (IBAction)rateAction:(id)sender {
+    int myAppID = 523738999;
+
+    NSString* url = [NSString stringWithFormat: @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d", myAppID];
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    
+}
 @end

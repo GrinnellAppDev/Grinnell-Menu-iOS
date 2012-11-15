@@ -60,8 +60,16 @@
                                              selector:@selector(forceReload)
                                                  name:@"reloadRequest"
                                                object:nil];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight)];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:swipeRight];
 }
 
+
+- (void)handleSwipeRight {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)forceReload{
     self.selectedDish = mainDelegate.iPadselectedDish;
     self.title = selectedDish.name;

@@ -25,4 +25,6 @@
 
 @property (nonatomic, assign) id <SettingsDelegate> delegate;
 
+- (IBAction)rateAction:(id)sender;
+
 @end

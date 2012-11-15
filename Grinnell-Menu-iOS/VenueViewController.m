@@ -697,18 +697,18 @@ dispatch_queue_t requestQueue;
         dishName.text = dish.name;
         
         // Not needed when we have a tray view
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+       // cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         // accessory type
         if (!dish.hasNutrition){
             cell.accessoryType = UITableViewCellAccessoryNone;
             // Needed for when we have a tray view
-            //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             // Needed for when we have a tray view
-            // cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         }
         
         UIButton *favButton = (UIButton *)[cell viewWithTag:1002];

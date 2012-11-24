@@ -146,7 +146,7 @@ dispatch_queue_t requestQueue;
                 if ([favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]]) {
                     dish.fave = YES;
                 }
-                                
+                
                 //then finally we add this new dish to it's venue
                 //NSLog(@"Dish: %@", dish);
                 [gVenue.dishes addObject:dish];
@@ -204,14 +204,14 @@ dispatch_queue_t requestQueue;
 //Flip over to the SettingsViewController
 - (IBAction)showInfo:(id)sender {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    // Records when user goes to info Screen, records data in Flurry.
-    // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
-    [FlurryAnalytics logEvent:@"Flipped to Settings"];
-    SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
-    navController.navigationBar.barStyle = UIBarStyleBlack;
-    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:navController animated:YES];
+        // Records when user goes to info Screen, records data in Flurry.
+        // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
+        [FlurryAnalytics logEvent:@"Flipped to Settings"];
+        SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+        navController.navigationBar.barStyle = UIBarStyleBlack;
+        navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentModalViewController:navController animated:YES];
     }
     else {
         //It's iPad.
@@ -220,7 +220,7 @@ dispatch_queue_t requestQueue;
             //self.settingsViewController.delegate = self;
             self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:self.settingsViewController];
         }
-
+        
         if ([self.settingsPopover isPopoverVisible]) {
             [self.settingsPopover dismissPopoverAnimated:YES];
         } else {
@@ -264,7 +264,16 @@ dispatch_queue_t requestQueue;
     [super viewDidLoad];
     // NSLog(@"viewdidload date: %@", self.date);
     
-
+    
+    //
+    //            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+    //            [tapRecognizer setNumberOfTapsRequired:1];
+    //            [tapRecognizer setDelegate:self];
+    //            [self.view addGestureRecognizer:tapRecognizer];
+    //            CGPoint tappedPoint = [tapRecognizer locationInView:tapRecognizer.view];
+    //            NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
+    
+    
     
     
     //NSLog(@"VenueView loaded");
@@ -279,11 +288,11 @@ dispatch_queue_t requestQueue;
     
     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
-    UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
-    [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
-    [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
-    [self.navigationItem setRightBarButtonItem:changeMealButton];
+        UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
+        [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
+        [cmb addTarget:self action:@selector(changeMeal:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
+        [self.navigationItem setRightBarButtonItem:changeMealButton];
     }
     else{
         //Put info button in top right
@@ -291,7 +300,7 @@ dispatch_queue_t requestQueue;
         [info addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *infoButton =[[UIBarButtonItem alloc]  initWithCustomView:info];
         [self.navigationItem setRightBarButtonItem:infoButton];
-
+        
     }
     // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
     UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
@@ -328,7 +337,7 @@ dispatch_queue_t requestQueue;
     
     self.cellIdentifier = @"DishCell";
     
-    //Load up the favorites file if there is one. 
+    //Load up the favorites file if there is one.
     NSString *favoritesFilePath = [self dataFilePath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
         favoritesIDArray = [[NSMutableArray alloc] initWithContentsOfFile:favoritesFilePath];
@@ -376,7 +385,7 @@ dispatch_queue_t requestQueue;
     NSString *formattedDate = [dateFormatter stringFromDate:self.date];
     dateLabel.text = formattedDate;
     
-   // NSLog(@"It reloaded all tables");
+    // NSLog(@"It reloaded all tables");
     [super reloadAllTables];
 }
 
@@ -670,14 +679,14 @@ dispatch_queue_t requestQueue;
     //Register the NIB cell object
     [panelView.tableView registerNib:[UINib nibWithNibName:@"DishCell" bundle:nil] forCellReuseIdentifier:self.cellIdentifier];
     
-//    UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
+    //    UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
     
-//	static NSString *identity = @"UITableViewCell";
-//	UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:identity];
-//	if (cell == nil)
-//	{
-//		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
-//	}
+    //	static NSString *identity = @"UITableViewCell";
+    //	UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:identity];
+    //	if (cell == nil)
+    //	{
+    //		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
+    //	}
     
     UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
 	if (cell == nil)
@@ -686,18 +695,18 @@ dispatch_queue_t requestQueue;
 	}
     
     UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
-
-//    
+    
+    //
     // Configure the cell...
     //NSLog(@"page number is: %d", indexPath.page);
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     if (indexPath._row < [venue.dishes count]){
         Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
-//        cell.textLabel.text = dish.name;
+        //        cell.textLabel.text = dish.name;
         dishName.text = dish.name;
         
         // Not needed when we have a tray view
-       // cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         // accessory type
         if (!dish.hasNutrition){
@@ -713,16 +722,16 @@ dispatch_queue_t requestQueue;
         
         UIButton *favButton = (UIButton *)[cell viewWithTag:1002];
         [favButton addTarget:self action:@selector(toggleFav:) forControlEvents:UIControlEventTouchUpInside];
-
+        
         if (dish.fave) {
             [favButton setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
         }
         else
             [favButton setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
-        }
+    }
     //Modify the colors.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
-
+    
     return cell;
 }
 
@@ -730,12 +739,12 @@ dispatch_queue_t requestQueue;
 //-(void)adding:(NSString*)num1 to:(NSString*)num
 
 -(void)toggleFav:(UIButton *)sender {
-
+    
     //NSLog(@"Sender: %@", sender);
     UIView *contentView = [sender superview];
     UITableViewCell *cell = (UITableViewCell *)[contentView superview];
     PanelIndexPath *indexPath =  [super indexForCell:cell];
-
+    
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     if (indexPath._row < [venue.dishes count]){
         Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
@@ -752,52 +761,88 @@ dispatch_queue_t requestQueue;
             [favoritesIDArray removeObject:[NSNumber numberWithInt:dish.ID]];
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
-        //[super reloadAllTables];
-    //    [self getDishes];
-    //    [self refreshScreen];
         
-
+        
+        
+        
+//        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+//        [tapRecognizer setNumberOfTapsRequired:1];
+//        //        [tapRecognizer setDelegate:self];
+//        tapRecognizer.delegate = self;
+//        [self.view addGestureRecognizer:tapRecognizer];
+//
+//        CGPoint tappedPoint = [tapRecognizer locationInView:self.view];
+//        NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
+//        
         
         //Make a copy of the image at that location?
         UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
         
-        copy.center = self.view.center;
-//        NSLog(@"Copy x: %f, y: %f", copy.frame.origin.x, copy.frame.origin.y);
-//        NSLog(@"Sender x: %f, y: %f", sender.frame.origin.x, sender.frame.origin.y);
-//        NSLog(@"View height: %f", self.view.frame.size.height);
         
+        //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
         
-        [UIView animateWithDuration:2.0 animations:^{
-            
+       // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
+        copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
+        //        NSLog(@"Copy x: %f, y: %f", copy.frame.origin.x, copy.frame.origin.y);
+        //        NSLog(@"Sender x: %f, y: %f", sender.frame.origin.x, sender.frame.origin.y);
+        //        NSLog(@"View height: %f", self.view.frame.size.height);
+        
+        [UIView animateWithDuration:0.6
+                              delay:0.0
+                            options:UIViewAnimationCurveEaseIn
+                         animations:^{
+                             
+                             [self.view addSubview:copy];
+                             copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+                             [copy setCenter:CGPointMake(240, 0)];
 
-           [self.view addSubview:copy];
-            copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
 
-     //       CGRect frame = sender.bounds;
-       //     frame.origin.y += 20;
-
-      //      copy.bounds = frame;
-
-//            [sender setCenter:CGPointMake(240, 0)];
-            
-
-            [copy setCenter:CGPointMake(240, 0)];
-           // NSLog(@"X: %f , Y: %f   ", sender.frame.origin.x, sender.frame.origin.y );
-
-        } completion:^(BOOL finished) {
-            [copy removeFromSuperview];
-            [self getDishes];
-            [self refreshScreen];
-        }];
+                         } completion:^(BOOL finished) {
+                             [copy removeFromSuperview];
+                             [self getDishes];
+                             [self refreshScreen];
+                         }];
     }
 }
+
+//        
+//        
+//        [UIView animateWithDuration:0.6 animations:^{
+//
+//            
+//            [self.view addSubview:copy];
+//            copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+//            //       CGRect frame = sender.bounds;
+//            //     frame.origin.y += 20;
+//            
+//            //      copy.bounds = frame;
+//            
+//            //            [sender setCenter:CGPointMake(240, 0)];
+//            
+//            [copy setCenter:CGPointMake(240, 0)];
+//            // NSLog(@"X: %f , Y: %f   ", sender.frame.origin.x, sender.frame.origin.y );
+//            
+//        } completion:^(BOOL finished) {
+//            [copy removeFromSuperview];
+//            [self getDishes];
+//            [self refreshScreen];
+//        }];
+//    }
+//}
+//
+//- (void)location:(UITapGestureRecognizer *)recognizer {
+//    NSLog(@"Not being called");
+//    CGPoint location = [recognizer locationInView:self.view];
+//    NSLog(@"x %f y %f",location.x, location.y);
+//    
+//}
 
 //-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 //{
 //    NSLog(@"What the flip!!!");
 //    UITouch *touch = [touches anyObject];
 //    CGPoint touchPoint = [touch locationInView:self];
-//    
+//
 //
 //}
 //-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -807,19 +852,18 @@ dispatch_queue_t requestQueue;
 //    CGPoint location = [touch locationInView:touch.view];
 //}
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //Argh! I'm trying to get the touch location. And then creating the star at that touch location on the screen.
-    //Looking at the button's touch location is relative to the cell and not the screen... 
-    UITouch *touch = [touches anyObject];
-    
-    // Get the specific point that was touched
-    CGPoint point = [touch locationInView:self.view];
-    NSLog(@"X location: %f", point.x);
-    NSLog(@"Y Location: %f",point.y);
-    
-}
-
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    //Argh! I'm trying to get the touch location. And then creating the star at that touch location on the screen.
+//    //Looking at the button's touch location is relative to the cell and not the screen...
+//    UITouch *touch = [touches anyObject];
+//
+//    // Get the specific point that was touched
+//    CGPoint point = [touch locationInView:self.view];
+//    NSLog(@"X location: %f", point.x);
+//    NSLog(@"Y Location: %f",point.y);
+//
+//}
 
 /**
  *
@@ -842,22 +886,22 @@ dispatch_queue_t requestQueue;
 //Added implementation DrJid
 -(void)panelView:(id)panelView accessoryButtonTappedForRowInPage:(NSInteger)pageNumber withIndexPath:(PanelIndexPath *)indexPath
 {
-//    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
-//    Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-//    {
-//        // [tableView deselectRowAtIndexPath:indexPath animated:NO];
-//        DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
-//        dishView.selectedDish = [[Dish alloc] init];
-//        dishView.selectedDish = dish;
-//        [self.navigationController pushViewController:dishView animated:YES];
-//    }
-//    else{
-//        mainDelegate.iPadselectedDish = [[Dish alloc] init];
-//        mainDelegate.iPadselectedDish = dish;
-//        NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
-//        [[NSNotificationCenter defaultCenter] postNotification:notif];
-//   }
+    //    Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
+    //    Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
+    //    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    //    {
+    //        // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    //        DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+    //        dishView.selectedDish = [[Dish alloc] init];
+    //        dishView.selectedDish = dish;
+    //        [self.navigationController pushViewController:dishView animated:YES];
+    //    }
+    //    else{
+    //        mainDelegate.iPadselectedDish = [[Dish alloc] init];
+    //        mainDelegate.iPadselectedDish = dish;
+    //        NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
+    //        [[NSNotificationCenter defaultCenter] postNotification:notif];
+    //   }
 }
 
 - (void)panelView:(PanelView *)panelView didSelectRowAtIndexPath:(PanelIndexPath *)indexPath
@@ -1299,7 +1343,7 @@ dispatch_queue_t requestQueue;
 - (void)datePickerSelectedJsonDict:(NSDictionary *)selectedJsonDict andMealChoice:(NSString *)selectedMealChoice date:(NSDate *)selectedDate
 {
     //Refresh the screen with these details.
- 
+    
     self.jsonDict = selectedJsonDict;
     self.mealChoice = selectedMealChoice;
     self.date = selectedDate;
@@ -1308,7 +1352,7 @@ dispatch_queue_t requestQueue;
     [self refreshScreen];
     [self showMealHUD];
     
-    //We will need refactor this section too. We currently have alot of these dateformatters used in multiple places. 
+    //We will need refactor this section too. We currently have alot of these dateformatters used in multiple places.
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter  setDateFormat:@"EEE MMM dd"];
     NSString *formattedDate = [dateFormatter stringFromDate:self.date];

@@ -454,4 +454,6 @@
 - (void)fixWeekends:(int)visible{
     [self.scrollView setContentSize:CGSizeMake(([self panelViewSize].width+2*GAP)*visible,self.scrollView.frame.size.width)];
 }
+
+
 @end

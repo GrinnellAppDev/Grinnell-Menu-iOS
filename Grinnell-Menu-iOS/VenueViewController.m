@@ -729,7 +729,7 @@ dispatch_queue_t requestQueue;
 
 //-(void)adding:(NSString*)num1 to:(NSString*)num
 
--(void)toggleFav:(id)sender {
+-(void)toggleFav:(UIButton *)sender {
 
     //NSLog(@"Sender: %@", sender);
     UIView *contentView = [sender superview];
@@ -753,10 +753,71 @@ dispatch_queue_t requestQueue;
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
         //[super reloadAllTables];
-        [self getDishes];
-        [self refreshScreen];
+    //    [self getDishes];
+    //    [self refreshScreen];
+        
+
+        
+        //Make a copy of the image at that location?
+        UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
+        
+        copy.center = self.view.center;
+//        NSLog(@"Copy x: %f, y: %f", copy.frame.origin.x, copy.frame.origin.y);
+//        NSLog(@"Sender x: %f, y: %f", sender.frame.origin.x, sender.frame.origin.y);
+//        NSLog(@"View height: %f", self.view.frame.size.height);
+        
+        
+        [UIView animateWithDuration:2.0 animations:^{
+            
+
+           [self.view addSubview:copy];
+     //       CGRect frame = sender.bounds;
+       //     frame.origin.y += 20;
+
+      //      copy.bounds = frame;
+
+//            [sender setCenter:CGPointMake(240, 0)];
+            
+
+            [copy setCenter:CGPointMake(240, 0)];
+           // NSLog(@"X: %f , Y: %f   ", sender.frame.origin.x, sender.frame.origin.y );
+
+        } completion:^(BOOL finished) {
+            [copy removeFromSuperview];
+            [self getDishes];
+            [self refreshScreen];
+        }];
     }
 }
+
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"What the flip!!!");
+//    UITouch *touch = [touches anyObject];
+//    CGPoint touchPoint = [touch locationInView:self];
+//    
+//
+//}
+//-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"Say what?");
+//    UITouch *touch = [[event allTouches] anyObject];
+//    CGPoint location = [touch locationInView:touch.view];
+//}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //Argh! I'm trying to get the touch location. And then creating the star at that touch location on the screen.
+    //Looking at the button's touch location is relative to the cell and not the screen... 
+    UITouch *touch = [touches anyObject];
+    
+    // Get the specific point that was touched
+    CGPoint point = [touch locationInView:self.view];
+    NSLog(@"X location: %f", point.x);
+    NSLog(@"Y Location: %f",point.y);
+    
+}
+
 
 /**
  *

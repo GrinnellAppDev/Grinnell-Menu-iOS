@@ -771,6 +771,8 @@ dispatch_queue_t requestQueue;
             
 
            [self.view addSubview:copy];
+            copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+
      //       CGRect frame = sender.bounds;
        //     frame.origin.y += 20;
 

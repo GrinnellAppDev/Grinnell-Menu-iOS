@@ -755,16 +755,77 @@ dispatch_queue_t requestQueue;
             [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
             if (![favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]])
                 [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
+            
+            //Animate a dish becoming a favorite!
+            //Make a copy of the image at that location?
+            UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
+            copy.layer.zPosition = -4;
+            
+            
+            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
+            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
+            copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
+
+            [UIView animateWithDuration:0.6
+                                  delay:0.0
+                                options:UIViewAnimationCurveEaseIn
+                             animations:^{
+                                 
+                                 [self.view addSubview:copy];
+                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+                                 [copy setCenter:CGPointMake(240, -10)];
+                                 
+                                 
+                             } completion:^(BOOL finished) {
+                                 [copy removeFromSuperview];
+                                 [self getDishes];
+                                 [self refreshScreen];
+                                 
+                                 [super scrollToPosition];
+
+                             }];
+        
         }
         else {
             [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
             [favoritesIDArray removeObject:[NSNumber numberWithInt:dish.ID]];
+            
+            
+            
+            //Animate a dish unfavoriting! 
+            //Make a copy of the image at that location?
+            UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
+            copy.layer.zPosition = -4;
+            
+            
+            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
+            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
+            [copy setCenter:CGPointMake(240, -10)];
+
+            [UIView animateWithDuration:0.6
+                                  delay:0.0
+                                options:UIViewAnimationCurveEaseIn
+                             animations:^{
+                                 
+                                 [self.view addSubview:copy];
+                                 copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
+                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+                                 
+                             } completion:^(BOOL finished) {
+                                   
+                                 [copy removeFromSuperview];
+                                 [self getDishes];
+                                 [self refreshScreen];
+                                 
+                                 //After refreshing we scroll down or up??Should we do that here? hmmm..
+                                 [super scrollToPosition];
+                             }];
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
         
         
-        
-        
+    }
+    
 //        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
 //        [tapRecognizer setNumberOfTapsRequired:1];
 //        //        [tapRecognizer setDelegate:self];
@@ -775,34 +836,7 @@ dispatch_queue_t requestQueue;
 //        NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
 //        
         
-        //Make a copy of the image at that location?
-        UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
-        
-        
-        //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
-        
-       // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
-        copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
-        //        NSLog(@"Copy x: %f, y: %f", copy.frame.origin.x, copy.frame.origin.y);
-        //        NSLog(@"Sender x: %f, y: %f", sender.frame.origin.x, sender.frame.origin.y);
-        //        NSLog(@"View height: %f", self.view.frame.size.height);
-        
-        [UIView animateWithDuration:0.6
-                              delay:0.0
-                            options:UIViewAnimationCurveEaseIn
-                         animations:^{
-                             
-                             [self.view addSubview:copy];
-                             copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
-                             [copy setCenter:CGPointMake(240, 0)];
 
-
-                         } completion:^(BOOL finished) {
-                             [copy removeFromSuperview];
-                             [self getDishes];
-                             [self refreshScreen];
-                         }];
-    }
 }
 
 //        

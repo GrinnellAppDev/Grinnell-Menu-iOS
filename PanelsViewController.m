@@ -434,6 +434,16 @@
     }
 }
 
+//TEST. DrJid
+-(void)scrollToPosition {
+    NSLog(@"SCrolltopositioncalled");
+    for (PanelView *p in self.visiblePages) {
+//        [p.tableView scrollRectToVisible:CGRectMake(0, 0, 0, 0) animated:YES];
+//        [p.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [p.tableView setContentOffset:CGPointMake(0, 44) animated:NO];
+    }
+}
+
 - (PanelIndexPath *)indexForCell:(UITableViewCell *)cell{
     NSIndexPath *temp;
     PanelView *p = [self panelViewAtPage:self.currentPage];

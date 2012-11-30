@@ -781,7 +781,12 @@ dispatch_queue_t requestQueue;
                                  [self getDishes];
                                  [self refreshScreen];
                                  
-                                 [super scrollToPosition];
+                                 NSLog(@"Dish favorited");
+                                 //It scrolls down when dish favorited. So we want to scroll it up.
+//                                 [super scrollToPosition];
+                                 [super scrollPositionDownwards];
+                                 
+                                 //[super scrollToPosition];
 
                              }];
         
@@ -818,7 +823,12 @@ dispatch_queue_t requestQueue;
                                  [self refreshScreen];
                                  
                                  //After refreshing we scroll down or up??Should we do that here? hmmm..
-                                 [super scrollToPosition];
+                                 NSLog(@"Dish unfavorited");
+                                 //It scrolls up when unfavoriting, so we want to scroll it down.
+                                 //Get the index path of the tapped cell
+                                
+                                 [super scrollPositionUpwards];
+//                                 [super scrollToPosition];
                              }];
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];

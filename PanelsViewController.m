@@ -378,7 +378,7 @@
 
 - (CGFloat)panelView:(PanelView *)panelView heightForRowAtIndexPath:(PanelIndexPath *)indexPath
 {
-	return 50;
+	return 44;
 }
 
 - (UITableViewCell *)panelView:(PanelView *)panelView cellForRowAtIndexPath:(PanelIndexPath *)indexPath
@@ -435,12 +435,26 @@
 }
 
 //TEST. DrJid
--(void)scrollToPosition {
+- (void)scrollPositionUpwards {
     NSLog(@"SCrolltopositioncalled");
     for (PanelView *p in self.visiblePages) {
-//        [p.tableView scrollRectToVisible:CGRectMake(0, 0, 0, 0) animated:YES];
-//        [p.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-        [p.tableView setContentOffset:CGPointMake(0, 44) animated:NO];
+
+        CGPoint tableViewPositionTapped = [p.tableView contentOffset];
+        tableViewPositionTapped.y -= 44;
+        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
+        [p.tableView setContentOffset:tableViewPositionTapped animated:NO];
+    }
+}
+
+
+- (void)scrollPositionDownwards {
+    NSLog(@"SCrolltopositioncalled");
+    for (PanelView *p in self.visiblePages) {
+        
+        CGPoint tableViewPositionTapped = [p.tableView contentOffset];
+        tableViewPositionTapped.y += 44;
+        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
+        [p.tableView setContentOffset:tableViewPositionTapped animated:NO];
     }
 }
 

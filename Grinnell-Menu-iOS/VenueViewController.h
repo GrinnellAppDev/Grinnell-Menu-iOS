@@ -25,6 +25,7 @@
 - (void)getDishes;
 - (void)applyFilters;
 - (void)toggleFav:(id)sender;
+- (NSString *)dataFilePath;
 
 @property (strong, nonatomic) DishViewController *dishViewController;
 @property (nonatomic, strong) NSMutableArray *panelsArray;

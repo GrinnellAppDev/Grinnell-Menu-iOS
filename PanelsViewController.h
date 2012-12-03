@@ -75,7 +75,7 @@
 - (void)skipToOffset:(int)offset;
 - (void)fixWeekends:(int)visible;
 - (PanelIndexPath *)indexForCell:(UITableViewCell *)cell;
-- (void)scrollToPosition:(PanelIndexPath*)panelIndexPath;
+//- (void)scrollToPosition:(PanelIndexPath*)panelIndexPath;
 
 - (void)scrollPositionUpwards;
 - (void)scrollPositionDownwards;

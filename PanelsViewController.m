@@ -58,7 +58,7 @@
 	CGRect frame = [self scrollViewFrame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
         frame.size.height += 44;
-	self.scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,0,frame.size.width+2*GAP,frame.size.height)];
+	self.scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,30,frame.size.width+2*GAP,frame.size.height)];
 	[self.scrollView setScrollsToTop:YES];
 	[self.scrollView setDelegate:self];
 	[self.scrollView setShowsHorizontalScrollIndicator:NO];
@@ -157,7 +157,7 @@
  */
 - (CGRect)scrollViewFrame
 {
-	return CGRectMake(0,0,[self.view bounds].size.width,[self.view bounds].size.height - 44);
+	return CGRectMake(0,0,[self.view bounds].size.width,[self.view bounds].size.height - 66);
 }
 
 - (CGSize)panelViewSize
@@ -435,25 +435,38 @@
 }
 
 //TEST. DrJid
-- (void)scrollPositionUpwards {
+- (void)scrollPositionUpwards:(BOOL)withCountOne {
     NSLog(@"SCrolltopositioncalled");
     for (PanelView *p in self.visiblePages) {
 
         CGPoint tableViewPositionTapped = [p.tableView contentOffset];
-        tableViewPositionTapped.y -= 44;
-        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
+        //tableViewPositionTapped.y -= 44;
+//        tableViewPositionTapped.y -= 92; //for first favorite.
+//        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
+        if (withCountOne) {
+            tableViewPositionTapped.y -= 92; //for first fav
+        } else {
+            tableViewPositionTapped.y -= 44;
+        }
+        
+        
         [p.tableView setContentOffset:tableViewPositionTapped animated:NO];
     }
 }
 
 
-- (void)scrollPositionDownwards {
+- (void)scrollPositionDownwards:(BOOL)FavoritesVenuePresent {
     NSLog(@"SCrolltopositioncalled");
     for (PanelView *p in self.visiblePages) {
         
         CGPoint tableViewPositionTapped = [p.tableView contentOffset];
-        tableViewPositionTapped.y += 44;
-        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
+        if (FavoritesVenuePresent) {
+            tableViewPositionTapped.y += 44; //for first fav
+        } else {
+           tableViewPositionTapped.y += 92;
+        }
+        
+//        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
         [p.tableView setContentOffset:tableViewPositionTapped animated:NO];
     }
 }

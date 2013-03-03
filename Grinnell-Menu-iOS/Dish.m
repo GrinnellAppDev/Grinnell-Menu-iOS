@@ -11,4 +11,8 @@
 @implementation Dish
 @synthesize name, venue, nutAllergen, glutenFree, vegan, passover, halal, ovolacto, hasNutrition, nutrition, ID, servSize, fave;
 
+- (NSString *)description {
+    return self.name;
+}
+
 @end

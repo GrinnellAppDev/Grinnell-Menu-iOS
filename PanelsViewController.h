@@ -77,7 +77,8 @@
 - (PanelIndexPath *)indexForCell:(UITableViewCell *)cell;
 - (void)scrollToPosition:(PanelIndexPath*)panelIndexPath;
 
-- (void)scrollPositionUpwards;
-- (void)scrollPositionDownwards;
+- (void)scrollPositionUpwards:(BOOL)withCountOne;
+- (void)scrollPositionDownwards:(BOOL)FavoritesVenuePresent;
+
 
 @end

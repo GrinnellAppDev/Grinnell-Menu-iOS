@@ -26,6 +26,9 @@
     NSString *alert;
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
     NSMutableArray *favoritesIDArray;
+    Venue *faveVen;
+    
+    PanelView *thePanelView;
 }
 
 @synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, settingsPopover, datePickerViewController, bottomBar, settingsViewController, cellIdentifier;
@@ -148,7 +151,7 @@ dispatch_queue_t requestQueue;
                 }
                 
                 //then finally we add this new dish to it's venue
-                //NSLog(@"Dish: %@", dish);
+                NSLog(@"Added dish %@ to venue %@ in meal %@", dish, gVenue, mealName);
                 [gVenue.dishes addObject:dish];
             }
         }
@@ -274,8 +277,6 @@ dispatch_queue_t requestQueue;
     //            NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
     
     
-    
-    
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
@@ -346,9 +347,10 @@ dispatch_queue_t requestQueue;
         favoritesIDArray = [[NSMutableArray alloc] init];
     }
     
-    for (NSNumber *num in favoritesIDArray) {
-        NSLog(@"%@",num );
-    }
+    //print out favorites id array content for checking
+//    for (NSNumber *num in favoritesIDArray) {
+//        NSLog(@"%@",num );
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -414,7 +416,7 @@ dispatch_queue_t requestQueue;
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
     for (int i = 0; i < originalMenu.count; i++){
-        Venue *faveVen = [[Venue alloc] init];
+        faveVen = [[Venue alloc] init];
         faveVen.name = @"FAVORITES";
         [faveVen.dishes removeAllObjects];
         NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[originalMenu objectAtIndex:i]];
@@ -659,6 +661,15 @@ dispatch_queue_t requestQueue;
  */
 - (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber {
     if (jsonDict){
+//        NSLog(@"jsondict: %@", jsonDict);
+        NSLog(@"PageNumber: %d", pageNumber);
+        NSLog(@"mainDelegateAllMenus count: %d", mainDelegate.allMenus.count);
+        
+        
+        NSLog(@"HERE! %@", mainDelegate.allMenus);
+
+
+        
         if ([[mainDelegate.allMenus objectAtIndex:pageNumber] isKindOfClass:[NSMutableArray class]])
             return [[mainDelegate.allMenus objectAtIndex:pageNumber] count];
         else return 0;
@@ -678,6 +689,8 @@ dispatch_queue_t requestQueue;
     
     //Register the NIB cell object
     [panelView.tableView registerNib:[UINib nibWithNibName:@"DishCell" bundle:nil] forCellReuseIdentifier:self.cellIdentifier];
+    
+    thePanelView = panelView;
     
     //    UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
     
@@ -752,101 +765,143 @@ dispatch_queue_t requestQueue;
         //If dish IS favorited and we're unfavoriting it, we have to remove it's ID from the dish Array.
         dish.fave = !dish.fave;
         if (dish.fave) {
+            
             [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
             if (![favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]])
                 [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
             
             //Animate a dish becoming a favorite!
             //Make a copy of the image at that location?
-            UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
-            copy.layer.zPosition = -4;
+            //  UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
+            //  copy.layer.zPosition = -4;
             
             
-            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
-            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
-            copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
-
-            [UIView animateWithDuration:0.6
-                                  delay:0.0
-                                options:UIViewAnimationCurveEaseIn
-                             animations:^{
-                                 
-                                 [self.view addSubview:copy];
-                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
-                                 [copy setCenter:CGPointMake(240, -10)];
-                                 
-                                 
-                             } completion:^(BOOL finished) {
-                                 [copy removeFromSuperview];
-                                 [self getDishes];
-                                 [self refreshScreen];
-                                 
-                                 NSLog(@"Dish favorited");
-                                 //It scrolls down when dish favorited. So we want to scroll it up.
-//                                 [super scrollToPosition];
-                                 [super scrollPositionDownwards];
-                                 
-                                 //[super scrollToPosition];
-
-                             }];
-        
+            //            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
+            //            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
+            //            copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
+            //
+            //            [UIView animateWithDuration:0.6
+            //                                  delay:0.0
+            //                                options:UIViewAnimationCurveEaseIn
+            //                             animations:^{
+            //
+            //                                 [self.view addSubview:copy];
+            //                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+            //                                 [copy setCenter:CGPointMake(240, -10)];
+            //
+            //
+            //                             } completion:^(BOOL finished) {
+            //                                 Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:0];
+            //                                 NSLog(@"name: %@", venue.name);
+            //
+            //                                 [copy removeFromSuperview];
+            //                                 [self getDishes];
+            //                                 [self refreshScreen];
+            //
+            //
+            
+            //We check to see if there is currently a venue named favorites on top of the screen. 
+            Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:0];
+            
+            [self getDishes];
+            [self refreshScreen];
+            
+            
+            NSLog(@"Dish favorited");
+            //It scrolls down when dish favorited. So we want to scroll it up.
+            //                                 [super scrollToPosition];
+            //                                 NSLog(@"fav dishes: %d", faveVen.dishes.count);
+            
+            
+            //If the favorites venue is present, do the bigger one(YES). Else do the smaller one(NO)
+            //Need to refactor this portion of code.
+            if ([venue.name isEqualToString:@"FAVORITES"]) {
+                [super scrollPositionDownwards:YES];
+            } else {
+                [super scrollPositionDownwards:NO];
+            }
+            
+            //Animate adding the row?
+            
+            
+            
+            //[super scrollToPosition];
+            
+            //  }];
+            
         }
         else {
             [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
             [favoritesIDArray removeObject:[NSNumber numberWithInt:dish.ID]];
             
             
+            //
+            //            //Animate a dish unfavoriting!
+            //            //Make a copy of the image at that location?
+            //            UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
+            //            copy.layer.zPosition = -4;
+            //
+            //
+            //            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
+            //            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
+            //            [copy setCenter:CGPointMake(240, -10)];
+            //
+            //            [UIView animateWithDuration:0.6
+            //                                  delay:0.0
+            //                                options:UIViewAnimationCurveEaseIn
+            //                             animations:^{
+            //
+            //                                 [self.view addSubview:copy];
+            //                                 copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
+            //                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
+            //
+            //                             } completion:^(BOOL finished) {
+            //
+            //
+            //                                 NSLog(@"name: %@", venue.name);
+            //
+            //                                 [copy removeFromSuperview];
             
-            //Animate a dish unfavoriting! 
-            //Make a copy of the image at that location?
-            UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
-            copy.layer.zPosition = -4;
+            Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:0];
+            [self getDishes];
+            [self refreshScreen];
             
             
-            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
-            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
-            [copy setCenter:CGPointMake(240, -10)];
-
-            [UIView animateWithDuration:0.6
-                                  delay:0.0
-                                options:UIViewAnimationCurveEaseIn
-                             animations:^{
-                                 
-                                 [self.view addSubview:copy];
-                                 copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
-                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
-                                 
-                             } completion:^(BOOL finished) {
-                                   
-                                 [copy removeFromSuperview];
-                                 [self getDishes];
-                                 [self refreshScreen];
-                                 
-                                 //After refreshing we scroll down or up??Should we do that here? hmmm..
-                                 NSLog(@"Dish unfavorited");
-                                 //It scrolls up when unfavoriting, so we want to scroll it down.
-                                 //Get the index path of the tapped cell
-                                
-                                 [super scrollPositionUpwards];
-//                                 [super scrollToPosition];
-                             }];
+            
+            //After refreshing we scroll down or up??Should we do that here? hmmm..
+            NSLog(@"Dish unfavorited");
+            //It scrolls up when unfavoriting, so we want to scroll it down.
+            //Get the index path of the tapped cell
+            
+            //                                 [super scrollPositionUpwards];
+            //If the favorites venue is has just one element we need to jump bigger. Else jump smaller.
+            if (venue.dishes.count == 1) {
+                NSLog(@"Count was 1");
+                [super scrollPositionUpwards:YES];
+            } else {
+                [super scrollPositionUpwards:NO];
+            }
+            //                                 [super scrollToPosition];
+            //  }];
+//            NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexPath._row inSection:indexPath._section];
+//            [thePanelView.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indPath] withRowAnimation:UITableViewRowAnimationFade];
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
         
         
     }
     
-//        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
-//        [tapRecognizer setNumberOfTapsRequired:1];
-//        //        [tapRecognizer setDelegate:self];
-//        tapRecognizer.delegate = self;
-//        [self.view addGestureRecognizer:tapRecognizer];
-//
-//        CGPoint tappedPoint = [tapRecognizer locationInView:self.view];
-//        NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
-//        
-        
-
+    //        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+    //        [tapRecognizer setNumberOfTapsRequired:1];
+    //        //        [tapRecognizer setDelegate:self];
+    //        tapRecognizer.delegate = self;
+    //        [self.view addGestureRecognizer:tapRecognizer];
+    //
+    //        CGPoint tappedPoint = [tapRecognizer locationInView:self.view];
+    //        NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
+    //        
+    
+    
 }
 
 //        
@@ -1006,6 +1061,8 @@ dispatch_queue_t requestQueue;
     
     //By default, we work with today's menu.
     self.date = today;
+    
+    
     //Declare Date Components for today
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:today];
     NSInteger hour = [todayComponents hour];
@@ -1091,7 +1148,13 @@ dispatch_queue_t requestQueue;
         NSInteger selectedMonth = [components month];
         NSInteger selectedYear = [components year];
         
-        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        //correct version
+        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        
+        //testing
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/1-21-2013.json"];
+
+        
         //Setting up the fading animation of the labels
         dateLabel.alpha = 0;
         menuchoiceLabel.alpha = 0;
@@ -1244,6 +1307,7 @@ dispatch_queue_t requestQueue;
 
 - (void)showMealHUD {
 	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    HUD.userInteractionEnabled = NO;
 	[self.navigationController.view addSubview:HUD];
 	
 	// The sample image is based on the work by http://www.pixelpressicons.com, http://creativecommons.org/licenses/by/2.5/ca/
@@ -1304,6 +1368,10 @@ dispatch_queue_t requestQueue;
 	HUD.labelText = HUDLabel;
 	[HUD show:YES];
 	[HUD hide:YES afterDelay:0.5];
+}
+
+- (void)showTipHUD {
+    
 }
 
 - (void)pushNextPage{

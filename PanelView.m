@@ -43,7 +43,7 @@
 {
     if (self = [super initWithFrame:frame])
 	{
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,-3,frame.size.width,frame.size.height - 30) style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,-3,frame.size.width,frame.size.height) style:UITableViewStyleGrouped];
         //Set up our background
         UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"red_textured_background.png"]];
         [tempImageView setFrame:self.tableView.frame];

@@ -58,7 +58,7 @@
 	CGRect frame = [self scrollViewFrame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
         frame.size.height += 44;
-	self.scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,30,frame.size.width+2*GAP,frame.size.height)];
+	self.scrollView = [[UIScrollViewExt alloc] initWithFrame:CGRectMake(-1*GAP,0,frame.size.width+2*GAP,frame.size.height)];
 	[self.scrollView setScrollsToTop:YES];
 	[self.scrollView setDelegate:self];
 	[self.scrollView setShowsHorizontalScrollIndicator:NO];
@@ -157,7 +157,7 @@
  */
 - (CGRect)scrollViewFrame
 {
-	return CGRectMake(0,0,[self.view bounds].size.width,[self.view bounds].size.height - 66);
+	return CGRectMake(0,0,[self.view bounds].size.width,[self.view bounds].size.height - 44);
 }
 
 - (CGSize)panelViewSize

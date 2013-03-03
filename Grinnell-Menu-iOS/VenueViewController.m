@@ -730,7 +730,7 @@ dispatch_queue_t requestQueue;
         else{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             // Needed for when we have a tray view
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
         }
         
         UIButton *favButton = (UIButton *)[cell viewWithTag:1002];
@@ -744,6 +744,12 @@ dispatch_queue_t requestQueue;
     }
     //Modify the colors.
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
+    
+    
+//    UIView *bgColorView = [[UIView alloc] init];
+//    //[bgColorView setBackgroundColor:[UIColor colorWithRed:142.0f/255.0f green:42.0f/255.0f blue:29.0f/255.0f alpha:1.0f]];
+//    [bgColorView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"red_textured_background.png"]]];
+//    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }
@@ -1008,6 +1014,8 @@ dispatch_queue_t requestQueue;
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
     
+    
+    
     if (dish.hasNutrition)  {
         
         
@@ -1026,6 +1034,7 @@ dispatch_queue_t requestQueue;
             [[NSNotificationCenter defaultCenter] postNotification:notif];
         }
     }
+
 }
 
 
@@ -1149,10 +1158,10 @@ dispatch_queue_t requestQueue;
         NSInteger selectedYear = [components year];
         
         //correct version
-        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
         
         //testing
-        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/1-21-2013.json"];
+        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/1-21-2013.json"];
 
         
         //Setting up the fading animation of the labels

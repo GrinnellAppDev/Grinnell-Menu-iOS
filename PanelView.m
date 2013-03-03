@@ -369,6 +369,8 @@
 {
 	if ([self.delegate respondsToSelector:@selector(panelView:didSelectRowAtIndexPath:)])
 	{
+        [tableView_ deselectRowAtIndexPath:indexPath animated:YES];
+        
 		return [self.delegate panelView:self didSelectRowAtIndexPath:[PanelIndexPath panelIndexPathForPage:self.pageNumber indexPath:indexPath]];
 	}
 }

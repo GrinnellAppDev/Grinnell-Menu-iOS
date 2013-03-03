@@ -399,7 +399,7 @@
 
 - (void)panelView:(PanelView *)panelView didSelectRowAtIndexPath:(PanelIndexPath *)indexPath
 {
-	
+    
 }
 
 - (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber

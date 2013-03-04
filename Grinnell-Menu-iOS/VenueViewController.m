@@ -16,6 +16,7 @@
 #import "PanelsViewController.h"
 #import "PanelView.h"
 #import "SamplePanelView.h"
+#import "AJRNutritionViewController.h"
 
 #define kFavoritesListFileName @"favorites.plist"
 
@@ -1015,7 +1016,7 @@ dispatch_queue_t requestQueue;
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
     
-    
+    /*
     
     if (dish.hasNutrition)  {
         
@@ -1034,6 +1035,53 @@ dispatch_queue_t requestQueue;
             NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
             [[NSNotificationCenter defaultCenter] postNotification:notif];
         }
+    }
+     */
+    
+    if (dish.hasNutrition) {
+        
+        //Set Screen details for particular dish.
+        //These changes undo in AJRNutritionViewController.m "close" method when the nutrition view is dismissed.
+
+        self.title = dish.name;
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+        
+        
+        //Initalize the nutrition view
+        AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
+        
+        //Set the various data values for the view
+       // controller.servingSize = @"12 fl oz. (1 Can)";
+       // controller.calories = 100;      //Type: int
+        controller.fat = 5;             //Type: float
+        controller.carbs = 70;          //Type: float
+      //  controller.sugar = 12;          //Type: float
+      //  controller.protein = 3;         //Type: float
+        
+        controller.servingSize = [NSString stringWithFormat:@"%@", dish.servSize];
+        
+        controller.calories = [dish.nutrition[@"KCAL"] floatValue];
+        controller.cholesterol = [dish.nutrition[@"CHOL"] floatValue];
+        controller.protein = [dish.nutrition[@"PRO"] floatValue];
+        controller.sugar = [dish.nutrition[@"SUGR"] floatValue];
+
+        
+        //Present the View
+        [controller presentInParentViewController:self];
+        
+        /*
+         *Optional Customizations
+         *
+         *controller.shouldDimBackground = YES;              //Default: YES
+         *controllershouldAnimateOnAppear = YES;             //Default: YES
+         *controller.shouldAnimateOnDisappear = YES;         //Default: YES
+         *
+         *By default, the user can perform a swipe gesture (in the downward direction)
+         *to dismiss the popup
+         *controller.allowSwipeToDismiss = YES;              //Default: YES
+         */
+
     }
 
 }

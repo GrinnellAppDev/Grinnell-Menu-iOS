@@ -1043,9 +1043,7 @@ dispatch_queue_t requestQueue;
         //Set Screen details for particular dish.
         //These changes undo in AJRNutritionViewController.m "close" method when the nutrition view is dismissed.
 
-        self.title = dish.name;
-        [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+ 
         
         
         //Initalize the nutrition view
@@ -1065,10 +1063,24 @@ dispatch_queue_t requestQueue;
         controller.cholesterol = [dish.nutrition[@"CHOL"] floatValue];
         controller.protein = [dish.nutrition[@"PRO"] floatValue];
         controller.sugar = [dish.nutrition[@"SUGR"] floatValue];
-
+        
         
         //Present the View
-        [controller presentInParentViewController:self];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            
+            self.title = dish.name;
+            [self.navigationItem.leftBarButtonItem setEnabled:NO];
+            [self.navigationItem.rightBarButtonItem setEnabled:NO];
+            
+            [controller presentInParentViewController:self];
+        } else {
+            //it's an iPad.
+            mainDelegate.iPadselectedDish = [[Dish alloc] init];
+            mainDelegate.iPadselectedDish = dish;
+            NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
+            [[NSNotificationCenter defaultCenter] postNotification:notif];
+            
+        }
         
         /*
          *Optional Customizations

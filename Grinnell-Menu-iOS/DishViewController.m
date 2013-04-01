@@ -73,6 +73,7 @@
 - (void)forceReload{
     self.selectedDish = mainDelegate.iPadselectedDish;
     self.title = selectedDish.name;
+    
     [theTableView reloadData];
 }
 

@@ -78,7 +78,8 @@
     }
     else{
         self.venueViewController = [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
-        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.venueViewController];
+        
+        UINavigationController *venueNavigationController = [[UINavigationController alloc] initWithRootViewController:self.venueViewController];
         
         DishViewController *dishViewController = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
         
@@ -88,11 +89,9 @@
     	
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = dishViewController;
-        NSArray *viewsArray = [[NSArray alloc] initWithObjects:masterNavigationController, dishNavigationController, nil];
-        self.splitViewController.viewControllers = viewsArray;
-        
-        //[masterNavigationController, dishNavigationController];
-        
+     
+        self.splitViewController.viewControllers = @[venueNavigationController, dishNavigationController];
+                
         self.window.rootViewController = self.splitViewController;
     }
     // Set the global tint on the navigation bar - Black

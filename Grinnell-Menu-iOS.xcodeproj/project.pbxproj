@@ -34,6 +34,7 @@
 		1610B0C915B5EF5A001A2D3A /* nutrition-details@2x .png in Resources */ = {isa = PBXBuildFile; fileRef = 1610B0C715B5EF5A001A2D3A /* nutrition-details@2x .png */; };
 		1610B0CC15B5EFA2001A2D3A /* ingredients-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */; };
 		1610B0CD15B5EFA2001A2D3A /* ingredients-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1610B0CB15B5EFA2001A2D3A /* ingredients-list@2x.png */; };
+		1610C335170A3C200020293B /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1610C334170A3C200020293B /* Default-Landscape~ipad.png */; };
 		1615ABBB151A9BD6006947DF /* libCrittercism_v3_1_4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1615AB55151A9BD5006947DF /* libCrittercism_v3_1_4.a */; };
 		1615ABBC151A9BD6006947DF /* crittercism-arrow-l.png in Resources */ = {isa = PBXBuildFile; fileRef = 1615AB71151A9BD5006947DF /* crittercism-arrow-l.png */; };
 		1615ABBD151A9BD6006947DF /* crittercism-arrow-l@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1615AB72151A9BD5006947DF /* crittercism-arrow-l@2x.png */; };
@@ -203,6 +204,7 @@
 		1610B0C715B5EF5A001A2D3A /* nutrition-details@2x .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nutrition-details@2x .png"; sourceTree = "<group>"; };
 		1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ingredients-list.png"; sourceTree = "<group>"; };
 		1610B0CB15B5EFA2001A2D3A /* ingredients-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ingredients-list@2x.png"; sourceTree = "<group>"; };
+		1610C334170A3C200020293B /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		1615AB51151A9BD5006947DF /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		1615AB52151A9BD5006947DF /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
 		1615AB53151A9BD5006947DF /* CrittercismJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismJSONKit.h; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 		E1AE39CF148730620078DC40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1610C334170A3C200020293B /* Default-Landscape~ipad.png */,
 				3BD9513816430FF80056AA11 /* starred.png */,
 				3BD9513916430FF80056AA11 /* unstarred.png */,
 				163C2F83163CA50400A274A8 /* Icon-72@2x.png */,
@@ -913,6 +916,7 @@
 				3BD9513A16430FF80056AA11 /* starred.png in Resources */,
 				3BD9513B16430FF80056AA11 /* unstarred.png in Resources */,
 				1698C43F164443D50003E586 /* DishCell.xib in Resources */,
+				1610C335170A3C200020293B /* Default-Landscape~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

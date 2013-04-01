@@ -281,12 +281,12 @@ dispatch_queue_t requestQueue;
     
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:HUD];
+[self.navigationController.view addSubview:HUD]; 
 	
 	HUD.delegate = self;
     
     HUD.labelText = @"Grabbing Menu";
-    [HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
+[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES]; 
     
     
     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
@@ -302,7 +302,7 @@ dispatch_queue_t requestQueue;
         UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
         [info addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *infoButton =[[UIBarButtonItem alloc]  initWithCustomView:info];
-        [self.navigationItem setRightBarButtonItem:infoButton];
+[self.navigationItem setRightBarButtonItem:infoButton]; 
         
     }
     // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
@@ -310,8 +310,7 @@ dispatch_queue_t requestQueue;
     [cdb setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
     [cdb addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
-    self.navigationItem.leftBarButtonItem = changeDateButton;
-    
+self.navigationItem.leftBarButtonItem = changeDateButton;
     
     originalMenu = [[NSMutableArray alloc] init];
     mainDelegate.allMenus = [[NSMutableArray alloc] init];
@@ -380,7 +379,7 @@ dispatch_queue_t requestQueue;
         self.bottomBar.hidden = YES;
     
     [super viewWillAppear:YES];
-    self.title = @"Stations";
+ self.title = @"Stations"; 
     [self getDishes];
     menuchoiceLabel.text = self.mealChoice;
     

@@ -25,13 +25,28 @@
     IBOutlet UILabel *servingLabel;
     IBOutlet UILabel *caloriesLabel;
     IBOutlet UILabel *fatLabel;
-    IBOutlet UILabel *carbsLabel;
-    IBOutlet UILabel *sugarLabel;
-    IBOutlet UILabel *proteinLabel;
+    IBOutlet UILabel *saturatedFatLabel;
+    IBOutlet UILabel *transFatLabel;
     IBOutlet UILabel *cholesterolLabel;
+
+    IBOutlet UILabel *sodiumLabel;
+
+    IBOutlet UILabel *carbsLabel;
+    IBOutlet UILabel *DietaryFiberLabel;
+    IBOutlet UILabel *sugarLabel;
+    
+    IBOutlet UILabel *proteinLabel;
     
     IBOutlet UILabel *fatDailyValueLabel;
+    IBOutlet UILabel *satfatDailyValueLabel;
+    IBOutlet UILabel *cholesterolDailyValueLabel;
+    IBOutlet UILabel *sodiumDailyValueLabel;
     IBOutlet UILabel *carbDailyValueLabel;
+    IBOutlet UILabel *dietaryFiberDailyValueLabel;
+    IBOutlet UILabel *proteinDailyValueLabel;
+
+
+
 }
 
 
@@ -64,14 +79,26 @@
     servingLabel.text =  self.servingSize;
     caloriesLabel.text = [NSString stringWithFormat:@"%i", self.calories];
     fatLabel.text = [NSString stringWithFormat:@"%.1fg", self.fat];
+    saturatedFatLabel.text = [NSString stringWithFormat:@"%.01fg", self.satfat];
+    transFatLabel.text = [NSString stringWithFormat:@"%.1fg", self.transfat];
+    cholesterolLabel.text = [NSString stringWithFormat:@"%.1fmg", self.cholesterol];
+    sodiumLabel.text = [NSString stringWithFormat:@"%.01fmg", self.sodium];
     carbsLabel.text = [NSString stringWithFormat:@"%.01fg", self.carbs];
+    DietaryFiberLabel.text = [NSString stringWithFormat:@"%.01fg", self.dietaryfiber];
     sugarLabel.text = [NSString stringWithFormat:@"%.01fg", self.sugar];
     proteinLabel.text = [NSString stringWithFormat:@"%.01fg", self.protein];
-    cholesterolLabel.text = [NSString stringWithFormat:@"%.1fmg", self.cholesterol];
     
     //Calculates the % daily value for the appropiate fields
     fatDailyValueLabel.text = [AJRNutritionLabelCalculation calculateFatDailyValue:[self fat]];
-    carbDailyValueLabel.text =  [AJRNutritionLabelCalculation calculateCarbDailyValue:[self carbs]];
+    satfatDailyValueLabel.text = [AJRNutritionLabelCalculation calculateSaturatedFatDailyValue:[self satfat]];
+    cholesterolDailyValueLabel.text = [AJRNutritionLabelCalculation calculateCholesterolDailyValue:[self cholesterol]];
+    sodiumDailyValueLabel.text = [AJRNutritionLabelCalculation calculateSodiumDailyValue:[self sodium]];
+    carbDailyValueLabel.text = [AJRNutritionLabelCalculation calculateTotalCarbDailyValue:[self carbs]];
+    dietaryFiberDailyValueLabel.text = [AJRNutritionLabelCalculation calculateDietaryFiberDailyValue:[self dietaryfiber]];
+
+
+
+    carbDailyValueLabel.text =  [AJRNutritionLabelCalculation calculateTotalCarbDailyValue:[self carbs]];
     
     if (self.allowSwipeToDismiss) {
         //Add a swipe gesture recognizer to dismiss the view 
@@ -175,6 +202,7 @@
 }
 
 - (void)viewDidUnload {
+    saturatedFatLabel = nil;
     [super viewDidUnload];
     self->backgroundView = nil;
     self->carbDailyValueLabel = nil;

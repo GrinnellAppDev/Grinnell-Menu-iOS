@@ -24,10 +24,15 @@
 @property (copy) NSString *servingSize;         //Default: ""
 @property (nonatomic, assign) int calories;     //Default 0
 @property (nonatomic, assign) float fat;        //Default 0
+@property (nonatomic, assign) float satfat; //Default 0
+@property (nonatomic, assign) float transfat; //Default 0
+@property (nonatomic, assign) float cholesterol; //Default 0
+@property (nonatomic, assign) float sodium; //Default 0
 @property (nonatomic, assign) float carbs;      //Default 0
+@property (nonatomic, assign) float dietaryfiber; //Default 0
 @property (nonatomic, assign) float sugar;      //Default 0
 @property (nonatomic, assign) float protein;    //Default 0
-@property (nonatomic, assign) float cholesterol; //Default 0
+
 
 
 //Optional Customizations

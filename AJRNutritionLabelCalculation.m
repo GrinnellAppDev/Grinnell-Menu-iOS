@@ -16,19 +16,51 @@
 #import "AJRNutritionLabelCalculation.h"
 
 @implementation AJRNutritionLabelCalculation
+//These calculations are all based off a 2000 calorie diet. Perhaps, down the road, we could offer the ability to change the amount of diet for every Grinnellian? Will make it more personalized. We'll see.. The recommendations for a 2000 calorie diet values can be found at the bottom of most food labels. @DrJid
 
-//Returns a formatted string with the daily fat %
+//Returns a formatted string with the daily fat % -65g
 + (NSString *)calculateFatDailyValue:(float)fat {
     NSString *tmpString = [NSString stringWithFormat:@"%.1f", (fat / 65) * 100];
     tmpString = [tmpString stringByAppendingString:@"%"];
     return tmpString;
 }
 
-//Returns a formatted string with the daily carb %
-+ (NSString *)calculateCarbDailyValue:(float)carbs {
+//Returns a formatted string with the daily saturated fat % - 20g
++ (NSString *)calculateSaturatedFatDailyValue:(float)satfat {
+    NSString *tmpString = [NSString stringWithFormat:@"%.1f", (satfat / 20) * 100];
+    tmpString = [tmpString stringByAppendingString:@"%"];
+    return tmpString;
+}
+
+
+//Returns a formatted string with the daily cholesterol % - 300mg
++ (NSString *)calculateCholesterolDailyValue:(float)chol {
+    NSString *tmpString = [NSString stringWithFormat:@"%.1f", (chol / 300) * 100];
+    tmpString = [tmpString stringByAppendingString:@"%"];
+    return tmpString;
+}
+
+//Returns a formatted string with the daily sodium % - 2400mg
++ (NSString *)calculateSodiumDailyValue:(float)na {
+    NSString *tmpString = [NSString stringWithFormat:@"%.1f", (na / 2400) * 100];
+    tmpString = [tmpString stringByAppendingString:@"%"];
+    return tmpString;
+}
+
+//Returns a formatted string with the daily carb % - 300g
++ (NSString *)calculateTotalCarbDailyValue:(float)carbs {
     NSString *tmpString = [NSString stringWithFormat:@"%.1f", (carbs / 300) * 100];
     tmpString = [tmpString stringByAppendingString:@"%"];
     return tmpString;
 }
+
+//Returns a formatted string with the daily dietary fiber % - 25g
++ (NSString *)calculateDietaryFiberDailyValue:(float)tdfb {
+    NSString *tmpString = [NSString stringWithFormat:@"%.1f", (tdfb / 300) * 100];
+    tmpString = [tmpString stringByAppendingString:@"%"];
+    return tmpString;
+}
+
+
 
 @end

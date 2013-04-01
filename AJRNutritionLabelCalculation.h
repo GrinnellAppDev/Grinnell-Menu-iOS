@@ -19,6 +19,11 @@
 
 //Methods to calulate the various % daily values
 + (NSString *)calculateFatDailyValue:(float)fat;
-+ (NSString *)calculateCarbDailyValue:(float)carbs;
++ (NSString *)calculateSaturatedFatDailyValue:(float)satfat;
++ (NSString *)calculateCholesterolDailyValue:(float)chol;
++ (NSString *)calculateSodiumDailyValue:(float)na;
++ (NSString *)calculateTotalCarbDailyValue:(float)carbs;
++ (NSString *)calculateDietaryFiberDailyValue:(float)tdfb;
+
 
 @end

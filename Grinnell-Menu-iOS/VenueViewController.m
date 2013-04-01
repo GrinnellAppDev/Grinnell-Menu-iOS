@@ -1052,17 +1052,21 @@ dispatch_queue_t requestQueue;
         //Set the various data values for the view
        // controller.servingSize = @"12 fl oz. (1 Can)";
        // controller.calories = 100;      //Type: int
-        controller.fat = 5;             //Type: float
-        controller.carbs = 70;          //Type: float
       //  controller.sugar = 12;          //Type: float
       //  controller.protein = 3;         //Type: float
         
         controller.servingSize = [NSString stringWithFormat:@"%@", dish.servSize];
         
         controller.calories = [dish.nutrition[@"KCAL"] floatValue];
+        controller.fat = [dish.nutrition[@"FAT"] floatValue];
+        controller.satfat = [dish.nutrition[@"SFA"]floatValue];
+        controller.transfat = [dish.nutrition[@"FATRN"]floatValue];
         controller.cholesterol = [dish.nutrition[@"CHOL"] floatValue];
-        controller.protein = [dish.nutrition[@"PRO"] floatValue];
+        controller.sodium = [dish.nutrition[@"NA"]floatValue];
+        controller.carbs = [dish.nutrition[@"CHO"] floatValue];
+        controller.dietaryfiber = [dish.nutrition[@"TDFB"] floatValue];
         controller.sugar = [dish.nutrition[@"SUGR"] floatValue];
+        controller.protein = [dish.nutrition[@"PRO"] floatValue];
         
         
         //Present the View

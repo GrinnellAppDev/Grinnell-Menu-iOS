@@ -43,7 +43,7 @@
     [self drawLine:context withPoint:CGRectMake(20, 138, 0, 0) withLineWidth:1.0];    
 
     //Line 4
-    [self drawLine:context withPoint:CGRectMake(20, 159, 0, 0) withLineWidth:1.0];  
+    [self drawLine:context withPoint:CGRectMake(35, 159, 0, 0) withLineWidth:1.0];
     
     //Line 4
     [self drawLine:context withPoint:CGRectMake(35, 178, 0, 0) withLineWidth:1.0];
@@ -51,8 +51,13 @@
     //Line 4
     [self drawLine:context withPoint:CGRectMake(20, 197, 0, 0) withLineWidth:1.0];
     
+    [self drawLine:context withPoint:CGRectMake(20, 216, 0, 0) withLineWidth:1.0];
+    [self drawLine:context withPoint:CGRectMake(20, 235, 0, 0) withLineWidth:1.0];
+    [self drawLine:context withPoint:CGRectMake(35, 254, 0, 0) withLineWidth:1.0];
+    [self drawLine:context withPoint:CGRectMake(35, 273, 0, 0) withLineWidth:1.0];
+
     //Line 4
-    [self drawLine:context withPoint:CGRectMake(20, 216, 0, 0) withLineWidth:2.5];
+    [self drawLine:context withPoint:CGRectMake(20, 292, 0, 0) withLineWidth:2.5];
 
     
     //Release the created C objects

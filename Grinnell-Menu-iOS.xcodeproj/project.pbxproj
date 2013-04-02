@@ -35,6 +35,7 @@
 		1610B0CC15B5EFA2001A2D3A /* ingredients-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */; };
 		1610B0CD15B5EFA2001A2D3A /* ingredients-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1610B0CB15B5EFA2001A2D3A /* ingredients-list@2x.png */; };
 		1610C335170A3C200020293B /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1610C334170A3C200020293B /* Default-Landscape~ipad.png */; };
+		1610C338170B038D0020293B /* DiningHallHours.m in Sources */ = {isa = PBXBuildFile; fileRef = 1610C337170B038D0020293B /* DiningHallHours.m */; };
 		1615ABBB151A9BD6006947DF /* libCrittercism_v3_1_4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1615AB55151A9BD5006947DF /* libCrittercism_v3_1_4.a */; };
 		1615ABBC151A9BD6006947DF /* crittercism-arrow-l.png in Resources */ = {isa = PBXBuildFile; fileRef = 1615AB71151A9BD5006947DF /* crittercism-arrow-l.png */; };
 		1615ABBD151A9BD6006947DF /* crittercism-arrow-l@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1615AB72151A9BD5006947DF /* crittercism-arrow-l@2x.png */; };
@@ -205,6 +206,8 @@
 		1610B0CA15B5EFA2001A2D3A /* ingredients-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ingredients-list.png"; sourceTree = "<group>"; };
 		1610B0CB15B5EFA2001A2D3A /* ingredients-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ingredients-list@2x.png"; sourceTree = "<group>"; };
 		1610C334170A3C200020293B /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		1610C336170B038D0020293B /* DiningHallHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiningHallHours.h; sourceTree = "<group>"; };
+		1610C337170B038D0020293B /* DiningHallHours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiningHallHours.m; sourceTree = "<group>"; };
 		1615AB51151A9BD5006947DF /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		1615AB52151A9BD5006947DF /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
 		1615AB53151A9BD5006947DF /* CrittercismJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismJSONKit.h; sourceTree = "<group>"; };
@@ -650,6 +653,8 @@
 				E1A806F41478569600ABBDDA /* DishViewController.m */,
 				E1A806F51478569600ABBDDA /* DishViewController.xib */,
 				1698C43E164443D50003E586 /* DishCell.xib */,
+				1610C336170B038D0020293B /* DiningHallHours.h */,
+				1610C337170B038D0020293B /* DiningHallHours.m */,
 				168D080F152A2C6A005B690E /* FlurryAnalytics */,
 				1615AB50151A9BD5006947DF /* CrittercismSDK */,
 				E1A0C538145324470072BE76 /* Supporting Files */,
@@ -980,6 +985,7 @@
 				3BD235BD1614DAD700C2F901 /* PanelIndexPath.m in Sources */,
 				3BD235BE1614DAD700C2F901 /* PanelsViewController.m in Sources */,
 				3BD235BF1614DAD700C2F901 /* PanelView.m in Sources */,
+				1610C338170B038D0020293B /* DiningHallHours.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1084,7 +1090,7 @@
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",
@@ -1177,7 +1183,7 @@
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",
@@ -1202,7 +1208,7 @@
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",

@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSString *mealChoice;
 @property (nonatomic, strong) NSDictionary *jsonDict;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (nonatomic, weak) IBOutlet UILabel *grinnellDiningLabel;
 @property (nonatomic, weak) IBOutlet UILabel *menuchoiceLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *topImageView;

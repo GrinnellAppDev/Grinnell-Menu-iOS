@@ -17,6 +17,7 @@
 #import "PanelView.h"
 #import "SamplePanelView.h"
 #import "AJRNutritionViewController.h"
+#import "DiningHallHours.h"
 
 #define kFavoritesListFileName @"favorites.plist"
 
@@ -30,6 +31,7 @@
     Venue *faveVen;
     
     PanelView *thePanelView;
+    
 }
 
 @synthesize grinnellDiningLabel, dateLabel, menuchoiceLabel, topImageView, date, mealChoice, jsonDict, availDay, dishViewController, panelsArray, datePickerPopover, settingsPopover, datePickerViewController, bottomBar, settingsViewController, cellIdentifier;
@@ -369,6 +371,7 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewDidUnload {
+    [self setHoursLabel:nil];
     [super viewDidUnload];
     [self setGrinnellDiningLabel:nil];
     [self setDateLabel:nil];
@@ -377,8 +380,6 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
-        self.bottomBar.hidden = YES;
     
     [super viewWillAppear:YES];
     self.title = @"Stations";
@@ -392,6 +393,34 @@ dispatch_queue_t requestQueue;
     
     // NSLog(@"It reloaded all tables");
     [super reloadAllTables];
+    
+
+    
+    self.hoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 30, 0, 0)];
+    self.hoursLabel.backgroundColor = [UIColor clearColor];
+    self.hoursLabel.textColor = [UIColor whiteColor];
+    self.hoursLabel.font = [UIFont boldSystemFontOfSize:12];
+        self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@", [DiningHallHours hoursForMeal:self.mealChoice onDay:self.date]];
+    self.hoursLabel.textAlignment = UITextAlignmentCenter;
+    [self.hoursLabel sizeToFit];
+
+    
+    
+    UIBarButtonItem *hoursLabelItem = [[UIBarButtonItem alloc] initWithCustomView:self.hoursLabel];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
+        NSArray *toolbarItems = [NSArray arrayWithObjects: spaceItem, hoursLabelItem, spaceItem, nil];
+        [self.bottomBar setItems:toolbarItems animated:YES];
+    } else {
+
+        UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        [infoButton addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *infoBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+        NSArray *toolbarItems = [NSArray arrayWithObjects: spaceItem, hoursLabelItem, spaceItem, infoBarButtonItem,  nil];
+        [self.bottomBar setItems:toolbarItems animated:YES];
+    }
 }
 
 #pragma mark - Added methods
@@ -599,6 +628,7 @@ dispatch_queue_t requestQueue;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    NSLog(@"rotated");
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -1458,10 +1488,13 @@ dispatch_queue_t requestQueue;
 
 - (void) refreshScreen
 {
+    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@", [DiningHallHours hoursForMeal:self.mealChoice onDay:self.date]];
+    [self.hoursLabel sizeToFit];
     // NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [super reloadAllTables];
     menuchoiceLabel.text = self.mealChoice;
     // [anotherTableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+   
 }
 
 #pragma mark - scroll view delegate

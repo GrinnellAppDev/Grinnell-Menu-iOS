@@ -18,6 +18,8 @@
 #import "SamplePanelView.h"
 #import "AJRNutritionViewController.h"
 #import "DiningHallHours.h"
+#import "KGStatusBar.h"
+
 
 #define kFavoritesListFileName @"favorites.plist"
 
@@ -31,6 +33,7 @@
     Venue *faveVen;
     
     PanelView *thePanelView;
+    NSTimer *tipsTimer;
     
 }
 
@@ -339,6 +342,24 @@ dispatch_queue_t requestQueue;
         dateLabel.alpha = 1;
         menuchoiceLabel.alpha = 1;
         grinnellDiningLabel.alpha = 1;
+        
+        //Save these defaults to help displaying tips only on first launch.
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
+        {
+            // app already launched
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            // This is the first launch ever
+            tipsTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self
+                                                       selector:@selector(showTip)
+                                                       userInfo:nil repeats:YES];
+        }
+        
+
+
     }];
     
     self.cellIdentifier = @"DishCell";
@@ -421,6 +442,24 @@ dispatch_queue_t requestQueue;
         NSArray *toolbarItems = [NSArray arrayWithObjects: spaceItem, hoursLabelItem, spaceItem, infoBarButtonItem,  nil];
         [self.bottomBar setItems:toolbarItems animated:YES];
     }
+}
+
+int tipNum = 0;
+- (void)showTip {
+    NSArray *toCycle = @[@"Hint: Swipe \u2190 or \u2192 on screen switch Meals!",
+                         @"\u269C Hours displayed are during regular times",
+                         @"\u2605 Your starred meals appear above all stations",
+                         @"We hope you enjoy using G-licious!",
+                         @"Shoot us an email if you have suggestions!",
+                         @"And don't forget to rate!",
+                         ];
+    if (tipNum >= toCycle.count) {
+        tipNum = 0;
+        [tipsTimer invalidate];
+    }
+    
+    [KGStatusBar showTip:toCycle[tipNum]];
+    tipNum++;
 }
 
 #pragma mark - Added methods
@@ -1475,9 +1514,7 @@ dispatch_queue_t requestQueue;
 	[HUD hide:YES afterDelay:0.5];
 }
 
-- (void)showTipHUD {
-    
-}
+
 
 - (void)pushNextPage{
     [super pushNextPage];

@@ -125,6 +125,9 @@
 		16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A83B35154678540097FCF2 /* MessageUI.framework */; };
 		16BF1DF515CE214E00C4D9CA /* changeMeal.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF415CE214E00C4D9CA /* changeMeal.png */; };
 		16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */; };
+		16C41FE0170B707200D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
+		16C41FE4170B719A00D60FFD /* KGStatusBar.h in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDE170B707200D60FFD /* KGStatusBar.h */; };
+		16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
 		16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF360815C7058700C9DC09 /* red_textured_background.png */; };
 		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
 		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
@@ -327,6 +330,8 @@
 		16A83B35154678540097FCF2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		16BF1DF415CE214E00C4D9CA /* changeMeal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changeMeal.png; sourceTree = "<group>"; };
 		16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
+		16C41FDE170B707200D60FFD /* KGStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGStatusBar.h; sourceTree = "<group>"; };
+		16C41FDF170B707200D60FFD /* KGStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGStatusBar.m; sourceTree = "<group>"; };
 		16FF360815C7058700C9DC09 /* red_textured_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_textured_background.png; sourceTree = "<group>"; };
 		16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day-of-Week.png"; sourceTree = "<group>"; };
 		16FF362215C72BC500C9DC09 /* Calendar-Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day.png"; sourceTree = "<group>"; };
@@ -564,6 +569,15 @@
 			path = FlurryAnalytics;
 			sourceTree = "<group>";
 		};
+		16C41FE1170B707700D60FFD /* KGStatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				16C41FDE170B707200D60FFD /* KGStatusBar.h */,
+				16C41FDF170B707200D60FFD /* KGStatusBar.m */,
+			);
+			name = KGStatusBar;
+			sourceTree = "<group>";
+		};
 		16FF361415C7087600C9DC09 /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +615,7 @@
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
+				16C41FE1170B707700D60FFD /* KGStatusBar */,
 				160644C516E5427400DD874A /* Nutrition View Files */,
 				E1AE39CF148730620078DC40 /* Assets */,
 				16FF361615C708BB00C9DC09 /* AppDelegate */,
@@ -960,6 +975,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C41FE4170B719A00D60FFD /* KGStatusBar.h in Sources */,
+				16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */,
 				160644D816E5432000DD874A /* AJRNutritionViewController.h in Sources */,
 				160644D916E5432000DD874A /* AJRNutritionViewController.m in Sources */,
 				160644DA16E5432000DD874A /* AJRNutritionViewController.xib in Sources */,
@@ -1001,6 +1018,7 @@
 				160644D316E5428800DD874A /* AJRNutritionLabelCalculation.m in Sources */,
 				160644D416E5428800DD874A /* AJRNutritionLabelView.m in Sources */,
 				160644D516E5428800DD874A /* AJRBackgroundDimmer.m in Sources */,
+				16C41FE0170B707200D60FFD /* KGStatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

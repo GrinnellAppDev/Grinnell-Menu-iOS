@@ -94,8 +94,10 @@ dispatch_queue_t requestQueue;
     for (NSString *mealName in mainMenu) {
         
         //When the mealName is passover, we get an error because it is expecting an NSDictionary and PASSOVER returns a string ( true or false). So we just skip over passover.
-        if ([mealName isEqualToString:@"PASSOVER"])
+        if ([mealName isEqualToString:@"PASSOVER"]) {
+            mainDelegate.passover = true;
             continue;
+        }
         
         NSDictionary *mealDict = [mainMenu objectForKey:mealName];
         //NSLog(@"mealName is %@", mealName);
@@ -152,7 +154,7 @@ dispatch_queue_t requestQueue;
                 }
                 
                 //then finally we add this new dish to it's venue
-                NSLog(@"Added dish %@ to venue %@ in meal %@", dish, gVenue, mealName);
+               // NSLog(@"Added dish %@ to venue %@ in meal %@", dish, gVenue, mealName);
                 [gVenue.dishes addObject:dish];
             }
         }
@@ -260,7 +262,7 @@ dispatch_queue_t requestQueue;
     if ([jsonDict objectForKey:@"OUTTAKES"]) {
         [mealmessage addButtonWithTitle:@"Outtakes"];
     }
-
+    
     [mealmessage show];
 }
 
@@ -281,12 +283,12 @@ dispatch_queue_t requestQueue;
     
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-[self.navigationController.view addSubview:HUD]; 
+    [self.navigationController.view addSubview:HUD];
 	
 	HUD.delegate = self;
     
     HUD.labelText = @"Grabbing Menu";
-[HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES]; 
+    [HUD showWhileExecuting:@selector(loadNextMenu) onTarget:self withObject:nil animated:YES];
     
     
     //I'm using UIButtons beneath the barButton so that we get the barButton be greyed out upon tapping. And more control on the size of the images. Current BarButtonItem doens't implement this...
@@ -302,7 +304,7 @@ dispatch_queue_t requestQueue;
         UIButton *info = [UIButton buttonWithType:UIButtonTypeInfoLight];
         [info addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *infoButton =[[UIBarButtonItem alloc]  initWithCustomView:info];
-[self.navigationItem setRightBarButtonItem:infoButton]; 
+        [self.navigationItem setRightBarButtonItem:infoButton];
         
     }
     // The Calendar-Week icon is released under the Creative Commons Attribution 2.5 Canada license. You can find out more about this license by visiting http://creativecommons.org/licenses/by/2.5/ca/. from www.pixelpressicons.com.
@@ -310,7 +312,7 @@ dispatch_queue_t requestQueue;
     [cdb setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
     [cdb addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
-self.navigationItem.leftBarButtonItem = changeDateButton;
+    self.navigationItem.leftBarButtonItem = changeDateButton;
     
     originalMenu = [[NSMutableArray alloc] init];
     mainDelegate.allMenus = [[NSMutableArray alloc] init];
@@ -349,9 +351,9 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
     }
     
     //print out favorites id array content for checking
-//    for (NSNumber *num in favoritesIDArray) {
-//        NSLog(@"%@",num );
-//    }
+    //    for (NSNumber *num in favoritesIDArray) {
+    //        NSLog(@"%@",num );
+    //    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -379,7 +381,7 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
         self.bottomBar.hidden = YES;
     
     [super viewWillAppear:YES];
- self.title = @"Stations"; 
+    self.title = @"Stations";
     [self getDishes];
     menuchoiceLabel.text = self.mealChoice;
     
@@ -662,14 +664,14 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
  */
 - (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber {
     if (jsonDict){
-//        NSLog(@"jsondict: %@", jsonDict);
-        NSLog(@"PageNumber: %d", pageNumber);
-        NSLog(@"mainDelegateAllMenus count: %d", mainDelegate.allMenus.count);
+        //        NSLog(@"jsondict: %@", jsonDict);
+     //   NSLog(@"PageNumber: %d", pageNumber);
+     //   NSLog(@"mainDelegateAllMenus count: %d", mainDelegate.allMenus.count);
         
         
-        NSLog(@"HERE! %@", mainDelegate.allMenus);
-
-
+     //   NSLog(@"HERE! %@", mainDelegate.allMenus);
+        
+        
         
         if ([[mainDelegate.allMenus objectAtIndex:pageNumber] isKindOfClass:[NSMutableArray class]])
             return [[mainDelegate.allMenus objectAtIndex:pageNumber] count];
@@ -747,10 +749,10 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
     [cell setBackgroundColor:[UIColor underPageBackgroundColor]];
     
     
-//    UIView *bgColorView = [[UIView alloc] init];
-//    //[bgColorView setBackgroundColor:[UIColor colorWithRed:142.0f/255.0f green:42.0f/255.0f blue:29.0f/255.0f alpha:1.0f]];
-//    [bgColorView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"red_textured_background.png"]]];
-//    [cell setSelectedBackgroundView:bgColorView];
+    //    UIView *bgColorView = [[UIView alloc] init];
+    //    //[bgColorView setBackgroundColor:[UIColor colorWithRed:142.0f/255.0f green:42.0f/255.0f blue:29.0f/255.0f alpha:1.0f]];
+    //    [bgColorView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"red_textured_background.png"]]];
+    //    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }
@@ -807,7 +809,7 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
             //
             //
             
-            //We check to see if there is currently a venue named favorites on top of the screen. 
+            //We check to see if there is currently a venue named favorites on top of the screen.
             Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:0];
             
             [self getDishes];
@@ -890,8 +892,8 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
             }
             //                                 [super scrollToPosition];
             //  }];
-//            NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexPath._row inSection:indexPath._section];
-//            [thePanelView.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indPath] withRowAnimation:UITableViewRowAnimationFade];
+            //            NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexPath._row inSection:indexPath._section];
+            //            [thePanelView.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indPath] withRowAnimation:UITableViewRowAnimationFade];
         }
         [favoritesIDArray writeToFile:[self dataFilePath] atomically:YES];
         
@@ -906,28 +908,28 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
     //
     //        CGPoint tappedPoint = [tapRecognizer locationInView:self.view];
     //        NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
-    //        
+    //
     
     
 }
 
-//        
-//        
+//
+//
 //        [UIView animateWithDuration:0.6 animations:^{
 //
-//            
+//
 //            [self.view addSubview:copy];
 //            copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
 //            //       CGRect frame = sender.bounds;
 //            //     frame.origin.y += 20;
-//            
+//
 //            //      copy.bounds = frame;
-//            
+//
 //            //            [sender setCenter:CGPointMake(240, 0)];
-//            
+//
 //            [copy setCenter:CGPointMake(240, 0)];
 //            // NSLog(@"X: %f , Y: %f   ", sender.frame.origin.x, sender.frame.origin.y );
-//            
+//
 //        } completion:^(BOOL finished) {
 //            [copy removeFromSuperview];
 //            [self getDishes];
@@ -940,7 +942,7 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
 //    NSLog(@"Not being called");
 //    CGPoint location = [recognizer locationInView:self.view];
 //    NSLog(@"x %f y %f",location.x, location.y);
-//    
+//
 //}
 
 //-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -1016,43 +1018,43 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
     Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
     
     /*
-    
-    if (dish.hasNutrition)  {
-        
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            // [tableView deselectRowAtIndexPath:indexPath animated:NO];
-            DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
-            dishView.selectedDish = [[Dish alloc] init];
-            dishView.selectedDish = dish;
-            [self.navigationController pushViewController:dishView animated:YES];
-        }
-        else{
-            mainDelegate.iPadselectedDish = [[Dish alloc] init];
-            mainDelegate.iPadselectedDish = dish;
-            NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
-            [[NSNotificationCenter defaultCenter] postNotification:notif];
-        }
-    }
+     
+     if (dish.hasNutrition)  {
+     
+     
+     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+     {
+     // [tableView deselectRowAtIndexPath:indexPath animated:NO];
+     DishViewController *dishView = [[DishViewController alloc] initWithNibName:@"DishViewController" bundle:nil];
+     dishView.selectedDish = [[Dish alloc] init];
+     dishView.selectedDish = dish;
+     [self.navigationController pushViewController:dishView animated:YES];
+     }
+     else{
+     mainDelegate.iPadselectedDish = [[Dish alloc] init];
+     mainDelegate.iPadselectedDish = dish;
+     NSNotification *notif = [NSNotification notificationWithName:@"reloadRequest" object:self];
+     [[NSNotificationCenter defaultCenter] postNotification:notif];
+     }
+     }
      */
     
     if (dish.hasNutrition) {
         
         //Set Screen details for particular dish.
         //These changes undo in AJRNutritionViewController.m "close" method when the nutrition view is dismissed.
-
- 
+        
+        
         
         
         //Initalize the nutrition view
         AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
         
         //Set the various data values for the view
-       // controller.servingSize = @"12 fl oz. (1 Can)";
-       // controller.calories = 100;      //Type: int
-      //  controller.sugar = 12;          //Type: float
-      //  controller.protein = 3;         //Type: float
+        // controller.servingSize = @"12 fl oz. (1 Can)";
+        // controller.calories = 100;      //Type: int
+        //  controller.sugar = 12;          //Type: float
+        //  controller.protein = 3;         //Type: float
         
         controller.servingSize = [NSString stringWithFormat:@"%@", dish.servSize];
         
@@ -1096,9 +1098,9 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
          *to dismiss the popup
          *controller.allowSwipeToDismiss = YES;              //Default: YES
          */
-
+        
     }
-
+    
 }
 
 
@@ -1226,7 +1228,7 @@ self.navigationItem.leftBarButtonItem = changeDateButton;
         
         //testing
         //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/1-21-2013.json"];
-
+        
         
         //Setting up the fading animation of the labels
         dateLabel.alpha = 0;

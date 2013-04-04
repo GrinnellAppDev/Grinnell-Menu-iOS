@@ -112,6 +112,13 @@
 		163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
 		163C861315C0AA9F00FC8578 /* datePicker_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C861215C0AA9F00FC8578 /* datePicker_background.png */; };
 		163CF0F91544A90300B0397C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 163CF0F81544A90300B0397C /* iTunesArtwork */; };
+		167A6B79170DFF2E0028D6B0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 167A6B59170DFF2E0028D6B0 /* .gitignore */; };
+		167A6B7A170DFF2E0028D6B0 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = 167A6B5B170DFF2E0028D6B0 /* Appirater.m */; };
+		167A6B7B170DFF2E0028D6B0 /* Appirater.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 167A6B5C170DFF2E0028D6B0 /* Appirater.podspec */; };
+		167A6B7C170DFF2E0028D6B0 /* AppiraterLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 167A6B5E170DFF2E0028D6B0 /* AppiraterLocalizable.strings */; };
+		167A6B7D170DFF2E0028D6B0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 167A6B71170DFF2E0028D6B0 /* README.md */; };
+		167A6B7F170DFF660028D6B0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 167A6B7E170DFF660028D6B0 /* CFNetwork.framework */; };
+		167A6B81170DFFBC0028D6B0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 167A6B80170DFFBC0028D6B0 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1682E988153F818E0065F9FA /* glicious5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E987153F818E0065F9FA /* glicious5.png */; };
 		1682E9981540CBDE0065F9FA /* glicious-banner-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9911540CBDE0065F9FA /* glicious-banner-3.png */; };
 		1682E9991540CBDE0065F9FA /* glicious-banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1682E9921540CBDE0065F9FA /* glicious-banner1.png */; };
@@ -139,7 +146,7 @@
 		16FF368315C83F6900C9DC09 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */; };
 		16FF368415C83F6900C9DC09 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */; };
 		314CC43414EA0A410004F963 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 314CC43314EA0A410004F963 /* Reachability.m */; };
-		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; };
+		314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		3B0DE2BC1629D4A2004797DD /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B0DE2BA1629D4A2004797DD /* MainWindow-iPad.xib */; };
 		3B7F6E8B16176F79004D43FC /* SamplePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8A16176F79004D43FC /* SamplePanelView.m */; };
 		3B7F6E8E16177A60004D43FC /* SamplePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F6E8A16176F79004D43FC /* SamplePanelView.m */; };
@@ -316,6 +323,39 @@
 		163C85A615BDCBA300FC8578 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBadgedCell.m; path = "Grinnell-Menu-iOS/TDBadgedCell.m"; sourceTree = "<group>"; };
 		163C861215C0AA9F00FC8578 /* datePicker_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = datePicker_background.png; sourceTree = "<group>"; };
 		163CF0F81544A90300B0397C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		167A6B59170DFF2E0028D6B0 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		167A6B5A170DFF2E0028D6B0 /* Appirater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appirater.h; sourceTree = "<group>"; };
+		167A6B5B170DFF2E0028D6B0 /* Appirater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appirater.m; sourceTree = "<group>"; };
+		167A6B5C170DFF2E0028D6B0 /* Appirater.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Appirater.podspec; sourceTree = "<group>"; };
+		167A6B5D170DFF2E0028D6B0 /* AppiraterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppiraterDelegate.h; sourceTree = "<group>"; };
+		167A6B5F170DFF2E0028D6B0 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B60170DFF2E0028D6B0 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B61170DFF2E0028D6B0 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B62170DFF2E0028D6B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B63170DFF2E0028D6B0 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B64170DFF2E0028D6B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B65170DFF2E0028D6B0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B66170DFF2E0028D6B0 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B67170DFF2E0028D6B0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B68170DFF2E0028D6B0 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B69170DFF2E0028D6B0 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B6A170DFF2E0028D6B0 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B6B170DFF2E0028D6B0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B6C170DFF2E0028D6B0 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B6D170DFF2E0028D6B0 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B6E170DFF2E0028D6B0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B6F170DFF2E0028D6B0 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B70170DFF2E0028D6B0 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B71170DFF2E0028D6B0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		167A6B72170DFF2E0028D6B0 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B73170DFF2E0028D6B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B74170DFF2E0028D6B0 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B75170DFF2E0028D6B0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B76170DFF2E0028D6B0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/AppiraterLocalizable.strings; sourceTree = "<group>"; };
+		167A6B77170DFF2E0028D6B0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AppiraterLocalizable.strings"; sourceTree = "<group>"; };
+		167A6B78170DFF2E0028D6B0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/AppiraterLocalizable.strings"; sourceTree = "<group>"; };
+		167A6B7E170DFF660028D6B0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		167A6B80170DFFBC0028D6B0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1682E987153F818E0065F9FA /* glicious5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glicious5.png; sourceTree = "<group>"; };
 		1682E9911540CBDE0065F9FA /* glicious-banner-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner-3.png"; sourceTree = "<group>"; };
 		1682E9921540CBDE0065F9FA /* glicious-banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner1.png"; sourceTree = "<group>"; };
@@ -398,6 +438,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				167A6B81170DFFBC0028D6B0 /* StoreKit.framework in Frameworks */,
+				167A6B7F170DFF660028D6B0 /* CFNetwork.framework in Frameworks */,
 				16A83B36154678550097FCF2 /* MessageUI.framework in Frameworks */,
 				1615AC07151A9C03006947DF /* QuartzCore.framework in Frameworks */,
 				314CC43614EA0B4A0004F963 /* SystemConfiguration.framework in Frameworks */,
@@ -560,6 +602,21 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		167A6B58170DFF2E0028D6B0 /* Appirater */ = {
+			isa = PBXGroup;
+			children = (
+				167A6B59170DFF2E0028D6B0 /* .gitignore */,
+				167A6B5A170DFF2E0028D6B0 /* Appirater.h */,
+				167A6B5B170DFF2E0028D6B0 /* Appirater.m */,
+				167A6B5C170DFF2E0028D6B0 /* Appirater.podspec */,
+				167A6B5D170DFF2E0028D6B0 /* AppiraterDelegate.h */,
+				167A6B5E170DFF2E0028D6B0 /* AppiraterLocalizable.strings */,
+				167A6B71170DFF2E0028D6B0 /* README.md */,
+			);
+			name = Appirater;
+			path = "appirater-master";
+			sourceTree = "<group>";
+		};
 		168D080F152A2C6A005B690E /* FlurryAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -615,6 +672,8 @@
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
+				167A6B80170DFFBC0028D6B0 /* StoreKit.framework */,
+				167A6B58170DFF2E0028D6B0 /* Appirater */,
 				16C41FE1170B707700D60FFD /* KGStatusBar */,
 				160644C516E5427400DD874A /* Nutrition View Files */,
 				E1AE39CF148730620078DC40 /* Assets */,
@@ -639,6 +698,7 @@
 		E1A0C52E145324460072BE76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				167A6B7E170DFF660028D6B0 /* CFNetwork.framework */,
 				16A83B35154678540097FCF2 /* MessageUI.framework */,
 				1615AC06151A9C03006947DF /* QuartzCore.framework */,
 				314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */,
@@ -807,6 +867,30 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				es,
+				fi,
+				fr,
+				he,
+				hu,
+				it,
+				ja,
+				ko,
+				nb,
+				nl,
+				pl,
+				pt,
+				ro,
+				ru,
+				sk,
+				sv,
+				tr,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = E1A0C520145324450072BE76;
 			productRefGroup = E1A0C52C145324460072BE76 /* Products */;
@@ -937,6 +1021,10 @@
 				3BD9513B16430FF80056AA11 /* unstarred.png in Resources */,
 				1698C43F164443D50003E586 /* DishCell.xib in Resources */,
 				1610C335170A3C200020293B /* Default-Landscape~ipad.png in Resources */,
+				167A6B79170DFF2E0028D6B0 /* .gitignore in Resources */,
+				167A6B7B170DFF2E0028D6B0 /* Appirater.podspec in Resources */,
+				167A6B7C170DFF2E0028D6B0 /* AppiraterLocalizable.strings in Resources */,
+				167A6B7D170DFF2E0028D6B0 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,6 +1091,7 @@
 				3BD235BE1614DAD700C2F901 /* PanelsViewController.m in Sources */,
 				3BD235BF1614DAD700C2F901 /* PanelView.m in Sources */,
 				1610C338170B038D0020293B /* DiningHallHours.m in Sources */,
+				167A6B7A170DFF2E0028D6B0 /* Appirater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,6 +1122,38 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		167A6B5E170DFF2E0028D6B0 /* AppiraterLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				167A6B5F170DFF2E0028D6B0 /* ca */,
+				167A6B60170DFF2E0028D6B0 /* cs */,
+				167A6B61170DFF2E0028D6B0 /* da */,
+				167A6B62170DFF2E0028D6B0 /* de */,
+				167A6B63170DFF2E0028D6B0 /* el */,
+				167A6B64170DFF2E0028D6B0 /* en */,
+				167A6B65170DFF2E0028D6B0 /* es */,
+				167A6B66170DFF2E0028D6B0 /* fi */,
+				167A6B67170DFF2E0028D6B0 /* fr */,
+				167A6B68170DFF2E0028D6B0 /* he */,
+				167A6B69170DFF2E0028D6B0 /* hu */,
+				167A6B6A170DFF2E0028D6B0 /* it */,
+				167A6B6B170DFF2E0028D6B0 /* ja */,
+				167A6B6C170DFF2E0028D6B0 /* ko */,
+				167A6B6D170DFF2E0028D6B0 /* nb */,
+				167A6B6E170DFF2E0028D6B0 /* nl */,
+				167A6B6F170DFF2E0028D6B0 /* pl */,
+				167A6B70170DFF2E0028D6B0 /* pt */,
+				167A6B72170DFF2E0028D6B0 /* ro */,
+				167A6B73170DFF2E0028D6B0 /* ru */,
+				167A6B74170DFF2E0028D6B0 /* sk */,
+				167A6B75170DFF2E0028D6B0 /* sv */,
+				167A6B76170DFF2E0028D6B0 /* tr */,
+				167A6B77170DFF2E0028D6B0 /* zh-Hans */,
+				167A6B78170DFF2E0028D6B0 /* zh-Hant */,
+			);
+			name = AppiraterLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		3B0DE2BA1629D4A2004797DD /* MainWindow-iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1084,15 +1205,15 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Maijid Moujaled";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
+				PROVISIONING_PROFILE = "F5AF75AC-ACC2-4E3E-AB8E-31F4519091D7";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -1162,7 +1283,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1181,7 +1302,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "69C40969-7937-4711-A46A-674145C5BA3F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A096F1DA-D581-42CA-9E0D-9BCA6256F787";

@@ -12,6 +12,7 @@
 #import "DishViewController.h"
 #import "Crittercism.h"
 #import "FlurryAnalytics.h"
+#include "Appirater.h"
 
 @implementation Grinnell_Menu_iOSAppDelegate{
     NSString *alert;
@@ -67,6 +68,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+    /***** Appirater Setup - For reminding to rate! ******/
+    [Appirater setAppId:@"523738999"];
+    [Appirater setDaysUntilPrompt:1];
+    [Appirater setUsesUntilPrompt:9];
+    [Appirater setSignificantEventsUntilPrompt:-1];
+    [Appirater setTimeBeforeReminding:2];
+    [Appirater setDebug:NO];
 
     
     
@@ -112,6 +120,8 @@
     //                        andKey:@"gznvtmrwkvkp7rupb69jn3ux1d8o"
     //                     andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
     
+    
+    [Appirater appLaunched:YES];
     return YES;
 }
 
@@ -140,9 +150,11 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    
 	/*
 	 Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	 */
+    [Appirater appEnteredForeground:YES];
     [self.venueViewController loadNextMenu];
 }
 

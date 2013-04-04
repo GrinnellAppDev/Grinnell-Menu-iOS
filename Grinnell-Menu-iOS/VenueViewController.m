@@ -98,13 +98,18 @@ dispatch_queue_t requestQueue;
     //for each mealName, i.e each of Breakfast, Lunch, Dinner, Outtakes...
     for (NSString *mealName in mainMenu) {
         
+
+        
+        NSDictionary *mealDict = [mainMenu objectForKey:mealName];
+        
         //When the mealName is passover, we get an error because it is expecting an NSDictionary and PASSOVER returns a string ( true or false). So we just skip over passover.
         if ([mealName isEqualToString:@"PASSOVER"]) {
-            mainDelegate.passover = true;
+            if ([(NSString *)mealDict isEqualToString:@"true"]) {
+                mainDelegate.passover = true;
+            }
             continue;
         }
         
-        NSDictionary *mealDict = [mainMenu objectForKey:mealName];
         //NSLog(@"mealName is %@", mealName);
         //NSLog(@"mealDict: %@", mealDict);
         [mealNames addObject:mealName];
@@ -450,8 +455,6 @@ int tipNum = 0;
                          @"\u269C Hours displayed are during regular times",
                          @"\u2605 Your starred meals appear above all stations",
                          @"We hope you enjoy using G-licious!",
-                         @"Shoot us an email if you have suggestions!",
-                         @"And don't forget to rate!",
                          ];
     if (tipNum >= toCycle.count) {
         tipNum = 0;

@@ -519,7 +519,8 @@
 				1615AB6E151A9BD5006947DF /* PLCrashSysctl.h */,
 				1615AB6F151A9BD5006947DF /* Resources */,
 			);
-			path = CrittercismSDK;
+			name = CrittercismSDK;
+			path = "Grinnell-Menu-iOS/CrittercismSDK";
 			sourceTree = "<group>";
 		};
 		1615AB6F151A9BD5006947DF /* Resources */ = {
@@ -623,7 +624,8 @@
 				168D0810152A2C6A005B690E /* FlurryAnalytics.h */,
 				168D0811152A2C6A005B690E /* libFlurryAnalytics.a */,
 			);
-			path = FlurryAnalytics;
+			name = FlurryAnalytics;
+			path = "Grinnell-Menu-iOS/FlurryAnalytics";
 			sourceTree = "<group>";
 		};
 		16C41FE1170B707700D60FFD /* KGStatusBar */ = {
@@ -638,6 +640,11 @@
 		16FF361415C7087600C9DC09 /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1615AB50151A9BD5006947DF /* CrittercismSDK */,
+				168D080F152A2C6A005B690E /* FlurryAnalytics */,
+				167A6B58170DFF2E0028D6B0 /* Appirater */,
+				16C41FE1170B707700D60FFD /* KGStatusBar */,
+				160644C516E5427400DD874A /* Nutrition View Files */,
 				3BD235B71614DAD700C2F901 /* PanelIndexPath.h */,
 				3BD235B81614DAD700C2F901 /* PanelIndexPath.m */,
 				3BD235B91614DAD700C2F901 /* PanelsViewController.h */,
@@ -672,10 +679,6 @@
 		E1A0C520145324450072BE76 = {
 			isa = PBXGroup;
 			children = (
-				167A6B80170DFFBC0028D6B0 /* StoreKit.framework */,
-				167A6B58170DFF2E0028D6B0 /* Appirater */,
-				16C41FE1170B707700D60FFD /* KGStatusBar */,
-				160644C516E5427400DD874A /* Nutrition View Files */,
 				E1AE39CF148730620078DC40 /* Assets */,
 				16FF361615C708BB00C9DC09 /* AppDelegate */,
 				16FF361415C7087600C9DC09 /* Helper Classes */,
@@ -698,6 +701,7 @@
 		E1A0C52E145324460072BE76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				167A6B80170DFFBC0028D6B0 /* StoreKit.framework */,
 				167A6B7E170DFF660028D6B0 /* CFNetwork.framework */,
 				16A83B35154678540097FCF2 /* MessageUI.framework */,
 				1615AC06151A9C03006947DF /* QuartzCore.framework */,
@@ -730,8 +734,6 @@
 				1698C43E164443D50003E586 /* DishCell.xib */,
 				1610C336170B038D0020293B /* DiningHallHours.h */,
 				1610C337170B038D0020293B /* DiningHallHours.m */,
-				168D080F152A2C6A005B690E /* FlurryAnalytics */,
-				1615AB50151A9BD5006947DF /* CrittercismSDK */,
 				E1A0C538145324470072BE76 /* Supporting Files */,
 			);
 			path = "Grinnell-Menu-iOS";

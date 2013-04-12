@@ -3,7 +3,9 @@
 G-licious iOS
 ==============
 
-Authors:  * Maijid Moujaled * Colin Tremblay
+Authors:  * Maijid Moujaled 
+          * Colin Tremblay
+          * David Cowden
           * Dugan Knoll
           * Aaltan Ahmad 
 

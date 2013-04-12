@@ -3,10 +3,9 @@
 G-licious iOS
 ==============
 
-Authors:  Maijid Moujaled
-          Colin Tremblay
-          Dugan Knoll
-          Aaltan Ahmad 
+Authors:  * Maijid Moujaled * Colin Tremblay
+          * Dugan Knoll
+          * Aaltan Ahmad 
 
 Date:    Friday, 12th April, 2013
 

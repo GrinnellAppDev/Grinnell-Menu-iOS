@@ -47,7 +47,7 @@
 //
 //
 //    //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry.
-////    [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
+ //   [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
 //
 //
 //}
@@ -70,10 +70,10 @@
 
     /***** Appirater Setup - For reminding to rate! ******/
     [Appirater setAppId:@"523738999"];
-    [Appirater setDaysUntilPrompt:1];
-    [Appirater setUsesUntilPrompt:9];
+    [Appirater setDaysUntilPrompt:3];
+    [Appirater setUsesUntilPrompt:10];
     [Appirater setSignificantEventsUntilPrompt:-1];
-    [Appirater setTimeBeforeReminding:2];
+    [Appirater setTimeBeforeReminding:3];
     [Appirater setDebug:NO];
 
     
@@ -111,17 +111,22 @@
     
     [window makeKeyAndVisible];
     
+    //    //Development Analytics Testing. (maybe we might just disable this in the future, since we don't need analytics from development.
+    //   [FlurryAnalytics startSession:@"CGUQXVSN77GEBKAK2ZWL"];
+    
     //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry.
-    //A flurry account is free. Want to see app statistics? Email me to add you to the Grinnell Appdev team on Flurry. @DrJid
-   // [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
+    //A flurry account is free. http://www.flurry.com Want to see app statistics? Email me to add you to the Grinnell Appdev team on Flurry. @DrJid
+    [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
     
     //Allows us to send push notification to users who experience a crash - If we want to...
-    //    [Crittercism initWithAppID: @"4f67e3f4b0931560c200000c"
-    //                        andKey:@"gznvtmrwkvkp7rupb69jn3ux1d8o"
-    //                     andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
+        [Crittercism initWithAppID: @"4f67e3f4b0931560c200000c"
+                            andKey:@"gznvtmrwkvkp7rupb69jn3ux1d8o"
+                         andSecret:@"hnopgnw4fotzwi0smv37dshgzkjpbmuy"];
     
     
     [Appirater appLaunched:YES];
+    
+       
     return YES;
 }
 

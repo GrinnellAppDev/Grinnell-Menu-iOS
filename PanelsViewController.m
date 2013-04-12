@@ -436,7 +436,7 @@
 
 //TEST. DrJid
 - (void)scrollPositionUpwards:(BOOL)withCountOne {
-    NSLog(@"SCrolltopositioncalled");
+   // NSLog(@"SCrolltopositioncalled");
     for (PanelView *p in self.visiblePages) {
 
         CGPoint tableViewPositionTapped = [p.tableView contentOffset];
@@ -456,7 +456,7 @@
 
 
 - (void)scrollPositionDownwards:(BOOL)FavoritesVenuePresent {
-    NSLog(@"SCrolltopositioncalled");
+   // NSLog(@"SCrolltopositioncalled");
     for (PanelView *p in self.visiblePages) {
         
         CGPoint tableViewPositionTapped = [p.tableView contentOffset];

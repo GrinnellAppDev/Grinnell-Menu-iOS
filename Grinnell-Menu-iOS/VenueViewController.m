@@ -888,7 +888,7 @@ int tipNum = 0;
             [self refreshScreen];
             
             
-            NSLog(@"Dish favorited");
+           // NSLog(@"Dish favorited");
             //It scrolls down when dish favorited. So we want to scroll it up.
             //                                 [super scrollToPosition];
             //                                 NSLog(@"fav dishes: %d", faveVen.dishes.count);
@@ -950,14 +950,14 @@ int tipNum = 0;
             
             
             //After refreshing we scroll down or up??Should we do that here? hmmm..
-            NSLog(@"Dish unfavorited");
+           // NSLog(@"Dish unfavorited");
             //It scrolls up when unfavoriting, so we want to scroll it down.
             //Get the index path of the tapped cell
             
             //                                 [super scrollPositionUpwards];
             //If the favorites venue is has just one element we need to jump bigger. Else jump smaller.
             if (venue.dishes.count == 1) {
-                NSLog(@"Count was 1");
+               // NSLog(@"Count was 1");
                 [super scrollPositionUpwards:YES];
             } else {
                 [super scrollPositionUpwards:NO];

@@ -1229,7 +1229,7 @@
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",
@@ -1322,7 +1322,7 @@
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",
@@ -1347,7 +1347,7 @@
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/CrittercismSDK\"",

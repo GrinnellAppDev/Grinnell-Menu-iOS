@@ -1,69 +1,3 @@
-#########################################################################
-#
-# Grinnell Dinning Menu iOS Application
-#
-#### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
-+-----------------------------------------------------------------------+
-Authors:	David Cowden
-               Colin Tremblay
-		Aaltan Ahmad
-		Maijid Moujaled
-		Dugan Knoll
-
-Date:     	Friday 12th April 2013
-
-+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --+
-License:
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 
-
-Grinnell Menu (G-licious)
-
-Grinnell Menu is a quick and easy way to view the Grinnell College Dining
-Services menu for today, tomorrow, or any day in the next week.  
-G-licious lets you view details about each menu item including 
-nutritional information and an image and description.  Further, you can 
-filter choices by personal dietary concerns such as vegan, gluten free, or 
-lactose intolerant.  Add items to your 'tray' and view a total nutritional
-summary once you've selected everything you wish to eat for a given meal.
-
-Grinnell Menu is currently in ALPHA.  This means the application is
-in development and not yet fully functional.  
-
-Source for Grinnell-Menu-iOS can be obtained at the following location:
-	https://github.com/GrinnellAppDev/Grinnell-Menu-iOS
-
-You can obtain the source with the following command:
-	git clone git://github.com/GrinnellAppDev/Grinnell-Menu-iOS.git
-
-If you would like to contribute, shoot us a pull request.  
-
-^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-
-To-Do List
-        Link to Mobile Grinnell app
-        Add halal filter (Requires more info from Dhall)
-
-Possible Features for Later Release
-	Create nutrition adder
-	Favorites list or rating for dishes
-	Search bar to search for next time a certain dish is on the menu
-
-
-
 
 
 G-licious iOS
@@ -75,7 +9,6 @@ Authors:  Maijid Moujaled
           Aaltan Ahmad 
 
 Date:    Friday, 12th April, 2013
-
 
 ---
 

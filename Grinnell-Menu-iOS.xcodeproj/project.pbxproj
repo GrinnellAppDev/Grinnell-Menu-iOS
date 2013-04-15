@@ -19,14 +19,10 @@
 		160644D516E5428800DD874A /* AJRBackgroundDimmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 160644CE16E5428800DD874A /* AJRBackgroundDimmer.m */; };
 		160644D616E5428800DD874A /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 160644CF16E5428800DD874A /* CloseButton.png */; };
 		160644D716E5428800DD874A /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 160644D016E5428800DD874A /* CloseButton@2x.png */; };
-		160644D816E5432000DD874A /* AJRNutritionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 160644C616E5428800DD874A /* AJRNutritionViewController.h */; };
 		160644D916E5432000DD874A /* AJRNutritionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160644C716E5428800DD874A /* AJRNutritionViewController.m */; };
 		160644DA16E5432000DD874A /* AJRNutritionViewController.xib in Sources */ = {isa = PBXBuildFile; fileRef = 160644C816E5428800DD874A /* AJRNutritionViewController.xib */; };
-		160644DB16E5432000DD874A /* AJRNutritionLabelCalculation.h in Sources */ = {isa = PBXBuildFile; fileRef = 160644C916E5428800DD874A /* AJRNutritionLabelCalculation.h */; };
 		160644DC16E5432000DD874A /* AJRNutritionLabelCalculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 160644CA16E5428800DD874A /* AJRNutritionLabelCalculation.m */; };
-		160644DD16E5432000DD874A /* AJRNutritionLabelView.h in Sources */ = {isa = PBXBuildFile; fileRef = 160644CB16E5428800DD874A /* AJRNutritionLabelView.h */; };
 		160644DE16E5432000DD874A /* AJRNutritionLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 160644CC16E5428800DD874A /* AJRNutritionLabelView.m */; };
-		160644DF16E5432000DD874A /* AJRBackgroundDimmer.h in Sources */ = {isa = PBXBuildFile; fileRef = 160644CD16E5428800DD874A /* AJRBackgroundDimmer.h */; };
 		160644E016E5432000DD874A /* AJRBackgroundDimmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 160644CE16E5428800DD874A /* AJRBackgroundDimmer.m */; };
 		160644E116E5455400DD874A /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 160644CF16E5428800DD874A /* CloseButton.png */; };
 		160644E216E5455400DD874A /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 160644D016E5428800DD874A /* CloseButton@2x.png */; };
@@ -133,7 +129,6 @@
 		16BF1DF515CE214E00C4D9CA /* changeMeal.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF415CE214E00C4D9CA /* changeMeal.png */; };
 		16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */; };
 		16C41FE0170B707200D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
-		16C41FE4170B719A00D60FFD /* KGStatusBar.h in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDE170B707200D60FFD /* KGStatusBar.h */; };
 		16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
 		16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF360815C7058700C9DC09 /* red_textured_background.png */; };
 		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
@@ -861,7 +856,7 @@
 		E1A0C522145324450072BE76 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = E1A0C525145324460072BE76 /* Build configuration list for PBXProject "Grinnell-Menu-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1065,16 +1060,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16C41FE4170B719A00D60FFD /* KGStatusBar.h in Sources */,
 				16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */,
-				160644D816E5432000DD874A /* AJRNutritionViewController.h in Sources */,
 				160644D916E5432000DD874A /* AJRNutritionViewController.m in Sources */,
 				160644DA16E5432000DD874A /* AJRNutritionViewController.xib in Sources */,
-				160644DB16E5432000DD874A /* AJRNutritionLabelCalculation.h in Sources */,
 				160644DC16E5432000DD874A /* AJRNutritionLabelCalculation.m in Sources */,
-				160644DD16E5432000DD874A /* AJRNutritionLabelView.h in Sources */,
 				160644DE16E5432000DD874A /* AJRNutritionLabelView.m in Sources */,
-				160644DF16E5432000DD874A /* AJRBackgroundDimmer.h in Sources */,
 				160644E016E5432000DD874A /* AJRBackgroundDimmer.m in Sources */,
 				3B7F6E8E16177A60004D43FC /* SamplePanelView.m in Sources */,
 				163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */,
@@ -1206,7 +1196,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Maijid Moujaled";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1275,7 +1264,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1297,7 +1285,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;

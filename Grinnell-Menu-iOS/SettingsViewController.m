@@ -38,7 +38,7 @@
 }
 
 - (void)settingsDelegateDidFinish:(SettingsViewController *)controller {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NO];
 }
 
 #pragma mark - Table view data source
@@ -137,7 +137,7 @@
     gotIdeasTextLabel.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1.0];
     [tipsTextView setBackgroundColor:[UIColor whiteColor]];
     //[tipsTextView setFont:[UIFont boldSystemFontOfSize:16.0]];
-    [tipsTextView setTextAlignment:UITextAlignmentLeft];
+    [tipsTextView setTextAlignment:NSTextAlignmentLeft];
     [tipsTextView setEditable:NO];
     // For the border and rounded corners
     [[tipsTextView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
@@ -177,13 +177,12 @@
         
         [mailViewController setSubject:@"Feedback - Glicious!"];
         [mailViewController setToRecipients:[NSArray arrayWithObject:@"appdev@grinnell.edu"]];
-        
-        [self presentModalViewController:mailViewController animated:YES];
+        [self presentViewController:mailViewController animated:YES completion:nil];
     }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

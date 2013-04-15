@@ -227,7 +227,7 @@ dispatch_queue_t requestQueue;
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
         navController.navigationBar.barStyle = UIBarStyleBlack;
         navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self presentModalViewController:navController animated:YES];
+        [self presentViewController:navController animated:YES completion:nil];
     }
     else {
         //It's iPad.
@@ -427,7 +427,7 @@ dispatch_queue_t requestQueue;
     self.hoursLabel.textColor = [UIColor whiteColor];
     self.hoursLabel.font = [UIFont boldSystemFontOfSize:12];
         self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@", [DiningHallHours hoursForMeal:self.mealChoice onDay:self.date]];
-    self.hoursLabel.textAlignment = UITextAlignmentCenter;
+    self.hoursLabel.textAlignment = NSTextAlignmentCenter;
     [self.hoursLabel sizeToFit];
 
     

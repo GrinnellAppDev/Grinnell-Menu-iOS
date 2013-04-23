@@ -1319,23 +1319,18 @@ int tipNum = 0;
             NSError *error;
             NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
             NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
-            @try {
+            
+            if (availableData != nil) {
                 availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
                                                                     options:kNilOptions
                                                                       error:&error];
-            }
-            @catch (NSException *e) {
-                alert = @"server";
-                UIAlertView *network = [[UIAlertView alloc]
-                                        initWithTitle:@"Network Error"
-                                        message:@"The connection to the server failed. Please check back later. Sorry for the inconvenience."
-                                        delegate:self
-                                        cancelButtonTitle:@"OK"
-                                        otherButtonTitles:nil
-                                        ];
-                [network show];
+            } else {
+                //Available Data is nil which means, the server may be down or there is something else interfering.
+                //App will not run.
+                [self performSelectorOnMainThread:@selector(showNoServerAlert) withObject:nil waitUntilDone:YES];
                 return;
             }
+            
             
             //If the available days returned is -1, there are no menus found..
             NSString *dayStr = [availableDaysJson objectForKey:@"Last_Day"];
@@ -1420,6 +1415,17 @@ int tipNum = 0;
                             otherButtonTitles:nil
                             ];
     
+    [network show];
+}
+
+- (void)showNoServerAlert {
+    UIAlertView *network = [[UIAlertView alloc]
+                            initWithTitle:@"Network Error"
+                            message:@"Ugh! My connection to the server failed. Please check me later. I'll keep trying to fix it."
+                            delegate:self
+                            cancelButtonTitle:@"OK"
+                            otherButtonTitles:nil
+                            ];
     [network show];
 }
 

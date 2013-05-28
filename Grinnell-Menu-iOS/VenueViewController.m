@@ -19,7 +19,7 @@
 #import "AJRNutritionViewController.h"
 #import "DiningHallHours.h"
 #import "KGStatusBar.h"
-
+#import "Meal.h"
 
 #define kFavoritesListFileName @"favorites.plist"
 
@@ -27,6 +27,7 @@
 {
     NSArray *mealNamesFromJSON, *venueNamesFromJSON;
     NSMutableArray *originalMenu;
+    NSMutableArray *origMenu;
     NSString *alert;
     Grinnell_Menu_iOSAppDelegate *mainDelegate;
     NSMutableArray *favoritesIDArray;
@@ -56,12 +57,14 @@ dispatch_queue_t requestQueue;
 
 //Method to determine the availability of network Connections using the Reachability Class
 - (BOOL)networkCheck {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     return (!(networkStatus == NotReachable));
 }
 
 - (BOOL)tcdbcheck {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     Reachability *tcdbReachability = [Reachability reachabilityWithHostname:@"http://tcdb.grinnell.edu"];
     NetworkStatus networkStatus = [tcdbReachability currentReachabilityStatus];
     return (!(networkStatus == NotReachable));
@@ -69,9 +72,12 @@ dispatch_queue_t requestQueue;
 
 //Parse through JSON data downloaded from the server and create dish Objects
 -(void)getDishes {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     if (self.jsonDict == NULL){
         return;
     }
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:self.date];
     NSUInteger weekday = [components weekday];
@@ -86,113 +92,30 @@ dispatch_queue_t requestQueue;
     
     //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
-    //NSLog(@"mainMenu: %@", self.jsonDict);
+   // NSLog(@"mainMenu: %@", self.jsonDict);
     //Put data on screen
     //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue.
     
     
-    mealNamesFromJSON = [[NSArray alloc] init];
-    mealNamesFromJSON = [mainMenu allKeys];
+  //  mealNamesFromJSON = [[NSArray alloc] init];
+   // mealNamesFromJSON = [mainMenu allKeys];
     
-    NSMutableArray *mealNames = [[NSMutableArray alloc] init];
-    //for each mealName, i.e each of Breakfast, Lunch, Dinner, Outtakes...
-    for (NSString *mealName in mainMenu) {
-        
+  //  NSMutableArray *mealNames = [[NSMutableArray alloc] init];
+    origMenu = [[NSMutableArray alloc] init];
 
+    //Go through Menu and create a meal for each Meal available. 
+    [mainMenu enumerateKeysAndObjectsUsingBlock:^(NSString *mealName, NSDictionary *mealDict, BOOL *stop) {
+        NSLog(@"Mealname: %@, mealDict:", mealName);
         
-        NSDictionary *mealDict = [mainMenu objectForKey:mealName];
-        
-        //When the mealName is passover, we get an error because it is expecting an NSDictionary and PASSOVER returns a string ( true or false). So we just skip over passover.
-        if ([mealName isEqualToString:@"PASSOVER"]) {
-            if ([(NSString *)mealDict isEqualToString:@"true"]) {
-                mainDelegate.passover = true;
-            }
-            continue;
+        if (![mealName isEqualToString:@"PASSOVER"]) {
+            //next step - create the Meal.
+            Meal *aMeal = [[Meal alloc] initWithMealDict:mealDict andName:mealName];
+    
+            [origMenu addObject:aMeal.stations];
         }
-        
-        //NSLog(@"mealName is %@", mealName);
-        //NSLog(@"mealDict: %@", mealDict);
-        [mealNames addObject:mealName];
-        //We create an array to begin forming each meal's menu
-        NSMutableArray *meal = [[NSMutableArray alloc] init];
-        venueNamesFromJSON = [[NSArray alloc] init];
-        venueNamesFromJSON = [mealDict allKeys];
-        //Here we fill the venues array to contain all the venues.
-        for (NSString *venuename in venueNamesFromJSON) {
-            //  NSLog(@"venuenames: %@", venuename);
-            Venue *gvenue = [[Venue alloc] init];
-            gvenue.name = venuename;
-            if ([gvenue.name isEqualToString:@"ENTREES                  "] && [mealName isEqualToString:@"LUNCH"]) {
-                continue;
-            }
-            // NSLog(@"Adding object: %@", gvenue);
-            [meal addObject:gvenue];
-        }
-        
-        //Remove the Entree venue
-        [meal removeObject:@"ENTREES"];
-        //So for each Venue...
-        for (Venue *gVenue in meal) {
-            
-            //We create a dish
-            gVenue.dishes = [[NSMutableArray alloc] init];
-            NSArray *dishesInVenue = [mealDict objectForKey:gVenue.name];
-            
-            for (int i = 0; i < dishesInVenue.count; i++) {
-                Dish *dish = [[Dish alloc] init];
-                //loop through for the number of dishes
-                NSDictionary *actualdish = [dishesInVenue objectAtIndex:i];
-                
-                dish.name = [actualdish objectForKey:@"name"];
-                if (![[actualdish objectForKey:@"vegan"] isEqualToString:@"false"])
-                    dish.vegan = YES;
-                if (![[actualdish objectForKey:@"ovolacto"] isEqualToString:@"false"])
-                    dish.ovolacto = YES;
-                if (![[actualdish objectForKey:@"passover"] isEqualToString:@"false"])
-                    dish.passover = YES;
-                if (![[actualdish objectForKey:@"gluten_free"] isEqualToString:@"false"])
-                    dish.glutenFree = YES;
-                if (![[actualdish objectForKey:@"nutrition"] isKindOfClass:[NSString class]]) {
-                    dish.hasNutrition = YES;
-                    dish.nutrition = [actualdish objectForKey:@"nutrition"];
-                    dish.servSize = [actualdish objectForKey:@"ServSize"];
-                }
-                dish.ID = [[actualdish objectForKey:@"ID"] intValue];
-                
-                if ([favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]]) {
-                    dish.fave = YES;
-                }
-                
-                //then finally we add this new dish to it's venue
-               // NSLog(@"Added dish %@ to venue %@ in meal %@", dish, gVenue, mealName);
-                [gVenue.dishes addObject:dish];
-            }
-        }
-        
-        // NSLog(@"Meal: %@", meal);
-        int i = 0;
-        if (weekday == 1){
-            if ([mealName isEqualToString:@"LUNCH"])
-                i = 0;
-            else if ([mealName isEqualToString:@"DINNER"])
-                i = 1;
-        }
-        // if today isn't sunday
-        else{
-            if ([mealName isEqualToString:@"BREAKFAST"])
-                i = 0;
-            else if ([mealName isEqualToString:@"LUNCH"])
-                i = 1;
-            else if ([mealName isEqualToString:@"DINNER"])
-                i = 2;
-            else if ([mealName isEqualToString:@"OUTTAKES"] && weekday != 7)
-                i = 3;
-        }
-        //NSLog(@"Storing meal: %@ at index: %d", mealName, i);
-        [originalMenu replaceObjectAtIndex:i withObject:meal];
-    }
-    //NSLog(@"Allmenus: %@", mainDelegate.allMenus);
-    [originalMenu removeObjectIdenticalTo:emptyStr];
+    }];
+    
+    NSLog(@"ORIGMENU: %@", origMenu);
     
     [self applyFilters];
     
@@ -278,18 +201,11 @@ dispatch_queue_t requestQueue;
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     [super viewDidLoad];
     // NSLog(@"viewdidload date: %@", self.date);
-    
-    
-    //
-    //            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
-    //            [tapRecognizer setNumberOfTapsRequired:1];
-    //            [tapRecognizer setDelegate:self];
-    //            [self.view addGestureRecognizer:tapRecognizer];
-    //            CGPoint tappedPoint = [tapRecognizer locationInView:tapRecognizer.view];
-    //            NSLog(@"Point X: %f, Y: %f", tappedPoint.x, tappedPoint.y);
-    
+
     
     //NSLog(@"VenueView loaded");
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -385,6 +301,8 @@ dispatch_queue_t requestQueue;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     [super viewDidAppear:YES];
 }
 
@@ -468,7 +386,7 @@ int tipNum = 0;
 #pragma mark - Added methods
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
-    if (originalMenu.count == 0)
+    if (origMenu.count == 0)
         return;
     
     [mainDelegate.allMenus removeAllObjects];
@@ -477,7 +395,7 @@ int tipNum = 0;
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
-    for (int i = 0; i < originalMenu.count; i++){
+    for (int i = 0; i < origMenu.count; i++){
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         [mainDelegate.allMenus replaceObjectAtIndex:i withObject:temp];
     }
@@ -489,11 +407,11 @@ int tipNum = 0;
     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    for (int i = 0; i < originalMenu.count; i++){
+    for (int i = 0; i < origMenu.count; i++){
         faveVen = [[Venue alloc] init];
         faveVen.name = @"FAVORITES";
         [faveVen.dishes removeAllObjects];
-        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[originalMenu objectAtIndex:i]];
+        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[origMenu objectAtIndex:i]];
         for (Venue *v in menu) {
             Venue *venue = [[Venue alloc] init];
             venue.name = v.name;
@@ -670,7 +588,6 @@ int tipNum = 0;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    NSLog(@"rotated");
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -766,16 +683,7 @@ int tipNum = 0;
     [panelView.tableView registerNib:[UINib nibWithNibName:@"DishCell" bundle:nil] forCellReuseIdentifier:self.cellIdentifier];
     
     thePanelView = panelView;
-    
-    //    UILabel *dishName = (UILabel *)[cell viewWithTag:1001];
-    
-    //	static NSString *identity = @"UITableViewCell";
-    //	UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:identity];
-    //	if (cell == nil)
-    //	{
-    //		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identity];
-    //	}
-    
+
     UITableViewCell *cell = (UITableViewCell*)[panelView.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
 	if (cell == nil)
 	{
@@ -787,6 +695,7 @@ int tipNum = 0;
     //
     // Configure the cell...
     //NSLog(@"page number is: %d", indexPath.page);
+    
     Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:indexPath._section];
     if (indexPath._row < [venue.dishes count]){
         Dish *dish = [venue.dishes objectAtIndex:indexPath._row];
@@ -850,37 +759,7 @@ int tipNum = 0;
             [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
             if (![favoritesIDArray containsObject:[NSNumber numberWithInt:dish.ID]])
                 [favoritesIDArray addObject:[NSNumber numberWithInt:dish.ID]];
-            
-            //Animate a dish becoming a favorite!
-            //Make a copy of the image at that location?
-            //  UIImageView *copy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"starred.png"]];
-            //  copy.layer.zPosition = -4;
-            
-            
-            //            //Basically, we need the point that was tapped and then create the star at the x and y values of that point.
-            //            // copy.center = CGPointMake(tappedPoint.x, tappedPoint.y);
-            //            copy.center = CGPointMake(self.view.frame.size.height / 2, self.view.frame.size.width - 120);
-            //
-            //            [UIView animateWithDuration:0.6
-            //                                  delay:0.0
-            //                                options:UIViewAnimationCurveEaseIn
-            //                             animations:^{
-            //
-            //                                 [self.view addSubview:copy];
-            //                                 copy.transform = CGAffineTransformMakeRotation(45.0*M_PI);
-            //                                 [copy setCenter:CGPointMake(240, -10)];
-            //
-            //
-            //                             } completion:^(BOOL finished) {
-            //                                 Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:0];
-            //                                 NSLog(@"name: %@", venue.name);
-            //
-            //                                 [copy removeFromSuperview];
-            //                                 [self getDishes];
-            //                                 [self refreshScreen];
-            //
-            //
-            
+                       
             //We check to see if there is currently a venue named favorites on top of the screen.
             Venue *venue = [[mainDelegate.allMenus objectAtIndex:indexPath._page] objectAtIndex:0];
             
@@ -902,13 +781,7 @@ int tipNum = 0;
                 [super scrollPositionDownwards:NO];
             }
             
-            //Animate adding the row?
-            
-            
-            
-            //[super scrollToPosition];
-            
-            //  }];
+  
             
         }
         else {
@@ -1192,13 +1065,12 @@ int tipNum = 0;
 }
 
 - (void)loadNextMenu {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSDate *tempDate;
     if (self.date == Nil)
         tempDate = Nil;
     else
         tempDate = self.date;
-    
-    
     // NSLog(@"A new menu has been loaded");
     
     //Testing Methods
@@ -1296,10 +1168,10 @@ int tipNum = 0;
         NSInteger selectedYear = [components year];
         
         //correct version
-        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+       // NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
         
         //testing
-        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/1-21-2013.json"];
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/5-13-2013.json"];
         
         
         //Setting up the fading animation of the labels
@@ -1343,16 +1215,7 @@ int tipNum = 0;
             availDay = day;
             if (day <= 0) {
                 alert = @"network";
-                UIAlertView *network = [[UIAlertView alloc]
-                                        initWithTitle:@"No Menus are available"
-                                        message:@"Please check back later"
-                                        delegate:self
-                                        cancelButtonTitle:@"OK"
-                                        otherButtonTitles:nil
-                                        ];
-                [network show];
-                //Make sure to uncomment this return line  here for production
-                return;
+                [self performSelectorOnMainThread:@selector(showNoMenuAlert) withObject:nil waitUntilDone:NO];
             }
             
             //OKAY. So at this point. We can connect to the server and there is a menu available. So let's go get it!
@@ -1427,6 +1290,17 @@ int tipNum = 0;
                             otherButtonTitles:nil
                             ];
     [network show];
+}
+- (void)showNoMenuAlert {
+    UIAlertView *network = [[UIAlertView alloc]
+                            initWithTitle:@"No Menus are available"
+                            message:@"Please check back later"
+                            delegate:self
+                            cancelButtonTitle:@"OK"
+                            otherButtonTitles:nil
+                            ];
+    [network show];
+
 }
 
 - (void)changeDate {
@@ -1556,7 +1430,7 @@ int tipNum = 0;
 		[panelView pageDidAppear];
         //TODO - not important - but maybe.. we could have reload nicely (faded?) instead of the sudden appearance which can be surprising? Again, not THAT important.
         
-        //        NSLog(@"PAgeNum loaded: %d",self.currentPage);
+        //        NSLog(@"loaded: %d",self.currentPage);
         
         if (weekday == 1) {
             switch (self.currentPage) {

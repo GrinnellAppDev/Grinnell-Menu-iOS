@@ -130,6 +130,8 @@
 		16BF1DF815CE29B800C4D9CA /* Calendar-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */; };
 		16C41FE0170B707200D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
 		16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
+		16EDE8F21753D99D001937FA /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE8F11753D99D001937FA /* MenuModel.m */; };
+		16EDE8F517543367001937FA /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE8F417543367001937FA /* Meal.m */; };
 		16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF360815C7058700C9DC09 /* red_textured_background.png */; };
 		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
 		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
@@ -367,6 +369,10 @@
 		16BF1DF715CE29B800C4D9CA /* Calendar-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Week.png"; sourceTree = "<group>"; };
 		16C41FDE170B707200D60FFD /* KGStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGStatusBar.h; sourceTree = "<group>"; };
 		16C41FDF170B707200D60FFD /* KGStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGStatusBar.m; sourceTree = "<group>"; };
+		16EDE8F01753D99D001937FA /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
+		16EDE8F11753D99D001937FA /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
+		16EDE8F317543367001937FA /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = "<group>"; };
+		16EDE8F417543367001937FA /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = "<group>"; };
 		16FF360815C7058700C9DC09 /* red_textured_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_textured_background.png; sourceTree = "<group>"; };
 		16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day-of-Week.png"; sourceTree = "<group>"; };
 		16FF362215C72BC500C9DC09 /* Calendar-Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day.png"; sourceTree = "<group>"; };
@@ -390,8 +396,8 @@
 		3BD235BC1614DAD700C2F901 /* PanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanelView.m; sourceTree = "<group>"; };
 		3BD9513816430FF80056AA11 /* starred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starred.png; sourceTree = "<group>"; };
 		3BD9513916430FF80056AA11 /* unstarred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unstarred.png; sourceTree = "<group>"; };
-		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Venue.h; path = "Grinnell-Menu-iOS/Venue.h"; sourceTree = "<group>"; };
-		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Venue.m; path = "Grinnell-Menu-iOS/Venue.m"; sourceTree = "<group>"; };
+		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grinnell-Menu-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A0C52F145324470072BE76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1A0C531145324470072BE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -424,8 +430,8 @@
 		E1A806F31478569600ABBDDA /* DishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishViewController.h; sourceTree = "<group>"; };
 		E1A806F41478569600ABBDDA /* DishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishViewController.m; sourceTree = "<group>"; };
 		E1A806F51478569600ABBDDA /* DishViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishViewController.xib; sourceTree = "<group>"; };
-		E1DBA2FE145C922A0099E8CE /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dish.h; path = "Grinnell-Menu-iOS/Dish.h"; sourceTree = "<group>"; };
-		E1DBA2FF145C922B0099E8CE /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Dish.m; path = "Grinnell-Menu-iOS/Dish.m"; sourceTree = "<group>"; };
+		E1DBA2FE145C922A0099E8CE /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
+		E1DBA2FF145C922B0099E8CE /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -652,10 +658,6 @@
 				314CC43314EA0A410004F963 /* Reachability.m */,
 				163C85A515BDCBA300FC8578 /* TDBadgedCell.h */,
 				163C85A615BDCBA300FC8578 /* TDBadgedCell.m */,
-				E1DBA2FE145C922A0099E8CE /* Dish.h */,
-				E1DBA2FF145C922B0099E8CE /* Dish.m */,
-				87B46E9E146A3ED7001007BA /* Venue.h */,
-				87B46E9F146A3ED7001007BA /* Venue.m */,
 			);
 			name = "Helper Classes";
 			sourceTree = "<group>";
@@ -712,12 +714,20 @@
 		E1A0C537145324470072BE76 /* Grinnell-Menu-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				E1DBA2FE145C922A0099E8CE /* Dish.h */,
+				E1DBA2FF145C922B0099E8CE /* Dish.m */,
+				16EDE8F317543367001937FA /* Meal.h */,
+				16EDE8F417543367001937FA /* Meal.m */,
+				87B46E9E146A3ED7001007BA /* Venue.h */,
+				87B46E9F146A3ED7001007BA /* Venue.m */,
 				E1A0C549145324480072BE76 /* DatePickerViewController.h */,
 				E1A0C54A145324480072BE76 /* DatePickerViewController.m */,
 				E1A0C54C145324480072BE76 /* DatePickerViewController.xib */,
 				E1A0C576145326010072BE76 /* VenueViewController.h */,
 				E1A0C577145326010072BE76 /* VenueViewController.m */,
 				E1A0C578145326010072BE76 /* VenueViewController.xib */,
+				16EDE8F01753D99D001937FA /* MenuModel.h */,
+				16EDE8F11753D99D001937FA /* MenuModel.m */,
 				3B7F6E8916176F79004D43FC /* SamplePanelView.h */,
 				3B7F6E8A16176F79004D43FC /* SamplePanelView.m */,
 				E1A0C57E1453270B0072BE76 /* SettingsViewController.h */,
@@ -1084,6 +1094,8 @@
 				3BD235BF1614DAD700C2F901 /* PanelView.m in Sources */,
 				1610C338170B038D0020293B /* DiningHallHours.m in Sources */,
 				167A6B7A170DFF2E0028D6B0 /* Appirater.m in Sources */,
+				16EDE8F21753D99D001937FA /* MenuModel.m in Sources */,
+				16EDE8F517543367001937FA /* Meal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

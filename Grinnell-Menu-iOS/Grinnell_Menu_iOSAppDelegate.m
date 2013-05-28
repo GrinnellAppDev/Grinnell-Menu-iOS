@@ -116,7 +116,8 @@
     
     //This is for gathering data on the live app in the appstore. Matches G-licious - Distribution on Flurry.
     //A flurry account is free. http://www.flurry.com Want to see app statistics? Email me to add you to the Grinnell Appdev team on Flurry. @DrJid
-    [FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
+    // TODO - reload Flurry
+    //[FlurryAnalytics startSession:@"GEJ8BPK37ZJE31GQG3C9"];
     
     //Allows us to send push notification to users who experience a crash - If we want to...
         [Crittercism initWithAppID: @"4f67e3f4b0931560c200000c"

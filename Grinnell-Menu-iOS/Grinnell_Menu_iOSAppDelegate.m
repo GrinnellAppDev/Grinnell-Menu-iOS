@@ -9,6 +9,7 @@
 #import "Grinnell_Menu_iOSAppDelegate.h"
 #import "DatePickerViewController.h"
 #import "VenueViewController.h"
+#import "StationsViewController.h"
 #import "DishViewController.h"
 #import "Crittercism.h"
 #import "FlurryAnalytics.h"
@@ -80,12 +81,13 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+        self.stationsViewController = [[StationsViewController alloc] init];
         
         self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
         
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
         self.venueViewController.navigationItem.hidesBackButton = YES;
-        [self.navigationController pushViewController:self.venueViewController animated:NO];
+        [self.navigationController pushViewController:self.stationsViewController animated:NO];
         self.window.rootViewController = self.navigationController;
     }
     else{

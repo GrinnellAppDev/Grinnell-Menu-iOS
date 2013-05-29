@@ -10,4 +10,11 @@
 
 @interface MenuModel : NSObject
 
+@property(nonatomic, strong) NSDate *date;
+
+
+-(id)initWithDate:(NSDate *)aDate;
+-(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary;
+-(NSArray *)performFetchForDate:(NSDate *)aDate;
+
 @end

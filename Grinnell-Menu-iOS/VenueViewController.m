@@ -20,6 +20,7 @@
 #import "DiningHallHours.h"
 #import "KGStatusBar.h"
 #import "Meal.h"
+#import "MenuModel.h"
 
 #define kFavoritesListFileName @"favorites.plist"
 
@@ -83,7 +84,6 @@ dispatch_queue_t requestQueue;
     NSUInteger weekday = [components weekday];
     
     NSString *emptyStr = @"";
-    
     [originalMenu removeAllObjects];
     [originalMenu addObject:emptyStr];
     [originalMenu addObject:emptyStr];
@@ -92,32 +92,42 @@ dispatch_queue_t requestQueue;
     
     //mainMenu is a dictionary of ALL the menus - Breakfast, Lunch, Dinner, Outtakes.
     NSDictionary *mainMenu = self.jsonDict;
-   // NSLog(@"mainMenu: %@", self.jsonDict);
-    //Put data on screen
-    //This is a dictionary of dictionaries. Each venue is a key in the main dictionary. Thus we will have to sort through each venue(dict) the main jsondict(dict) and create dish objects for each object that is in the venue.
-    
-    
-  //  mealNamesFromJSON = [[NSArray alloc] init];
-   // mealNamesFromJSON = [mainMenu allKeys];
-    
-  //  NSMutableArray *mealNames = [[NSMutableArray alloc] init];
     origMenu = [[NSMutableArray alloc] init];
 
-    //Go through Menu and create a meal for each Meal available. 
-    [mainMenu enumerateKeysAndObjectsUsingBlock:^(NSString *mealName, NSDictionary *mealDict, BOOL *stop) {
-        NSLog(@"Mealname: %@, mealDict:", mealName);
-        
-        if (![mealName isEqualToString:@"PASSOVER"]) {
-            //next step - create the Meal.
-            Meal *aMeal = [[Meal alloc] initWithMealDict:mealDict andName:mealName];
+    MenuModel *menuModel = [[MenuModel alloc] initWithDate:self.date];
+    origMenu = [menuModel createMenuFromDictionary:mainMenu];
     
-            [origMenu addObject:aMeal.stations];
-        }
-    }];
+  //  NSLog(@"ORIGMENU: %@", origMenu);
     
-    NSLog(@"ORIGMENU: %@", origMenu);
     
-    [self applyFilters];
+    NSString *mealName = @"LUNCH";
+    
+    /* WHAT IS THIS?? */
+    /*
+    int i = 0;
+    if (weekday == 1){
+        if ([mealName isEqualToString:@"LUNCH"])
+            i = 0;
+        else if ([mealName isEqualToString:@"DINNER"])
+            i = 1;
+    }
+    // if today isn't sunday
+    else{
+        if ([mealName isEqualToString:@"BREAKFAST"])
+            i = 0;
+        else if ([mealName isEqualToString:@"LUNCH"])
+            i = 1;
+        else if ([mealName isEqualToString:@"DINNER"])
+            i = 2;
+        else if ([mealName isEqualToString:@"OUTTAKES"] && weekday != 7)
+            i = 3;
+    }
+    
+    //NSLog(@"Storing meal: %@ at index: %d", mealName, i);
+    [originalMenu replaceObjectAtIndex:i withObject:meal];
+    */
+    
+   // [self applyFilters];
     
     //NSLog(@"The menu is: %@", mainDelegate.allMenus);
     //NSLog(@"The value of self.mealChoice is %@", self.mealChoice);
@@ -386,6 +396,8 @@ int tipNum = 0;
 #pragma mark - Added methods
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     if (origMenu.count == 0)
         return;
     
@@ -399,19 +411,30 @@ int tipNum = 0;
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         [mainDelegate.allMenus replaceObjectAtIndex:i withObject:temp];
     }
+     
+    
     
     [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
+    /*
+    NSLog(@"orM %d", origMenu.count);
+    mainDelegate.allMenus  = [[NSMutableArray alloc] initWithCapacity:origMenu.count];
+    NSLog(@"MA: %@", mainDelegate.allMenus);
+    */
+    
     NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
     BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    for (int i = 0; i < origMenu.count; i++){
+    for (int i = 0; i < origMenu.count; i++) {
         faveVen = [[Venue alloc] init];
         faveVen.name = @"FAVORITES";
         [faveVen.dishes removeAllObjects];
-        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[origMenu objectAtIndex:i]];
+        
+        //Meal count unrecognized selector.
+        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[[origMenu objectAtIndex:i] stations]];
+        
         for (Venue *v in menu) {
             Venue *venue = [[Venue alloc] init];
             venue.name = v.name;
@@ -594,6 +617,7 @@ int tipNum = 0;
 #pragma mark - Panel view data source
 
 - (NSInteger)numberOfPanels {
+    
 	if (jsonDict) {
         if ([super numberOfPanels] != (jsonDict.count -1))
             [super fixWeekends:jsonDict.count-1];
@@ -652,13 +676,15 @@ int tipNum = 0;
  *
  */
 - (NSInteger)panelView:(id)panelView numberOfSectionsInPage:(NSInteger)pageNumber {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     if (jsonDict){
-        //        NSLog(@"jsondict: %@", jsonDict);
-     //   NSLog(@"PageNumber: %d", pageNumber);
-     //   NSLog(@"mainDelegateAllMenus count: %d", mainDelegate.allMenus.count);
+        //NSLog(@"jsondict: %@", jsonDict);
+        //NSLog(@"PageNumber: %d", pageNumber);
+        //NSLog(@"mainDelegateAllMenus count: %d", mainDelegate.allMenus.count);
         
         
-     //   NSLog(@"HERE! %@", mainDelegate.allMenus);
+        //NSLog(@"HERE! %@", mainDelegate.allMenus);
         
         
         

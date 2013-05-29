@@ -21,6 +21,8 @@
         //TODO - Set the correct mealName CamelCase so we can use to set mealChoice string. 
         self.name = mealName;
         
+        [self setScoreForSorting];
+        
         if ([mealName isEqualToString:@"PASSOVER"]) {
             if ([(NSString *)mealDict isEqualToString:@"true"]) {
                 //TODO - set the passover delegate method to true.
@@ -62,6 +64,24 @@
         }];
     }
     return self;
+}
+
+-(void)setScoreForSorting
+{
+    if ([self.name isEqualToString:@"BREAKFAST"]) {
+        self.scoreForSorting = 1;
+    } if ([self.name isEqualToString:@"LUNCH"]) {
+        self.scoreForSorting = 2;
+    } if ([self.name isEqualToString:@"DINNER"]) {
+        self.scoreForSorting = 3;
+    } if ([self.name isEqualToString:@"OUTTAKES"]) {
+        self.scoreForSorting = 4;
+    }
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"Meal: %@", self.name];
 }
 
 @end

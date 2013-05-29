@@ -13,6 +13,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *stations;
 
+@property(nonatomic) int scoreForSorting;
+
 -(id)initWithMealDict:(NSDictionary *)mealDict andName:(NSString *)mealName;
 
 @end

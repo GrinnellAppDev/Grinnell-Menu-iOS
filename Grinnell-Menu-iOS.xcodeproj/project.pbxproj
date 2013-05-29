@@ -132,6 +132,23 @@
 		16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C41FDF170B707200D60FFD /* KGStatusBar.m */; };
 		16EDE8F21753D99D001937FA /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE8F11753D99D001937FA /* MenuModel.m */; };
 		16EDE8F517543367001937FA /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE8F417543367001937FA /* Meal.m */; };
+		16EDE90F1756531E001937FA /* diagmonds.png in Resources */ = {isa = PBXBuildFile; fileRef = 16EDE9001756531E001937FA /* diagmonds.png */; };
+		16EDE9101756531E001937FA /* diagmonds_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 16EDE9011756531E001937FA /* diagmonds_@2X.png */; };
+		16EDE9111756531E001937FA /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 16EDE9021756531E001937FA /* readme.txt */; };
+		16EDE9121756531E001937FA /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE9041756531E001937FA /* TTBlackTriangle.m */; };
+		16EDE9131756531E001937FA /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE9061756531E001937FA /* TTScrollSlidingPagesController.m */; };
+		16EDE9141756531E001937FA /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE9081756531E001937FA /* TTScrollViewWrapper.m */; };
+		16EDE9151756531E001937FA /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE90A1756531E001937FA /* TTSlidingPage.m */; };
+		16EDE9161756531E001937FA /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE90D1756531E001937FA /* TTSlidingPageTitle.m */; };
+		16EDE91A175653A8001937FA /* StationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE918175653A7001937FA /* StationsViewController.m */; };
+		16EDE91B175653A8001937FA /* StationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16EDE919175653A8001937FA /* StationsViewController.xib */; };
+		16EDE91F17565408001937FA /* MealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE91D17565407001937FA /* MealViewController.m */; };
+		16EDE92017565408001937FA /* MealViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16EDE91E17565407001937FA /* MealViewController.xib */; };
+		16EDE92117565589001937FA /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE9041756531E001937FA /* TTBlackTriangle.m */; };
+		16EDE92217565589001937FA /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE9061756531E001937FA /* TTScrollSlidingPagesController.m */; };
+		16EDE92317565589001937FA /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE9081756531E001937FA /* TTScrollViewWrapper.m */; };
+		16EDE92417565589001937FA /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE90A1756531E001937FA /* TTSlidingPage.m */; };
+		16EDE92517565589001937FA /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE90D1756531E001937FA /* TTSlidingPageTitle.m */; };
 		16FF360915C7058700C9DC09 /* red_textured_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF360815C7058700C9DC09 /* red_textured_background.png */; };
 		16FF362415C72BC500C9DC09 /* Calendar-Day-of-Week.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */; };
 		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
@@ -373,6 +390,27 @@
 		16EDE8F11753D99D001937FA /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
 		16EDE8F317543367001937FA /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = "<group>"; };
 		16EDE8F417543367001937FA /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = "<group>"; };
+		16EDE9001756531E001937FA /* diagmonds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diagmonds.png; sourceTree = "<group>"; };
+		16EDE9011756531E001937FA /* diagmonds_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diagmonds_@2X.png"; sourceTree = "<group>"; };
+		16EDE9021756531E001937FA /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		16EDE9031756531E001937FA /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
+		16EDE9041756531E001937FA /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
+		16EDE9051756531E001937FA /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
+		16EDE9061756531E001937FA /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
+		16EDE9071756531E001937FA /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
+		16EDE9081756531E001937FA /* TTScrollViewWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollViewWrapper.m; sourceTree = "<group>"; };
+		16EDE9091756531E001937FA /* TTSlidingPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPage.h; sourceTree = "<group>"; };
+		16EDE90A1756531E001937FA /* TTSlidingPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPage.m; sourceTree = "<group>"; };
+		16EDE90B1756531E001937FA /* TTSlidingPagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPagesDataSource.h; sourceTree = "<group>"; };
+		16EDE90C1756531E001937FA /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
+		16EDE90D1756531E001937FA /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
+		16EDE90E1756531E001937FA /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
+		16EDE917175653A7001937FA /* StationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsViewController.h; sourceTree = "<group>"; };
+		16EDE918175653A7001937FA /* StationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsViewController.m; sourceTree = "<group>"; };
+		16EDE919175653A8001937FA /* StationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StationsViewController.xib; sourceTree = "<group>"; };
+		16EDE91C17565407001937FA /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
+		16EDE91D17565407001937FA /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
+		16EDE91E17565407001937FA /* MealViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MealViewController.xib; sourceTree = "<group>"; };
 		16FF360815C7058700C9DC09 /* red_textured_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_textured_background.png; sourceTree = "<group>"; };
 		16FF362115C72BC500C9DC09 /* Calendar-Day-of-Week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day-of-Week.png"; sourceTree = "<group>"; };
 		16FF362215C72BC500C9DC09 /* Calendar-Day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Calendar-Day.png"; sourceTree = "<group>"; };
@@ -638,20 +676,67 @@
 			name = KGStatusBar;
 			sourceTree = "<group>";
 		};
-		16FF361415C7087600C9DC09 /* Helper Classes */ = {
+		16EDE8FB175652CC001937FA /* SlidingPanels */ = {
 			isa = PBXGroup;
 			children = (
-				1615AB50151A9BD5006947DF /* CrittercismSDK */,
-				168D080F152A2C6A005B690E /* FlurryAnalytics */,
-				167A6B58170DFF2E0028D6B0 /* Appirater */,
-				16C41FE1170B707700D60FFD /* KGStatusBar */,
-				160644C516E5427400DD874A /* Nutrition View Files */,
 				3BD235B71614DAD700C2F901 /* PanelIndexPath.h */,
 				3BD235B81614DAD700C2F901 /* PanelIndexPath.m */,
 				3BD235B91614DAD700C2F901 /* PanelsViewController.h */,
 				3BD235BA1614DAD700C2F901 /* PanelsViewController.m */,
 				3BD235BB1614DAD700C2F901 /* PanelView.h */,
 				3BD235BC1614DAD700C2F901 /* PanelView.m */,
+			);
+			name = SlidingPanels;
+			sourceTree = "<group>";
+		};
+		16EDE8FD175652E8001937FA /* TTScrollSlidingPages */ = {
+			isa = PBXGroup;
+			children = (
+				16EDE8FE1756531E001937FA /* Images */,
+				16EDE9031756531E001937FA /* TTBlackTriangle.h */,
+				16EDE9041756531E001937FA /* TTBlackTriangle.m */,
+				16EDE9051756531E001937FA /* TTScrollSlidingPagesController.h */,
+				16EDE9061756531E001937FA /* TTScrollSlidingPagesController.m */,
+				16EDE9071756531E001937FA /* TTScrollViewWrapper.h */,
+				16EDE9081756531E001937FA /* TTScrollViewWrapper.m */,
+				16EDE9091756531E001937FA /* TTSlidingPage.h */,
+				16EDE90A1756531E001937FA /* TTSlidingPage.m */,
+				16EDE90B1756531E001937FA /* TTSlidingPagesDataSource.h */,
+				16EDE90C1756531E001937FA /* TTSlidingPageTitle.h */,
+				16EDE90D1756531E001937FA /* TTSlidingPageTitle.m */,
+				16EDE90E1756531E001937FA /* TTUIScrollViewSlidingPages.h */,
+			);
+			name = TTScrollSlidingPages;
+			sourceTree = "<group>";
+		};
+		16EDE8FE1756531E001937FA /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				16EDE8FF1756531E001937FA /* diagmonds */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		16EDE8FF1756531E001937FA /* diagmonds */ = {
+			isa = PBXGroup;
+			children = (
+				16EDE9001756531E001937FA /* diagmonds.png */,
+				16EDE9011756531E001937FA /* diagmonds_@2X.png */,
+				16EDE9021756531E001937FA /* readme.txt */,
+			);
+			path = diagmonds;
+			sourceTree = "<group>";
+		};
+		16FF361415C7087600C9DC09 /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				16EDE8FD175652E8001937FA /* TTScrollSlidingPages */,
+				1615AB50151A9BD5006947DF /* CrittercismSDK */,
+				168D080F152A2C6A005B690E /* FlurryAnalytics */,
+				167A6B58170DFF2E0028D6B0 /* Appirater */,
+				16C41FE1170B707700D60FFD /* KGStatusBar */,
+				160644C516E5427400DD874A /* Nutrition View Files */,
+				16EDE8FB175652CC001937FA /* SlidingPanels */,
 				16FF366815C7748500C9DC09 /* MBProgressHUD.h */,
 				16FF366915C7748500C9DC09 /* MBProgressHUD.m */,
 				314CC43214EA0A410004F963 /* Reachability.h */,
@@ -723,6 +808,12 @@
 				E1A0C549145324480072BE76 /* DatePickerViewController.h */,
 				E1A0C54A145324480072BE76 /* DatePickerViewController.m */,
 				E1A0C54C145324480072BE76 /* DatePickerViewController.xib */,
+				16EDE917175653A7001937FA /* StationsViewController.h */,
+				16EDE918175653A7001937FA /* StationsViewController.m */,
+				16EDE919175653A8001937FA /* StationsViewController.xib */,
+				16EDE91C17565407001937FA /* MealViewController.h */,
+				16EDE91D17565407001937FA /* MealViewController.m */,
+				16EDE91E17565407001937FA /* MealViewController.xib */,
 				E1A0C576145326010072BE76 /* VenueViewController.h */,
 				E1A0C577145326010072BE76 /* VenueViewController.m */,
 				E1A0C578145326010072BE76 /* VenueViewController.xib */,
@@ -1032,6 +1123,8 @@
 				167A6B7B170DFF2E0028D6B0 /* Appirater.podspec in Resources */,
 				167A6B7C170DFF2E0028D6B0 /* AppiraterLocalizable.strings in Resources */,
 				167A6B7D170DFF2E0028D6B0 /* README.md in Resources */,
+				16EDE91B175653A8001937FA /* StationsViewController.xib in Resources */,
+				16EDE92017565408001937FA /* MealViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1044,6 +1137,9 @@
 				160644D216E5428800DD874A /* AJRNutritionViewController.xib in Resources */,
 				160644D616E5428800DD874A /* CloseButton.png in Resources */,
 				160644D716E5428800DD874A /* CloseButton@2x.png in Resources */,
+				16EDE90F1756531E001937FA /* diagmonds.png in Resources */,
+				16EDE9101756531E001937FA /* diagmonds_@2X.png in Resources */,
+				16EDE9111756531E001937FA /* readme.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,6 +1166,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16EDE92117565589001937FA /* TTBlackTriangle.m in Sources */,
+				16EDE92217565589001937FA /* TTScrollSlidingPagesController.m in Sources */,
+				16EDE92317565589001937FA /* TTScrollViewWrapper.m in Sources */,
+				16EDE92417565589001937FA /* TTSlidingPage.m in Sources */,
+				16EDE92517565589001937FA /* TTSlidingPageTitle.m in Sources */,
 				16C41FE5170B719A00D60FFD /* KGStatusBar.m in Sources */,
 				160644D916E5432000DD874A /* AJRNutritionViewController.m in Sources */,
 				160644DA16E5432000DD874A /* AJRNutritionViewController.xib in Sources */,
@@ -1096,6 +1197,8 @@
 				167A6B7A170DFF2E0028D6B0 /* Appirater.m in Sources */,
 				16EDE8F21753D99D001937FA /* MenuModel.m in Sources */,
 				16EDE8F517543367001937FA /* Meal.m in Sources */,
+				16EDE91A175653A8001937FA /* StationsViewController.m in Sources */,
+				16EDE91F17565408001937FA /* MealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,6 +1215,11 @@
 				160644D416E5428800DD874A /* AJRNutritionLabelView.m in Sources */,
 				160644D516E5428800DD874A /* AJRBackgroundDimmer.m in Sources */,
 				16C41FE0170B707200D60FFD /* KGStatusBar.m in Sources */,
+				16EDE9121756531E001937FA /* TTBlackTriangle.m in Sources */,
+				16EDE9131756531E001937FA /* TTScrollSlidingPagesController.m in Sources */,
+				16EDE9141756531E001937FA /* TTScrollViewWrapper.m in Sources */,
+				16EDE9151756531E001937FA /* TTSlidingPage.m in Sources */,
+				16EDE9161756531E001937FA /* TTSlidingPageTitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

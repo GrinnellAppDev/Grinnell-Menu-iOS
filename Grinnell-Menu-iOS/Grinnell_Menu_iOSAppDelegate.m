@@ -81,13 +81,14 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.venueViewController =  [[VenueViewController alloc] initWithNibName:@"VenueViewController" bundle:nil];
+        
         self.stationsViewController = [[StationsViewController alloc] init];
         
         self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
         
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.datePickerViewController];
         self.venueViewController.navigationItem.hidesBackButton = YES;
-        [self.navigationController pushViewController:self.stationsViewController animated:NO];
+        [self.navigationController pushViewController:self.stationsViewController   animated:NO];
         self.window.rootViewController = self.navigationController;
     }
     else{

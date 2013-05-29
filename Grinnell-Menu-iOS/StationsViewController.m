@@ -13,6 +13,9 @@
 #import "TTSlidingPageTitle.h"
 #import "MenuModel.h"
 #import "Meal.h"
+#import "Dish.h"
+
+#import "AJRNutritionViewController.h"
 
 
 @interface StationsViewController ()
@@ -30,7 +33,11 @@
         NSArray *lunch = @[@"pig", @"Turkey", @"Beef"];
         NSArray *dinner = @[@"Cheese", @"Pizza", @"Carrot"];
        // self.originalMenu = @[breakfast, lunch, dinner];
-
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showNutritionalLabel:)
+                                                     name:@"ShowNutritionalDetails"
+                                                   object:nil];
     }
     return self;
 }
@@ -113,6 +120,65 @@
     self.menu = [menuModel performFetchForDate:[NSDate date]];
     
     NSLog(@"self.origMenu: %@", self.menu);
+}
+
+-(void)showNutritionalLabel:(NSNotification *)notification
+{
+    
+    Dish *dish = [notification object];
+    
+    //Set Screen details for particular dish.
+    //These changes undo in AJRNutritionViewController.m "close" method when the nutrition view is dismissed.
+    
+
+    
+    //Initalize the nutrition view
+    AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
+    
+    //Set the various data values for the view
+    // controller.servingSize = @"12 fl oz. (1 Can)";
+    // controller.calories = 100;      //Type: int
+    //  controller.sugar = 12;          //Type: float
+    //  controller.protein = 3;         //Type: float
+    
+    controller.servingSize = [NSString stringWithFormat:@"%@", dish.servSize];
+    
+    controller.calories = [dish.nutrition[@"KCAL"] floatValue];
+    controller.fat = [dish.nutrition[@"FAT"] floatValue];
+    controller.satfat = [dish.nutrition[@"SFA"]floatValue];
+    controller.transfat = [dish.nutrition[@"FATRN"]floatValue];
+    controller.cholesterol = [dish.nutrition[@"CHOL"] floatValue];
+    controller.sodium = [dish.nutrition[@"NA"]floatValue];
+    controller.carbs = [dish.nutrition[@"CHO"] floatValue];
+    controller.dietaryfiber = [dish.nutrition[@"TDFB"] floatValue];
+    controller.sugar = [dish.nutrition[@"SUGR"] floatValue];
+    controller.protein = [dish.nutrition[@"PRO"] floatValue];
+    
+    
+    //Present the View
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        self.title = dish.name;
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+        
+        [controller presentInParentViewController:self];
+    }
+    
+    /*
+     *Optional Customizations
+     *
+     *controller.shouldDimBackground = YES;              //Default: YES
+     *controllershouldAnimateOnAppear = YES;             //Default: YES
+     *controller.shouldAnimateOnDisappear = YES;         //Default: YES
+     *
+     *By default, the user can perform a swipe gesture (in the downward direction)
+     *to dismiss the popup
+     *controller.allowSwipeToDismiss = YES;              //Default: YES
+     */
+    
+
+
 }
 
 @end

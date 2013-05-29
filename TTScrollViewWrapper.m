@@ -44,6 +44,7 @@
 }
 
 //This method means that when anything hits inside of this view, it will actually pass on the hit to scrollView instead.
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     if ([self pointInside:point withEvent:event])
@@ -52,6 +53,8 @@
 	}
 	return nil;
 }
+ 
+
 
 
 @end

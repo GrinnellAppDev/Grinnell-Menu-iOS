@@ -127,7 +127,7 @@ dispatch_queue_t requestQueue;
     [originalMenu replaceObjectAtIndex:i withObject:meal];
     */
     
-   // [self applyFilters];
+    [self applyFilters];
     
     //NSLog(@"The menu is: %@", mainDelegate.allMenus);
     //NSLog(@"The value of self.mealChoice is %@", self.mealChoice);

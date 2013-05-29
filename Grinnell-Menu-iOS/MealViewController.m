@@ -10,6 +10,9 @@
 #import "Venue.h" 
 #import "Dish.h"
 
+#import "AJRNutritionViewController.h"
+
+
 @interface MealViewController ()
 @end
 
@@ -45,7 +48,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     
     // Return the number of sections.
     return self.meal.stations.count;
@@ -53,7 +55,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     Venue *venue = self.meal.stations[section];
     return venue.dishes.count;
@@ -125,8 +126,16 @@
      */
    // NSString *tappedContent = self.meals.stations[indexPath.row];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tapped" message:nil delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-    [alert show];
+  
+ 
+    Venue *venue = self.meal.stations[indexPath.section];
+    Dish *dish = venue.dishes[indexPath.row];
+    
+    
+    if (dish.hasNutrition) {
+        [[NSNotificationCenter defaultCenter]  postNotificationName:@"ShowNutritionalDetails"
+                                                             object:dish];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView

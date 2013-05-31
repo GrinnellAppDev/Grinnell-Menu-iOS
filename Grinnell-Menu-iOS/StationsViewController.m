@@ -19,7 +19,7 @@
 
 
 @interface StationsViewController ()
-
+@property (nonatomic, strong) TTScrollSlidingPagesController *slider;
 @end
 
 @implementation StationsViewController
@@ -29,11 +29,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSArray *breakfast = @[@"Bread", @"Margarine", @"Lettuce"];
-        NSArray *lunch = @[@"pig", @"Turkey", @"Beef"];
-        NSArray *dinner = @[@"Cheese", @"Pizza", @"Carrot"];
-       // self.originalMenu = @[breakfast, lunch, dinner];
-        
+        self.title = @"Stations";
+        [self setChangeDateButton];
+        [self setChangeMealButton];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(showNutritionalLabel:)
                                                      name:@"ShowNutritionalDetails"
@@ -49,11 +47,11 @@
     [self prepareMenu];
     
     //initial setup of the TTScrollSlidingPagesController.
-    TTScrollSlidingPagesController *slider = [[TTScrollSlidingPagesController alloc] init];
+    self.slider = [[TTScrollSlidingPagesController alloc] init];
     
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     //slider.titleScrollerHidden = YES;
-    //slider.titleScrollerHeight = 100;
+    self.slider.titleScrollerHeight = 25;
     //slider.titleScrollerItemWidth=60;
     //slider.titleScrollerBackgroundColour = [UIColor darkGrayColor];
     //slider.disableTitleScrollerShadow = YES;
@@ -63,12 +61,12 @@
     //slider.zoomOutAnimationDisabled = YES;
     
     //set the datasource.
-    slider.dataSource = self;
+    self.slider.dataSource = self;
     
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
-    slider.view.frame = self.view.frame;
-    [self.view addSubview:slider.view];
-    [self addChildViewController:slider];
+    self.slider.view.frame = self.view.frame;
+    [self.view addSubview:self.slider.view];
+    [self addChildViewController:self.slider];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,9 +93,7 @@
      */
     MealViewController *viewController = [[MealViewController alloc] init];
     viewController.meal = self.menu[index];
-    NSLog(@"v meals: %@", viewController.meal);
     
-    NSLog(@"%s index:%d", __PRETTY_FUNCTION__, index);
     
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }
@@ -119,7 +115,7 @@
     MenuModel *menuModel = [[MenuModel alloc] initWithDate:[NSDate date]];
     self.menu = [menuModel performFetchForDate:[NSDate date]];
     
-    NSLog(@"self.origMenu: %@", self.menu);
+   // NSLog(@"self.origMenu: %@", self.menu);
 }
 
 -(void)showNutritionalLabel:(NSNotification *)notification
@@ -179,6 +175,73 @@
     
 
 
+}
+
+
+-(void)setChangeDateButton
+{
+    UIButton *cdb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
+    [cdb setBackgroundImage:[UIImage imageNamed:@"Calendar-Week"] forState:UIControlStateNormal];
+    [cdb addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
+    self.navigationItem.leftBarButtonItem = changeDateButton;
+
+}
+-(void)setChangeMealButton
+{
+    UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
+    [cmb setBackgroundImage:[UIImage imageNamed:@"changeMeal"] forState:UIControlStateNormal];
+    [cmb addTarget:self action:@selector(changeMeal) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
+    [self.navigationItem setRightBarButtonItem:changeMealButton];
+}
+
+- (void)changeDate {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    /*
+    else {
+        //It's iPad.
+        if (self.datePickerViewController == nil) {
+            self.datePickerViewController = [[DatePickerViewController alloc] initWithNibName:@"DatePickerViewController" bundle:nil];
+            self.datePickerViewController.delegate = self;
+            self.datePickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.datePickerViewController];
+        }
+        if ([self.datePickerPopover isPopoverVisible]) {
+            [self.datePickerPopover dismissPopoverAnimated:YES];
+        } else {
+            if ([self.settingsPopover isPopoverVisible])
+                [self.settingsPopover dismissPopoverAnimated:YES];
+            [self.datePickerPopover presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    }
+     */
+    
+}
+
+- (void)changeMeal {
+    UIAlertView *mealmessage = [[UIAlertView alloc]
+                                initWithTitle:@"Select Meal"
+                                message:nil
+                                delegate:self
+                                cancelButtonTitle:@"Cancel"
+                                otherButtonTitles:nil
+                                ];
+    
+   [self.menu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+       [mealmessage addButtonWithTitle:meal.name];
+   }];
+    [mealmessage show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        return;
+    }
+    else {
+        [self.slider scrollToPage:buttonIndex-1 animated:YES];
+    }
 }
 
 @end

@@ -12,7 +12,8 @@
 @synthesize name, venue, nutAllergen, glutenFree, vegan, passover, halal, ovolacto, hasNutrition, nutrition, ID, servSize, fave;
 
 - (NSString *)description {
-    return self.name;
+//    return self.name
+    return [NSString stringWithFormat:@"%@ vegan:%d, ovolacto: %d", self.name, self.vegan, self.ovolacto];
 }
 
 
@@ -45,6 +46,26 @@
         }
          */
         
+    }
+    return self;
+}
+
+
+-(id)initWithOtherDish:(Dish *)aDish
+{
+    self = [super init];
+    if (self) {
+        self.name = aDish.name;
+        self.ID = aDish.ID;
+        self.venue = aDish.venue;
+        self.nutAllergen = aDish.nutAllergen;
+        self.glutenFree = aDish.glutenFree;
+        self.vegan = aDish.vegan;
+        self.ovolacto = aDish.ovolacto;
+        self.hasNutrition = aDish.hasNutrition;
+        self.nutrition = aDish.nutrition;
+        self.passover = aDish.passover;
+        self.servSize = aDish.servSize;
     }
     return self;
 }

@@ -18,7 +18,6 @@
 @property(nonatomic, strong) NSDictionary *menuDictionary;
 @property(nonatomic, strong) NSArray *originalMenu;
 @property(nonatomic, strong) Grinnell_Menu_iOSAppDelegate *mainDelegate;
-
 @end
 
 
@@ -55,7 +54,7 @@
     // NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
     
     //testing
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/5-13-2013.json"];
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/5-16-2013.json"];
     
     dispatch_queue_t requestQueue;
     
@@ -104,7 +103,7 @@
             
             [tempArray addObject:aMeal];
             
-            NSLog(@"Adding: %@", aMeal.name);
+       //     NSLog(@"Adding: %@", aMeal.name);
         }
     }];
     
@@ -118,226 +117,87 @@
     return self.originalMenu;
     
     //call applyFileters like at the end basically. So we should know we have this.
-    [self applyFilters];
 }
 
+//Returns a filtered Menu depending on the values of the Filter Switches. 
 -(NSArray *)applyFiltersTo:(NSArray *)originalMenu
 {
-    return originalMenu;
+    
+    NSMutableArray *filteredMenu = [[NSMutableArray alloc] init];
+    
+    //Load Switch values
+    BOOL ovoSwitchValue, veganSwitchValue, gfSwitchValue, passSwitchValue;
+    veganSwitchValue = TRUE; //[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
+    ovoSwitchValue = TRUE; // [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
+    gfSwitchValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
+    passSwitchValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
+    
+    NSLog(@"veganSwitch: %d, ovoSwitch: %d", veganSwitchValue, ovoSwitchValue); 
+   // [self printMenu:originalMenu];
+    
+    
+    NSPredicate *passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+    NSPredicate *ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+    NSPredicate *veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+    NSPredicate *gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+    
+    NSMutableArray *predicates = [[NSMutableArray alloc] init];
+    
+    if (ovoSwitchValue) [predicates addObject:ovoPred];
+    if (veganSwitchValue) [predicates addObject:veganPred];
+    if (gfSwitchValue) [predicates addObject:gfPred];
+    if (passSwitchValue) [predicates addObject:passPred];
+    
+    [originalMenu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+        NSMutableArray *originalMealStations = [[NSMutableArray alloc] initWithArray:meal.stations];
+        
+        //Create Favorite's Station and set it up TODO
+        NSMutableArray *filteredStations = [[NSMutableArray alloc] init];
+        
+        [originalMealStations enumerateObjectsUsingBlock:^(Venue *aVenue, NSUInteger idx, BOOL *stop) {
+            Venue *filteredVenue = [[Venue alloc] init];
+            filteredVenue.name = aVenue.name;
+            
+            [aVenue.dishes enumerateObjectsUsingBlock:^(Dish *aDish, NSUInteger idx, BOOL *stop) {
+                Dish *dish = [[Dish alloc] initWithOtherDish:aDish];
+                
+                //TODO handle favorites.
+                [filteredVenue.dishes addObject:dish];
+            }];
+            
+            [filteredStations addObject:filteredVenue];
+            
+            for (NSPredicate *predicate in predicates) {
+                NSLog(@"Pred: %@", predicate);
+                for (Venue *theVenue in filteredStations) {
+                    [theVenue.dishes filterUsingPredicate:predicate];
+                    
+                    if (theVenue.dishes.count == 0) {
+                        [filteredStations removeObject:theVenue];
+                    }
+                }
+            }
+        }];
+        
+        Meal *filteredMeal = [[Meal alloc] initWithStations:filteredStations andName:meal.name];
+        [filteredMenu addObject:filteredMeal];
+    }];
+
+    return filteredMenu;
+}
+
+
+-(void)printMenu:(NSArray *)menuArray
+{
+    for (Meal *meal in menuArray) {
+        for (Venue *venue in meal.stations) {
+            NSLog(@"%@ %@",venue.name, venue.dishes);
+        }
+    }
 }
 
 
 //Takes the array of Meals and returns the array of Filtered Meals. This is what's used in our VenueViewController. The Filtered Meals.
-
-- (void)applyFilters {
- 
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    [self.mainDelegate.allMenus removeAllObjects];
-    NSString *emptyStr = @"";
-    [self.mainDelegate.allMenus addObject:emptyStr];
-    [self.mainDelegate.allMenus addObject:emptyStr];
-    [self.mainDelegate.allMenus addObject:emptyStr];
-    [self.mainDelegate.allMenus addObject:emptyStr];
-    
-    for (int i = 0; i < self.originalMenu.count; i++){
-        NSMutableArray *temp = [[NSMutableArray alloc] init];
-        [self.mainDelegate.allMenus replaceObjectAtIndex:i withObject:temp];
-    }
-    
-    [self.mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
-    
-    
-    NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
-    BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
-    veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
-    ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
-    gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
-    passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    
-    ///////
-    for (int i = 0; i < self.originalMenu.count; i++) {
-        Venue *faveVen = [[Venue alloc] init];
-        faveVen.name = @"FAVORITES";
-        [faveVen.dishes removeAllObjects];
-        
-    NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[[self.originalMenu objectAtIndex:i] stations]];
- 
-        for (Venue *v in menu) {
-            Venue *venue = [[Venue alloc] init];
-     
-            venue.name = v.name;
-            for (Dish *d in v.dishes){
-                Dish *dish = [[Dish alloc] init];
-                dish.name = d.name;
-                dish.venue = d.venue;
-                dish.nutAllergen = d.nutAllergen;
-                dish.glutenFree = d.glutenFree;
-                dish.vegan = d.vegan;
-                dish.ovolacto = d.ovolacto;
-                dish.hasNutrition = d.hasNutrition;
-                dish.nutrition = d.nutrition;
-                dish.passover = d.passover;
-                dish.ID = d.ID;
-                dish.servSize = d.servSize;
-                if (d.fave){
-                    dish.fave = d.fave;
-                    BOOL found = FALSE;
-                    for (Dish *favesDish in faveVen.dishes) {
-                        if ([favesDish.name isEqualToString:dish.name] || favesDish.ID == dish.ID){
-                            found = TRUE;
-                            break;
-                        }
-                    }
-                    if (!found)
-                        [faveVen.dishes addObject:dish];
-                }
-                [venue.dishes addObject:dish];
-            }
-            [[self.mainDelegate.allMenus objectAtIndex:i] addObject:venue];
-        }
-        [[self.mainDelegate.allMenus objectAtIndex:i] insertObject:faveVen atIndex:0];
-        //Set up the filters
-        BOOL filter;
-        NSPredicate *compoundPred;
-        NSMutableArray *preds = [[NSMutableArray alloc] init];
-        if (self.mainDelegate.passover && passSwitch){
-            passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-            if (!ovoSwitch && !veganSwitch && !gfSwitch){
-                [preds removeAllObjects];
-                [preds addObject:passPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (ovoSwitch && gfSwitch){
-                ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-                gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-                [preds removeAllObjects];
-                [preds addObject:ovoPred];
-                [preds addObject:veganPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                [preds removeAllObjects];
-                [preds addObject:gfPred];
-                [preds addObject:passPred];
-                [preds addObject:compoundPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (veganSwitch && gfSwitch){
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-                gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-                [preds removeAllObjects];
-                [preds addObject:gfPred];
-                [preds addObject:veganPred];
-                [preds addObject:passPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (ovoSwitch) {
-                ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-                [preds removeAllObjects];
-                [preds addObject:ovoPred];
-                [preds addObject:veganPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                [preds removeAllObjects];
-                [preds addObject:passPred];
-                [preds addObject:compoundPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (veganSwitch) {
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-                [preds removeAllObjects];
-                [preds addObject:veganPred];
-                [preds addObject:passPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (gfSwitch) {
-                gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-                passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
-                [preds removeAllObjects];
-                [preds addObject:gfPred];
-                [preds addObject:passPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-        }
-        else{
-            if (!ovoSwitch && !veganSwitch && !gfSwitch){
-                filter = false;
-            }
-            else if (ovoSwitch && gfSwitch){
-                ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-                [preds removeAllObjects];
-                [preds addObject:ovoPred];
-                [preds addObject:veganPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                [preds removeAllObjects];
-                [preds addObject:gfPred];
-                [preds addObject:compoundPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (veganSwitch && gfSwitch){
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-                [preds removeAllObjects];
-                [preds addObject:gfPred];
-                [preds addObject:veganPred];
-                compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (ovoSwitch) {
-                ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                [preds removeAllObjects];
-                [preds addObject:ovoPred];
-                [preds addObject:veganPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (veganSwitch) {
-                veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
-                [preds removeAllObjects];
-                [preds addObject:veganPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-            else if (gfSwitch) {
-                gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
-                [preds removeAllObjects];
-                [preds addObject:gfPred];
-                compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
-                filter = true;
-            }
-        }
-        
-        //Run the filter
-        if (filter && compoundPred != NULL)
-            for (Venue *v in [self.mainDelegate.allMenus objectAtIndex:i]){
-                [v.dishes filterUsingPredicate:compoundPred];
-            }
-        
-        //Remove empty venues if all items are filtered out of a venue
-        NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
-        for (Venue *v in [self.mainDelegate.allMenus objectAtIndex:i]){
-            if (v.dishes.count == 0){
-                // NSLog(@"%@ removed", v.name);
-                [emptyVenues addObject:v];
-            }
-        }
-        [[self.mainDelegate.allMenus objectAtIndex:i] removeObjectsInArray:emptyVenues];
-    }
-}
 
 
 

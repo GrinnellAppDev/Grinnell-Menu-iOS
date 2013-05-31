@@ -25,6 +25,6 @@
 @property (nonatomic, strong) NSDictionary *nutrition;
 
 -(id)initWithDishDictionary:(NSDictionary *)aDishDictionary;
-
+-(id)initWithOtherDish:(Dish *)aDish;
 
 @end

@@ -19,7 +19,7 @@
         self.stations = [[NSMutableArray alloc] init];
         
         //TODO - Set the correct mealName CamelCase so we can use to set mealChoice string. 
-        self.name = mealName;
+        self.name = [mealName capitalizedString];
         
         [self setScoreForSorting];
         
@@ -66,22 +66,38 @@
     return self;
 }
 
+
+-(id)initWithStations:(NSMutableArray *)theStations andName:(NSString *)mealName
+{
+    self = [super init];
+    if (self) {
+        self.stations = theStations;
+        self.name = mealName;
+    }
+    return self;
+}
+
 -(void)setScoreForSorting
 {
-    if ([self.name isEqualToString:@"BREAKFAST"]) {
+    if ([self.name isEqualToString:@"Breakfast"]) {
         self.scoreForSorting = 1;
-    } if ([self.name isEqualToString:@"LUNCH"]) {
+    } if ([self.name isEqualToString:@"Lunch"]) {
         self.scoreForSorting = 2;
-    } if ([self.name isEqualToString:@"DINNER"]) {
+    } if ([self.name isEqualToString:@"Dinner"]) {
         self.scoreForSorting = 3;
-    } if ([self.name isEqualToString:@"OUTTAKES"]) {
+    } if ([self.name isEqualToString:@"Outtakes"]) {
         self.scoreForSorting = 4;
     }
 }
+
 
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"Meal: %@", self.name];
 }
+ 
+
+
+
 
 @end

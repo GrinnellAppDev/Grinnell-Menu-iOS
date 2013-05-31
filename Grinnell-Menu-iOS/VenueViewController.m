@@ -396,61 +396,127 @@ int tipNum = 0;
 #pragma mark - Added methods
 //Applying the various filters to the dishes in the tableView
 - (void)applyFilters {
+    
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     if (origMenu.count == 0)
         return;
     
+    /*
     [mainDelegate.allMenus removeAllObjects];
     NSString *emptyStr = @"";
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
     [mainDelegate.allMenus addObject:emptyStr];
+    
     for (int i = 0; i < origMenu.count; i++){
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         [mainDelegate.allMenus replaceObjectAtIndex:i withObject:temp];
     }
-     
-    
     
     [mainDelegate.allMenus removeObjectIdenticalTo:emptyStr];
-    /*
-    NSLog(@"orM %d", origMenu.count);
-    mainDelegate.allMenus  = [[NSMutableArray alloc] initWithCapacity:origMenu.count];
-    NSLog(@"MA: %@", mainDelegate.allMenus);
     */
     
+    mainDelegate.allMenus = [[NSMutableArray alloc] init];
+    
+    //MDAM is 4 empty arrays
+    
     NSPredicate *veganPred, *ovoPred, *gfPred, *passPred;
+    
     BOOL ovoSwitch, veganSwitch, gfSwitch, passSwitch;
+    
+    
     veganSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
     ovoSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     gfSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitch = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    for (int i = 0; i < origMenu.count; i++) {
+    
+    
+    passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
+    ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
+    veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
+    gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
+    
+    NSMutableArray *predicates = [[NSMutableArray alloc] init];
+    
+    if (ovoSwitch) [predicates addObject:ovoPred];
+    if (veganSwitch) [predicates addObject:veganPred];
+    if (gfSwitch) [predicates addObject:gfPred];
+    if (passSwitch) [predicates addObject:passPred];
+
+    
+    /*
+    [mainDelegate.allMenus enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[mainDelegate.allMenus[idx] stations]];
+        [menu enumerateObjectsUsingBlock:^(Venue *station , NSUInteger idx, BOOL *stop) {
+            //For every station.
+            //check if it's favorite.
+            
+            //The Filter part.
+            for (NSPredicate *predicate in predicates) {
+                [station.dishes filteredArrayUsingPredicate:predicate];
+            }
+        }];
+    }];
+     */
+    
+    
+    
+    /*
+    [origMenu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+        
+        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:meal.stations];
+        
+        [menu enumerateObjectsUsingBlock:^(Venue *aVenue, NSUInteger idx, BOOL *stop) {
+            Venue *venue = [[Venue alloc] init];
+            venue.name = aVenue.name;
+            
+            for (Dish *aDish in aVenue.dishes) {
+                Dish *dish = [[Dish alloc] initWithOtherDish:aDish];
+                
+                //Deal with favorites TODO
+                [venue.dishes addObject:dish];
+            }
+            
+            [mainDelegate.allMenus[idx] addObject:venue];
+        }];
+    }];
+    */
+    
+    NSLog(@"MA: %@", mainDelegate.allMenus);
+    
+    //for (int i = 0; i < origMenu.count; i++) {
+        
+        
+        /*
+         [origMenu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+         NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[origMenu[idx] stations]];
+         [menu enumerateObjectsUsingBlock:^(Venue *station , NSUInteger idx, BOOL *stop) {
+         //For every station.
+         //check if it's favorite.
+         }];
+         }];
+         */
+        
+    [origMenu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+        
+        NSMutableArray *mealStations = [[NSMutableArray alloc] initWithArray:meal.stations];
+    
         faveVen = [[Venue alloc] init];
         faveVen.name = @"FAVORITES";
         [faveVen.dishes removeAllObjects];
         
-        //Meal count unrecognized selector.
-        NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[[origMenu objectAtIndex:i] stations]];
+        //NSMutableArray *menu = [[NSMutableArray alloc] initWithArray:[[origMenu objectAtIndex:i] stations]];
+        NSMutableArray *filteredVenues = [[NSMutableArray alloc] init];
+        Meal *filteredMeal;
         
-        for (Venue *v in menu) {
-            Venue *venue = [[Venue alloc] init];
-            venue.name = v.name;
+        for (Venue *v in mealStations) {
+            Venue *filteredVenue = [[Venue alloc] init];
+            filteredVenue.name = v.name;
             for (Dish *d in v.dishes){
-                Dish *dish = [[Dish alloc] init];
-                dish.name = d.name;
-                dish.venue = d.venue;
-                dish.nutAllergen = d.nutAllergen;
-                dish.glutenFree = d.glutenFree;
-                dish.vegan = d.vegan;
-                dish.ovolacto = d.ovolacto;
-                dish.hasNutrition = d.hasNutrition;
-                dish.nutrition = d.nutrition;
-                dish.passover = d.passover;
-                dish.ID = d.ID;
-                dish.servSize = d.servSize;
+                Dish *dish = [[Dish alloc] initWithOtherDish:d];
+                
                 if (d.fave){
                     dish.fave = d.fave;
                     BOOL found = FALSE;
@@ -463,16 +529,43 @@ int tipNum = 0;
                     if (!found)
                         [faveVen.dishes addObject:dish];
                 }
-                [venue.dishes addObject:dish];
+                [filteredVenue.dishes addObject:dish];
             }
-            [[mainDelegate.allMenus objectAtIndex:i] addObject:venue];
+            [filteredVenues addObject:filteredVenue];
+            
+//            [[mainDelegate.allMenus objectAtIndex:i] addObject:venue];
+        //    [mainDelegate.allMenus[idx] addObject:filteredVenue];
         }
-        [[mainDelegate.allMenus objectAtIndex:i] insertObject:faveVen atIndex:0];
+        filteredMeal = [[Meal alloc] initWithStations:filteredVenues andName:meal.name];
+        [mainDelegate.allMenus addObject:filteredMeal];
+        
+//        [[mainDelegate.allMenus objectAtIndex:i] insertObject:faveVen atIndex:0];
+        [mainDelegate.allMenus[idx] insertObject:faveVen atIndex:0];
+        
         //Set up the filters
-        BOOL filter;
-        NSPredicate *compoundPred;
+        
+        //Filter the menu
+        for (NSPredicate *predicate in predicates) {
+            for (Venue *v in [mainDelegate.allMenus objectAtIndex:idx]) {
+                [v.dishes filterUsingPredicate:predicate];
+            }
+        }
+        
+        
+        //Remove empty venues if all items are filtered out of a venue
+        NSMutableArray *emptyVenues = [[NSMutableArray alloc] init];
+        for (Venue *v in [mainDelegate.allMenus objectAtIndex:idx]) {
+            if (v.dishes.count == 0){
+                // NSLog(@"%@ removed", v.name);
+                [emptyVenues addObject:v];
+            }
+        }
+        
+        [[mainDelegate.allMenus objectAtIndex:idx] removeObjectsInArray:emptyVenues];
+    
+         /*
         NSMutableArray *preds = [[NSMutableArray alloc] init];
-        if (mainDelegate.passover && passSwitch){
+        if (mainDelegate.passover && passSwitch) {
             passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
             if (!ovoSwitch && !veganSwitch && !gfSwitch){
                 [preds removeAllObjects];
@@ -480,7 +573,7 @@ int tipNum = 0;
                 compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
                 filter = true;
             }
-            else if (ovoSwitch && gfSwitch){
+            else if (ovoSwitch && gfSwitch) {
                 ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
                 veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
                 passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
@@ -496,7 +589,7 @@ int tipNum = 0;
                 compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
                 filter = true;
             }
-            else if (veganSwitch && gfSwitch){
+            else if (veganSwitch && gfSwitch) {
                 veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
                 passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
                 gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
@@ -519,6 +612,8 @@ int tipNum = 0;
                 [preds addObject:passPred];
                 [preds addObject:compoundPred];
                 compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
+
                 filter = true;
             }
             else if (veganSwitch) {
@@ -528,6 +623,8 @@ int tipNum = 0;
                 [preds addObject:veganPred];
                 [preds addObject:passPred];
                 compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
+
                 filter = true;
             }
             else if (gfSwitch) {
@@ -537,14 +634,16 @@ int tipNum = 0;
                 [preds addObject:gfPred];
                 [preds addObject:passPred];
                 compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
+
                 filter = true;
             }
         }
-        else{
-            if (!ovoSwitch && !veganSwitch && !gfSwitch){
+        else {
+            if (!ovoSwitch && !veganSwitch && !gfSwitch) {
                 filter = false;
             }
-            else if (ovoSwitch && gfSwitch){
+            else if (ovoSwitch && gfSwitch) {
                 ovoPred = [NSPredicate predicateWithFormat:@"ovolacto == YES"];
                 veganPred = [NSPredicate predicateWithFormat:@"vegan == YES"];
                 gfPred = [NSPredicate predicateWithFormat:@"glutenFree == YES"];
@@ -556,6 +655,7 @@ int tipNum = 0;
                 [preds addObject:gfPred];
                 [preds addObject:compoundPred];
                 compoundPred = [NSCompoundPredicate andPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
                 filter = true;
             }
             else if (veganSwitch && gfSwitch){
@@ -574,6 +674,8 @@ int tipNum = 0;
                 [preds addObject:ovoPred];
                 [preds addObject:veganPred];
                 compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
+
                 filter = true;
             }
             else if (veganSwitch) {
@@ -581,6 +683,8 @@ int tipNum = 0;
                 [preds removeAllObjects];
                 [preds addObject:veganPred];
                 compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
+
                 filter = true;
             }
             else if (gfSwitch) {
@@ -588,13 +692,15 @@ int tipNum = 0;
                 [preds removeAllObjects];
                 [preds addObject:gfPred];
                 compoundPred = [NSCompoundPredicate orPredicateWithSubpredicates:preds];
+                NSLog(@"cp: %@", compoundPred);
+
                 filter = true;
             }
         }
         
         //Run the filter
         if (filter && compoundPred != NULL)
-            for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]){
+            for (Venue *v in [mainDelegate.allMenus objectAtIndex:i]) {
                 [v.dishes filterUsingPredicate:compoundPred];
             }
         
@@ -606,8 +712,13 @@ int tipNum = 0;
                 [emptyVenues addObject:v];
             }
         }
-        [[mainDelegate.allMenus objectAtIndex:i] removeObjectsInArray:emptyVenues];
-    }
+        
+    */
+        
+    //}
+     }];
+
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

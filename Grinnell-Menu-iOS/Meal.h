@@ -16,5 +16,6 @@
 @property(nonatomic) int scoreForSorting;
 
 -(id)initWithMealDict:(NSDictionary *)mealDict andName:(NSString *)mealName;
+-(id)initWithStations:(NSMutableArray *)theStations andName:(NSString *)mealName;
 
 @end

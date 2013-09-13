@@ -12,5 +12,7 @@
 @interface StationsViewController : UIViewController <TTSlidingPagesDataSource>
 
 @property (nonatomic, strong) NSArray *menu;
+@property (nonatomic, strong) TTScrollSlidingPagesController *slider;
 
+@property (nonatomic, strong) NSDate *date; 
 @end

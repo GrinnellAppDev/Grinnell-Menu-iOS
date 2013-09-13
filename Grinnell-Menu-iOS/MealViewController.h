@@ -14,4 +14,7 @@
 
 @property(nonatomic, strong) Meal *meal;
 
+
+-(void)insert;
+
 @end

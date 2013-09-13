@@ -11,11 +11,27 @@
 #import "Reachability.h"
 #import "Grinnell_Menu_iOSAppDelegate.h"
 
+#import "MenuModel.h"
+#import "Meal.h"
+#import "StationsViewController.h"
+#import "TTScrollSlidingPagesController.h"
+
+
+
+
+@interface DatePickerViewController ()
+@property (nonatomic, strong) NSArray *menu;
+@property (nonatomic, strong) MenuModel *menuModel;
+
+@end
+
+
 @implementation DatePickerViewController {
     NSString *alert;
     NSURL *URLwithDate;
     BOOL notFirstTime;
 }
+
 @synthesize grinnellDiningLabel, go, go2, datePicker, jsonDict, banner, delegate;
 
 //Fetches the data from server. jsonDict is passed on to VenueViewController. 
@@ -50,6 +66,30 @@
 
 - (IBAction)showVenues:(id)sender {
     NSDate *date = [self.datePicker date];
+    NSLog(@"date: %@",date);
+    
+    self.menuModel = [[MenuModel alloc] initWithDate:date];
+    self.menu = [self.menuModel performFetch];
+    
+    UIAlertView *mealmessage = [[UIAlertView alloc]
+                                initWithTitle:@"Select Meal"
+                                message:nil
+                                delegate:self
+                                cancelButtonTitle:@"Cancel"
+                                otherButtonTitles:nil
+                                ];
+    
+    //Create alert buttons depending on the menus available.
+    [self.menu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
+        [mealmessage addButtonWithTitle:meal.name];
+    }];
+
+    [mealmessage show];
+    
+
+    
+    /*
+    NSDate *date = [self.datePicker date];
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
     NSInteger day = [components day];    
     NSInteger month = [components month];
@@ -70,6 +110,9 @@
     
     //if not, go get it from server.
     else {
+        
+        
+        
         if (self.networkCheck) {
             NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", month, day, year];
             URLwithDate = [NSURL URLWithString:url];
@@ -114,6 +157,8 @@
         [mealmessage addButtonWithTitle:@"Outtakes"];
     }
     [mealmessage show];
+    
+    */ 
 }
 
 #pragma mark - View lifecycle
@@ -129,6 +174,7 @@
 
 }
 
+/*
 - (void)viewWillAppear:(BOOL)animated {
     if (self.networkCheck) {
         if (!notFirstTime) {
@@ -183,31 +229,15 @@
         [network show];
     }     
 }
+ */
+
 
 - (void)viewDidUnload {
     [self setGrinnellDiningLabel:nil];
     [super viewDidUnload];
     self.datePicker = nil;
 }
-/*
-- (void)viewWillLayoutSubviews
-{
-    if (UIInterfaceOrientationIsPortrait(
-                                         [UIApplication sharedApplication].statusBarOrientation))
-    {
-        grinnellDiningLabel.hidden = NO;
-        banner.hidden = NO;
-        go.hidden = NO;
-        go2.hidden = YES;
-    }
-    else
-    {
-        grinnellDiningLabel.hidden = YES;
-        banner.hidden = YES;
-        go.hidden = YES;
-        go2.hidden = NO;
-    }
-}*/
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -225,17 +255,13 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
-        //We want access to the venueViewController that was created on launch. (Instead of instantiating a new  one)
-        Grinnell_Menu_iOSAppDelegate *mainDelegate = (Grinnell_Menu_iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-        mainDelegate.venueViewController.jsonDict = self.jsonDict;
+        //We want access to the stationsViewController that was created on launch. (Instead of instantiating a new  one)
+        self.stationsViewController.menu = self.menu;
+        [self.stationsViewController.slider reloadPages];
+        [self.stationsViewController.slider scrollToPage:buttonIndex-1 animated:NO];
+
         
-        mainDelegate.venueViewController.mealChoice = titlePressed;
-        mainDelegate.venueViewController.date = datePicker.date;
-        
-        //The refresh screen methods refreshes the tableview as well as makes sure it starts from the top (instead of somewhere in the middle)
-        [mainDelegate.venueViewController refreshScreen];
-        [self.navigationController pushViewController:mainDelegate.venueViewController animated:YES];
-        [mainDelegate.venueViewController showMealHUD];
+        [self.navigationController pushViewController:self.stationsViewController animated:YES];
         
     } else {
         //iPad

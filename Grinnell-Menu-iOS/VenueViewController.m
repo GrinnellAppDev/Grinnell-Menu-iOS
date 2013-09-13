@@ -95,7 +95,7 @@ dispatch_queue_t requestQueue;
     origMenu = [[NSMutableArray alloc] init];
 
     MenuModel *menuModel = [[MenuModel alloc] initWithDate:self.date];
-    origMenu = [menuModel createMenuFromDictionary:mainMenu];
+  //  origMenu = [menuModel createMenuFromDictionary:mainMenu];
     
   //  NSLog(@"ORIGMENU: %@", origMenu);
     

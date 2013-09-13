@@ -153,9 +153,14 @@
     [super viewWillDisappear:YES];
     
     if (veganChanged || glutChanged || ovolactoChanged || passoverChanged) {
-        [mainDelegate.venueViewController applyFilters];
-        [mainDelegate.venueViewController refreshScreen];
+        //[mainDelegate.venueViewController applyFilters];
+        //[mainDelegate.venueViewController refreshScreen];
+        
+        [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetFilters"
+                                                             object:nil];
     }
+    
+    
 }
 
 - (void)viewDidUnload {

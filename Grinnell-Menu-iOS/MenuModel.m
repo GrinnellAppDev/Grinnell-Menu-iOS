@@ -18,6 +18,8 @@
 @property(nonatomic, strong) NSDictionary *menuDictionary;
 @property(nonatomic, strong) NSArray *originalMenu;
 @property(nonatomic, strong) Grinnell_Menu_iOSAppDelegate *mainDelegate;
+
+-(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary;
 @end
 
 
@@ -34,76 +36,81 @@
 }
 
 
--(NSArray *)performFetchForDate:(NSDate *)aDate {
-    
-    //Goes to TCDB. Grabs the Glicious menu.
+
+/* Fetches the menu for the date: self.date
+ * Loads cached menu if available.
+ * If not, downloads new menu from TCDB and caches it. 
+ * Returns the filtered Menu
+ */ 
+-(NSArray *)performFetch {
     
     //Get the date Components. TODO pull this out.
-    //DateFormatting used to set the Date Label. Not needed here.
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter  setDateFormat:@"EEE MMM dd"];
-    NSString *formattedDate = [dateFormatter stringFromDate:self.date];
     
+
     //We need to pick the right components in the cases self.date changes.
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
     NSInteger selectedDay = [components day];
     NSInteger selectedMonth = [components month];
     NSInteger selectedYear = [components year];
     
-    //correct version
-    // NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+    //File Directories used.
+    NSString *tempPath = NSTemporaryDirectory();
+    NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", selectedMonth, selectedDay, selectedYear];
+    NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
     
-    //testing
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/5-16-2013.json"];
+    //Check to see if the file has previously been cached else Get it from server. 
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        self.menuDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
+        NSLog(@"Loading Json from iPhone cache");
+    }  else {        
+        //correct version
+        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        //testing
+        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/5-16-2013.json"];
     
-    dispatch_queue_t requestQueue;
-    
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    NSError *error = nil;
-    if (data)
-    {
-        self.menuDictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                        options:kNilOptions
-                                                          error:&error];
-        //NSLog(@"Downloaded new data");
-        if (error) {
-            NSLog(@"There was an error: %@", [error localizedDescription]);
+        
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        NSError *error = nil;
+        if (data)
+        {
+            self.menuDictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                                  options:kNilOptions
+                                                                    error:&error];
+            NSLog(@"Downloaded new data");
+            if (error) {
+                NSLog(@"There was an error: %@", [error localizedDescription]);
+            }
+            // Cache the menudictionary after downloading. 
+            [self.menuDictionary writeToFile:path atomically:YES];
+        } else {
+            //TODO Handle Data Nil Error!!
         }
-    } else {
-        //TODO Handle Data Nil Error!!
     }
     
     //Parses it.
     NSAssert(self.menuDictionary, nil);
     
     NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
-    
     NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
     return filteredMenu;
 }
 
 
-//Returns an Array of Meals.
+/* Creates and returns the array of meals.
+ * Requires the menuDictionary downloaded from tcdb. 
+ */ 
 -(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary
 {
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSWeekdayCalendarUnit fromDate:self.date];
-    NSUInteger weekday = [components weekday];
-    
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
     //Go through Menu and create a meal for each Meal available.
     [theMenuDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *mealName, NSDictionary *mealDict, BOOL *stop) {
-        NSLog(@"Mealname: %@, mealDict:", mealName);
+       // NSLog(@"Mealname: %@, mealDict:", mealName);
         
         if (![mealName isEqualToString:@"PASSOVER"]) {
-            //next step - create the Meal.
+            //next step - create the Meal(i.e Breakfast, Lunch, etc)
             Meal *aMeal = [[Meal alloc] initWithMealDict:mealDict andName:mealName];
-            
             [tempArray addObject:aMeal];
-            
-       //     NSLog(@"Adding: %@", aMeal.name);
         }
     }];
     
@@ -111,12 +118,8 @@
     [tempArray sortUsingDescriptors:@[sortDescriptor]];
     
     self.originalMenu = [[NSArray alloc] initWithArray:tempArray];
-     NSLog(@"TA: %@", tempArray);
     
-    //Sending the menus. Currently just wanting the stations. 
     return self.originalMenu;
-    
-    //call applyFileters like at the end basically. So we should know we have this.
 }
 
 //Returns a filtered Menu depending on the values of the Filter Switches. 
@@ -127,13 +130,10 @@
     
     //Load Switch values
     BOOL ovoSwitchValue, veganSwitchValue, gfSwitchValue, passSwitchValue;
-    veganSwitchValue = TRUE; //[[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
-    ovoSwitchValue = TRUE; // [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
+    veganSwitchValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"VeganSwitchValue"];
+    ovoSwitchValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"OvoSwitchValue"];
     gfSwitchValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"GFSwitchValue"];
     passSwitchValue = [[NSUserDefaults standardUserDefaults] boolForKey:@"PassSwitchValue"];
-    
-    NSLog(@"veganSwitch: %d, ovoSwitch: %d", veganSwitchValue, ovoSwitchValue); 
-   // [self printMenu:originalMenu];
     
     
     NSPredicate *passPred = [NSPredicate predicateWithFormat:@"passover == YES"];
@@ -168,7 +168,7 @@
             [filteredStations addObject:filteredVenue];
             
             for (NSPredicate *predicate in predicates) {
-                NSLog(@"Pred: %@", predicate);
+               // NSLog(@"Pred: %@", predicate);
                 for (Venue *theVenue in filteredStations) {
                     [theVenue.dishes filterUsingPredicate:predicate];
                     
@@ -195,10 +195,6 @@
         }
     }
 }
-
-
-//Takes the array of Meals and returns the array of Filtered Meals. This is what's used in our VenueViewController. The Filtered Meals.
-
 
 
 - (BOOL)networkCheck {

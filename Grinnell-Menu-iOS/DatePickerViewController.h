@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
+@class StationsViewController;
+
+
 @protocol DatePickerDelegate <NSObject>
 - (void)datePickerSelectedJsonDict:(NSDictionary *)selectedJsonDict andMealChoice:(NSString *)selectedMealChoice date:(NSDate *)selectedDate;
 @end
@@ -26,5 +29,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *banner;
 
 @property (nonatomic, assign) id <DatePickerDelegate> delegate;
+
+@property (nonatomic, strong) StationsViewController *stationsViewController;
 
 @end

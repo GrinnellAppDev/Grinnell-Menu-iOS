@@ -14,7 +14,6 @@
 
 
 -(id)initWithDate:(NSDate *)aDate;
--(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary;
--(NSArray *)performFetchForDate:(NSDate *)aDate;
+-(NSArray *)performFetch;
 
 @end

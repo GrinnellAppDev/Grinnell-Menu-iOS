@@ -23,6 +23,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -132,10 +133,31 @@
     Dish *dish = venue.dishes[indexPath.row];
     
     
+    
     if (dish.hasNutrition) {
         [[NSNotificationCenter defaultCenter]  postNotificationName:@"ShowNutritionalDetails"
                                                              object:dish];
     }
+     
+ //   [self insert];
+    
+    
+    
+/*
+    [venue.dishes addObject:dish];
+    [self.meal.stations addObject:venue];
+    
+    //Create an array of indexPaths
+    NSMutableArray *insertIndexPaths = [[NSMutableArray alloc] initWithCapacity:3];
+
+        [insertIndexPaths addObject:[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
+    
+    
+  //  [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationBottom];
+ */ 
+    
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView
@@ -150,6 +172,26 @@ titleForHeaderInSection:(NSInteger)section
   */
     Venue *venue = self.meal.stations[section];
     return venue.name;    
+}
+
+-(void)insert
+{
+
+  //  [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+    
+    
+    Dish *dish = [[Dish alloc] init];
+    dish.name = @"hahahah";
+    
+    [[self.meal.stations[0] dishes] addObject:dish];
+    
+    NSArray *paths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.meal.stations count]-1 inSection:1]];
+    [[self tableView] insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+    
+    
+    
+ 
+
 }
 
 @end

@@ -123,10 +123,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<double key="NS.time">340922596.91087598</double>
 						</object>
 						<object class="NSDate" key="IBUIMinimumDate">
-							<double key="NS.time">363434400</double>
+							<double key="NS.time">390045600</double>
 						</object>
 						<object class="NSDate" key="IBUIMaximumDate">
-							<double key="NS.time">364471200</double>
+							<double key="NS.time">390564000</double>
 						</object>
 						<int key="IBUIMinuteInterval">30</int>
 						<bool key="IBUIHasMinimumDate">YES</bool>

@@ -104,8 +104,8 @@
 		1632A59516287BF90097C330 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1632A59416287BF90097C330 /* Default-568h@2x.png */; };
 		163C2F81163C9FA000A274A8 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C2F80163C9FA000A274A8 /* Default-Portrait.png */; };
 		163C2F84163CA50400A274A8 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C2F83163CA50400A274A8 /* Icon-72@2x.png */; };
-		163C85A715BDCBA400FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
-		163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
+		163C85A715BDCBA400FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		163C85A815BDCD6700FC8578 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C85A615BDCBA300FC8578 /* TDBadgedCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		163C861315C0AA9F00FC8578 /* datePicker_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 163C861215C0AA9F00FC8578 /* datePicker_background.png */; };
 		163CF0F91544A90300B0397C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 163CF0F81544A90300B0397C /* iTunesArtwork */; };
 		167A6B79170DFF2E0028D6B0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 167A6B59170DFF2E0028D6B0 /* .gitignore */; };
@@ -154,7 +154,7 @@
 		16FF362515C72BC500C9DC09 /* Calendar-Day.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF362215C72BC500C9DC09 /* Calendar-Day.png */; };
 		16FF366515C769CB00C9DC09 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366415C769CB00C9DC09 /* splash.png */; };
 		16FF366715C76A2100C9DC09 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF366615C76A2000C9DC09 /* Default.png */; };
-		16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc "; }; };
+		16FF366A15C7748500C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		16FF367215C7789C00C9DC09 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF366915C7748500C9DC09 /* MBProgressHUD.m */; };
 		16FF367815C7953900C9DC09 /* DatePickerViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = E1A0C549145324480072BE76 /* DatePickerViewController.h */; };
 		16FF368315C83F6900C9DC09 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */; };
@@ -169,6 +169,7 @@
 		3BD235BF1614DAD700C2F901 /* PanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD235BC1614DAD700C2F901 /* PanelView.m */; };
 		3BD9513A16430FF80056AA11 /* starred.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD9513816430FF80056AA11 /* starred.png */; };
 		3BD9513B16430FF80056AA11 /* unstarred.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD9513916430FF80056AA11 /* unstarred.png */; };
+		6AE70B835A544F2E99EB913F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA9358D3C0542CA917D9086 /* libPods.a */; };
 		87B46EA0146A3ED7001007BA /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B46E9F146A3ED7001007BA /* Venue.m */; };
 		E1A0C530145324470072BE76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C52F145324470072BE76 /* UIKit.framework */; };
 		E1A0C532145324470072BE76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A0C531145324470072BE76 /* Foundation.framework */; };
@@ -420,6 +421,7 @@
 		16FF366915C7748500C9DC09 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		16FF368115C83F6900C9DC09 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		16FF368215C83F6900C9DC09 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		1BA9358D3C0542CA917D9086 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		314CC43214EA0A410004F963 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Grinnell-Menu-iOS/Reachability.h"; sourceTree = "<group>"; };
 		314CC43314EA0A410004F963 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Grinnell-Menu-iOS/Reachability.m"; sourceTree = "<group>"; };
 		314CC43514EA0B4A0004F963 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -436,6 +438,7 @@
 		3BD9513916430FF80056AA11 /* unstarred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unstarred.png; sourceTree = "<group>"; };
 		87B46E9E146A3ED7001007BA /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		87B46E9F146A3ED7001007BA /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		9AFEA38C5C044A478971506C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E1A0C52B145324460072BE76 /* Grinnell-Menu-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grinnell-Menu-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A0C52F145324470072BE76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E1A0C531145324470072BE76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -488,6 +491,7 @@
 				E1A0C536145324470072BE76 /* CoreData.framework in Frameworks */,
 				1615ABBB151A9BD6006947DF /* libCrittercism_v3_1_4.a in Frameworks */,
 				168D0812152A2C6A005B690E /* libFlurryAnalytics.a in Frameworks */,
+				6AE70B835A544F2E99EB913F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +772,7 @@
 				E1A0C55B145324480072BE76 /* Grinnell-Menu-iOSTests */,
 				E1A0C52E145324460072BE76 /* Frameworks */,
 				E1A0C52C145324460072BE76 /* Products */,
+				9AFEA38C5C044A478971506C /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -792,6 +797,7 @@
 				E1A0C531145324470072BE76 /* Foundation.framework */,
 				E1A0C533145324470072BE76 /* CoreGraphics.framework */,
 				E1A0C535145324470072BE76 /* CoreData.framework */,
+				1BA9358D3C0542CA917D9086 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -919,9 +925,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1A0C568145324490072BE76 /* Build configuration list for PBXNativeTarget "Grinnell-Menu-iOS" */;
 			buildPhases = (
+				496F7B559B76443A818A0095 /* Check Pods Manifest.lock */,
 				E1A0C527145324460072BE76 /* Sources */,
 				E1A0C528145324460072BE76 /* Frameworks */,
 				E1A0C529145324460072BE76 /* Resources */,
+				035DA540484745E3BFEF90AB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1146,6 +1154,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		035DA540484745E3BFEF90AB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		496F7B559B76443A818A0095 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		E1A0C552145324480072BE76 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1332,9 +1370,11 @@
 		};
 		163CF0F41544A2FD00B0397C /* Ad hoc Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AFEA38C5C044A478971506C /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
@@ -1347,7 +1387,8 @@
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FD1CCE47-E948-47E4-A0B7-A767FE65541F";
+				PROVISIONING_PROFILE = "7BA149E1-088E-4B5F-87F8-E8C9066C74FD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1422,9 +1463,11 @@
 		};
 		E1A0C569145324490072BE76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AFEA38C5C044A478971506C /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1438,7 +1481,8 @@
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FD1CCE47-E948-47E4-A0B7-A767FE65541F";
+				PROVISIONING_PROFILE = "7BA149E1-088E-4B5F-87F8-E8C9066C74FD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
@@ -1448,9 +1492,11 @@
 		};
 		E1A0C56A145324490072BE76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AFEA38C5C044A478971506C /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Maijid Moujaled (KLAZ34BHQN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grinnell-Menu-iOS/Grinnell-Menu-iOS-Prefix.pch";
@@ -1463,7 +1509,8 @@
 					"\"$(SRCROOT)/Grinnell-Menu-iOS/FlurryAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FD1CCE47-E948-47E4-A0B7-A767FE65541F";
+				PROVISIONING_PROFILE = "7BA149E1-088E-4B5F-87F8-E8C9066C74FD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

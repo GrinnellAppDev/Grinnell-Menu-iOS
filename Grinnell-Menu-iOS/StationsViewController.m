@@ -16,10 +16,16 @@
 #import "Dish.h"
 
 #import "AJRNutritionViewController.h"
+#import "SettingsViewController.h"
 
 
 @interface StationsViewController ()
-@property (nonatomic, strong) TTScrollSlidingPagesController *slider;
+@property (nonatomic, strong) MenuModel *menuModel;
+@property (weak, nonatomic) IBOutlet UIToolbar *bottomToolBar;
+@property (nonatomic, strong) SettingsViewController *settingsViewController;
+
+//-(void)setDate:(NSDate *)date;
+
 @end
 
 @implementation StationsViewController
@@ -30,11 +36,18 @@
     if (self) {
         // Custom initialization
         self.title = @"Stations";
+        [self setBottomBar];
         [self setChangeDateButton];
         [self setChangeMealButton];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(showNutritionalLabel:)
                                                      name:@"ShowNutritionalDetails"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(resetFilters)
+                                                     name:@"ResetFilters"
                                                    object:nil];
     }
     return self;
@@ -42,8 +55,12 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
     [self prepareMenu];
     
     //initial setup of the TTScrollSlidingPagesController.
@@ -51,11 +68,11 @@
     
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     //slider.titleScrollerHidden = YES;
-    self.slider.titleScrollerHeight = 25;
+    self.slider.titleScrollerHeight = 23;
     //slider.titleScrollerItemWidth=60;
-    //slider.titleScrollerBackgroundColour = [UIColor darkGrayColor];
+    //self.slider.titleScrollerBackgroundColour = [UIColor darkGrayColor];
     //slider.disableTitleScrollerShadow = YES;
-    //slider.disableUIPageControl = YES;
+    self.slider.disableUIPageControl = YES;
     //slider.initialPageNumber = 1;
     //slider.pagingEnabled = NO;
     //slider.zoomOutAnimationDisabled = YES;
@@ -74,6 +91,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 #pragma mark TTSlidingPagesDataSource methods
 -(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
@@ -111,9 +130,12 @@
 
 -(void)prepareMenu
 {
+
+    NSDate *today = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * -14];
+    NSLog(@"today: %@" ,today);
     //TODO initWithProperDate
-    MenuModel *menuModel = [[MenuModel alloc] initWithDate:[NSDate date]];
-    self.menu = [menuModel performFetchForDate:[NSDate date]];
+    self.menuModel = [[MenuModel alloc] initWithDate:today];
+    self.menu = [self.menuModel performFetch];
     
    // NSLog(@"self.origMenu: %@", self.menu);
 }
@@ -185,8 +207,8 @@
     [cdb addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeDateButton =[[UIBarButtonItem alloc]  initWithCustomView:cdb];
     self.navigationItem.leftBarButtonItem = changeDateButton;
-
 }
+
 -(void)setChangeMealButton
 {
     UIButton *cmb = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
@@ -194,6 +216,29 @@
     [cmb addTarget:self action:@selector(changeMeal) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *changeMealButton =[[UIBarButtonItem alloc]  initWithCustomView:cmb];
     [self.navigationItem setRightBarButtonItem:changeMealButton];
+}
+
+-(void)setBottomBar
+{
+    [self.view bringSubviewToFront:self.bottomToolBar];
+
+  //  UIBarButtonItem *hoursLabelItem = [[UIBarButtonItem alloc] initWithCustomView:self.hoursLabel];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+
+    /*
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
+        NSArray *toolbarItems = [NSArray arrayWithObjects: spaceItem, hoursLabelItem, spaceItem, nil];
+        [bottomToolBar setItems:toolbarItems animated:YES];
+    } else {
+      */
+    
+        UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        [infoButton addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *infoBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+        NSArray *toolbarItems = [NSArray arrayWithObjects: spaceItem, /*hoursLabelItem,*/  spaceItem, infoBarButtonItem,  nil];
+        [self.bottomToolBar setItems:toolbarItems animated:YES];
+   // }
 }
 
 - (void)changeDate {
@@ -221,6 +266,9 @@
 }
 
 - (void)changeMeal {
+    
+    
+    
     UIAlertView *mealmessage = [[UIAlertView alloc]
                                 initWithTitle:@"Select Meal"
                                 message:nil
@@ -233,6 +281,7 @@
        [mealmessage addButtonWithTitle:meal.name];
    }];
     [mealmessage show];
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -243,5 +292,58 @@
         [self.slider scrollToPage:buttonIndex-1 animated:YES];
     }
 }
+
+//Flip over to the SettingsViewController
+- (IBAction)showInfo:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        // Records when user goes to info Screen, records data in Flurry.
+        // Log in to check data analytics at Flurry.com: If you don't have a access. Let me know! @DrJid
+     //   [FlurryAnalytics logEvent:@"Flipped to Settings"];
+        SettingsViewController *settings = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+        navController.navigationBar.barStyle = UIBarStyleBlack;
+        navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentViewController:navController animated:YES completion:nil];
+    }
+    /*
+    else {
+        //It's iPad.
+        if (self.settingsViewController == nil) {
+            self.settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+            //self.settingsViewController.delegate = self;
+            self.settingsPopover = [[UIPopoverController alloc] initWithContentViewController:self.settingsViewController];
+        }
+        
+        if ([self.settingsPopover isPopoverVisible]) {
+            [self.settingsPopover dismissPopoverAnimated:YES];
+        } else {
+            if ([self.datePickerPopover isPopoverVisible])
+                [self.datePickerPopover dismissPopoverAnimated:YES];
+            [self.settingsPopover presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        
+    }
+     */ 
+}
+
+-(void)resetFilters
+{
+    [self prepareMenu];
+    [self.slider reloadPages];
+}
+
+/*
+-(void)setDate:(NSDate *)date
+{
+    _date = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * -14];
+}
+ */
+
+/*
+ //DateFormatting used to set the Date Label. Might be needed here. TODO
+ NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+ [dateFormatter  setDateFormat:@"EEE MMM dd"];
+ NSString *formattedDate = [dateFormatter stringFromDate:self.date];
+ */
 
 @end

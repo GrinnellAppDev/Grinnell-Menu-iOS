@@ -223,38 +223,11 @@ titleForHeaderInSection:(NSInteger)section
 
  */
 
-/*
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    NSLog(@"sv dragged");
-    
-    ScrollDirection scrollDirection = ScrollDirectionNone;
-    if (self.lastContentOffset > scrollView.contentOffset.y)
-        scrollDirection = ScrollDirectionDown;
-    else if (self.lastContentOffset < scrollView.contentOffset.y)
-        scrollDirection = ScrollDirectionUp;
-    
-    DLog(@"lastContentOffset: %ld", (long)self.lastContentOffset);
-    DLog(@"y offset: %f", scrollView.contentOffset.y);
-    
-    self.lastContentOffset = scrollView.contentOffset.y;
-    
 
-    
-    if (scrollDirection == ScrollDirectionUp) {
-           // [[NSNotificationCenter defaultCenter] postNotificationName:@"ScrollViewDraggedUp" object:nil];
-    } else if (scrollDirection == ScrollDirectionDown) {
-        NSLog(@"SCrolling down");
-       // [[NSNotificationCenter defaultCenter] postNotificationName:@"ScrollViewDraggedDown" object:nil];
-        
-    }
-}
-*/
 
+#pragma mark - Handle Scrolling Offset Values
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
-    
     ScrollDirection scrollDirection = ScrollDirectionNone;
     
     int contentOffsetDifference = scrollView.contentOffset.y - self.startContentOffset;
@@ -273,18 +246,7 @@ titleForHeaderInSection:(NSInteger)section
         //Change tableview inset
 
     }
-    
-    /*
-    if (self.lastContentOffset > scrollView.contentOffset.y)
-        scrollDirection = ScrollDirectionDown;
-    else if (self.lastContentOffset < scrollView.contentOffset.y)
-        scrollDirection = ScrollDirectionUp;
-    
-    DLog(@"lastContentOffset: %ld", (long)self.lastContentOffset);
-    DLog(@"y offset: %f", scrollView.contentOffset.y);
-    
-    self.lastContentOffset = scrollView.contentOffset.y;
-    */
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

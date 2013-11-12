@@ -90,10 +90,19 @@
     self.slider.view.frame = self.view.frame;
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
-        
+    [self updateDateBarButtonLabel];
     //Change Z position of toolbar so it is always on top
     [self.view bringSubviewToFront:self.toolbar];
     [self.slider scrollToPage:_currentPage animated:NO];
+}
+
+- (void)updateDateBarButtonLabel
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter  setDateFormat:@"EEE, MMM dd"];
+    NSString *formattedDateString = [dateFormatter stringFromDate:self.date];
+    self.navigationDateLabel.text = formattedDateString;
+    self.dateBarButton.title = formattedDateString;
 }
 
 
@@ -113,7 +122,7 @@
     */
     self.menu = [self.menuModel performFetch];
     self.availableDays = self.menuModel.availableDays;
-
+    [self updateDateBarButtonLabel];
     [self showHudForDate:self.date];
 }
 
@@ -124,7 +133,6 @@
         self.dateSelectionViewController.delegate = self;
         self.dateSelectionViewController.view.tintColor = [UIColor scarletColor];
     }
-    
     [self.dateSelectionViewController show];
     [self.dateSelectionViewController.datePicker setMinimumDate:[NSDate date]];
     int range = 24 * 60 * 60 * self.availableDays;

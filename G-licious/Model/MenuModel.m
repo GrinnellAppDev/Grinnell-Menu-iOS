@@ -261,28 +261,6 @@
 }
 
 
-/*
- - (NSArray *)parseMenu:(NSData *)data {
- NSError *jsonError;
- self.menuDictionary = [NSJSONSerialization JSONObjectWithData:data
- options:NSJSONReadingAllowFragments
- error:&jsonError];
- 
- if (!jsonError) {
- //Set the array to the response.
- DLog(@"response results: %@", self.menuDictionary);
- } else {
- DLog(@"Error: %@", [jsonError localizedDescription] );
- }
- 
- //Parses it.
- NSAssert(self.menuDictionary, nil);
- 
- NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
- NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
- return filteredMenu;
- }
- */
 
 
 /* Creates and returns the array of meals.

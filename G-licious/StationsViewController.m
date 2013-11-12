@@ -57,11 +57,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
     self.date = [NSDate date];
-    DLog(@"date: %@", self.date);
     [self setCurrentPage];
-    DLog(@"currentPage = %d", _currentPage);
     [self prepareMenu];
 
     
@@ -73,29 +72,17 @@
                                              selector:@selector(resetFilters)
                                                  name:@"ResetFilters"
                                                object:nil];
-    
-   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetStations) name:@"ResetStationsView" object:nil];
-    
+
     
     //Set up the slider Control
     self.slider = [[TTScrollSlidingPagesController alloc] init];
     
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
-    //self.slider.hideStatusBarWhenScrolling = YES;
-    //self.slider.titleScrollerHidden = YES;
     self.slider.titleScrollerHeight = 30;
-    //slider.titleScrollerItemWidth=60;
     self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
     self.slider.disableTitleScrollerShadow = YES;
     self.slider.disableUIPageControl = YES;
-    //slider.initialPageNumber = 1;
-    //slider.pagingEnabled = NO;
-    //self.slider.zoomOutAnimationDisabled = YES;
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
-        //self.slider.hideStatusBarWhenScrolling = YES;//this property normally only makes sense on iOS7+. See the documentation in TTScrollSlidingPagesController.h. If you wanted to use it in iOS6 you'd have to make sure the status bar overlapped the TTScrollSlidingPagesController.
-    }
-    
+
     //set the datasource.
     self.slider.dataSource = self;
     
@@ -103,22 +90,12 @@
     self.slider.view.frame = self.view.frame;
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
-    
-    //self.navigationController.navigationBar.barTintColor = [UIColor greenColor];
-    
+        
     //Change Z position of toolbar so it is always on top
     [self.view bringSubviewToFront:self.toolbar];
     [self.slider scrollToPage:_currentPage animated:NO];
-    
-    //Download the menu
-    //MenuModel *model = [[MenuModel alloc] initWithDate:[NSDate date]];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-}
 
 -(void)prepareMenu
 {
@@ -134,31 +111,10 @@
         DLog(@"end reloading");
     }];
     */
-    
-    
     self.menu = [self.menuModel performFetch];
-    DLog(@"sm: %@", self.menu);
-
     self.availableDays = self.menuModel.availableDays;
-    [self updateNavigationDateLabel];
-    
-    //set date
-    //[self.slider scrollToPage:1 animated:YES];
-   // DLog(@"Self.menu aD %d", self.availableDays);
+
     [self showHudForDate:self.date];
-
-}
-
-
-
-- (void)updateNavigationDateLabel
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter  setDateFormat:@"EEE, MMM dd"];
-    NSString *formattedDateString = [dateFormatter stringFromDate:self.date];
-    self.navigationDateLabel.text = formattedDateString;
-    
-    self.dateBarButton.title = formattedDateString;
 }
 
 - (IBAction)changeDate:(id)sender {
@@ -188,19 +144,8 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MealViewController *mealViewController = [storyboard instantiateViewControllerWithIdentifier:@"MealViewController"];
     mealViewController.meal = self.menu[index];
-    
-    /*
-     MealViewController *viewController = [[MealViewController alloc] init];
-     viewController.meal = self.menu[index];
-     
-     
-     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
-     */ 
-    
-//    MealViewController *mealViewController = [[MealViewController alloc] init];
+
     return [[TTSlidingPage alloc] initWithContentViewController:mealViewController];
-
-
 }
 
 - (void)pageControlChangedPage:(NSNotification *)notification
@@ -209,14 +154,11 @@
     _currentPage = index;
     NSString *meal = [self.menu[index] name];
     NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
-    //DLog(@"meal: %@", hoursString);
     self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
-    
 }
 
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
     
-
     TTSlidingPageTitle *title = [[TTSlidingPageTitle alloc] initWithHeaderText:[self.menu[index] name]];
     return title;
 }
@@ -242,8 +184,6 @@
 
 #pragma mark - RMDateSelectionViewController Delegates
 - (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate {
-    //Do something
-    DLog(@"date Selection picked: %@", aDate);
     self.menuModel = [[MenuModel alloc] initWithDate:aDate];
     self.date = aDate;
     [self prepareMenu];
@@ -252,15 +192,16 @@
     self.slider.zoomOutAnimationDisabled = YES;
     [self.slider reloadPages];
     self.slider.zoomOutAnimationDisabled = NO;
-  //  [self showHudForDate:aDate];
+}
+- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
+    //Do something else
 }
 
+
+#pragma mark - Showing the HUD
 - (void)showHudForDate:(NSDate *)date {
     NSString *selectedDateString = [self selectedDateStringFromDate:date];
-    
-    //Show HUD
     [[SVProgressHUD appearance] setHudBackgroundColor:[UIColor colorWithWhite:0.8f alpha:0.4]];
-    
     [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@'s Menu", selectedDateString]];
 }
 
@@ -281,16 +222,12 @@
     }
 }
 
-- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
-    //Do something else
-}
 
 #pragma mark - Reset Filters
 - (void)resetFilters
 {
     [self prepareMenu];
     [self.slider reloadPages];
-    
     //Scroll to the page that was previously on display
     [self.slider scrollToPage:_currentPage animated:NO];
 }
@@ -305,10 +242,7 @@
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     
     NSDate *tomorrow = [[NSDate alloc] initWithTimeInterval:60*60*24 sinceDate:self.date];
-    
-    DLog(@"Today: %@" , self.date);
-    DLog(@"Tomorrow: %@", tomorrow);
-    
+
     NSInteger hour = [todayComponents hour];
     NSInteger minute = [todayComponents minute];
     NSInteger weekday = [todayComponents weekday];

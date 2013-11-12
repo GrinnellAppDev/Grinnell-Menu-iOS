@@ -131,18 +131,11 @@ titleForHeaderInSection:(NSInteger)section
     Dish *dish = station.dishes[indexPath.row];
     
     if (dish.hasNutrition) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:dish.name message: [NSString stringWithFormat:@"%@", dish.nutrition] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-//        [alert show];
-//        
         
         //Initalize the nutrition view
         AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
         
-
-        
-
-        
-        
+   
         //Set the various data values for the view
         // controller.servingSize = @"12 fl oz. (1 Can)";
         // controller.calories = 100;      //Type: int
@@ -164,13 +157,12 @@ titleForHeaderInSection:(NSInteger)section
         
         UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
         
-        verticalMotionEffect.minimumRelativeValue = @(-25);
-        verticalMotionEffect.maximumRelativeValue = @(25);
+        verticalMotionEffect.minimumRelativeValue = @(-26);
+        verticalMotionEffect.maximumRelativeValue = @(26);
         
         UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-        horizontalMotionEffect.minimumRelativeValue = @(-25);
-        horizontalMotionEffect.maximumRelativeValue = @(25);
-        
+        horizontalMotionEffect.minimumRelativeValue = @(-26);
+        horizontalMotionEffect.maximumRelativeValue = @(26);
         
         UIMotionEffectGroup *group = [UIMotionEffectGroup new];
         group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];

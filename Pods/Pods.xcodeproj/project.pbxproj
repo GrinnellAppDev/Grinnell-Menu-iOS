@@ -10,39 +10,641 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>00F0F4D4FD2644EE90E6D7AA</key>
+		<key>021E477D2A2749D995AAFCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>196B83BB255B482AABF5CC24</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0310D63A54B64E4F9ACEBA01</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SVProgressHUD.h</string>
+			<key>path</key>
+			<string>SVProgressHUD/SVProgressHUD.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>03CEA5505CCB40CA9E9B246D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>SystemConfiguration.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/SystemConfiguration.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>0520FB8071A84500A1814AB0</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>FB481138DA3A4692ABB34FA6</string>
-				<string>6AB1E0E51B87414792856A82</string>
+				<string>DEF103A0FA934C9F985ECD9F</string>
+				<string>2B281B9B405A4B1CA383D9CE</string>
+				<string>1411A06B8B134E49A517CA4C</string>
+				<string>108506021D69443F8276F144</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>Targets Support Files</string>
+			<string>Products</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>03BEE245157F40A385D3472D</key>
+		<key>0766B2B86A2943AC9AF7643E</key>
 		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>D6A0D8B621FA4A56A1062546</string>
-				<string>37A35946173841D1AE2CBF8C</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
+			<key>fileRef</key>
+			<string>0310D63A54B64E4F9ACEBA01</string>
 			<key>isa</key>
-			<string>XCConfigurationList</string>
+			<string>PBXBuildFile</string>
 		</dict>
-		<key>075CC58CE5304D8FA8A9B5AF</key>
+		<key>07821FBB98084F4CA4662363</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AD1D7193F1134AD4A75076EC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>092B960B052C48F5BCA1ECB8</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>C233D409790443D38C7C1E93</string>
+				<string>79BF6FE42005495CBBA76F22</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>0EB77594004F44E9822D487C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>NSCalendar+equalWithGranularity.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0F3D922763554B2CAEB3A4F9</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>AD94C8AC8BC248888A0F18B8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>0F76FC22E16948789B13AEDE</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>321910A1C7524EBD964DFA70</string>
+				<string>31B160A8BE244A6D9036AF0F</string>
+				<string>7991CA5DCC5E49BDB3066624</string>
+				<string>BD821C8E701441E1A3981A6A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>108506021D69443F8276F144</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-SVProgressHUD.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>11A84434E5E24EA7A4ECA340</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BE41A30BC27140E087893AEA</string>
+				<string>22D420E95E81476BB6AD41CE</string>
+				<string>0F76FC22E16948789B13AEDE</string>
+				<string>0520FB8071A84500A1814AB0</string>
+				<string>7BA7B0E5D7AA4110A185BD7F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1411A06B8B134E49A517CA4C</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-Reachability.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>196B83BB255B482AABF5CC24</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>1F434426EEA04E9F85397BEF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>86004F85575B4C348A42F4E0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>21BA61CEC7BE4280BA419C49</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>7353B493EF374B619E5A9E04</string>
+			<key>buildPhases</key>
+			<array>
+				<string>67909E984E2E4F6E953757DD</string>
+				<string>961DA9EB61A64076B56BA8CD</string>
+				<string>356057CF2AF24C02B3AA9792</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-Reachability</string>
+			<key>productName</key>
+			<string>Pods-Reachability</string>
+			<key>productReference</key>
+			<string>1411A06B8B134E49A517CA4C</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>21F7143AB0B644E69EDA6635</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>D087C75016F843E2AADBC035</string>
+				<string>3C950A756928420A97D4FD28</string>
+				<string>8C0C02D01B7E4D60A9ADE8BB</string>
+				<string>CFA5C8D816DE45FA80EEC360</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>229C69FC81664A67BDB3A45F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Reachability.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>22D420E95E81476BB6AD41CE</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>CCA2D12CE035464B9B2CE222</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2434C9795FF94D4488E05447</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>F9767876A91845C9BF58BFDE</string>
+			<key>targetProxy</key>
+			<string>C94F28500F9147EB9AC5D656</string>
+		</dict>
+		<key>2463B0AC3DA34E21B37A9940</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>0766B2B86A2943AC9AF7643E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>2B281B9B405A4B1CA383D9CE</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-NSCalendar-EqualWithGranularity.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>2BB278F3CB0B470C88A8A7E3</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>AB307C27C91B46A38B52708C</string>
+				<string>1F434426EEA04E9F85397BEF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>2CACFABA2D1546FF97B8E188</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F56057DB0C10409FA9867831</string>
+				<string>3469D1F93B034BF7AAF9456A</string>
+				<string>41E282ECD8934F0590E48BE1</string>
+				<string>6376005C71704A1695548B53</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>31B160A8BE244A6D9036AF0F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>EE9198474D5A476E898F460C</string>
+				<string>0EB77594004F44E9822D487C</string>
+				<string>2CACFABA2D1546FF97B8E188</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>NSCalendar-EqualWithGranularity</string>
+			<key>path</key>
+			<string>NSCalendar-EqualWithGranularity</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3469D1F93B034BF7AAF9456A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-NSCalendar-EqualWithGranularity-Private.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>356057CF2AF24C02B3AA9792</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>07821FBB98084F4CA4662363</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>3775EF86BF024DE2822B4FB9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>21BA61CEC7BE4280BA419C49</string>
+			<key>targetProxy</key>
+			<string>CD965E9FE97B4393987DC727</string>
+		</dict>
+		<key>3BAC770AFFCE43309AC07EE1</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0500</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>AA6B76128B14476DB4A2C4BB</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>11A84434E5E24EA7A4ECA340</string>
+			<key>productRefGroup</key>
+			<string>0520FB8071A84500A1814AB0</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>56C10FE406F04E38A0F54E67</string>
+				<string>C2E7E536263C49C687AAD8D3</string>
+				<string>21BA61CEC7BE4280BA419C49</string>
+				<string>F9767876A91845C9BF58BFDE</string>
+			</array>
+		</dict>
+		<key>3C395BA819AA4DFDA619544A</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A67D2CB7591A43F2BCB8004D</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>ARCHS</key>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Pods-Reachability-prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_VERSION</key>
+				<string>com.apple.compilers.llvm.clang.1_0</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>3C950A756928420A97D4FD28</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-SVProgressHUD-Private.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3F3008A062D340AAA3E453D7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0EB77594004F44E9822D487C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>40ADD45A4E3446F6A1DF2937</key>
+		<dict>
+			<key>fileRef</key>
+			<string>108506021D69443F8276F144</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>41E282ECD8934F0590E48BE1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-NSCalendar-EqualWithGranularity-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>45F9FB99F8DF4F04BFC30E27</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SVProgressHUD.m</string>
+			<key>path</key>
+			<string>SVProgressHUD/SVProgressHUD.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4DB6538EE3FA46C4891CA8C0</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>CE47F9CCA4CA4263B4D1B53E</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>ARCHS</key>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_VERSION</key>
+				<string>com.apple.compilers.llvm.clang.1_0</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>5468BCE705104CC2B1E09933</key>
+		<dict>
+			<key>fileRef</key>
+			<string>03CEA5505CCB40CA9E9B246D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>56C10FE406F04E38A0F54E67</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>6DE3CE6C9DD14D0D97227D06</string>
+			<key>buildPhases</key>
+			<array>
+				<string>0F3D922763554B2CAEB3A4F9</string>
+				<string>6C90B63F0A8642AC843DFA44</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>6AA657C11C434F57BD4D8EA3</string>
+				<string>3775EF86BF024DE2822B4FB9</string>
+				<string>2434C9795FF94D4488E05447</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>productName</key>
+			<string>Pods</string>
+			<key>productReference</key>
+			<string>DEF103A0FA934C9F985ECD9F</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>5C6E77EB5BCC4569AA94338C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2B281B9B405A4B1CA383D9CE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5F6C3EF3BB314A51A42B873A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F439BB72DE51491F9E365527</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6376005C71704A1695548B53</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-NSCalendar-EqualWithGranularity-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>66634AA9D69346359D7E4FD6</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F0356AE397AD48B79BAAE481</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -51,70 +653,162 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0777EA433A1E4EF590D9F66D</key>
+		<key>66885DD85BE04F158B886776</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>9967539D0C0C4C71A47A4D4B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>0FA30B2916734FFA867DB8AC</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>718C08F863A7427CA78B0A84</string>
-			<key>targetProxy</key>
-			<string>8671F895E8F74159BC539940</string>
-		</dict>
-		<key>1352F45058F54034951BEF63</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>8E42F42C9BC24D698BE64FE2</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>16E56876683F45C9A54048FF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>QuartzCore.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/QuartzCore.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>177A14A2A55543D39D9C11C4</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>89AA1438D8B5471881B2E6A9</string>
+				<string>943D0DCD01384C9DBFF7E9E0</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>1F469A27EB0B4600B8388023</key>
+		<key>66C52609EA934C73815F53A4</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>ADECF272678744FC8EACE175</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>66E525B748A646F5A54CDC48</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>67909E984E2E4F6E953757DD</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>5F6C3EF3BB314A51A42B873A</string>
+				<string>738C6C701F0F47E99860506F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6AA657C11C434F57BD4D8EA3</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>C2E7E536263C49C687AAD8D3</string>
+			<key>targetProxy</key>
+			<string>FA0E0CEA79D64F3BA3C3122D</string>
+		</dict>
+		<key>6C90B63F0A8642AC843DFA44</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>CC3094A6081947369F42E744</string>
+				<string>5C6E77EB5BCC4569AA94338C</string>
+				<string>C7ED924D306940D69851B478</string>
+				<string>40ADD45A4E3446F6A1DF2937</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6DE3CE6C9DD14D0D97227D06</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>4DB6538EE3FA46C4891CA8C0</string>
+				<string>BF1DDACD82584437B255C1FE</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7353B493EF374B619E5A9E04</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>3C395BA819AA4DFDA619544A</string>
+				<string>F0426A33D67E4A2FA3AA59DD</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>738C6C701F0F47E99860506F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AA9CAC43FD274B66ADFA92D3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7991CA5DCC5E49BDB3066624</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>AD1D7193F1134AD4A75076EC</string>
+				<string>AA9CAC43FD274B66ADFA92D3</string>
+				<string>B828DA61E11E4B5992922189</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Reachability</string>
+			<key>path</key>
+			<string>Reachability</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>79BF6FE42005495CBBA76F22</key>
+		<dict>
+			<key>fileRef</key>
+			<string>45F9FB99F8DF4F04BFC30E27</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>7BA7B0E5D7AA4110A185BD7F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>99FE72A9DFD948C0B7A33383</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7CF3509B7EE54A63AE328456</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -125,18 +819,158 @@
 			<key>path</key>
 			<string>Pods-environment.h</string>
 			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>20488C9B1D9C44F4A69489C6</key>
+		<key>851C766C36E94B979FA9C52D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>86004F85575B4C348A42F4E0</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>QuartzCore.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/QuartzCore.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>88B99A7E9E534C4C857FB6A0</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>NO</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>8C0C02D01B7E4D60A9ADE8BB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-SVProgressHUD-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>943D0DCD01384C9DBFF7E9E0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>196B83BB255B482AABF5CC24</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>961DA9EB61A64076B56BA8CD</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>021E477D2A2749D995AAFCBF</string>
+				<string>5468BCE705104CC2B1E09933</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>96BE089CFC98465D8BDD0394</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9901B219BCAA42A6B95BA2D2</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BD13DE4B40484BAF91540488</string>
+			<string>3C950A756928420A97D4FD28</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
 				<string>NO</string>
 				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_32_BIT)</string>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
 				<key>COPY_PHASE_STRIP</key>
 				<string>NO</string>
 				<key>DSTROOT</key>
@@ -163,7 +997,7 @@
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
+				<string>7.0</string>
 				<key>OTHER_LDFLAGS</key>
 				<string></string>
 				<key>PRODUCT_NAME</key>
@@ -180,66 +1014,16 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>2395CC11FB9C4E8EAB346165</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SVProgressHUD.h</string>
-			<key>path</key>
-			<string>SVProgressHUD/SVProgressHUD/SVProgressHUD.h</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>23B6D521A0D04403A0F27369</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SVProgressHUD.m</string>
-			<key>path</key>
-			<string>SVProgressHUD/SVProgressHUD/SVProgressHUD.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>321910A1C7524EBD964DFA70</key>
+		<key>99FE72A9DFD948C0B7A33383</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>727FDDE394524CD7865B88C5</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SVProgressHUD</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>37A35946173841D1AE2CBF8C</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>3E1AAF5F99804A56B4F8D1C1</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>57010B85D0454DECAFFA9EE3</string>
+				<string>CE47F9CCA4CA4263B4D1B53E</string>
+				<string>96BE089CFC98465D8BDD0394</string>
+				<string>EC3E47EA9CD0482C9BE3081F</string>
+				<string>66E525B748A646F5A54CDC48</string>
+				<string>7CF3509B7EE54A63AE328456</string>
+				<string>851C766C36E94B979FA9C52D</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -248,107 +1032,43 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4075841658974E17B89789D6</key>
+		<key>9EECE3FCC00A457691457A03</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BD13DE4B40484BAF91540488</string>
+			<string>3469D1F93B034BF7AAF9456A</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
 				<string>NO</string>
 				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_32_BIT)</string>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
 				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
+				<string>NO</string>
 				<key>DSTROOT</key>
 				<string>/tmp/xcodeproj.dst</string>
 				<key>GCC_C_LANGUAGE_STANDARD</key>
 				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
 				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
 				<string>YES</string>
 				<key>GCC_PREFIX_HEADER</key>
-				<string>Pods-SVProgressHUD-prefix.pch</string>
-				<key>GCC_VERSION</key>
-				<string>com.apple.compilers.llvm.clang.1_0</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-				<key>OTHER_CFLAGS</key>
+				<string>Pods-NSCalendar-EqualWithGranularity-prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>DEBUG=1</string>
 					<string>$(inherited)</string>
 				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Ad hoc Distribution</string>
-		</dict>
-		<key>448661A0BE1444C584ACADDF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-dummy.m</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>44E8EFB9AA60402D9D03FB1F</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>8D32580C12F54F4BA24BF3B7</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
 				<string>NO</string>
-				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_32_BIT)</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
 				<key>GCC_VERSION</key>
 				<string>com.apple.compilers.llvm.clang.1_0</string>
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-				<key>OTHER_CFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>OTHER_CPLUSPLUSFLAGS</key>
-				<array>
-					<string>-DNS_BLOCK_ASSERTIONS=1</string>
-					<string>$(inherited)</string>
-				</array>
+				<string>7.0</string>
 				<key>OTHER_LDFLAGS</key>
 				<string></string>
 				<key>PRODUCT_NAME</key>
@@ -359,15 +1079,40 @@
 				<string>iphoneos</string>
 				<key>SKIP_INSTALL</key>
 				<string>YES</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
 			</dict>
 			<key>isa</key>
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Release</string>
+			<string>Debug</string>
 		</dict>
-		<key>52A23F22B0BC4AFDB3CC7DBC</key>
+		<key>A67D2CB7591A43F2BCB8004D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Reachability-Private.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AA6B76128B14476DB4A2C4BB</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>88B99A7E9E534C4C857FB6A0</string>
+				<string>F86923296F1F49AA8EF3E38C</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>AA9CAC43FD274B66ADFA92D3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -376,54 +1121,107 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>Pods-SVProgressHUD-dummy.m</string>
+			<string>Reachability.m</string>
 			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>55D669D0A4264DBA97B30CCC</key>
+		<key>AB307C27C91B46A38B52708C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>196B83BB255B482AABF5CC24</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>AD1D7193F1134AD4A75076EC</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<string>Reachability.h</string>
 			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>57010B85D0454DECAFFA9EE3</key>
+		<key>AD94C8AC8BC248888A0F18B8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>66E525B748A646F5A54CDC48</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>ADECF272678744FC8EACE175</key>
+		<dict>
+			<key>fileRef</key>
+			<string>EE9198474D5A476E898F460C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B75634EF29934401BD0366D5</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>9901B219BCAA42A6B95BA2D2</string>
+				<string>C31B36A60E47468CBE19BBB1</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>B828DA61E11E4B5992922189</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>2395CC11FB9C4E8EAB346165</string>
-				<string>23B6D521A0D04403A0F27369</string>
+				<string>229C69FC81664A67BDB3A45F</string>
+				<string>A67D2CB7591A43F2BCB8004D</string>
+				<string>F439BB72DE51491F9E365527</string>
+				<string>CB5C949450B441B281649A6D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>BCD230D6715A463894D0173D</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>9EECE3FCC00A457691457A03</string>
+				<string>CBCC27A0F644460C82133D67</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>BD821C8E701441E1A3981A6A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0310D63A54B64E4F9ACEBA01</string>
+				<string>45F9FB99F8DF4F04BFC30E27</string>
+				<string>66634AA9D69346359D7E4FD6</string>
+				<string>21F7143AB0B644E69EDA6635</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
 			<string>SVProgressHUD</string>
+			<key>path</key>
+			<string>SVProgressHUD</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5D005C04B0734ECBB1B75867</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D959AA34F5814051BF096EEC</string>
-				<string>FE1B499940FB46BEB9814593</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>5F58E7B2C312445C98603F2C</key>
+		<key>BE41A30BC27140E087893AEA</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -440,252 +1238,16 @@
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
 		</dict>
-		<key>5F72DFA6DF6A41D7A2C48018</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>9F36952407E743DDAF56BA04</string>
-				<string>8A878FA93EBF4D4681D19D77</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>6373A6BD60854D5FA235082F</key>
+		<key>BF1DDACD82584437B255C1FE</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>8D32580C12F54F4BA24BF3B7</string>
+			<string>CE47F9CCA4CA4263B4D1B53E</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
 				<string>NO</string>
 				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_32_BIT)</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DSTROOT</key>
-				<string>/tmp/xcodeproj.dst</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_VERSION</key>
-				<string>com.apple.compilers.llvm.clang.1_0</string>
-				<key>INSTALL_PATH</key>
-				<string>$(BUILT_PRODUCTS_DIR)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>6AB1E0E51B87414792856A82</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8D32580C12F54F4BA24BF3B7</string>
-				<string>1F469A27EB0B4600B8388023</string>
-				<string>E010FDB34FD942498BAB6635</string>
-				<string>F57D83659D084A3FBF58900C</string>
-				<string>96FEFA8A10BB4744AEA52AC0</string>
-				<string>448661A0BE1444C584ACADDF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6E0C95F9528D4E9DA88EAAF8</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>6EA91EA232264A04803131B5</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>C31B182909844FB2A4FBD621</string>
-				<string>20488C9B1D9C44F4A69489C6</string>
-				<string>4075841658974E17B89789D6</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>706826C8038C427A893A649E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>55D669D0A4264DBA97B30CCC</string>
-				<string>16E56876683F45C9A54048FF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>718C08F863A7427CA78B0A84</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>6EA91EA232264A04803131B5</string>
-			<key>buildPhases</key>
-			<array>
-				<string>5D005C04B0734ECBB1B75867</string>
-				<string>177A14A2A55543D39D9C11C4</string>
-				<string>1352F45058F54034951BEF63</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-SVProgressHUD</string>
-			<key>productName</key>
-			<string>Pods-SVProgressHUD</string>
-			<key>productReference</key>
-			<string>C4B95D337CD444D897FBF53B</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>727FDDE394524CD7865B88C5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>SVProgressHUD.bundle</string>
-			<key>path</key>
-			<string>SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>8671F895E8F74159BC539940</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D3AA0DC2588E405D80248102</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>718C08F863A7427CA78B0A84</string>
-			<key>remoteInfo</key>
-			<string>Pods-SVProgressHUD</string>
-		</dict>
-		<key>88B8AB99C024469EA14E6183</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-SVProgressHUD.xcconfig</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>89AA1438D8B5471881B2E6A9</key>
-		<dict>
-			<key>fileRef</key>
-			<string>55D669D0A4264DBA97B30CCC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8A878FA93EBF4D4681D19D77</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C4B95D337CD444D897FBF53B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8D32580C12F54F4BA24BF3B7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods.xcconfig</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>8E42F42C9BC24D698BE64FE2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2395CC11FB9C4E8EAB346165</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>96FEFA8A10BB4744AEA52AC0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-		</dict>
-		<key>98548231A5574A4C91D0FB60</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>8D32580C12F54F4BA24BF3B7</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_32_BIT)</string>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
 				<key>COPY_PHASE_STRIP</key>
 				<string>YES</string>
 				<key>DSTROOT</key>
@@ -699,7 +1261,7 @@
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
+				<string>7.0</string>
 				<key>OTHER_CFLAGS</key>
 				<array>
 					<string>-DNS_BLOCK_ASSERTIONS=1</string>
@@ -726,74 +1288,50 @@
 			<key>isa</key>
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Ad hoc Distribution</string>
-		</dict>
-		<key>9967539D0C0C4C71A47A4D4B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>448661A0BE1444C584ACADDF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9F36952407E743DDAF56BA04</key>
-		<dict>
-			<key>fileRef</key>
-			<string>55D669D0A4264DBA97B30CCC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AB80F71EED1C4DF2AA163A8A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>C4B95D337CD444D897FBF53B</string>
-				<string>6E0C95F9528D4E9DA88EAAF8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>AEFD111E6BEA4591B6130841</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>44E8EFB9AA60402D9D03FB1F</string>
-				<string>6373A6BD60854D5FA235082F</string>
-				<string>98548231A5574A4C91D0FB60</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
 			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
 		</dict>
-		<key>BD13DE4B40484BAF91540488</key>
+		<key>C233D409790443D38C7C1E93</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>8C0C02D01B7E4D60A9ADE8BB</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-SVProgressHUD-Private.xcconfig</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>PBXBuildFile</string>
 		</dict>
-		<key>C31B182909844FB2A4FBD621</key>
+		<key>C2E7E536263C49C687AAD8D3</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>BCD230D6715A463894D0173D</string>
+			<key>buildPhases</key>
+			<array>
+				<string>CB08E22DA7134AC8878BBE96</string>
+				<string>66885DD85BE04F158B886776</string>
+				<string>66C52609EA934C73815F53A4</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-NSCalendar-EqualWithGranularity</string>
+			<key>productName</key>
+			<string>Pods-NSCalendar-EqualWithGranularity</string>
+			<key>productReference</key>
+			<string>2B281B9B405A4B1CA383D9CE</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>C31B36A60E47468CBE19BBB1</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BD13DE4B40484BAF91540488</string>
+			<string>3C950A756928420A97D4FD28</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>ALWAYS_SEARCH_USER_PATHS</key>
 				<string>NO</string>
 				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_32_BIT)</string>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
 				<key>COPY_PHASE_STRIP</key>
 				<string>YES</string>
 				<key>DSTROOT</key>
@@ -809,7 +1347,7 @@
 				<key>INSTALL_PATH</key>
 				<string>$(BUILT_PRODUCTS_DIR)</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
+				<string>7.0</string>
 				<key>OTHER_CFLAGS</key>
 				<array>
 					<string>-DNS_BLOCK_ASSERTIONS=1</string>
@@ -838,136 +1376,156 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>C4B95D337CD444D897FBF53B</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-SVProgressHUD.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>CD62B117F0594B0EB03EDD84</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>AEFD111E6BEA4591B6130841</string>
-			<key>buildPhases</key>
-			<array>
-				<string>0777EA433A1E4EF590D9F66D</string>
-				<string>5F72DFA6DF6A41D7A2C48018</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>0FA30B2916734FFA867DB8AC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>productName</key>
-			<string>Pods</string>
-			<key>productReference</key>
-			<string>6E0C95F9528D4E9DA88EAAF8</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>D3AA0DC2588E405D80248102</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0450</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>03BEE245157F40A385D3472D</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>D9FE2EFFD0684D44B5F259E6</string>
-			<key>productRefGroup</key>
-			<string>AB80F71EED1C4DF2AA163A8A</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>718C08F863A7427CA78B0A84</string>
-				<string>CD62B117F0594B0EB03EDD84</string>
-			</array>
-		</dict>
-		<key>D6A0D8B621FA4A56A1062546</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>6.0</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>D959AA34F5814051BF096EEC</key>
+		<key>C7ED924D306940D69851B478</key>
 		<dict>
 			<key>fileRef</key>
-			<string>23B6D521A0D04403A0F27369</string>
+			<string>1411A06B8B134E49A517CA4C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>COMPILER_FLAGS</key>
-				<string>-fobjc-arc -DOS_OBJECT_USE_OBJC=0</string>
-			</dict>
 		</dict>
-		<key>D9FE2EFFD0684D44B5F259E6</key>
+		<key>C94F28500F9147EB9AC5D656</key>
 		<dict>
-			<key>children</key>
+			<key>containerPortal</key>
+			<string>3BAC770AFFCE43309AC07EE1</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>F9767876A91845C9BF58BFDE</string>
+			<key>remoteInfo</key>
+			<string>Pods-SVProgressHUD</string>
+		</dict>
+		<key>CB08E22DA7134AC8878BBE96</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
 			<array>
-				<string>706826C8038C427A893A649E</string>
-				<string>3E1AAF5F99804A56B4F8D1C1</string>
-				<string>AB80F71EED1C4DF2AA163A8A</string>
-				<string>075CC58CE5304D8FA8A9B5AF</string>
-				<string>00F0F4D4FD2644EE90E6D7AA</string>
-				<string>5F58E7B2C312445C98603F2C</string>
+				<string>3F3008A062D340AAA3E453D7</string>
+				<string>E9C4AF07538F4026B5C69BA6</string>
 			</array>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
-		<key>E010FDB34FD942498BAB6635</key>
+		<key>CB5C949450B441B281649A6D</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>Pods-resources.sh</string>
+			<string>Pods-Reachability-prefix.pch</string>
 			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>EDC38090C0E84949A2D981F4</key>
+		<key>CBCC27A0F644460C82133D67</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>3469D1F93B034BF7AAF9456A</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>ARCHS</key>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Pods-NSCalendar-EqualWithGranularity-prefix.pch</string>
+				<key>GCC_VERSION</key>
+				<string>com.apple.compilers.llvm.clang.1_0</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>CC3094A6081947369F42E744</key>
+		<dict>
+			<key>fileRef</key>
+			<string>196B83BB255B482AABF5CC24</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>CCA2D12CE035464B9B2CE222</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>196B83BB255B482AABF5CC24</string>
+				<string>86004F85575B4C348A42F4E0</string>
+				<string>03CEA5505CCB40CA9E9B246D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CD965E9FE97B4393987DC727</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>3BAC770AFFCE43309AC07EE1</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>21BA61CEC7BE4280BA419C49</string>
+			<key>remoteInfo</key>
+			<string>Pods-Reachability</string>
+		</dict>
+		<key>CE47F9CCA4CA4263B4D1B53E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CFA5C8D816DE45FA80EEC360</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -978,9 +1536,42 @@
 			<key>path</key>
 			<string>Pods-SVProgressHUD-prefix.pch</string>
 			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F57D83659D084A3FBF58900C</key>
+		<key>D087C75016F843E2AADBC035</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-SVProgressHUD.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DEF103A0FA934C9F985ECD9F</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>E9C4AF07538F4026B5C69BA6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>41E282ECD8934F0590E48BE1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>EC3E47EA9CD0482C9BE3081F</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -991,33 +1582,214 @@
 			<key>path</key>
 			<string>Pods-acknowledgements.plist</string>
 			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>FB481138DA3A4692ABB34FA6</key>
+		<key>EE9198474D5A476E898F460C</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>88B8AB99C024469EA14E6183</string>
-				<string>BD13DE4B40484BAF91540488</string>
-				<string>EDC38090C0E84949A2D981F4</string>
-				<string>52A23F22B0BC4AFDB3CC7DBC</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-SVProgressHUD</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>NSCalendar+equalWithGranularity.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>FE1B499940FB46BEB9814593</key>
+		<key>F0356AE397AD48B79BAAE481</key>
 		<dict>
-			<key>fileRef</key>
-			<string>52A23F22B0BC4AFDB3CC7DBC</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
+			<key>name</key>
+			<string>SVProgressHUD.bundle</string>
+			<key>path</key>
+			<string>SVProgressHUD/SVProgressHUD.bundle</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F0426A33D67E4A2FA3AA59DD</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A67D2CB7591A43F2BCB8004D</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>ARCHS</key>
+				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>DSTROOT</key>
+				<string>/tmp/xcodeproj.dst</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Pods-Reachability-prefix.pch</string>
+				<key>GCC_VERSION</key>
+				<string>com.apple.compilers.llvm.clang.1_0</string>
+				<key>INSTALL_PATH</key>
+				<string>$(BUILT_PRODUCTS_DIR)</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>OTHER_CFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_CPLUSPLUSFLAGS</key>
+				<array>
+					<string>-DNS_BLOCK_ASSERTIONS=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PUBLIC_HEADERS_FOLDER_PATH</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>F439BB72DE51491F9E365527</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-Reachability-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F56057DB0C10409FA9867831</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-NSCalendar-EqualWithGranularity.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F86923296F1F49AA8EF3E38C</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>NO</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>F9767876A91845C9BF58BFDE</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>B75634EF29934401BD0366D5</string>
+			<key>buildPhases</key>
+			<array>
+				<string>092B960B052C48F5BCA1ECB8</string>
+				<string>2BB278F3CB0B470C88A8A7E3</string>
+				<string>2463B0AC3DA34E21B37A9940</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-SVProgressHUD</string>
+			<key>productName</key>
+			<string>Pods-SVProgressHUD</string>
+			<key>productReference</key>
+			<string>108506021D69443F8276F144</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>FA0E0CEA79D64F3BA3C3122D</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>3BAC770AFFCE43309AC07EE1</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>C2E7E536263C49C687AAD8D3</string>
+			<key>remoteInfo</key>
+			<string>Pods-NSCalendar-EqualWithGranularity</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
-	<string>D3AA0DC2588E405D80248102</string>
+	<string>3BAC770AFFCE43309AC07EE1</string>
 </dict>
 </plist>

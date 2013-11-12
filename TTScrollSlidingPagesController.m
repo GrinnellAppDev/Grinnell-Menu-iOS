@@ -67,6 +67,7 @@
         self.initialPageNumber = 0;
         self.pagingEnabled = YES;
         self.zoomOutAnimationDisabled = NO;
+        self.hideStatusBarWhenScrolling = NO;
     }
     return self;
 }
@@ -84,14 +85,15 @@
     int pageViewHeight = 0;
     if (!self.disableUIPageControl){
         //create and add the UIPageControl
-        pageViewHeight = 15;
+        pageViewHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
         pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, nextYPosition, self.view.frame.size.width, pageViewHeight)];
         pageControl.backgroundColor = [UIColor blackColor];
         pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        [pageControl addTarget:self action:@selector(pageControlChangedPage:) forControlEvents:UIControlEventValueChanged];
         [self.view addSubview:pageControl];
         nextYPosition += pageViewHeight;
     }
-
+    
     TTBlackTriangle *triangle;
     if (!self.titleScrollerHidden){
         //add a triangle view to point to the currently selected page from the header
@@ -128,8 +130,8 @@
         [self.view addSubview:topScrollViewWrapper]; //put the wrapper in this view.
         nextYPosition += self.titleScrollerHeight;
     }
-        
-        
+    
+    
     //set up the bottom scroller (for the content to go in)
     bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, nextYPosition, self.view.frame.size.width, self.view.frame.size.height-nextYPosition)];
     bottomScrollView.pagingEnabled = self.pagingEnabled;
@@ -160,6 +162,11 @@
     
     if (triangle != nil){
         [self.view bringSubviewToFront:triangle];
+    }
+    
+    if (self.hideStatusBarWhenScrolling){
+        //hide the page dots initially
+        pageControl.alpha = 0;
     }
 }
 
@@ -273,13 +280,6 @@
         //set the number of dots on the page control, and set the initial selected dot
         pageControl.numberOfPages = numOfPages;
         pageControl.currentPage = initialPage;
-        
-        //fade in the page dots
-        if (pageControl.alpha != 1.0){
-            [UIView animateWithDuration:1.5 animations:^{
-                pageControl.alpha = 1.0f;
-            }];
-        }
     }
     
     //scroll to the initialpage
@@ -387,11 +387,26 @@
     //find out what page in the topscroller would be at that x location
     int page = [self getTopScrollViewPageForXPosition:point.x];
     
-    //if not already on the page, scroll to the page!
-    if ([self getCurrentDisplayedPage] != page){
+    //if not already on the page and the page is within the bounds of the pages we have, scroll to the page!
+    if ([self getCurrentDisplayedPage] != page && page < [bottomScrollView.subviews count]){
         [self scrollToPage:page animated:YES];
     }
     
+}
+
+/**If YES, hides the status bar and shows the page dots.
+ *If NO, shows the status bar and hides the page dots.
+ But only if the self.hideStatusBarWhenScrolling property is set to YES, and the disableUIPageControl is NO.
+ */
+-(void)setStatusBarReplacedWithPageDots:(BOOL)statusBarHidden{
+    if (self.hideStatusBarWhenScrolling && !self.disableUIPageControl){
+        //hide the status bar and show the page dots control
+        [[UIApplication sharedApplication] setStatusBarHidden:statusBarHidden withAnimation:UIStatusBarAnimationFade];
+        float pageControlAlpha = statusBarHidden ? 1 : 0;
+        [UIView animateWithDuration:0.3 animations:^{
+            pageControl.alpha = pageControlAlpha;
+        }];
+    }
 }
 
 
@@ -435,6 +450,10 @@
 }
 
 #pragma mark UIScrollView delegate
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self setStatusBarReplacedWithPageDots:YES];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     int currentPage = [self getCurrentDisplayedPage];
@@ -516,6 +535,8 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int currentPage = [self getCurrentDisplayedPage];
     
+    [self setStatusBarReplacedWithPageDots:NO];
+    
     //store the page you were on so if you have a rotate event, or you come back to this view you know what page to start at. (for example from a navigation controller), the viewDidLayoutSubviews method will know which page to navigate to (for example if the screen was portrait when you left, then you changed to landscape, and navigate back, then viewDidLayoutSubviews will need to change all the sizes of the views, but still know what page to set the offset to)
     currentPageBeforeRotation = [self getCurrentDisplayedPage];
     
@@ -529,6 +550,16 @@
     /*Just do a quick check, that if the paging enabled property is YES (paging is enabled), the user should not define widthForPageOnSlidingPagesViewController on the datasource delegate because scrollviews do not cope well with paging being enabled for scrollviews where each subview is not full width! */
     if (self.pagingEnabled == YES && [self.dataSource respondsToSelector:@selector(widthForPageOnSlidingPagesViewController:atIndex:)]){
         NSLog(@"Warning: TTScrollSlidingPagesController. You have paging enabled in the TTScrollSlidingPagesController (pagingEnabled is either not set, or specifically set to YES), but you have also implemented widthForPageOnSlidingPagesViewController:atIndex:. ScrollViews do not cope well with paging being disabled when items have custom widths. You may get weird behaviour with your paging, in which case you should either disable paging (set pagingEnabled to NO) and keep widthForPageOnSlidingPagesViewController:atIndex: implented, or not implement widthForPageOnSlidingPagesViewController:atIndex: in your datasource for the TTScrollSlidingPagesController instance.");
+    }
+}
+
+#pragma mark UIPageControl page changed listener we set up on it
+-(void)pageControlChangedPage:(id)sender
+{
+    //if not already on the page and the page is within the bounds of the pages we have, scroll to the page!
+    int page = pageControl.currentPage;
+    if ([self getCurrentDisplayedPage] != page && page < [bottomScrollView.subviews count]){
+        [self scrollToPage:page animated:YES];
     }
 }
 
@@ -582,6 +613,24 @@
 -(void)setDisableUIPageControl:(BOOL)disableUIPageControl{
     [self raiseErrorIfViewDidLoadHasBeenCalled];
     _disableUIPageControl = disableUIPageControl;
+}
+-(void)setHideStatusBarWhenScrolling:(bool)hideStatusBarWhenScrolling{
+    if (hideStatusBarWhenScrolling){
+        //check the info.plist required key has been set and throw an exception if not
+        NSNumber *statusBarKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
+        if (statusBarKey == nil || [statusBarKey isEqualToNumber:@1 ]){
+            [NSException raise:@"TTScrollSlidingPagesController: Status Bar 'UIViewControllerBasedStatusBarAppearance' key missing from info.plist" format:@"The 'hideStarusBarWhenScrolling' property on the TTScrollSlidingPagesController is set to yes. This makes the page control (the page number dots) and the status bar share the same space at the top of the screen, and hide the status bar as the user changes pages. To do this, however you need to add the 'UIViewControllerBasedStatusBarAppearance' key to the info.plist and set it to a boolean of NO. See the instructions on github or the example project included with the control for help."];
+        }
+    }
+    
+    //otherwise, set the value
+    _hideStatusBarWhenScrolling = hideStatusBarWhenScrolling;
+    
+    if (hideStatusBarWhenScrolling){
+        //set the status bar style to light because the background it shares with the pagedots is black. You could do both of these in viewDidLoad, but doing it here just ensures that it still gets set if someone changed the property after viewDidLoad was called.
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        
+    }
 }
 
 

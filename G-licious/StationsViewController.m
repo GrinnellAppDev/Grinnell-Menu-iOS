@@ -41,24 +41,16 @@
     int _currentPage;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-
-    }
-    return self;
-}
-
 - (void)awakeFromNib
 {
-    NSLog(@"haha"); 
 }
 
 - (void)dealloc
 {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"HideToolBar" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ShowToolBar" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageControlChangedPage" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ResetFilters" object:nil];
 }
 
 

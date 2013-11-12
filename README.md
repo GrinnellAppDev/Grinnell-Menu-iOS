@@ -5,11 +5,8 @@ G-licious iOS
 
 Authors:  * Maijid Moujaled 
           * Colin Tremblay
-          * David Cowden
-          * Dugan Knoll
-          * Aaltan Ahmad 
 
-Date:    Friday, 12th April, 2013
+Date:    Tuesday, 12th November, 2013
 
 ---
 

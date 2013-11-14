@@ -110,11 +110,20 @@
         
         UISwipeGestureRecognizer *upwardGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUpwards)];
         [upwardGestureRecognizer  setDirection:(UISwipeGestureRecognizerDirectionUp)];
+        
+        UISwipeGestureRecognizer *leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissLeftward)];
+        [leftGestureRecognizer  setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+        
+        UISwipeGestureRecognizer *rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissRightward)];
+        [rightGestureRecognizer  setDirection:(UISwipeGestureRecognizerDirectionRight)];
+
+
 
         
         [self.view addGestureRecognizer:downwardGestureRecognizer];
         [self.view addGestureRecognizer:upwardGestureRecognizer];
-
+        [self.view addGestureRecognizer:leftGestureRecognizer];
+        [self.view addGestureRecognizer:rightGestureRecognizer];
     }
 }
 
@@ -182,6 +191,17 @@
     [self dismissFromParentViewControllerDownwards:NO];
 }
 
+- (void)dismissRightward {
+    DLog(@"dismissright");
+    [self dismissFromParentViewControllerRightwards:YES];
+}
+
+- (void)dismissLeftward {
+    DLog(@"dismissleft");
+
+    [self dismissFromParentViewControllerRightwards:NO];
+}
+
 - (IBAction)close:(id)sender {
     //The close button
     [self dismissFromParentViewControllerDownwards:YES];
@@ -218,6 +238,41 @@
                              [self removeFromParentViewController];
                          }];
     }
+}
+
+- (void)dismissFromParentViewControllerRightwards:(BOOL)rightwards
+{
+    [self willMoveToParentViewController:nil];
+    
+    //Removes the view with or without animation
+    if (!self.shouldAnimateOnDisappear) {
+        [self.view removeFromSuperview];
+        [backgroundGradientView removeFromSuperview];
+        [self removeFromParentViewController];
+        return;
+    } else {
+        [UIView animateWithDuration:0.4
+                         animations:^{
+                             CGRect rect = self.view.bounds;
+                             CGAffineTransform transform;
+                             if (rightwards) {
+                                 rect.origin.x += rect.size.width;
+                              transform = CGAffineTransformMakeRotation(-30);
+                             }  else {
+                                 rect.origin.x -= rect.size.width;
+                                 transform = CGAffineTransformMakeRotation(30);
+                             }
+                             self.view.frame = rect;
+                             self.view.transform = transform;
+                             backgroundGradientView.alpha = 0.0f;
+                             
+                         } completion:^(BOOL finished) {
+                             [self.view removeFromSuperview];
+                             [backgroundGradientView removeFromSuperview];
+                             [self removeFromParentViewController];
+                         }];
+    }
+    
 }
 
 

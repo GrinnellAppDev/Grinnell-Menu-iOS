@@ -53,7 +53,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ResetFilters" object:nil];
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

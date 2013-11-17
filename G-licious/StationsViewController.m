@@ -84,7 +84,7 @@
     self.date = [NSDate date];
     [self setCurrentPage];
     [self prepareMenu];
-    
+    [self showHudForDate:self.date];
     
     //Set up the slider Control
     if (!self.slider) {
@@ -218,7 +218,7 @@
     self.menuModel = [[MenuModel alloc] initWithDate:aDate];
     self.date = aDate;
     [self prepareMenu];
-    
+    [self showHudForDate:self.date];
     //Disable the zoom out animation to prevent it from crashing when displaying a menu with less pages.
     self.slider.zoomOutAnimationDisabled = YES;
     [self.slider reloadPages];
@@ -260,6 +260,7 @@
     
     [self prepareMenu];
     [self.slider reloadPages];
+    [self showHudForDate:self.date];
     
     //Scroll to the page that was previously on display
     [self.slider scrollToPage:_currentPage animated:NO];

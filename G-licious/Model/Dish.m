@@ -68,6 +68,25 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)other {
+    if (other == self)
+        return YES;
+    if (!other || ![other isKindOfClass:[self class]])
+        return NO;
+    return [self isEqualToDish:other];
+}
+
+- (BOOL)isEqualToDish:(Dish *)aDish {
+    if (self == aDish)
+        return YES;
+    if (![(id)[self name] isEqual:[aDish name]])
+        return NO;
+    if (!(self.ID == aDish.ID)) {
+        return NO;
+    }
+    return YES;
+}
+
 
 
 @end

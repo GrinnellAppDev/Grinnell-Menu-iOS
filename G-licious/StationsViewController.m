@@ -122,7 +122,7 @@
     self.menu = [self.menuModel performFetch];
     self.availableDays = self.menuModel.availableDays;
     [self updateDateBarButtonLabel];
-    [self showHudForDate:self.date];
+    //[self showHudForDate:self.date];
 }
 
 - (IBAction)changeDate:(id)sender {
@@ -151,6 +151,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MealViewController *mealViewController = [storyboard instantiateViewControllerWithIdentifier:@"MealViewController"];
     mealViewController.meal = self.menu[index];
+    mealViewController.menuModel = self.menuModel; 
 
     return [[TTSlidingPage alloc] initWithContentViewController:mealViewController];
 }

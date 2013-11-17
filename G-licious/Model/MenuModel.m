@@ -34,7 +34,6 @@
     if  (self) {
         //initialize
         self.date = aDate;
-        
     }
     return self;
 }
@@ -292,6 +291,8 @@
 //Returns a filtered Menu depending on the values of the Filter Switches.
 -(NSArray *)applyFiltersTo:(NSArray *)originalMenu
 {
+    //TODO - Might be able to put this somwhere else.
+    [self loadFavoriteDishes];
     
     NSMutableArray *filteredMenu = [[NSMutableArray alloc] init];
     
@@ -318,7 +319,13 @@
     [originalMenu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
         NSMutableArray *originalMealStations = [[NSMutableArray alloc] initWithArray:meal.stations];
         
-        //Create Favorite's Station and set it up TODO
+        //Create Favorite's Station and set it up FTODO
+        __block Station *favStation = [[Station alloc] init];
+        favStation.name = @"Favorites";
+        favStation.dishes = [[NSMutableArray alloc] init];
+       // NSMutableSet *tmpFavSet = [[NSMutableSet alloc] init];
+        
+        
         NSMutableArray *filteredStations = [[NSMutableArray alloc] init];
         
         [originalMealStations enumerateObjectsUsingBlock:^(Station *aStation, NSUInteger idx, BOOL *stop) {
@@ -328,11 +335,25 @@
             [aStation.dishes enumerateObjectsUsingBlock:^(Dish *aDish, NSUInteger idx, BOOL *stop) {
                 Dish *dish = [[Dish alloc] initWithOtherDish:aDish];
                 
-                //TODO handle favorites.
+                //FTODO handle favorites.
+                //Check if dish is a favorite. And add it to the favorites Station. (Each Meal has a favorite station)
+                DLog(@"fdid: %@", self.favoriteDishIds);
+                
+                if ( [self.favoriteDishIds containsObject:@(dish.ID)] ) {
+                    dish.fave = YES;
+                    DLog(@"dish %@ was a favorite", dish.name);
+                    if (![favStation.dishes containsObject:dish]) {
+                        [favStation.dishes addObject:dish];
+                    }
+                   // [tmpFavSet addObject:dish];
+                }
+                
                 [filteredStation.dishes addObject:dish];
             }];
             
+            //favStation.dishes = [NSMutableArray arrayWithArray:[tmpFavSet allObjects]];
             [filteredStations addObject:filteredStation];
+
             
             for (NSPredicate *predicate in predicates) {
                 // NSLog(@"Pred: %@", predicate);
@@ -344,7 +365,32 @@
                     }
                 }
             }
+            
         }];
+        
+        
+        
+        //We now have a favoritesStation but we need to filter that out as well...
+
+        if (predicates.count == 0) {
+            DLog(@"there are: %@", predicates);
+            if (favStation.dishes.count > 0) {
+                [filteredStations insertObject:favStation atIndex:0];
+            }
+        } else {
+            for (NSPredicate *predicate in predicates) {
+                NSLog(@"Pred: %@", predicate);
+                [favStation.dishes filterUsingPredicate:predicate];
+            }
+            if (favStation.dishes.count > 0 ) {
+                [filteredStations insertObject:favStation atIndex:0];
+            }
+        }
+    
+     
+        DLog(@"FAV STATION: %@", favStation.dishes);
+        DLog(@"filteredStations: %@", filteredStations);
+        
         
         Meal *filteredMeal = [[Meal alloc] initWithStations:filteredStations andName:meal.name];
         [filteredMenu addObject:filteredMeal];
@@ -479,8 +525,27 @@
 
 
 
+#pragma mark - Favorites Array Filepath
+- (NSString *)favoritesFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"favorites.plist"];
+}
 
 
+- (void)loadFavoriteDishes
+{
+    //Load up the favorites file if there is one.
+    NSString *favoritesFilePath = [self favoritesFilePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
+        self.favoriteDishIds = [[NSMutableArray alloc] initWithContentsOfFile:favoritesFilePath];
+    } else {
+        //We still need to allocate memory for an empty array.
+        self.favoriteDishIds = [[NSMutableArray alloc] init];
+    }
+    
+    DLog(@"FAVORITES: %@" , self.favoriteDishIds);
+}
 
 
 @end

@@ -17,6 +17,7 @@ typedef void (^FetchCompletionBlock) (NSArray *filteredMenu, NSError *error);
 @interface MenuModel : NSObject
 
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSMutableArray *favoriteDishIds;
 @property (nonatomic, assign) int availableDays;
 @property (nonatomic, assign) int page;
 
@@ -24,7 +25,6 @@ typedef void (^FetchCompletionBlock) (NSArray *filteredMenu, NSError *error);
 - (NSArray *)performFetch;
 - (void)performFetchWithCompletionBlock:(FetchCompletionBlock)completion;
 - (void)getAvailableDays;
-
-
+- (NSString *)favoritesFilePath;
 
 @end

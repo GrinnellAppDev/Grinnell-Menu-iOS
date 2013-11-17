@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Meal.h"
+#import "MenuModel.h"
 
 @interface MealViewController : UITableViewController
 
+@property (nonatomic, strong) MenuModel *menuModel;
 @property(nonatomic, strong) Meal *meal;
 
 @end

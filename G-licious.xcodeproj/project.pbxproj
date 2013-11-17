@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1605A36618349A3200358697 /* DishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1605A36518349A3200358697 /* DishCell.m */; };
 		168B4403182E2A3B001808E3 /* UIColor+GAColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4402182E2A3B001808E3 /* UIColor+GAColor.m */; };
 		168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4407182E2F14001808E3 /* AJRBackgroundDimmer.m */; };
 		168B4412182E2F14001808E3 /* AJRNutritionLabelCalculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4409182E2F14001808E3 /* AJRNutritionLabelCalculation.m */; };
@@ -63,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1605A36418349A3200358697 /* DishCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishCell.h; sourceTree = "<group>"; };
+		1605A36518349A3200358697 /* DishCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishCell.m; sourceTree = "<group>"; };
 		168B4401182E2A3B001808E3 /* UIColor+GAColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GAColor.h"; sourceTree = "<group>"; };
 		168B4402182E2A3B001808E3 /* UIColor+GAColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GAColor.m"; sourceTree = "<group>"; };
 		168B4406182E2F14001808E3 /* AJRBackgroundDimmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRBackgroundDimmer.h; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				16AA38BA182597DD00374116 /* SettingsViewController.m */,
 				16AA38CB1825F25A00374116 /* DiningHallHours.h */,
 				16AA38CC1825F25A00374116 /* DiningHallHours.m */,
+				1605A36418349A3200358697 /* DishCell.h */,
+				1605A36518349A3200358697 /* DishCell.m */,
 				16FF71D91824A3300026C568 /* Images.xcassets */,
 				16FDAC7C1831E2AB0016E6A5 /* sad-face-23992.jpg */,
 				16AA38BC18259E8800374116 /* glicious-banner1.png */,
@@ -498,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16AA38C41825DDD100374116 /* Dish.m in Sources */,
+				1605A36618349A3200358697 /* DishCell.m in Sources */,
 				16FF72101824A3AD0026C568 /* TTSlidingPageTitle.m in Sources */,
 				16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */,
 				168B4403182E2A3B001808E3 /* UIColor+GAColor.m in Sources */,

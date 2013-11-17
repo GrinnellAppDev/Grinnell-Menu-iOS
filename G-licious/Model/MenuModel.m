@@ -337,11 +337,11 @@
                 
                 //FTODO handle favorites.
                 //Check if dish is a favorite. And add it to the favorites Station. (Each Meal has a favorite station)
-                DLog(@"fdid: %@", self.favoriteDishIds);
+                //DLog(@"fdid: %@", self.favoriteDishIds);
                 
                 if ( [self.favoriteDishIds containsObject:@(dish.ID)] ) {
                     dish.fave = YES;
-                    DLog(@"dish %@ was a favorite", dish.name);
+                    //DLog(@"dish %@ was a favorite", dish.name);
                     if (![favStation.dishes containsObject:dish]) {
                         [favStation.dishes addObject:dish];
                     }
@@ -373,13 +373,13 @@
         //We now have a favoritesStation but we need to filter that out as well...
 
         if (predicates.count == 0) {
-            DLog(@"there are: %@", predicates);
+            //DLog(@"there are: %@", predicates);
             if (favStation.dishes.count > 0) {
                 [filteredStations insertObject:favStation atIndex:0];
             }
         } else {
             for (NSPredicate *predicate in predicates) {
-                NSLog(@"Pred: %@", predicate);
+                //NSLog(@"Pred: %@", predicate);
                 [favStation.dishes filterUsingPredicate:predicate];
             }
             if (favStation.dishes.count > 0 ) {
@@ -388,8 +388,8 @@
         }
     
      
-        DLog(@"FAV STATION: %@", favStation.dishes);
-        DLog(@"filteredStations: %@", filteredStations);
+        //DLog(@"FAV STATION: %@", favStation.dishes);
+        //DLog(@"filteredStations: %@", filteredStations);
         
         
         Meal *filteredMeal = [[Meal alloc] initWithStations:filteredStations andName:meal.name];
@@ -544,7 +544,7 @@
         self.favoriteDishIds = [[NSMutableArray alloc] init];
     }
     
-    DLog(@"FAVORITES: %@" , self.favoriteDishIds);
+    //DLog(@"FAVORITES: %@" , self.favoriteDishIds);
 }
 
 

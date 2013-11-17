@@ -72,6 +72,10 @@
                                                  name:@"ResetFilters"
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(resetFavorites)
+                                                 name:@"ResetFavorites"
+                                               object:nil];
     
     //Set up the slider Control
     self.slider = [[TTScrollSlidingPagesController alloc] init];
@@ -234,10 +238,25 @@
 #pragma mark - Reset Filters
 - (void)resetFilters
 {
+    
     [self prepareMenu];
     [self.slider reloadPages];
+    
     //Scroll to the page that was previously on display
     [self.slider scrollToPage:_currentPage animated:NO];
+}
+
+/* Refreshes the data in the views in order to reset Favorites. The implementation of reloadPages creates NEW views hence that couldn't be used to refresh the views 
+ */
+- (void)resetFavorites {
+    
+    [self prepareMenu];
+    
+    for (int i = 0; i < self.slider.childViewControllers.count; i++) {
+        MealViewController *mvc = self.slider.childViewControllers[i];
+        mvc.meal = self.menu[i];
+        [mvc.tableView reloadData];
+    }
 }
 
 

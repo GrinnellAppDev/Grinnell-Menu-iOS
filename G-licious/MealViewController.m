@@ -144,6 +144,7 @@ typedef enum ScrollDirection {
     dish.fave = !dish.fave;
     
     if (dish.fave) {
+        
         //Mark dish as favorite!
         [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
 
@@ -152,32 +153,25 @@ typedef enum ScrollDirection {
         }
         
         if ([firstStation.name isEqualToString:@"Favorites"]) {
-            [self scrollPositionUpwards:YES];
+            [self scrollPositionDownwardsWithFavoritesVenueOnScreen:YES];
         } else {
-            [self scrollPositionUpwards:NO];
+            [self scrollPositionDownwardsWithFavoritesVenueOnScreen:NO];
         }
-    
     } else {
         [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
         [self.menuModel.favoriteDishIds removeObject:@(dish.ID)];
         
-        
         if (firstStation.dishes.count == 1) {
-            NSLog(@"Count was 1");
             [self scrollPositionUpwards:YES];
         } else {
             [self scrollPositionUpwards:NO];
         }
-        
-        
     }
-    
-  
     
     
     [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
+    [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetFavorites" object:nil];
     
-    [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetFilters"               object:nil];
 }
 
 
@@ -386,23 +380,22 @@ titleForHeaderInSection:(NSInteger)section
  }
  */
 
-- (void)scrollPositionDownwards:(BOOL)favoritesVenuePresent {
+- (void)scrollPositionDownwardsWithFavoritesVenueOnScreen:(BOOL)favoritesVenuePresent {
     
     CGPoint tableViewPositionTapped = [self.tableView contentOffset];
     
     if (favoritesVenuePresent) {
-        tableViewPositionTapped.y += 44; //for first fav
+        tableViewPositionTapped.y += 44;
     } else {
         tableViewPositionTapped.y += 92;
         
     }
-        //        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
     [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
     
 }
 
+/* If the first Venue (Favorites) has a count one, we scroll by a different offset */
 - (void)scrollPositionUpwards:(BOOL)withCountOne {
-    NSLog(@"SCrolltopositioncalled");
     
     CGPoint tableViewPositionTapped = [self.tableView contentOffset];
     if (withCountOne) {
@@ -411,8 +404,7 @@ titleForHeaderInSection:(NSInteger)section
         tableViewPositionTapped.y -= 44;
         
     }
-        //        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
-        [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
+    [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
     
 }
 

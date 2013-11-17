@@ -102,7 +102,6 @@ typedef enum ScrollDirection {
     Dish *dish = station.dishes[indexPath.row];
     
     cell.dishNameLabel.text = dish.name;
-    cell.dishNameLabel.font = [UIFont systemFontOfSize:15.0f];
     
     // accessory type
     if (dish.hasNutrition) {

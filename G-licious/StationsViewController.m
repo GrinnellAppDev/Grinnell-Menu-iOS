@@ -113,9 +113,6 @@
     [self.slider scrollToPage:_currentPage animated:NO];
 
     self.slider.zoomOutAnimationDisabled = NO;
-    
-    //[self.slider reloadPages];
-    //[self.slider scrollToPage:_currentPage animated:NO];
 }
 
 - (void)updateDateBarButtonLabel

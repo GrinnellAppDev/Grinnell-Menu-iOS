@@ -17,12 +17,12 @@
 #import "DiningHallHours.h"
 #import "UIColor+GAColor.h"
 #import <NSCalendar+equalWithGranularity.h>
+#import "AppDelegate.h"
 
 
 @interface StationsViewController () <RMDateSelectionViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, strong) TTScrollSlidingPagesController *slider;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) RMDateSelectionViewController *dateSelectionViewController;
 @property (nonatomic, strong) MenuModel *menuModel;
@@ -43,6 +43,24 @@
 
 - (void)awakeFromNib
 {
+    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.stationsViewController = self;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideToolBar) name:@"HideToolBar" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showToolBar) name:@"ShowToolBar" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageControlChangedPage:) name:@"PageControlChangedPage" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(resetFilters)
+                                                 name:@"ResetFilters"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(resetFavorites)
+                                                 name:@"ResetFavorites"
+                                               object:nil];
+    
 }
 
 - (void)dealloc
@@ -56,47 +74,48 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    DLog(@"self: %@", self);
+    [self setupScreen];
     
-	// Do any additional setup after loading the view.
+}
+
+- (void)setupScreen {
+    // Do any additional setup after loading the view.
     self.date = [NSDate date];
     [self setCurrentPage];
     [self prepareMenu];
-
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideToolBar) name:@"HideToolBar" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showToolBar) name:@"ShowToolBar" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageControlChangedPage:) name:@"PageControlChangedPage" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(resetFilters)
-                                                 name:@"ResetFilters"
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(resetFavorites)
-                                                 name:@"ResetFavorites"
-                                               object:nil];
     
     //Set up the slider Control
-    self.slider = [[TTScrollSlidingPagesController alloc] init];
+    if (!self.slider) {
+        self.slider = [[TTScrollSlidingPagesController alloc] init];
+        
+        //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
+        self.slider.titleScrollerHeight = 30;
+        self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
+        self.slider.disableTitleScrollerShadow = YES;
+        self.slider.disableUIPageControl = YES;
+        
+        //set the datasource.
+        self.slider.dataSource = self;
+        
+        //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
+        self.slider.view.frame = self.view.frame;
+        [self.view addSubview:self.slider.view];
+        [self addChildViewController:self.slider];
+        [self updateDateBarButtonLabel];
+        //Change Z position of toolbar so it is always on top
+        [self.view bringSubviewToFront:self.toolbar];
+    }
     
-    //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
-    self.slider.titleScrollerHeight = 30;
-    self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
-    self.slider.disableTitleScrollerShadow = YES;
-    self.slider.disableUIPageControl = YES;
-
-    //set the datasource.
-    self.slider.dataSource = self;
-    
-    //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
-    self.slider.view.frame = self.view.frame;
-    [self.view addSubview:self.slider.view];
-    [self addChildViewController:self.slider];
-    [self updateDateBarButtonLabel];
-    //Change Z position of toolbar so it is always on top
-    [self.view bringSubviewToFront:self.toolbar];
+    self.slider.zoomOutAnimationDisabled = YES;
+    [self.slider reloadPages];
     [self.slider scrollToPage:_currentPage animated:NO];
+
+    self.slider.zoomOutAnimationDisabled = NO;
+    
+    //[self.slider reloadPages];
+    //[self.slider scrollToPage:_currentPage animated:NO];
 }
 
 - (void)updateDateBarButtonLabel
@@ -115,14 +134,14 @@
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
     
     /*
-    [self.menuModel performFetchWithCompletionBlock:^(NSArray *filteredMenu, NSError *error) {
-        self.menu = filteredMenu;
-        DLog(@"Self.menu; %@", filteredMenu);
-        DLog(@"start relading");
-        [self.slider reloadPages];
-        DLog(@"end reloading");
-    }];
-    */
+     [self.menuModel performFetchWithCompletionBlock:^(NSArray *filteredMenu, NSError *error) {
+     self.menu = filteredMenu;
+     DLog(@"Self.menu; %@", filteredMenu);
+     DLog(@"start relading");
+     [self.slider reloadPages];
+     DLog(@"end reloading");
+     }];
+     */
     self.menu = [self.menuModel performFetch];
     self.availableDays = self.menuModel.availableDays;
     [self updateDateBarButtonLabel];
@@ -141,7 +160,7 @@
     int range = 24 * 60 * 60 * self.availableDays;
     NSDate *maxDate = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
     self.dateSelectionViewController.datePicker.maximumDate = maxDate;
-
+    
 }
 
 #pragma mark - TTSlidingPageController delegate methods
@@ -155,8 +174,8 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MealViewController *mealViewController = [storyboard instantiateViewControllerWithIdentifier:@"MealViewController"];
     mealViewController.meal = self.menu[index];
-    mealViewController.menuModel = self.menuModel; 
-
+    mealViewController.menuModel = self.menuModel;
+    
     return [[TTSlidingPage alloc] initWithContentViewController:mealViewController];
 }
 
@@ -164,6 +183,9 @@
 {
     int index =  [notification.object intValue];
     _currentPage = index;
+    
+    //it's crashed here - Figure out why..
+    
     NSString *meal = [self.menu[index] name];
     NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
     self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
@@ -246,7 +268,7 @@
     [self.slider scrollToPage:_currentPage animated:NO];
 }
 
-/* Refreshes the data in the views in order to reset Favorites. The implementation of reloadPages creates NEW views hence that couldn't be used to refresh the views 
+/* Refreshes the data in the views in order to reset Favorites. The implementation of reloadPages creates NEW views hence that couldn't be used to refresh the views
  */
 - (void)resetFavorites {
     
@@ -269,7 +291,7 @@
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     
     NSDate *tomorrow = [[NSDate alloc] initWithTimeInterval:60*60*24 sinceDate:self.date];
-
+    
     NSInteger hour = [todayComponents hour];
     NSInteger minute = [todayComponents minute];
     NSInteger weekday = [todayComponents weekday];

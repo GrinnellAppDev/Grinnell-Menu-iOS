@@ -271,7 +271,7 @@
     
     //Go through Menu Dictionary and create a meal for each Meal available.
     [theMenuDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *mealName, NSDictionary *mealDict, BOOL *stop) {
-        NSLog(@"Mealname: %@, mealDict:", mealName);
+        //ONSLog(@"Mealname: %@, mealDict:", mealName);
         
         if (![mealName isEqualToString:@"PASSOVER"]) {
             //next step - create the Meal(i.e Breakfast, Lunch, etc)

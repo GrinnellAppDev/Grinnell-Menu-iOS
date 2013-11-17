@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TTSlidingPagesDataSource.h"
 
-@interface StationsViewController : UIViewController <TTSlidingPagesDataSource> 
+@interface StationsViewController : UIViewController <TTSlidingPagesDataSource>
+
+@property (nonatomic, strong) TTScrollSlidingPagesController *slider;
+
+- (void)setupScreen;
 
 @end

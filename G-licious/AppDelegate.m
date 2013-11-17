@@ -34,6 +34,13 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
    // [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetStationsView"
                                                     //     object:nil];
+    
+    NSLog(@"Ahh");
+   // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //StationsViewController *stationsViewController = [storyboard instantiateViewControllerWithIdentifier:@"StationsViewController"];
+    DLog(@"svc: %@", self.stationsViewController);
+    [self.stationsViewController setupScreen];
+    
 
 
 }

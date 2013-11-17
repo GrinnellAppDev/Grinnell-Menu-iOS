@@ -55,7 +55,7 @@
         <!--Stations View Controller-->
         <scene sceneID="GAK-j7-CLd">
             <objects>
-                <viewController id="iQR-w4-2lb" customClass="StationsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StationsViewController" id="iQR-w4-2lb" customClass="StationsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vBc-l4-KX0"/>
                         <viewControllerLayoutGuide type="bottom" id="xWh-Eo-r75"/>

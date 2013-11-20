@@ -74,7 +74,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    DLog(@"self: %@", self);
+
+    //Prepare for screenshots
+    //self.navigationItem.leftBarButtonItem = nil;
+    //self.navigationItem.rightBarButtonItem = nil;
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    
+    //DLog(@"self: %@", self);
     [self setupScreen];
     
 }
@@ -166,7 +173,7 @@
     return self.menu.count;
 }
 
--(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
+-(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MealViewController *mealViewController = [storyboard instantiateViewControllerWithIdentifier:@"MealViewController"];
@@ -182,7 +189,6 @@
     _currentPage = index;
     
     //it's crashed here - Figure out why..
-    
     NSString *meal = [self.menu[index] name];
     NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
     self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];

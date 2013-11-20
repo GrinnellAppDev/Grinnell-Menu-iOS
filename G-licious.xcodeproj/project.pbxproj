@@ -405,7 +405,7 @@
 				ORGANIZATIONNAME = "Maijid Moujaled";
 				TargetAttributes = {
 					16FF71BD1824A3300026C568 = {
-						DevelopmentTeam = JW9JB29EY4;
+						DevelopmentTeam = H69TS4DPUJ;
 					};
 					16FF71DE1824A3300026C568 = {
 						TestTargetID = 16FF71BD1824A3300026C568;

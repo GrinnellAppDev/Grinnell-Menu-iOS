@@ -26,7 +26,6 @@ typedef enum ScrollDirection {
     ScrollDirectionCrazy,
 } ScrollDirection;
 
-
 @implementation MealViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -50,7 +49,6 @@ typedef enum ScrollDirection {
     
     //Push tableView contentInset so it doesn't get hidden behind the bottom toolbar.
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
-
     
 }
 
@@ -294,8 +292,7 @@ titleForHeaderInSection:(NSInteger)section
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-
- */
+*/
 
 
 

@@ -105,21 +105,6 @@
                                 <action selector="changeDate:" destination="iQR-w4-2lb" id="dLS-zH-nsA"/>
                             </connections>
                         </barButtonItem>
-                        <view key="titleView" hidden="YES" contentMode="scaleToFill" id="vOF-eQ-UDT">
-                            <rect key="frame" x="96" y="6" width="128" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wed, Dec 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nC1-3v-CYr">
-                                    <rect key="frame" x="0.0" y="8" width="128" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                    <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="o1L-At-SF4">
                             <connections>
                                 <segue destination="EQm-Aq-Niz" kind="modal" id="E22-Yg-Obx"/>
@@ -129,7 +114,6 @@
                     <connections>
                         <outlet property="dateBarButton" destination="WSE-yj-LZd" id="Bqa-Ao-wO9"/>
                         <outlet property="hoursLabel" destination="kAM-C6-wcI" id="xiC-di-f2e"/>
-                        <outlet property="navigationDateLabel" destination="nC1-3v-CYr" id="xP8-0I-MXw"/>
                         <outlet property="toolbar" destination="UjA-aj-ja2" id="r74-bc-uTJ"/>
                     </connections>
                 </viewController>

@@ -18,6 +18,7 @@
 #import "UIColor+GAColor.h"
 #import <NSCalendar+equalWithGranularity.h>
 #import "AppDelegate.h"
+#import "SettingsViewController.h"
 
 
 @interface StationsViewController () <RMDateSelectionViewControllerDelegate>
@@ -33,6 +34,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *navigationDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *dateBarButton;
+
+@property (nonatomic, strong) SettingsViewController *settingsViewController;
+@property (nonatomic, strong) UIPopoverController *settingsPopOver;
 
 @end
 
@@ -362,5 +366,36 @@
             self.date = tomorrow;
         }
     }
+}
+
+- (IBAction)showSettings:(id)sender {
+    
+//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+////    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+//        [self performSegueWithIdentifier:@"showSettings" sender:nil];
+//    } else {
+        //It's iPad.
+        DLog(@"ipad");
+        
+        if (self.settingsViewController == nil) {
+            
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            self.settingsViewController = [storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+            
+            
+            //self.settingsViewController.delegate = self;
+            self.settingsPopOver= [[UIPopoverController alloc] initWithContentViewController:self.settingsViewController];
+        }
+        
+        if ([self.settingsPopOver isPopoverVisible]) {
+            [self.settingsPopOver dismissPopoverAnimated:YES];
+        } else {
+            
+            [self.settingsPopOver presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        
+   // }
+    
 }
 @end

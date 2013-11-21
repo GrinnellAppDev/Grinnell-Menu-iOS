@@ -109,7 +109,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="o1L-At-SF4">
                             <connections>
-                                <segue destination="EQm-Aq-Niz" kind="modal" id="E22-Yg-Obx"/>
+                                <action selector="showSettings:" destination="iQR-w4-2lb" id="eSO-48-DVK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -117,6 +117,7 @@
                         <outlet property="dateBarButton" destination="WSE-yj-LZd" id="Bqa-Ao-wO9"/>
                         <outlet property="hoursLabel" destination="kAM-C6-wcI" id="xiC-di-f2e"/>
                         <outlet property="toolbar" destination="UjA-aj-ja2" id="r74-bc-uTJ"/>
+                        <segue destination="EQm-Aq-Niz" kind="modal" identifier="showSettings" id="sYS-1x-EZh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yms-Wf-bSk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -126,7 +127,7 @@
         <!--Settings View Controller - Settings-->
         <scene sceneID="Qmb-O8-nTq">
             <objects>
-                <tableViewController id="Huo-y4-leb" customClass="SettingsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="Huo-y4-leb" customClass="SettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="vTp-9d-Wv8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -122,8 +122,13 @@
         
         [self.view addGestureRecognizer:downwardGestureRecognizer];
         [self.view addGestureRecognizer:upwardGestureRecognizer];
-        [self.view addGestureRecognizer:leftGestureRecognizer];
-        [self.view addGestureRecognizer:rightGestureRecognizer];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [self.view addGestureRecognizer:leftGestureRecognizer];
+            [self.view addGestureRecognizer:rightGestureRecognizer];
+        } else {
+            
+        }
     }
 }
 
@@ -134,9 +139,24 @@
         //Dims the background, unless overridden
         backgroundGradientView = [[AJRBackgroundDimmer alloc] initWithFrame:parentViewController.view.bounds];
         [parentViewController.view addSubview:backgroundGradientView];
+        
+        UISwipeGestureRecognizer *downwardGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDownwards)];
+        [downwardGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
+        [backgroundGradientView addGestureRecognizer:downwardGestureRecognizer]; 
+
     }
     
     //Adds the nutrition view to the parent view, as a child
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+  
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        
+    } else {
+        self.view.frame = CGRectMake(screenWidth/4, 0, self.view.frame.size.width    , self.view.frame.size.height);
+    }
+    
+    
     [parentViewController.view addSubview:self.view];
     [parentViewController addChildViewController:self];
     
@@ -231,6 +251,8 @@
 
             self.view.frame = rect;
             backgroundGradientView.alpha = 0.0f;
+            self.view.alpha = 0.0;
+
         }
                          completion:^(BOOL finished) {
                              [self.view removeFromSuperview];
@@ -264,6 +286,7 @@
                              }
                              self.view.frame = rect;
                              self.view.transform = transform;
+                             self.view.alpha = 0.0;
                              backgroundGradientView.alpha = 0.0f;
                              
                          } completion:^(BOOL finished) {

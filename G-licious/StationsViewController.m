@@ -191,7 +191,6 @@
 
 - (void)pageControlChangedPage:(NSNotification *)notification
 {
-    DLog(@"is this getting called");
     int index =  [notification.object intValue];
     _currentPage = index;
     
@@ -370,13 +369,11 @@
 
 - (IBAction)showSettings:(id)sender {
     
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-////    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-//        [self performSegueWithIdentifier:@"showSettings" sender:nil];
-//    } else {
-        //It's iPad.
-        DLog(@"ipad");
-        
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self performSegueWithIdentifier:@"showSettings" sender:nil];
+    } else {
+    
         if (self.settingsViewController == nil) {
             
             
@@ -395,7 +392,7 @@
             [self.settingsPopOver presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         
-   // }
+    }
     
 }
 @end

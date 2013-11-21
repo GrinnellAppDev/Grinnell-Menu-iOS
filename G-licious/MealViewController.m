@@ -115,6 +115,7 @@ typedef enum ScrollDirection {
     //cell.dishNameLabel.text = dish.name;
     
     // accessory type
+    
     if (dish.hasNutrition) {
         // selection style type
         UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
@@ -125,6 +126,7 @@ typedef enum ScrollDirection {
         
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 

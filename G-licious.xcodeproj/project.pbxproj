@@ -16,6 +16,8 @@
 		168B4415182E2F14001808E3 /* AJRNutritionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 168B440E182E2F14001808E3 /* AJRNutritionViewController.xib */; };
 		168B4416182E2F14001808E3 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B440F182E2F14001808E3 /* CloseButton.png */; };
 		168B4417182E2F14001808E3 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B4410182E2F14001808E3 /* CloseButton@2x.png */; };
+		16A01D75183D89F600D8F4C2 /* DishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A01D74183D89F600D8F4C2 /* DishCell.xib */; };
+		16A01D78183D966C00D8F4C2 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */; };
 		16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38AD1824AAFB00374116 /* MealViewController.m */; };
 		16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16AA38B01825932C00374116 /* RMDateSelectionViewController.xib */; };
 		16AA38B81825932C00374116 /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38B41825932C00374116 /* RMDateSelectionViewController.m */; };
@@ -79,6 +81,8 @@
 		168B440E182E2F14001808E3 /* AJRNutritionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJRNutritionViewController.xib; sourceTree = "<group>"; };
 		168B440F182E2F14001808E3 /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
 		168B4410182E2F14001808E3 /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
+		16A01D74183D89F600D8F4C2 /* DishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishCell.xib; sourceTree = "<group>"; };
+		16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
 		16AA38AC1824AAFB00374116 /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
 		16AA38AD1824AAFB00374116 /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
 		16AA38B11825932C00374116 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/RMDateSelectionViewController.xib; sourceTree = "<group>"; };
@@ -193,6 +197,14 @@
 			path = NutritionViewFiles;
 			sourceTree = "<group>";
 		};
+		16A01D76183D932C00D8F4C2 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
 		16AA38AF1825932C00374116 /* RMDateSelectionViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +266,7 @@
 		16FF71C71824A3300026C568 /* G-licious */ = {
 			isa = PBXGroup;
 			children = (
+				16A01D76183D932C00D8F4C2 /* iPad */,
 				168B4400182E29DF001808E3 /* Categories */,
 				16AA38BE1825D31500374116 /* Model */,
 				16FF71F61824A3680026C568 /* Vendor */,
@@ -270,6 +283,7 @@
 				16AA38CC1825F25A00374116 /* DiningHallHours.m */,
 				1605A36418349A3200358697 /* DishCell.h */,
 				1605A36518349A3200358697 /* DishCell.m */,
+				16A01D74183D89F600D8F4C2 /* DishCell.xib */,
 				16FF71D91824A3300026C568 /* Images.xcassets */,
 				16FDAC7C1831E2AB0016E6A5 /* sad-face-23992.jpg */,
 				16AA38BC18259E8800374116 /* glicious-banner1.png */,
@@ -446,7 +460,9 @@
 				168B4416182E2F14001808E3 /* CloseButton.png in Resources */,
 				168B4417182E2F14001808E3 /* CloseButton@2x.png in Resources */,
 				16FF71CC1824A3300026C568 /* InfoPlist.strings in Resources */,
+				16A01D75183D89F600D8F4C2 /* DishCell.xib in Resources */,
 				16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */,
+				16A01D78183D966C00D8F4C2 /* Main-iPad.storyboard in Resources */,
 				16FF72091824A3AD0026C568 /* diagmonds.png in Resources */,
 				168B4415182E2F14001808E3 /* AJRNutritionViewController.xib in Resources */,
 				16FF71D51824A3300026C568 /* Main.storyboard in Resources */,
@@ -670,7 +686,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -689,7 +705,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -103,6 +103,7 @@
         self.slider.disableTitleScrollerShadow = YES;
         self.slider.disableUIPageControl = YES;
         
+
         //set the datasource.
         self.slider.dataSource = self;
         
@@ -185,6 +186,7 @@
 
 - (void)pageControlChangedPage:(NSNotification *)notification
 {
+    DLog(@"is this getting called");
     int index =  [notification.object intValue];
     _currentPage = index;
     

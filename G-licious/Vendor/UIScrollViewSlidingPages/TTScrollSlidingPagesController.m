@@ -92,6 +92,8 @@
         [pageControl addTarget:self action:@selector(pageControlChangedPage:) forControlEvents:UIControlEventValueChanged];
         [self.view addSubview:pageControl];
         nextYPosition += pageViewHeight;
+        
+        DLog(@"pagecontrol: %@", pageControl); 
     }
     
     TTBlackTriangle *triangle;
@@ -102,8 +104,12 @@
         triangle = [[TTBlackTriangle alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-(triangleWidth/2), nextYPosition/*start at the top of the nextYPosition, but dont increment the yposition, so this means the triangle sits on top of the topscroller and cuts into it a bit*/, triangleWidth, triangleHeight)];
         triangle.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
-        //Remove the black triangle here.
-        //[self.view addSubview:triangle];
+        //Add the black triangle if it's an iPad
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        } else {
+            [self.view addSubview:triangle];
+        }
+        
         
         //set up the top scroller (for the nav titles to go in) - it is one frame wide, but has clipToBounds turned off to enable you to see the next and previous items in the scroller. We wrap it in an outer uiview so that the background colour can be set on that and span the entire view (because the width of the topScrollView is only one frame wide and centered).
         topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.titleScrollerItemWidth, self.titleScrollerHeight)];
@@ -365,6 +371,7 @@
     //scroll to the page
     [bottomScrollView setContentOffset: CGPointMake([self getXPositionOfPage:page],0) animated:animated];
     
+    
     if (!animated){
         //if the scroll is not animated, we also need to move the topScrollView - we don't want (if it's animated, it'll call the scrollViewDidScroll delegate which keeps everything in sync, so calling it twice would mess things up).
         [topScrollView setContentOffset: CGPointMake(page * topScrollView.frame.size.width, 0) animated:animated];
@@ -389,6 +396,11 @@
     //we need to add on the contentOffset of the topScrollView
     //int position = point.x + topScrollView.contentOffset.x;
     
+    DLog(@"to tappped");
+
+    //[self pageControlChangedPage:self];
+
+    
     //find out what page in the topscroller would be at that x location
     int page = [self getTopScrollViewPageForXPosition:point.x];
     
@@ -396,6 +408,9 @@
     if ([self getCurrentDisplayedPage] != page && page < [bottomScrollView.subviews count]){
         [self scrollToPage:page animated:YES];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PageControlChangedPage" object:@(page)];
+
     
 }
 
@@ -462,6 +477,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     int currentPage = [self getCurrentDisplayedPage];
+    
+
     
     if (!self.zoomOutAnimationDisabled){
         //Do a zoom out effect on the current view and next view depending on the amount scrolled

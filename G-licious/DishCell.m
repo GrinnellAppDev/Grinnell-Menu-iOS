@@ -15,6 +15,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        DLog(@"ASDFASDFASDFASDFASD");
+        
+       self.dishNameLabel = [[UILabel alloc] init];
+        self.dishNameLabel.textColor = [UIColor redColor];
+        self.dishNameLabel.text = @"What one earth!";
+        [self.contentView addSubview:self.dishNameLabel];
+
+        
+       
+        
     }
     return self;
 }

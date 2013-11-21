@@ -10,7 +10,7 @@
 
 @interface DishCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *dishNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *dishNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *favButton;
 
 @end

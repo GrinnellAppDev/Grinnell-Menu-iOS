@@ -50,6 +50,13 @@ typedef enum ScrollDirection {
     //Push tableView contentInset so it doesn't get hidden behind the bottom toolbar.
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
     
+    
+   //[[self tableView] registerClass:[DishCell class] forCellReuseIdentifier:@"DishCell"];
+    
+  // [self.tableView registerNib:[UINib nibWithNibName:@"DishCell" bundle:nil]
+   //     forCellReuseIdentifier:@"DishCell"];
+
+    
 }
 
 - (void)sendShowToolbarNotification
@@ -84,9 +91,12 @@ typedef enum ScrollDirection {
     
     DishCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    
     if (!cell) {
-        cell = [[DishCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[DishCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        
     }
+    
     
     // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
@@ -100,6 +110,9 @@ typedef enum ScrollDirection {
     Dish *dish = station.dishes[indexPath.row];
     
     cell.dishNameLabel.text = dish.name;
+    //cell.textLabel.text = dish.name;
+    //cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+    //cell.dishNameLabel.text = dish.name;
     
     // accessory type
     if (dish.hasNutrition) {
@@ -117,6 +130,7 @@ typedef enum ScrollDirection {
 
     }
     
+    
     [cell.favButton addTarget:self action:@selector(toggleFav:) forControlEvents:UIControlEventTouchUpInside];
     
     if (dish.fave) {
@@ -124,6 +138,7 @@ typedef enum ScrollDirection {
     }
     else
         [cell.favButton setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
+    
 }
 
 - (void)toggleFav:(UIButton *)sender {
@@ -195,16 +210,12 @@ titleForHeaderInSection:(NSInteger)section
     }
         
     [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
-
- 
-    
    
     if (dish.hasNutrition) {
         
         //Initalize the nutrition view
         AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
         
-   
         //Set the various data values for the view
         // controller.servingSize = @"12 fl oz. (1 Can)";
         // controller.calories = 100;      //Type: int
@@ -239,9 +250,6 @@ titleForHeaderInSection:(NSInteger)section
         
         [controller presentInParentViewController:self.parentViewController];
     }
-    
-    
-    
 }
 
 /*

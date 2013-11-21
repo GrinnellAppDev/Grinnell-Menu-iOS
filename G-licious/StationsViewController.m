@@ -92,6 +92,7 @@
     [self setCurrentPage];
     [self prepareMenu];
     [self showHudForDate:self.date];
+    [self updateHoursLabel]; 
     
     //Set up the slider Control
     if (!self.slider) {
@@ -191,7 +192,12 @@
     _currentPage = index;
     
     //it's crashed here - Figure out why..
-    NSString *meal = [self.menu[index] name];
+    [self updateHoursLabel];
+}
+
+- (void)updateHoursLabel
+{
+    NSString *meal = [self.menu[_currentPage] name];
     NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
     self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
 }

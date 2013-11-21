@@ -84,9 +84,7 @@
     //self.navigationItem.rightBarButtonItem = nil;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    
-    //DLog(@"self: %@", self);
-    [self setupScreen];
+        [self setupScreen];
     
 }
 

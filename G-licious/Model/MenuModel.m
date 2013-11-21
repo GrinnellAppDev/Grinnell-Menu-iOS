@@ -39,98 +39,6 @@
 }
 
 
-
-- (void)performFetchWithCompletionBlock:(FetchCompletionBlock)completion
-{
-    
-    //Get the date Components. TODO pull this out.
-    [self getAvailableDays];
-    
-    
-    //We need to pick the right components in the cases self.date changes.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
-    int selectedDay = [components day];
-    int selectedMonth = [components month];
-    int selectedYear = [components year];
-    
-    //File Directories used.
-    NSString *tempPath = NSTemporaryDirectory();
-    NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", selectedMonth, selectedDay, selectedYear];
-    NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
-    
-    //If file has been previously cached, use cached copy.
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        self.menuDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-        NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
-        NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
-        
-        //return filteredMenu;
-        completion(filteredMenu, nil);
-        DLog(@"Loading Json from iPhone cache");
-    } else {
-        DLog(@"Downloading new data");
-        NSString *urlString = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
-        
-        // NSString *urlString = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/11-2-2013.json"];
-        
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            //Check the response to see if we got a 200.
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-            if  (httpResponse.statusCode == 200) {
-                //We have some data.
-                
-                NSError *jsonError;
-                self.menuDictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                                      options:NSJSONReadingAllowFragments
-                                                                        error:&jsonError];
-                
-                
-                if (jsonError) {
-                    DLog(@"Error converting to json")
-                } else {
-                    [self.menuDictionary writeToFile:path atomically:YES];
-                }
-                
-                /*//Parses it.
-                 NSAssert(self.menuDictionary, nil);
-                 
-                 NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
-                 NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
-                 return filteredMenu;
-                 
-                 */
-                NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
-                NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
-                
-                
-                DLog(@"Final filteredMenu: %@" , filteredMenu);
-                //Might need to dispatch_async to make sure that thigns are executed on the main queue.
-                //return filteredMenu;
-                completion(filteredMenu, nil);
-                
-            } else {
-                
-                NSString *body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                DLog(@"Recieved HTTP: %ld: %@", (long)httpResponse.statusCode, body);
-                completion(nil, error);
-                //Show error Alert
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
-                });
-            }
-        }];
-        
-        [task resume];
-    }
-}
-
-
-
 /* Fetches the menu for the date: self.date
  * Loads cached menu if available.
  * If not, downloads new menu from TCDB and caches it.
@@ -193,74 +101,6 @@
     return filteredMenu;
 
 }
-
-- (NSArray *)performFetchHelper
-{
-    [self getAvailableDays];
-    [self setCurrentPage];
-    
-    
-    if (self.availableDays < 0 ) {
-        //There are no menus on the server.
-        //TODO handle this event appropriately.
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh-oh!" message:@"Looks like there are no menus available. Check back when later perhaps?" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alert show];
-    }
-    
-    
-    //Get the date Components. TODO pull this out.
-    
-    //We need to pick the right components in the cases self.date changes.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
-    int selectedDay = [components day];
-    int selectedMonth = [components month];
-    int selectedYear = [components year];
-    
-    //File Directories used.
-    NSString *tempPath = NSTemporaryDirectory();
-    NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", selectedMonth, selectedDay, selectedYear];
-    NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
-    
-    //Check to see if the file has previously been cached else Get it from server.
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        self.menuDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-        NSLog(@"Loading Json from iPhone cache");
-    }  else {
-        //correct version
-        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
-        
-        
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-        NSError *error = nil;
-        if (data)
-        {
-            self.menuDictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                                  options:kNilOptions
-                                                                    error:&error];
-            NSLog(@"Downloaded new data");
-            if (error) {
-                NSLog(@"There was an error: %@", [error localizedDescription]);
-            }
-            // Cache the menudictionary after downloading.
-            [self.menuDictionary writeToFile:path atomically:YES];
-        } else {
-            //TODO Handle Data Nil Error!!
-            
-            
-        }
-    }
-    
-    //Parses it.
-    //  NSAssert(self.menuDictionary, nil);
-    
-    
-    NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
-    NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
-    return filteredMenu;
-}
-
-
-
 
 /* Creates and returns the array of meals.
  * Requires the menuDictionary downloaded from the server.
@@ -365,7 +205,6 @@
                     }
                 }
             }
-            
         }];
         
         
@@ -441,6 +280,8 @@
             //return;
             
             //TODO handle ERROR! Server Error:
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No menus available! " message:@"Looks like there are no menus available right now... Do check back later!" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [alert show];
         }
     }
     
@@ -543,8 +384,6 @@
         //We still need to allocate memory for an empty array.
         self.favoriteDishIds = [[NSMutableArray alloc] init];
     }
-    
-    //DLog(@"FAVORITES: %@" , self.favoriteDishIds);
 }
 
 

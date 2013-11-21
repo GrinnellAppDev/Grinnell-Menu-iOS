@@ -41,23 +41,10 @@ typedef enum ScrollDirection {
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     //Push tableView contentInset so it doesn't get hidden behind the bottom toolbar.
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
     
-    
-   //[[self tableView] registerClass:[DishCell class] forCellReuseIdentifier:@"DishCell"];
-    
-  // [self.tableView registerNib:[UINib nibWithNibName:@"DishCell" bundle:nil]
-   //     forCellReuseIdentifier:@"DishCell"];
-
-    
-}
+  }
 
 - (void)sendShowToolbarNotification
 {
@@ -110,11 +97,6 @@ typedef enum ScrollDirection {
     Dish *dish = station.dishes[indexPath.row];
     
     cell.dishNameLabel.text = dish.name;
-    //cell.textLabel.text = dish.name;
-    //cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
-    //cell.dishNameLabel.text = dish.name;
-    
-    // accessory type
     
     if (dish.hasNutrition) {
         // selection style type
@@ -254,57 +236,6 @@ titleForHeaderInSection:(NSInteger)section
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
 
 #pragma mark - Handle Scrolling Offset Values
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -340,51 +271,6 @@ titleForHeaderInSection:(NSInteger)section
 }
 
 
-/*
-- (void)scrollPositionUpwards {
-    NSLog(@"SCrolltopositioncalled");
-   // for (PanelView *p in self.visiblePages) {
-        
-        CGPoint tableViewPositionTapped = [self.tableView contentOffset];
-        tableViewPositionTapped.y -= 44;
-        //NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
-        [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
-   // }
-}
-
-
-- (void)scrollPositionDownwards {
-    NSLog(@"SCrolltopositioncalled");
-   // for (PanelView *p in self.visiblePages) {
-        
-        CGPoint tableViewPositionTapped = [self.tableView contentOffset];
-        tableViewPositionTapped.y += 44;
-       // NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
-        [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
-    //}
-}
-*/
-/*
- //TEST. DrJid
- - (void)scrollPositionUpwards:(BOOL)withCountOne {
- NSLog(@"SCrolltopositioncalled");
- for (PanelView *p in self.visiblePages) {
- 
- CGPoint tableViewPositionTapped = [p.tableView contentOffset];
- //tableViewPositionTapped.y -= 44;
- //        tableViewPositionTapped.y -= 92; //for first favorite.
- //        NSLog(@"x: %f, y: %f", tableViewPositionTapped.x, tableViewPositionTapped.y);
- if (withCountOne) {
- tableViewPositionTapped.y -= 92; //for first fav
- } else {
- tableViewPositionTapped.y -= 44;
- }
- 
- 
- [p.tableView setContentOffset:tableViewPositionTapped animated:NO];
- }
- }
- */
 
 - (void)scrollPositionDownwardsWithFavoritesVenueOnScreen:(BOOL)favoritesVenuePresent {
     

@@ -14,6 +14,10 @@
 {
     // Override point for customization after application launch.
     
+    
+    
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"Optima" size:18.0f]
+                                                           } forState:UIControlStateNormal];
     return YES;
 }
 							

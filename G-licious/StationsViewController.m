@@ -85,6 +85,15 @@
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     
         [self setupScreen];
+    [self changeFonts];
+    
+}
+
+- (void)changeFonts
+{
+   
+    
+    
     
 }
 

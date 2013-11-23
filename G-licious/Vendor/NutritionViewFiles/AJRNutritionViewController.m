@@ -118,7 +118,8 @@
         [rightGestureRecognizer  setDirection:(UISwipeGestureRecognizerDirectionRight)];
 
 
-
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissInward)];
+        tapGestureRecognizer.numberOfTapsRequired = 2;
         
         [self.view addGestureRecognizer:downwardGestureRecognizer];
         [self.view addGestureRecognizer:upwardGestureRecognizer];
@@ -126,6 +127,7 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             [self.view addGestureRecognizer:leftGestureRecognizer];
             [self.view addGestureRecognizer:rightGestureRecognizer];
+            [self.view addGestureRecognizer:tapGestureRecognizer];
         } else {
             
         }
@@ -305,6 +307,25 @@
                          }];
     }
     
+}
+
+- (void)dismissInward {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionInfo" object:nil];
+
+    [self willMoveToParentViewController:nil];
+    
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         CGAffineTransform transform = CGAffineTransformMakeScale(0.2, 0.2);
+                         self.view.transform = transform;
+                         self.view.alpha = 0.0f;
+                         backgroundGradientView.alpha = 0.0f;
+                         
+                     } completion:^(BOOL finished) {
+                         [self.view removeFromSuperview];
+                         [backgroundGradientView removeFromSuperview];
+                         [self removeFromParentViewController];
+                     }];
 }
 
 

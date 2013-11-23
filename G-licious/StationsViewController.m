@@ -65,6 +65,8 @@
                                                  name:@"ResetFavorites"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableNavigationButtons) name:@"ShowNutritionInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableNavigationButtons) name:@"DismissNutritionInfo" object:nil];
 }
 
 - (void)dealloc
@@ -95,6 +97,18 @@
     
     
     
+}
+
+- (void)disableNavigationButtons
+{
+    self.navigationItem.leftBarButtonItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+}
+
+- (void)enableNavigationButtons
+{
+    self.navigationItem.leftBarButtonItem.enabled = YES;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (void)setupScreen {

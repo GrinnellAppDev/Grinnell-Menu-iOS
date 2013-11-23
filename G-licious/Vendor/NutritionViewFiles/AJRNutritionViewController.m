@@ -135,6 +135,11 @@
 - (void)presentInParentViewController:(UIViewController *)parentViewController {
     //Presents the view in the parent view controller
     
+    DLog(@"pvc: %@", parentViewController);
+    //Disable the navigation buttons when nutritional view controller is showing.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowNutritionInfo" object:nil];
+    
+    
     if (self.shouldDimBackground == YES) {
         //Dims the background, unless overridden
         backgroundGradientView = [[AJRBackgroundDimmer alloc] initWithFrame:parentViewController.view.bounds];
@@ -204,21 +209,23 @@
 }
 
 - (void)dismissDownwards {
+  
+    
     [self dismissFromParentViewControllerDownwards:YES];
 }
 
 - (void)dismissUpwards {
+    
     [self dismissFromParentViewControllerDownwards:NO];
 }
 
 - (void)dismissRightward {
-    DLog(@"dismissright");
+    
     [self dismissFromParentViewControllerRightwards:YES];
 }
 
 - (void)dismissLeftward {
-    DLog(@"dismissleft");
-
+    
     [self dismissFromParentViewControllerRightwards:NO];
 }
 
@@ -230,7 +237,7 @@
 - (void)dismissFromParentViewControllerDownwards:(BOOL)downwards
 {
     //Removes the nutrition view from the superview
-    
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionInfo" object:nil];
     
     [self willMoveToParentViewController:nil];
     
@@ -264,6 +271,8 @@
 
 - (void)dismissFromParentViewControllerRightwards:(BOOL)rightwards
 {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionInfo" object:nil];
+    
     [self willMoveToParentViewController:nil];
     
     //Removes the view with or without animation

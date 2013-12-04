@@ -19,7 +19,7 @@
         
        self.dishNameLabel = [[UILabel alloc] init];
         self.dishNameLabel.textColor = [UIColor redColor];
-        self.dishNameLabel.text = @"What one earth!";
+        self.dishNameLabel.text = @"What on earth!";
         [self.contentView addSubview:self.dishNameLabel];
 
         

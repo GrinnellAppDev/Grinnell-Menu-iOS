@@ -80,11 +80,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     //Prepare for screenshots
     //self.navigationItem.leftBarButtonItem = nil;
     //self.navigationItem.rightBarButtonItem = nil;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
     
     [self setupScreen];
     [self changeFonts];
@@ -93,7 +94,7 @@
 
 - (void)changeFonts
 {
-  
+    
     
 }
 
@@ -113,38 +114,40 @@
     // Do any additional setup after loading the view.
     self.date = [NSDate date];
     [self setCurrentPage];
-    [self prepareMenu];
-    [self showHudForDate:self.date];
-    [self updateHoursLabel]; 
     
-    //Set up the slider Control
-    if (!self.slider) {
-        self.slider = [[TTScrollSlidingPagesController alloc] init];
+    if ( [self prepareMenu] ) {
+        [self showHudForDate:self.date];
+        [self updateHoursLabel];
         
-        //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
-        self.slider.titleScrollerHeight = 30;
-        self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
-        self.slider.disableTitleScrollerShadow = YES;
-        self.slider.disableUIPageControl = YES;
+        //Set up the slider Control
+        if (!self.slider) {
+            self.slider = [[TTScrollSlidingPagesController alloc] init];
+            
+            //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
+            self.slider.titleScrollerHeight = 30;
+            self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
+            self.slider.disableTitleScrollerShadow = YES;
+            self.slider.disableUIPageControl = YES;
+            
+            
+            //set the datasource.
+            self.slider.dataSource = self;
+            
+            //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
+            self.slider.view.frame = self.view.frame;
+            [self.view addSubview:self.slider.view];
+            [self addChildViewController:self.slider];
+            [self updateDateBarButtonLabel];
+            //Change Z position of toolbar so it is always on top
+            [self.view bringSubviewToFront:self.toolbar];
+        }
         
-
-        //set the datasource.
-        self.slider.dataSource = self;
+        self.slider.zoomOutAnimationDisabled = YES;
+        [self.slider reloadPages];
+        [self.slider scrollToPage:_currentPage animated:NO];
         
-        //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
-        self.slider.view.frame = self.view.frame;
-        [self.view addSubview:self.slider.view];
-        [self addChildViewController:self.slider];
-        [self updateDateBarButtonLabel];
-        //Change Z position of toolbar so it is always on top
-        [self.view bringSubviewToFront:self.toolbar];
+        self.slider.zoomOutAnimationDisabled = NO;
     }
-    
-    self.slider.zoomOutAnimationDisabled = YES;
-    [self.slider reloadPages];
-    [self.slider scrollToPage:_currentPage animated:NO];
-
-    self.slider.zoomOutAnimationDisabled = NO;
 }
 
 - (void)updateDateBarButtonLabel
@@ -157,26 +160,18 @@
 }
 
 
--(void)prepareMenu
+
+-(NSArray *)prepareMenu
 {
     
     //TODO initWithProperDate
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
-    
-    /*
-     [self.menuModel performFetchWithCompletionBlock:^(NSArray *filteredMenu, NSError *error) {
-     self.menu = filteredMenu;
-     DLog(@"Self.menu; %@", filteredMenu);
-     DLog(@"start relading");
-     [self.slider reloadPages];
-     DLog(@"end reloading");
-     }];
-     */
     self.menu = [self.menuModel performFetch];
     self.availableDays = self.menuModel.availableDays;
     [self updateDateBarButtonLabel];
-    //[self showHudForDate:self.date];
+    return self.menu;
 }
+
 
 - (IBAction)changeDate:(id)sender {
     
@@ -389,11 +384,11 @@
 
 - (IBAction)showSettings:(id)sender {
     
-
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [self performSegueWithIdentifier:@"showSettings" sender:nil];
     } else {
-    
+        
         if (self.settingsViewController == nil) {
             
             

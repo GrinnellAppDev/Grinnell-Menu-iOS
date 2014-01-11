@@ -69,10 +69,10 @@
         NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
-        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", selectedMonth, selectedDay, selectedYear];
         
-        //test version
-        NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/ingredients/12-31-2013.json"];
+        //temp test version
+        //NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/ingredients/12-31-2013.json"];
 
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         NSError *error = nil;
@@ -89,7 +89,10 @@
             [self.menuDictionary writeToFile:path atomically:YES];
         } else {
             //TODO Handle Data Nil Error!!
-            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No menus" message:@"Seems there are no menus for this date available" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+            [alert show];
+            return nil;
+            //and then return;
             
         }
 

@@ -74,8 +74,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"self.ingre: %@", self.ingredientsArray);
 
     //Sets up the background of the nutrition view
     backgroundView.layer.cornerRadius = 10.0f;
@@ -162,7 +160,7 @@
         [parentViewController.view addSubview:backgroundGradientView];
         
         
-        self.nutritionViewIsCurrent = NO; //This should be loaded from NSUserDefaults eventually TODO
+        self.nutritionViewIsCurrent = [[NSUserDefaults standardUserDefaults] boolForKey:@"nutritionViewIsCurrent"];
 
         if (self.nutritionViewIsCurrent) {
             backgroundView.hidden = NO;
@@ -261,6 +259,7 @@
                       duration:0.35
                        options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         if (self.nutritionViewIsCurrent) {
+
             backgroundView.hidden = YES;
             ingredientsListView.hidden = NO;
         } else {
@@ -269,6 +268,7 @@
         }
     } completion:^(BOOL finished) {
         self.nutritionViewIsCurrent = !self.nutritionViewIsCurrent;
+        [[NSUserDefaults standardUserDefaults] setBool:self.nutritionViewIsCurrent forKey:@"nutritionViewIsCurrent"];
     }];
 }
 
@@ -394,7 +394,6 @@
                                       reuseIdentifier:cellIdentifier];
         
     }
-    
     
     NSString *ingredient = self.ingredientsArray[indexPath.row];
     

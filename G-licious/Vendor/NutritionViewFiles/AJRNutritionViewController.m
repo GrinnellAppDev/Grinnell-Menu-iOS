@@ -257,7 +257,7 @@
     
     [UIView transitionWithView:self.view
                       duration:0.35
-                       options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                       options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
         if (self.nutritionViewIsCurrent) {
 
             backgroundView.hidden = YES;

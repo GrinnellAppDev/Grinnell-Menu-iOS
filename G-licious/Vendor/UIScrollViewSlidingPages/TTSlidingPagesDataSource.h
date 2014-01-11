@@ -35,7 +35,7 @@
 
 @protocol TTSlidingPagesDataSource <NSObject>
 
--(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source;
+-(NSInteger)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source;
 
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index;
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index;

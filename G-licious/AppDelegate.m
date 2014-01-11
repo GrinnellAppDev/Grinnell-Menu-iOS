@@ -16,7 +16,7 @@
     
     
     
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{UITextAttributeFont: [UIFont fontWithName:@"Optima" size:18.0f]
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"Optima" size:18.0f]
                                                            } forState:UIControlStateNormal];
     return YES;
 }

@@ -209,7 +209,7 @@
     }
     
     //get the number of pages
-    int numOfPages = [self.dataSource numberOfPagesForSlidingPagesViewController:self];
+    NSInteger numOfPages = [self.dataSource numberOfPagesForSlidingPagesViewController:self];
     
     //keep track of where next to put items in each scroller
     int nextXPosition = 0;

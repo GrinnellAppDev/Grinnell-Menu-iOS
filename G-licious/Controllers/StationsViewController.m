@@ -189,7 +189,7 @@
 }
 
 #pragma mark - TTSlidingPageController delegate methods
-- (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source
+- (NSInteger)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source
 {
     return self.menu.count;
 }

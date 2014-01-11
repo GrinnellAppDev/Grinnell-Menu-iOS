@@ -23,7 +23,6 @@ typedef void (^FetchCompletionBlock) (NSArray *filteredMenu, NSError *error);
 
 - (id)initWithDate:(NSDate *)aDate;
 - (NSArray *)performFetch;
-- (void)performFetchWithCompletionBlock:(FetchCompletionBlock)completion;
 - (void)getAvailableDays;
 - (NSString *)favoritesFilePath;
 

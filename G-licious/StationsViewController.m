@@ -159,6 +159,7 @@
 
 -(void)prepareMenu
 {
+    
     //TODO initWithProperDate
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
     

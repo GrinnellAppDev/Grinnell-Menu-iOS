@@ -22,7 +22,6 @@
 		16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16AA38B01825932C00374116 /* RMDateSelectionViewController.xib */; };
 		16AA38B81825932C00374116 /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38B41825932C00374116 /* RMDateSelectionViewController.m */; };
 		16AA38BB182597DD00374116 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38BA182597DD00374116 /* SettingsViewController.m */; };
-		16AA38BD18259E8800374116 /* glicious-banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 16AA38BC18259E8800374116 /* glicious-banner1.png */; };
 		16AA38C11825D35D00374116 /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C01825D35D00374116 /* MenuModel.m */; };
 		16AA38C41825DDD100374116 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C31825DDD100374116 /* Dish.m */; };
 		16AA38C71825DE3000374116 /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C61825DE3000374116 /* Station.m */; };
@@ -82,17 +81,16 @@
 		168B4410182E2F14001808E3 /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
 		16A01D74183D89F600D8F4C2 /* DishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishCell.xib; sourceTree = "<group>"; };
 		16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
-		16AA38AC1824AAFB00374116 /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MealViewController.h; path = ../MealViewController.h; sourceTree = "<group>"; };
-		16AA38AD1824AAFB00374116 /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MealViewController.m; path = ../MealViewController.m; sourceTree = "<group>"; };
+		16AA38AC1824AAFB00374116 /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
+		16AA38AD1824AAFB00374116 /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
 		16AA38B11825932C00374116 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/RMDateSelectionViewController.xib; sourceTree = "<group>"; };
 		16AA38B21825932C00374116 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RMDateSelectionViewController.xib; sourceTree = "<group>"; };
 		16AA38B31825932C00374116 /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
 		16AA38B41825932C00374116 /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
 		16AA38B51825932C00374116 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/RMDateSelectionViewController.xib"; sourceTree = "<group>"; };
 		16AA38B61825932C00374116 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/RMDateSelectionViewController.xib"; sourceTree = "<group>"; };
-		16AA38B9182597DD00374116 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
-		16AA38BA182597DD00374116 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
-		16AA38BC18259E8800374116 /* glicious-banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glicious-banner1.png"; sourceTree = "<group>"; };
+		16AA38B9182597DD00374116 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		16AA38BA182597DD00374116 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		16AA38BF1825D35D00374116 /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
 		16AA38C01825D35D00374116 /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
 		16AA38C21825DDD100374116 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
@@ -136,8 +134,8 @@
 		16FF72061824A3AD0026C568 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
 		16FF72071824A3AD0026C568 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
 		16FF72081824A3AD0026C568 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
-		16FF72111824A3C70026C568 /* StationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationsViewController.h; path = ../StationsViewController.h; sourceTree = "<group>"; };
-		16FF72121824A3C70026C568 /* StationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationsViewController.m; path = ../StationsViewController.m; sourceTree = "<group>"; };
+		16FF72111824A3C70026C568 /* StationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsViewController.h; sourceTree = "<group>"; };
+		16FF72121824A3C70026C568 /* StationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsViewController.m; sourceTree = "<group>"; };
 		1F6725D8BD14441A998C6499 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3575E85EF1F9439AAB9C3D46 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -291,7 +289,6 @@
 				1605A36518349A3200358697 /* DishCell.m */,
 				16A01D74183D89F600D8F4C2 /* DishCell.xib */,
 				16FF71D91824A3300026C568 /* Images.xcassets */,
-				16AA38BC18259E8800374116 /* glicious-banner1.png */,
 				16FF71C81824A3300026C568 /* Supporting Files */,
 			);
 			path = "G-licious";
@@ -460,7 +457,6 @@
 			files = (
 				16FF720B1824A3AD0026C568 /* readme.txt in Resources */,
 				16FF71DA1824A3300026C568 /* Images.xcassets in Resources */,
-				16AA38BD18259E8800374116 /* glicious-banner1.png in Resources */,
 				16FF720A1824A3AD0026C568 /* diagmonds_@2X.png in Resources */,
 				168B4416182E2F14001808E3 /* CloseButton.png in Resources */,
 				168B4417182E2F14001808E3 /* CloseButton@2x.png in Resources */,

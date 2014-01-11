@@ -239,7 +239,7 @@
             label.adjustsFontSizeToFitWidth = YES;
             label.textColor = self.titleScrollerTextColour;
             //label.font = [UIFont boldSystemFontOfSize:19];
-            label.font = [UIFont fontWithName:@"Optima" size:19];
+            label.font = [UIFont fontWithName:@"AvenirNext-Regular" size:18];
             label.backgroundColor = [UIColor clearColor];
             
             //add subtle drop shadow

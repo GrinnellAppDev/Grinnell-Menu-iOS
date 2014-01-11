@@ -19,6 +19,7 @@
     self = [super init];
     
     if (self) {
+        
         self.name = aDishDictionary[@"name"];
         self.ID = [aDishDictionary[@"ID"] intValue];
         
@@ -35,6 +36,10 @@
             self.hasNutrition = YES;
             self.nutrition = aDishDictionary[@"nutrition"];
             self.servSize = aDishDictionary[@"ServSize"];
+        }
+        
+        if (aDishDictionary[@"Ingredients"]) {
+            self.ingredientsArray = aDishDictionary[@"Ingredients"];
         }
         
         //TODO MenuModel should tell which dishes are favorite so we can update that value here.
@@ -64,6 +69,7 @@
         self.nutrition = aDish.nutrition;
         self.passover = aDish.passover;
         self.servSize = aDish.servSize;
+        self.ingredientsArray = aDish.ingredientsArray;
     }
     return self;
 }

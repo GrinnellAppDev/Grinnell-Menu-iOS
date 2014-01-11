@@ -22,6 +22,9 @@
     IBOutlet AJRNutritionLabelView *backgroundView;
     AJRBackgroundDimmer *backgroundGradientView;
     
+    __weak IBOutlet AJRNutritionLabelView *ingredientsListView;
+    
+    __weak IBOutlet UILabel *ingredientsViewTitleLabel;
     __weak IBOutlet UILabel *titleLabel;
     IBOutlet UILabel *servingLabel;
     IBOutlet UILabel *caloriesLabel;
@@ -50,7 +53,8 @@
 
 }
 
-
+@property (weak, nonatomic) IBOutlet UIButton *flipButton;
+@property (nonatomic, assign) BOOL nutritionViewIsCurrent;
 @end
 
 @implementation AJRNutritionViewController
@@ -70,11 +74,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"self.ingre: %@", self.ingredientsArray);
+
     //Sets up the background of the nutrition view
     backgroundView.layer.cornerRadius = 10.0f;
     backgroundView.layer.masksToBounds = YES;
     backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
     backgroundView.layer.borderWidth = 4.5f;
+    
+    ingredientsListView.layer.cornerRadius = 10.0f;
+    ingredientsListView.layer.masksToBounds = YES;
+    ingredientsListView.layer.borderColor = [UIColor whiteColor].CGColor;
+    ingredientsListView.layer.borderWidth = 4.5f;
     
     //Sets the labels
     servingLabel.text =  self.servingSize;
@@ -97,11 +109,10 @@
     carbDailyValueLabel.text = [AJRNutritionLabelCalculation calculateTotalCarbDailyValue:[self carbs]];
     dietaryFiberDailyValueLabel.text = [AJRNutritionLabelCalculation calculateDietaryFiberDailyValue:[self dietaryfiber]];
 
-
-
     carbDailyValueLabel.text =  [AJRNutritionLabelCalculation calculateTotalCarbDailyValue:[self carbs]];
     
     titleLabel.text = self.dishTitle;
+    ingredientsViewTitleLabel.text = self.dishTitle; 
     
     if (self.allowSwipeToDismiss) {
         //Add a swipe gesture recognizer to dismiss the view 
@@ -145,7 +156,20 @@
     if (self.shouldDimBackground == YES) {
         //Dims the background, unless overridden
         backgroundGradientView = [[AJRBackgroundDimmer alloc] initWithFrame:parentViewController.view.bounds];
+        
+        
+        
         [parentViewController.view addSubview:backgroundGradientView];
+        
+        
+        self.nutritionViewIsCurrent = NO; //This should be loaded from NSUserDefaults eventually TODO
+
+        if (self.nutritionViewIsCurrent) {
+            backgroundView.hidden = NO;
+        } else {
+            ingredientsListView.hidden = NO;
+        }
+        
         
         UISwipeGestureRecognizer *downwardGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDownwards)];
         [downwardGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
@@ -232,8 +256,20 @@
 }
 
 - (IBAction)close:(id)sender {
-    //The close button
-    [self dismissFromParentViewControllerDownwards:YES];
+    
+    [UIView transitionWithView:self.view
+                      duration:0.35
+                       options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        if (self.nutritionViewIsCurrent) {
+            backgroundView.hidden = YES;
+            ingredientsListView.hidden = NO;
+        } else {
+            ingredientsListView.hidden = YES;
+            backgroundView.hidden = NO;
+        }
+    } completion:^(BOOL finished) {
+        self.nutritionViewIsCurrent = !self.nutritionViewIsCurrent;
+    }];
 }
 
 - (void)dismissFromParentViewControllerDownwards:(BOOL)downwards
@@ -341,5 +377,42 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.ingredientsArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil)  {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:cellIdentifier];
+        
+    }
+    
+    
+    NSString *ingredient = self.ingredientsArray[indexPath.row];
+    
+    //Customize Cell
+    cell.textLabel.text = ingredient;
+
+    cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:14.0f];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 @end

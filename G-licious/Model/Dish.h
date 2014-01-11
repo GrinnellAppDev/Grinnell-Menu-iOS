@@ -23,6 +23,7 @@
 @property (nonatomic, assign) BOOL hasNutrition;
 @property (nonatomic, assign) BOOL fave;
 @property (nonatomic, strong) NSDictionary *nutrition;
+@property (nonatomic, strong) NSArray *ingredientsArray;
 
 -(id)initWithDishDictionary:(NSDictionary *)aDishDictionary;
 -(id)initWithOtherDish:(Dish *)aDish;

@@ -35,6 +35,7 @@
 @property (nonatomic, copy) NSString *dishTitle; 
 
 
+@property (nonatomic, strong) NSArray *ingredientsArray;
 
 //Optional Customizations
 @property BOOL shouldDimBackground;             //Default: YES

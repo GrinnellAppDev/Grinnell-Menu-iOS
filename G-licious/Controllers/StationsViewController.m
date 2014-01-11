@@ -86,7 +86,7 @@
     //self.navigationItem.rightBarButtonItem = nil;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-        [self setupScreen];
+    [self setupScreen];
     [self changeFonts];
     
 }

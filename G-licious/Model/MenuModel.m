@@ -52,13 +52,15 @@
     
     //We need to pick the right components in the cases self.date changes.
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
-    int selectedDay = [components day];
-    int selectedMonth = [components month];
-    int selectedYear = [components year];
+    
+    //Changed to NSinteger instead of ints. IF it breaks here, that's why...
+    NSInteger selectedDay = [components day];
+    NSInteger selectedMonth = [components month];
+    NSInteger selectedYear = [components year];
     
     //File Directories used.
     NSString *tempPath = NSTemporaryDirectory();
-    NSString *daymenuplist = [NSString stringWithFormat:@"%d-%d-%d.plist", selectedMonth, selectedDay, selectedYear];
+    NSString *daymenuplist = [NSString stringWithFormat:@"%ld-%ld-%ld.plist", selectedMonth, selectedDay, selectedYear];
     NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
     
     //Check to see if the file has previously been cached else Get it from server.
@@ -67,9 +69,11 @@
         NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
-        NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
+        //NSMutableString *url = [NSMutableString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%d-%d-%d.json", selectedMonth, selectedDay, selectedYear];
         
-        
+        //test version
+        NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/ingredients/12-31-2013.json"];
+
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         NSError *error = nil;
         if (data)

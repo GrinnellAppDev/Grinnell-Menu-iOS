@@ -23,7 +23,7 @@
     
     //Sets the white color
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    CGFloat components[] = {1.0, 1.0, 1.0, 1.0};
+    CGFloat components[] = {0.15, 0.15, 0.15, 1.0};
     CGColorRef color = CGColorCreate(colorspace, components);
     CGContextSetStrokeColorWithColor(context, color);
     

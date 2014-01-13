@@ -76,15 +76,15 @@
     [super viewDidLoad];
 
     //Sets up the background of the nutrition view
-    backgroundView.layer.cornerRadius = 10.0f;
+    backgroundView.layer.cornerRadius = 5.0f;
     backgroundView.layer.masksToBounds = YES;
     backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
-    backgroundView.layer.borderWidth = 4.5f;
+    //backgroundView.layer.borderWidth = 3.0;
     
-    ingredientsListView.layer.cornerRadius = 10.0f;
+    ingredientsListView.layer.cornerRadius = 5.0f;
     ingredientsListView.layer.masksToBounds = YES;
     ingredientsListView.layer.borderColor = [UIColor whiteColor].CGColor;
-    ingredientsListView.layer.borderWidth = 4.5f;
+    //ingredientsListView.layer.borderWidth = 3.0f;
     
     //Sets the labels
     servingLabel.text =  self.servingSize;

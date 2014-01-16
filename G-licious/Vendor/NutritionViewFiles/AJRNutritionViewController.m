@@ -250,7 +250,7 @@
     
     [UIView transitionWithView:self.view
                       duration:0.35
-                       options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+                       options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         if (self.nutritionViewIsCurrent) {
             backgroundView.hidden = YES;
             ingredientsListView.hidden = NO;
@@ -393,7 +393,7 @@
     cell.textLabel.text = ingredient;
 
     cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:14.0f];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.textColor = [UIColor blackColor];
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;

@@ -10,7 +10,7 @@
 
 @implementation Station
 
--(id)init{
+-(id)init {
     if ((self = [super init])) {
         self.dishes = [[NSMutableArray alloc] init];
     }

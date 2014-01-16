@@ -7,9 +7,7 @@
 //
 
 #import "StationsViewController.h"
-#import "TTScrollSlidingPagesController.h"
-#import "TTSlidingPage.h"
-#import "TTSlidingPageTitle.h"
+#import "TTUIScrollViewSlidingPages.h"
 #import "MealViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RMDateSelectionViewController.h"
@@ -40,13 +38,11 @@
 
 @end
 
-@implementation StationsViewController
-{
+@implementation StationsViewController {
     int _currentPage;
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     mainDelegate.stationsViewController = self;
     
@@ -69,16 +65,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableNavigationButtons) name:@"WillDismissNutritionalView" object:nil];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"HideToolBar" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ShowToolBar" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageControlChangedPage" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ResetFilters" object:nil];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     //Prepare for screenshots
@@ -86,26 +80,15 @@
     //self.navigationItem.rightBarButtonItem = nil;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    
     [self setupScreen];
-    [self changeFonts];
-    
 }
 
-- (void)changeFonts
-{
-    
-    
-}
-
-- (void)disableNavigationButtons
-{
+- (void)disableNavigationButtons {
     self.navigationItem.leftBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
-- (void)enableNavigationButtons
-{
+- (void)enableNavigationButtons {
     self.navigationItem.leftBarButtonItem.enabled = YES;
     self.navigationItem.rightBarButtonItem.enabled = YES;
 }
@@ -129,7 +112,6 @@
             self.slider.disableTitleScrollerShadow = YES;
             self.slider.disableUIPageControl = YES;
             
-            
             //set the datasource.
             self.slider.dataSource = self;
             
@@ -150,8 +132,7 @@
     }
 }
 
-- (void)updateDateBarButtonLabel
-{
+- (void)updateDateBarButtonLabel {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter  setDateFormat:@"EEE, MMM dd"];
     NSString *formattedDateString = [dateFormatter stringFromDate:self.date];
@@ -159,11 +140,7 @@
     self.dateBarButton.title = formattedDateString;
 }
 
-
-
--(NSArray *)prepareMenu
-{
-    
+-(NSArray *)prepareMenu {
     //TODO initWithProperDate
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
     self.menu = [self.menuModel performFetch];
@@ -172,9 +149,10 @@
     return self.menu;
 }
 
-
+//Sets up the datePicker
+//Today is the minimum and sets the maximum based on availableDays
+// TODO: Just use the last date
 - (IBAction)changeDate:(id)sender {
-    
     if (!self.dateSelectionViewController) {
         self.dateSelectionViewController = [RMDateSelectionViewController dateSelectionController];
         self.dateSelectionViewController.delegate = self;
@@ -185,7 +163,6 @@
     int range = 24 * 60 * 60 * self.availableDays;
     NSDate *maxDate = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
     self.dateSelectionViewController.datePicker.maximumDate = maxDate;
-    
 }
 
 #pragma mark - TTSlidingPageController delegate methods
@@ -204,8 +181,7 @@
     return [[TTSlidingPage alloc] initWithContentViewController:mealViewController];
 }
 
-- (void)pageControlChangedPage:(NSNotification *)notification
-{
+- (void)pageControlChangedPage:(NSNotification *)notification {
     int index =  [notification.object intValue];
     _currentPage = index;
     
@@ -213,22 +189,19 @@
     [self updateHoursLabel];
 }
 
-- (void)updateHoursLabel
-{
+- (void)updateHoursLabel {
     NSString *meal = [self.menu[_currentPage] name];
     NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
-    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
+    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@", hoursString];
 }
 
--(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
+-(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index {
     
     TTSlidingPageTitle *title = [[TTSlidingPageTitle alloc] initWithHeaderText:[self.menu[index] name]];
     return title;
 }
 
-- (void)hideToolBar
-{
-    
+- (void)hideToolBar {
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.toolbar.alpha = 0.0f;
@@ -236,8 +209,7 @@
 }
 
 
-- (void)showToolBar
-{
+- (void)showToolBar {
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.toolbar.alpha = 1.0f;
@@ -256,8 +228,9 @@
     [self.slider reloadPages];
     self.slider.zoomOutAnimationDisabled = NO;
 }
+
 - (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
-    //Do something else
+    return;
 }
 
 
@@ -268,16 +241,15 @@
     [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@'s Menu", selectedDateString]];
 }
 
-- (NSString *)selectedDateStringFromDate:(NSDate *)date
-{
+- (NSString *)selectedDateStringFromDate:(NSDate *)date {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *today = [NSDate date];
     NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24];
-    if  ( [calendar ojf_isDate:date equalToDate:today withGranularity:NSDayCalendarUnit] ) {
+    if ([calendar ojf_isDate:date equalToDate:today withGranularity:NSDayCalendarUnit])
         return @"Today";
-    } else if( [calendar ojf_isDate:date equalToDate:tomorrow withGranularity:NSDayCalendarUnit] ) {
+    else if ([calendar ojf_isDate:date equalToDate:tomorrow withGranularity:NSDayCalendarUnit])
         return @"Tomorrow";
-    } else {
+    else {
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"EEEE"];
         NSString *dateString = [dateFormat stringFromDate:date];
@@ -287,9 +259,7 @@
 
 
 #pragma mark - Reset Filters
-- (void)resetFilters
-{
-    
+- (void)resetFilters {
     [self prepareMenu];
     [self.slider reloadPages];
     [self showHudForDate:self.date];
@@ -301,7 +271,6 @@
 /* Refreshes the data in the views in order to reset Favorites. The implementation of reloadPages creates NEW views hence that couldn't be used to refresh the views
  */
 - (void)resetFavorites {
-    
     [self prepareMenu];
     
     for (int i = 0; i < self.slider.childViewControllers.count; i++) {
@@ -316,8 +285,7 @@
 /* Sets the page value that the Stations view should scroll to depending on the time
  * of the day G-licious was accessed
  */
-- (void)setCurrentPage
-{
+- (void)setCurrentPage {
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     
     NSDate *tomorrow = [[NSDate alloc] initWithTimeInterval:60*60*24 sinceDate:self.date];
@@ -329,13 +297,10 @@
     //Sunday
     if (weekday == 1){
         if (hour < 13 || (hour < 14 && minute < 30))
-            //self.mealChoice = @"Lunch";
             _currentPage = 0;
         else if (hour < 19)
             _currentPage = 1;
-        //self.mealChoice = @"Dinner";
         else {
-            //self.mealChoice = @"Breakfast";
             _currentPage = 0;
             self.date = tomorrow;
         }
@@ -383,30 +348,22 @@
 }
 
 - (IBAction)showSettings:(id)sender {
-    
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         [self performSegueWithIdentifier:@"showSettings" sender:nil];
-    } else {
-        
+    else {
         if (self.settingsViewController == nil) {
-            
-            
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             self.settingsViewController = [storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-            
             
             //self.settingsViewController.delegate = self;
             self.settingsPopOver= [[UIPopoverController alloc] initWithContentViewController:self.settingsViewController];
         }
         
-        if ([self.settingsPopOver isPopoverVisible]) {
+        if ([self.settingsPopOver isPopoverVisible])
             [self.settingsPopOver dismissPopoverAnimated:YES];
-        } else {
-            
+        else
             [self.settingsPopOver presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-        
     }
 }
+
 @end

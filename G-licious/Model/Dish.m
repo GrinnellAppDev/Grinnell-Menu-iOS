@@ -87,12 +87,10 @@
         return YES;
     if (![(id)[self name] isEqual:[aDish name]])
         return NO;
-    if (!(self.ID == aDish.ID)) {
+    if (!(self.ID == aDish.ID))
         return NO;
-    }
+    
     return YES;
 }
-
-
 
 @end

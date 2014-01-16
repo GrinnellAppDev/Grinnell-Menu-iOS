@@ -13,8 +13,7 @@
 @implementation Meal
 
 
--(id)initWithMealDict:(NSDictionary *)mealDict andName:(NSString *)mealName
-{
+-(id)initWithMealDict:(NSDictionary *)mealDict andName:(NSString *)mealName {
     self = [super init];
     if (self) {
         self.stations = [[NSMutableArray alloc] init];
@@ -38,14 +37,6 @@
             Station *aStation = [[Station alloc] init];
             aStation.name = stationName;
             
-            // TODO - This might have been fixed.
-            /*
-             if ([aVenue.name isEqualToString:@"ENTREES                  "] && [mealName isEqualToString:@"LUNCH"]) {
-             NSLog(@"ENTREEES!");
-             continue;
-             }
-             */
-            
             [self.stations addObject:aStation];
             
             //TODO Figure out what this is for actually.. Remove the Entree venue
@@ -63,13 +54,10 @@
             }];
         }];
     }
-    
     return self;
 }
 
-
--(id)initWithStations:(NSMutableArray *)theStations andName:(NSString *)mealName
-{
+-(id)initWithStations:(NSMutableArray *)theStations andName:(NSString *)mealName {
     self = [super init];
     if (self) {
         self.stations = theStations;
@@ -78,24 +66,19 @@
     return self;
 }
 
--(void)setScoreForSorting
-{
-    if ([self.name isEqualToString:@"Breakfast"]) {
+-(void)setScoreForSorting {
+    if ([self.name isEqualToString:@"Breakfast"])
         self.scoreForSorting = 1;
-    } if ([self.name isEqualToString:@"Lunch"]) {
+    if ([self.name isEqualToString:@"Lunch"])
         self.scoreForSorting = 2;
-    } if ([self.name isEqualToString:@"Dinner"]) {
+    if ([self.name isEqualToString:@"Dinner"])
         self.scoreForSorting = 3;
-    } if ([self.name isEqualToString:@"Outtakes"]) {
+    if ([self.name isEqualToString:@"Outtakes"])
         self.scoreForSorting = 4;
-    }
 }
 
-
-- (NSString *)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"Meal: %@", self.name];
 }
-
 
 @end

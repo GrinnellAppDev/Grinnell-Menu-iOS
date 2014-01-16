@@ -399,6 +399,9 @@
     NSString *ingredient = self.ingredientsArray[indexPath.row];
     //Customize Cell
     cell.textLabel.text = ingredient;
+    
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:14.0f];
     cell.textLabel.textColor = [UIColor blackColor];

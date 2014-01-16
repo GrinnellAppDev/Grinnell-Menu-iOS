@@ -6,6 +6,12 @@
 // project.
 
 
+// FlurrySDK
+#define COCOAPODS_POD_AVAILABLE_FlurrySDK
+#define COCOAPODS_VERSION_MAJOR_FlurrySDK 4
+#define COCOAPODS_VERSION_MINOR_FlurrySDK 3
+#define COCOAPODS_VERSION_PATCH_FlurrySDK 0
+
 // NSCalendar-EqualWithGranularity
 #define COCOAPODS_POD_AVAILABLE_NSCalendar_EqualWithGranularity
 #define COCOAPODS_VERSION_MAJOR_NSCalendar_EqualWithGranularity 1

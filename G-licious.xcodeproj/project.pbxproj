@@ -16,7 +16,6 @@
 		168B4415182E2F14001808E3 /* AJRNutritionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 168B440E182E2F14001808E3 /* AJRNutritionViewController.xib */; };
 		168B4416182E2F14001808E3 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B440F182E2F14001808E3 /* CloseButton.png */; };
 		168B4417182E2F14001808E3 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B4410182E2F14001808E3 /* CloseButton@2x.png */; };
-		16A01D75183D89F600D8F4C2 /* DishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A01D74183D89F600D8F4C2 /* DishCell.xib */; };
 		16A01D78183D966C00D8F4C2 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */; };
 		16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38AD1824AAFB00374116 /* MealViewController.m */; };
 		16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16AA38B01825932C00374116 /* RMDateSelectionViewController.xib */; };
@@ -104,7 +103,6 @@
 		168B440E182E2F14001808E3 /* AJRNutritionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJRNutritionViewController.xib; sourceTree = "<group>"; };
 		168B440F182E2F14001808E3 /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
 		168B4410182E2F14001808E3 /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
-		16A01D74183D89F600D8F4C2 /* DishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DishCell.xib; sourceTree = "<group>"; };
 		16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
 		16AA38AC1824AAFB00374116 /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
 		16AA38AD1824AAFB00374116 /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
@@ -363,7 +361,6 @@
 				16FF71D31824A3300026C568 /* Main.storyboard */,
 				1605A36418349A3200358697 /* DishCell.h */,
 				1605A36518349A3200358697 /* DishCell.m */,
-				16A01D74183D89F600D8F4C2 /* DishCell.xib */,
 				16FF71D91824A3300026C568 /* Images.xcassets */,
 				16FF71C81824A3300026C568 /* Supporting Files */,
 			);
@@ -552,7 +549,6 @@
 				8BBC82861883888F004E9883 /* flips1@2x.png in Resources */,
 				8BBC827D18837BE3004E9883 /* flipNew1.png in Resources */,
 				8BBC82711883783D004E9883 /* flipCopy2@2x.png in Resources */,
-				16A01D75183D89F600D8F4C2 /* DishCell.xib in Resources */,
 				16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */,
 				8BBC826D188377D8004E9883 /* flipCopy.png in Resources */,
 				8BBC826918836CDE004E9883 /* flip@2x.png in Resources */,

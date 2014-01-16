@@ -33,7 +33,7 @@
 @class TTScrollViewWrapper;
 
 @interface TTScrollSlidingPagesController : UIViewController<UIScrollViewDelegate>{
-    int currentPageBeforeRotation;
+    NSInteger currentPageBeforeRotation;
     bool viewDidLoadHasBeenCalled;
     UIPageControl *pageControl;
     TTScrollViewWrapper *topScrollViewWrapper;
@@ -46,9 +46,9 @@
 
 
 -(void)reloadPages;
--(void)scrollToPage:(int)page animated:(BOOL)animated;
+-(void)scrollToPage:(NSInteger)page animated:(BOOL)animated;
 -(int)getCurrentDisplayedPage;
--(int)getXPositionOfPage:(int)page;
+-(int)getXPositionOfPage:(NSInteger)page;
 
 
 

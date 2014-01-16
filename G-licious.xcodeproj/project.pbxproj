@@ -735,11 +735,9 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/moujaled/Development/Grinnell-Menu-iOS",
-					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
-					"/Users/tremblay/Grinnell-Menu-iOS",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(SRCROOT)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -783,11 +781,9 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/moujaled/Development/Grinnell-Menu-iOS",
-					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
-					"/Users/tremblay/Grinnell-Menu-iOS",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(SRCROOT)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -812,9 +808,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/tremblay/Grinnell-Menu-iOS",
-					"/Users/moujaled/Development/Grinnell-Menu-iOS",
-					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(SRCROOT)",
@@ -840,9 +833,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/tremblay/Grinnell-Menu-iOS",
-					"/Users/moujaled/Development/Grinnell-Menu-iOS",
-					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(SRCROOT)",

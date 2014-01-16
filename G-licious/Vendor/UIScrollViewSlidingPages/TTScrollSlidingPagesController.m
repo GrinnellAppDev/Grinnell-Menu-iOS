@@ -325,7 +325,7 @@
  @param page The page number requested.
  @return Returns the x position of the requested page in the bottom scroller
  */
--(int)getXPositionOfPage:(int)page{
+-(int)getXPositionOfPage:(NSInteger)page{
     //each view could in theory have a different width
     int currentTotal = 0;
     for (int curPage = 0; curPage < page; curPage++){
@@ -365,7 +365,7 @@
  @param page The page number to scroll to.
  @param animated Whether the scroll should be animated to move along to the page (YES) or just directly scroll to the page (NO)
  */
--(void)scrollToPage:(int)page animated:(BOOL)animated{
+-(void)scrollToPage:(NSInteger)page animated:(BOOL)animated{
     //keep track of the current page (for the rotation if it ever happens)
     currentPageBeforeRotation = page;
     
@@ -397,7 +397,7 @@
     //we need to add on the contentOffset of the topScrollView
     //int position = point.x + topScrollView.contentOffset.x;
     
-    DLog(@"to tappped");
+    //DLog(@"to tappped");
 
     //[self pageControlChangedPage:self];
 
@@ -483,20 +483,20 @@
     
     if (!self.zoomOutAnimationDisabled){
         //Do a zoom out effect on the current view and next view depending on the amount scrolled
-        double minimumZoom = 0.93;
-        double zoomSpeed = 1000;//increase this number to slow down the zoom
+        float minimumZoom = 0.93;
+        float zoomSpeed = 1000;//increase this number to slow down the zoom
         UIView *currentView = [bottomScrollView.subviews objectAtIndex:currentPage];
         UIView *nextView;
-        if (currentPage < [bottomScrollView.subviews count]-1){
+        if (currentPage < [bottomScrollView.subviews count]-1)
             nextView = [bottomScrollView.subviews objectAtIndex:currentPage+1];
-        }
         
         //currentView zooms out as scroll left
         int distanceFromPageOrigin = bottomScrollView.contentOffset.x - [self getXPositionOfPage:currentPage]; //find out how far the scroll is away from the start of the page, and use this to adjust the transform of the currentView
         if (distanceFromPageOrigin < 0) {distanceFromPageOrigin = 0;}
-        double scaleAmount = 1-(distanceFromPageOrigin/zoomSpeed);
+        float scaleAmount = 1-(distanceFromPageOrigin/zoomSpeed);
         if (scaleAmount < minimumZoom ){scaleAmount = minimumZoom;}
-        currentView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleAmount, scaleAmount);
+        if (sizeof(void*) == 8)
+            currentView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleAmount, scaleAmount);
         
         //nextView zooms in as scroll left
         if (nextView != nil){
@@ -505,7 +505,8 @@
             if (distanceFromPageOrigin < 0) {distanceFromPageOrigin = 0;}
             scaleAmount = 1-(distanceFromPageOrigin/zoomSpeed);
             if (scaleAmount < minimumZoom ){scaleAmount = minimumZoom;}
-            nextView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleAmount, scaleAmount);
+            if (sizeof(void*) == 8)
+                nextView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleAmount, scaleAmount);
         }
     }
     
@@ -585,7 +586,7 @@
 -(void)pageControlChangedPage:(id)sender
 {
     //if not already on the page and the page is within the bounds of the pages we have, scroll to the page!
-    int page = pageControl.currentPage;
+    NSInteger page = pageControl.currentPage;
     if ([self getCurrentDisplayedPage] != page && page < [bottomScrollView.subviews count]){
         [self scrollToPage:page animated:YES];
     }

@@ -1,0 +1,2 @@
+PODS_FLURRYSDK_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/FlurrySDK/Flurry"
+PODS_FLURRYSDK_OTHER_LDFLAGS = -lFlurry_4.3.0 -framework CoreGraphics -framework Security -framework SystemConfiguration -framework UIKit

@@ -36,6 +36,7 @@
 
 
 @property (nonatomic, strong) NSArray *ingredientsArray;
+@property (nonatomic, strong) IBOutlet UITableView *ingredientsTable;
 
 //Optional Customizations
 @property BOOL shouldDimBackground;             //Default: YES

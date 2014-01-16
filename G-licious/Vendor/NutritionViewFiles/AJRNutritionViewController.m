@@ -85,6 +85,7 @@
     ingredientsListView.layer.masksToBounds = YES;
     ingredientsListView.layer.borderColor = [UIColor whiteColor].CGColor;
     //ingredientsListView.layer.borderWidth = 3.0f;
+    self.ingredientsTable.alwaysBounceVertical = NO;
     
     //Sets the labels
     servingLabel.text =  self.servingSize;
@@ -155,10 +156,7 @@
         //Dims the background, unless overridden
         backgroundGradientView = [[AJRBackgroundDimmer alloc] initWithFrame:parentViewController.view.bounds];
         
-        
-        
         [parentViewController.view addSubview:backgroundGradientView];
-        
         
         self.nutritionViewIsCurrent = [[NSUserDefaults standardUserDefaults] boolForKey:@"nutritionViewIsCurrent"];
 
@@ -168,11 +166,9 @@
             ingredientsListView.hidden = NO;
         }
         
-        
         UISwipeGestureRecognizer *downwardGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDownwards)];
         [downwardGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
-        [backgroundGradientView addGestureRecognizer:downwardGestureRecognizer]; 
-
+        [backgroundGradientView addGestureRecognizer:downwardGestureRecognizer];
     }
     
     //Adds the nutrition view to the parent view, as a child
@@ -182,13 +178,11 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         
     } else {
-        self.view.frame = CGRectMake(screenWidth/4, 0, self.view.frame.size.width    , self.view.frame.size.height);
+        self.view.frame = CGRectMake(screenWidth/4, 0, self.view.frame.size.width, self.view.frame.size.height);
     }
-    
     
     [parentViewController.view addSubview:self.view];
     [parentViewController addChildViewController:self];
-    
     
     //Adds the bounce animation on appear unless overridden
     if (!self.shouldAnimateOnAppear)
@@ -233,23 +227,18 @@
 }
 
 - (void)dismissDownwards {
-  
-    
     [self dismissFromParentViewControllerDownwards:YES];
 }
 
 - (void)dismissUpwards {
-    
     [self dismissFromParentViewControllerDownwards:NO];
 }
 
 - (void)dismissRightward {
-    
     [self dismissFromParentViewControllerRightwards:YES];
 }
 
 - (void)dismissLeftward {
-    
     [self dismissFromParentViewControllerRightwards:NO];
 }
 

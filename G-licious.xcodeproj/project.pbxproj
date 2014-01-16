@@ -817,6 +817,7 @@
 					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(SRCROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
@@ -844,6 +845,7 @@
 					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(SRCROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";

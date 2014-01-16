@@ -108,10 +108,7 @@ typedef enum ScrollDirection {
         
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
     }
     
     
@@ -126,11 +123,9 @@ typedef enum ScrollDirection {
 }
 
 - (void)toggleFav:(UIButton *)sender {
-    
     UIView *contentView = [sender superview];
     DishCell *cell = (DishCell *)[[contentView superview] superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
     
     Station *station = self.meal.stations[indexPath.section];
     Dish *dish = station.dishes[indexPath.row];
@@ -140,41 +135,32 @@ typedef enum ScrollDirection {
     dish.fave = !dish.fave;
     
     if (dish.fave) {
-        
         //Mark dish as favorite!
         [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
 
-        if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)]) {
+        if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)])
             [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
-        }
         
-        if ([firstStation.name isEqualToString:@"Favorites"]) {
+        if ([firstStation.name isEqualToString:@"Favorites"])
             [self scrollPositionDownwardsWithFavoritesVenueOnScreen:YES];
-        } else {
+        else
             [self scrollPositionDownwardsWithFavoritesVenueOnScreen:NO];
-        }
-    } else {
+    }
+    else {
         [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
         [self.menuModel.favoriteDishIds removeObject:@(dish.ID)];
         
-        if (firstStation.dishes.count == 1) {
+        if (firstStation.dishes.count == 1)
             [self scrollPositionUpwards:YES];
-        } else {
+        else
             [self scrollPositionUpwards:NO];
-        }
     }
     
-    
     [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
-    [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetFavorites" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ResetFavorites" object:nil];
 }
 
-
-
-- (NSString *)tableView:(UITableView *)tableView
-titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     //Get each section from the menuvenues array and change the header to match it.
     Station *station = self.meal.stations[section];
     return station.name;
@@ -188,22 +174,21 @@ titleForHeaderInSection:(NSInteger)section
     Station *station = self.meal.stations[indexPath.section];
     Dish *dish = station.dishes[indexPath.row];
     
-    //Test Make a dish a favorite.
-    if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)]) {
-        [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
-    }
-        
-    [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
-   
-    
-   
+//    //Test Make a dish a favorite.
+//    if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)]) {
+//        [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
+//    }
+//        
+//    [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
+//   
+//    
+//   
     //TODO:(DrJid) We should probably modigy the AJR View to take in a dish object. So all this stuff can be done by the AJRView directly..
     
     if (dish.hasNutrition) {
         
         //Initalize the nutrition view
         AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
-        
         
         //Send the ingredients.
         NSLog(@"ing Ar: %@", dish.ingredientsArray);

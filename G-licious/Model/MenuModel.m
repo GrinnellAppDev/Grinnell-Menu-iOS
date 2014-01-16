@@ -60,7 +60,7 @@
     
     //File Directories used.
     NSString *tempPath = NSTemporaryDirectory();
-    NSString *daymenuplist = [NSString stringWithFormat:@"%ld-%ld-%ld.plist", selectedMonth, selectedDay, selectedYear];
+    NSString *daymenuplist = [NSString stringWithFormat:@"%ld-%ld-%ld.plist", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
     NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
     
     //Check to see if the file has previously been cached else Get it from server.
@@ -69,7 +69,7 @@
         NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
-        //NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", selectedMonth, selectedDay, selectedYear];
+        //NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
         
         //temp test version
         NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/ingredients/12-31-2013.json"];
@@ -182,7 +182,6 @@
             [aStation.dishes enumerateObjectsUsingBlock:^(Dish *aDish, NSUInteger idx, BOOL *stop) {
                 Dish *dish = [[Dish alloc] initWithOtherDish:aDish];
                 
-                //FTODO handle favorites.
                 //Check if dish is a favorite. And add it to the favorites Station. (Each Meal has a favorite station)
                 //DLog(@"fdid: %@", self.favoriteDishIds);
                 

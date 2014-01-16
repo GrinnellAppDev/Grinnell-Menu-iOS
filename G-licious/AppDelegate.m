@@ -14,12 +14,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
-    
     [Crashlytics startWithAPIKey:@"45894d9e8a6bc3b8513651d6de36159e2c836e51"];
     
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]
-                                                           } forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]} forState:UIControlStateNormal];
     return YES;
 }
 							
@@ -38,17 +35,12 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-   // [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetStationsView"
-                                                    //     object:nil];
-    
-    NSLog(@"Ahh");
+   // [[NSNotificationCenter defaultCenter]  postNotificationName:@"ResetStationsView" object:nil];
+    NSLog(@"App Entering Foreground");
    // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     //StationsViewController *stationsViewController = [storyboard instantiateViewControllerWithIdentifier:@"StationsViewController"];
     DLog(@"svc: %@", self.stationsViewController);
     [self.stationsViewController setupScreen];
-    
-
-
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

@@ -259,7 +259,6 @@
                       duration:0.35
                        options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
         if (self.nutritionViewIsCurrent) {
-
             backgroundView.hidden = YES;
             ingredientsListView.hidden = NO;
         } else {
@@ -394,9 +393,9 @@
                                       reuseIdentifier:cellIdentifier];
         
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     NSString *ingredient = self.ingredientsArray[indexPath.row];
-    
     //Customize Cell
     cell.textLabel.text = ingredient;
 

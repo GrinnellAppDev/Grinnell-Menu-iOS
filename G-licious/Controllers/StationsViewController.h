@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) TTScrollSlidingPagesController *slider;
 
-- (void)setupScreen;
+- (void)setupInitialScreen;
 
 @end

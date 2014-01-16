@@ -47,7 +47,7 @@
    // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     //StationsViewController *stationsViewController = [storyboard instantiateViewControllerWithIdentifier:@"StationsViewController"];
     //DLog(@"svc: %@", self.stationsViewController);
-    [self.stationsViewController setupScreen];
+    [self.stationsViewController setupInitialScreen];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

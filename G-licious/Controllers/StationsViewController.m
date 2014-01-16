@@ -86,61 +86,43 @@
     //self.navigationItem.rightBarButtonItem = nil;
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    // Set up the Slider Controls. This is the black view on top and it also controls the main menu views at the bottom.
+    if (!self.slider) {
+        self.slider = [[TTScrollSlidingPagesController alloc] init];
+        
+        //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
+        self.slider.titleScrollerHeight = 30;
+        self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
+        self.slider.disableTitleScrollerShadow = YES;
+        self.slider.disableUIPageControl = YES;
+        
+        //set the datasource.
+        self.slider.dataSource = self;
+        
+        //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
+        self.slider.view.frame = self.view.frame;
+        [self.view addSubview:self.slider.view];
+        [self addChildViewController:self.slider];
+        [self updateDateBarButtonLabel];
+        
+        //Change Z position of toolbar so it is always on top
+        [self.view bringSubviewToFront:self.toolbar];
+    }
     
-    [self setupScreen];
-    [self changeFonts];
-    
+    [self setupInitialScreen];
 }
 
-- (void)changeFonts
-{
+- (void)setupInitialScreen {
     
-    
-}
-
-- (void)disableNavigationButtons
-{
-    self.navigationItem.leftBarButtonItem.enabled = NO;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-}
-
-- (void)enableNavigationButtons
-{
-    self.navigationItem.leftBarButtonItem.enabled = YES;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-}
-
-- (void)setupScreen {
-    // Do any additional setup after loading the view.
     self.date = [NSDate date];
     [self setCurrentPage];
     
+    // prepareMenu returns an array of the menu, if there is no array (no menu for the initial date,
+    // no need creating the screen.
     if ( [self prepareMenu] ) {
         [self showHudForDate:self.date];
         [self updateHoursLabel];
         
-        //Set up the slider Control
-        if (!self.slider) {
-            self.slider = [[TTScrollSlidingPagesController alloc] init];
-            
-            //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
-            self.slider.titleScrollerHeight = 30;
-            self.slider.titleScrollerBackgroundColour = [UIColor colorWithWhite:0.125 alpha:1.0f];
-            self.slider.disableTitleScrollerShadow = YES;
-            self.slider.disableUIPageControl = YES;
-            
-            
-            //set the datasource.
-            self.slider.dataSource = self;
-            
-            //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
-            self.slider.view.frame = self.view.frame;
-            [self.view addSubview:self.slider.view];
-            [self addChildViewController:self.slider];
-            [self updateDateBarButtonLabel];
-            //Change Z position of toolbar so it is always on top
-            [self.view bringSubviewToFront:self.toolbar];
-        }
         
         self.slider.zoomOutAnimationDisabled = YES;
         [self.slider reloadPages];
@@ -149,6 +131,10 @@
         self.slider.zoomOutAnimationDisabled = NO;
     }
 }
+
+
+
+
 
 - (void)updateDateBarButtonLabel
 {
@@ -163,8 +149,6 @@
 
 -(NSArray *)prepareMenu
 {
-    
-    //TODO initWithProperDate
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
     self.menu = [self.menuModel performFetch];
     self.availableDays = self.menuModel.availableDays;
@@ -185,8 +169,23 @@
     int range = 24 * 60 * 60 * self.availableDays;
     NSDate *maxDate = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
     self.dateSelectionViewController.datePicker.maximumDate = maxDate;
-    
 }
+
+#pragma mark - RMDateSelectionViewController Delegates
+- (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate {
+    self.menuModel = [[MenuModel alloc] initWithDate:aDate];
+    self.date = aDate;
+    [self prepareMenu];
+    [self showHudForDate:self.date];
+    //Disable the zoom out animation to prevent it from crashing when displaying a menu with less pages.
+    self.slider.zoomOutAnimationDisabled = YES;
+    [self.slider reloadPages];
+    self.slider.zoomOutAnimationDisabled = NO;
+}
+- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
+    //Currently not doign anything when the user hits cancel.
+}
+
 
 #pragma mark - TTSlidingPageController delegate methods
 - (NSInteger)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source
@@ -209,55 +208,13 @@
     int index =  [notification.object intValue];
     _currentPage = index;
     
-    //it's crashed here - Figure out why..
     [self updateHoursLabel];
-}
-
-- (void)updateHoursLabel
-{
-    NSString *meal = [self.menu[_currentPage] name];
-    NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
-    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
 }
 
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
     
     TTSlidingPageTitle *title = [[TTSlidingPageTitle alloc] initWithHeaderText:[self.menu[index] name]];
     return title;
-}
-
-- (void)hideToolBar
-{
-    
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.toolbar.alpha = 0.0f;
-                     }];
-}
-
-
-- (void)showToolBar
-{
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.toolbar.alpha = 1.0f;
-                         self.toolbar.transform = CGAffineTransformIdentity;
-                     }];
-}
-
-#pragma mark - RMDateSelectionViewController Delegates
-- (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate {
-    self.menuModel = [[MenuModel alloc] initWithDate:aDate];
-    self.date = aDate;
-    [self prepareMenu];
-    [self showHudForDate:self.date];
-    //Disable the zoom out animation to prevent it from crashing when displaying a menu with less pages.
-    self.slider.zoomOutAnimationDisabled = YES;
-    [self.slider reloadPages];
-    self.slider.zoomOutAnimationDisabled = NO;
-}
-- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
-    //Do something else
 }
 
 
@@ -284,7 +241,6 @@
         return dateString;
     }
 }
-
 
 #pragma mark - Reset Filters
 - (void)resetFilters
@@ -382,6 +338,8 @@
     }
 }
 
+#pragma mark - Show Settings 
+
 - (IBAction)showSettings:(id)sender {
     
     
@@ -409,4 +367,49 @@
         
     }
 }
+
+
+#pragma mark - Helper Methods
+
+- (void)hideToolBar
+{
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.toolbar.alpha = 0.0f;
+                     }];
+}
+
+
+- (void)showToolBar
+{
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.toolbar.alpha = 1.0f;
+                         self.toolbar.transform = CGAffineTransformIdentity;
+                     }];
+}
+
+
+
+- (void)updateHoursLabel
+{
+    NSString *meal = [self.menu[_currentPage] name];
+    NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
+    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
+}
+
+- (void)disableNavigationButtons
+{
+    self.navigationItem.leftBarButtonItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+}
+
+- (void)enableNavigationButtons
+{
+    self.navigationItem.leftBarButtonItem.enabled = YES;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+}
+
+
 @end

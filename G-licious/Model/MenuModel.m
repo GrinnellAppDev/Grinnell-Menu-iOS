@@ -23,18 +23,14 @@
 @end
 
 
-@implementation MenuModel
-{
+@implementation MenuModel {
     Reachability *internetReachable;
 }
 
-- (id)initWithDate:(NSDate *)aDate
-{
+- (id)initWithDate:(NSDate *)aDate {
     self = [super init];
-    if  (self) {
-        //initialize
+    if (self)
         self.date = aDate;
-    }
     return self;
 }
 
@@ -44,7 +40,6 @@
  * If not, downloads new menu from TCDB and caches it.
  * Returns the filtered Menu
  */
-
 - (NSArray *)performFetch {
     
     [self getAvailableDays];
@@ -88,15 +83,11 @@
             // Cache the menudictionary after downloading.
             [self.menuDictionary writeToFile:path atomically:YES];
         } else {
-            //TODO Handle Data Nil Error!!
+            //Handle Data Nil Error
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Drat!" message:@"Seems there are no menus for this date available. Do check back again soon!" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
             return nil;
-            //and then return;
-            
         }
-
-        //return [self performFetchHelper];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Yikes!" message:@"It appears that the internet connection is offline" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alert show];
@@ -106,14 +97,12 @@
     NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
     NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
     return filteredMenu;
-
 }
 
 /* Creates and returns the array of meals.
  * Requires the menuDictionary downloaded from the server.
  */
--(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary
-{
+-(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary {
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
     //Go through Menu Dictionary and create a meal for each Meal available.
@@ -136,8 +125,7 @@
 }
 
 //Returns a filtered Menu depending on the values of the Filter Switches.
--(NSArray *)applyFiltersTo:(NSArray *)originalMenu
-{
+-(NSArray *)applyFiltersTo:(NSArray *)originalMenu {
     //TODO - Might be able to put this somwhere else.
     [self loadFavoriteDishes];
     
@@ -213,10 +201,7 @@
             }
         }];
         
-        
-        
         //We now have a favoritesStation but we need to filter that out as well...
-
         if (predicates.count == 0) {
             //DLog(@"there are: %@", predicates);
             if (favStation.dishes.count > 0) {
@@ -231,11 +216,8 @@
                 [filteredStations insertObject:favStation atIndex:0];
             }
         }
-    
-     
         //DLog(@"FAV STATION: %@", favStation.dishes);
         //DLog(@"filteredStations: %@", filteredStations);
-        
         
         Meal *filteredMeal = [[Meal alloc] initWithStations:filteredStations andName:meal.name];
         [filteredMenu addObject:filteredMeal];
@@ -244,8 +226,7 @@
     return filteredMenu;
 }
 
--(void)printMenu:(NSArray *)menuArray
-{
+-(void)printMenu:(NSArray *)menuArray {
     for (Meal *meal in menuArray) {
         for (Station *station in meal.stations) {
             NSLog(@"%@ %@",station.name, station.dishes);
@@ -253,15 +234,12 @@
     }
 }
 
-- (void)getAvailableDays
-{
-    
+- (void)getAvailableDays {
     if (!self.hasAvailableDays) {
-        
         //requestQueue = dispatch_queue_create("edu.grinnell.glicious", NULL);
         
         //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
-        //Using the available days json to do this. Is there a better way? Even though this works.
+        //Using the last_date json to do this.
         NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
         NSError *error;
         NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
@@ -285,7 +263,7 @@
             //[self performSelectorOnMainThread:@selector(showNoServerAlert) withObject:nil waitUntilDone:YES];
             //return;
             
-            //TODO handle ERROR! Server Error:
+            //Handle ERROR! Server Error:
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No menus available! " message:@"Looks like there are no menus available right now... Do check back later!" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
             [alert show];
         }
@@ -380,8 +358,7 @@
 }
 
 
-- (void)loadFavoriteDishes
-{
+- (void)loadFavoriteDishes {
     //Load up the favorites file if there is one.
     NSString *favoritesFilePath = [self favoritesFilePath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
@@ -391,6 +368,5 @@
         self.favoriteDishIds = [[NSMutableArray alloc] init];
     }
 }
-
 
 @end

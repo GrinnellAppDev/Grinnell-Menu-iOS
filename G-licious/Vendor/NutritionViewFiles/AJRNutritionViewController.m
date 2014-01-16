@@ -74,6 +74,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissNutrition) name:@"DismissNutritionalView" object:nil];
 
     //Sets up the background of the nutrition view
     backgroundView.layer.cornerRadius = 5.0f;
@@ -147,10 +149,8 @@
 - (void)presentInParentViewController:(UIViewController *)parentViewController {
     //Presents the view in the parent view controller
     
-    DLog(@"pvc: %@", parentViewController);
     //Disable the navigation buttons when nutritional view controller is showing.
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowNutritionInfo" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WillShowNutritionalView" object:nil];
     
     if (self.shouldDimBackground == YES) {
         //Dims the background, unless overridden
@@ -222,6 +222,10 @@
     [backgroundGradientView.layer addAnimation:fadeAnimation forKey:@"fadeAnimation"];
 }
 
+- (void) dismissNutrition {
+    [self dismissFromParentViewControllerDownwards:YES];
+}
+
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     [self didMoveToParentViewController:self.parentViewController];
 }
@@ -263,7 +267,7 @@
 - (void)dismissFromParentViewControllerDownwards:(BOOL)downwards
 {
     //Removes the nutrition view from the superview
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WillDismissNutritionalView" object:nil];
     
     [self willMoveToParentViewController:nil];
     
@@ -297,7 +301,7 @@
 
 - (void)dismissFromParentViewControllerRightwards:(BOOL)rightwards
 {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionInfo" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WillDismissNutritionalView" object:nil];
     
     [self willMoveToParentViewController:nil];
     
@@ -334,7 +338,7 @@
 }
 
 - (void)dismissInward {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WillDismissNutritionalView" object:nil];
 
     [self willMoveToParentViewController:nil];
     

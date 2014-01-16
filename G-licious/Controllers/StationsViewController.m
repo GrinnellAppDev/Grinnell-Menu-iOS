@@ -65,8 +65,8 @@
                                                  name:@"ResetFavorites"
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableNavigationButtons) name:@"ShowNutritionInfo" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableNavigationButtons) name:@"DismissNutritionInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableNavigationButtons) name:@"WillShowNutritionalView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableNavigationButtons) name:@"WillDismissNutritionalView" object:nil];
 }
 
 - (void)dealloc
@@ -408,6 +408,5 @@
         }
         
     }
-    
 }
 @end

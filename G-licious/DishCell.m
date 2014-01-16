@@ -19,16 +19,14 @@
         
         self.dishNameLabel = [[UILabel alloc] init];
         self.dishNameLabel.textColor = [UIColor redColor];
-        self.dishNameLabel.text = @"What on earth!";
+        self.dishNameLabel.text = @"";
         [self.contentView addSubview:self.dishNameLabel];
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
     // Configure the view for the selected state
 }
 

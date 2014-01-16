@@ -37,36 +37,29 @@ typedef enum ScrollDirection {
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     //Push tableView contentInset so it doesn't get hidden behind the bottom toolbar.
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
-    
-  }
+}
 
-- (void)sendShowToolbarNotification
-{
+- (void)sendShowToolbarNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowToolBar" object:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return self.meal.stations.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     Station *station = self.meal.stations[section];
     return station.dishes.count;
@@ -78,12 +71,9 @@ typedef enum ScrollDirection {
     
     DishCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    
     if (!cell) {
         cell = [[DishCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
     }
-    
     
     // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
@@ -110,7 +100,6 @@ typedef enum ScrollDirection {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
     
     [cell.favButton addTarget:self action:@selector(toggleFav:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -168,7 +157,6 @@ typedef enum ScrollDirection {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Station *station = self.meal.stations[indexPath.section];
@@ -222,12 +210,10 @@ typedef enum ScrollDirection {
 
 
 #pragma mark - Handle Scrolling Offset Values
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     ScrollDirection scrollDirection = ScrollDirectionNone;
     
     int contentOffsetDifference = scrollView.contentOffset.y - self.startContentOffset;
-    
     
     if (scrollView.contentOffset.y < 0 ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowToolBar" object:nil];
@@ -241,47 +227,38 @@ typedef enum ScrollDirection {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowToolBar" object:nil];
         //Change tableview inset
     }
-
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     //When scroll View grinds to a halt, reset start Content offset
     self.startContentOffset = scrollView.contentOffset.y;
 }
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     self.startContentOffset = scrollView.contentOffset.y;
 }
 
-
-
 - (void)scrollPositionDownwardsWithFavoritesVenueOnScreen:(BOOL)favoritesVenuePresent {
-    
     CGPoint tableViewPositionTapped = [self.tableView contentOffset];
     
-    if (favoritesVenuePresent) {
+    if (favoritesVenuePresent)
         tableViewPositionTapped.y += 44;
-    } else {
+    else
         tableViewPositionTapped.y += 92;
-        
-    }
-    [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
     
+    [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
 }
 
 /* If the first Venue (Favorites) has a count one, we scroll by a different offset */
 - (void)scrollPositionUpwards:(BOOL)withCountOne {
-    
     CGPoint tableViewPositionTapped = [self.tableView contentOffset];
-    if (withCountOne) {
+    if (withCountOne)
         tableViewPositionTapped.y -= 92; //for first fav
-    } else {
+    else
         tableViewPositionTapped.y -= 44;
-        
-    }
-    [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
     
+    [self.tableView setContentOffset:tableViewPositionTapped animated:NO];
 }
 
 @end

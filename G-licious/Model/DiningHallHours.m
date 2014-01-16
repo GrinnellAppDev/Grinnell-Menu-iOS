@@ -11,7 +11,6 @@
 @implementation DiningHallHours
 
 + (NSString *)hoursForMeal:(NSString *)mealChoice onDay:(NSDate *)selectedDate {
-    
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:selectedDate];
     NSInteger weekday = [dateComponents weekday];
     
@@ -19,7 +18,6 @@
     
     //Breakfast
     if ([mealChoice isEqualToString:@"Breakfast"]) {
-        
         switch (weekday) {
             case 2:
             case 3:
@@ -35,9 +33,8 @@
                 break;
         }
     }
-    
+    //Lunch
     else if ([mealChoice isEqualToString:@"Lunch"]) {
-        //Lunch
         switch (weekday) {
             case 2:
             case 3:
@@ -54,7 +51,7 @@
                 break;
         }
     }
-    
+    //Dinner
     else if ([mealChoice isEqualToString:@"Dinner"]) {
         switch (weekday) {
             case 2:
@@ -72,7 +69,7 @@
                 break;
         }
     }
-    
+    //Outtakes
     else if ([mealChoice isEqualToString:@"Outtakes"]) {
         switch (weekday) {
             case 2:
@@ -86,12 +83,10 @@
             case 7:
             case 1:
                 tmpString = @"9:45am - 12:30pm | 2:00pm - 4:30pm";
-                
             default:
                 break;
         }
     }
-    
     return tmpString;
 }
 

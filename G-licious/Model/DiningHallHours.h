@@ -12,5 +12,4 @@
 
 + (NSString *)hoursForMeal:(NSString *)mealChoice onDay:(NSDate *)date;
 
-
 @end

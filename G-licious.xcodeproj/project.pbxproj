@@ -195,11 +195,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16AB52CF1881DB3E00ECCABC /* Crashlytics.framework in Frameworks */,
 				16FDAC39182EC7360016E6A5 /* SystemConfiguration.framework in Frameworks */,
 				16FF71C41824A3300026C568 /* CoreGraphics.framework in Frameworks */,
 				16FF71C61824A3300026C568 /* UIKit.framework in Frameworks */,
 				16FF71C21824A3300026C568 /* Foundation.framework in Frameworks */,
-				16AB52CF1881DB3E00ECCABC /* Crashlytics.framework in Frameworks */,
 				34A6D83C5D584BCB9314657F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,7 +733,14 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/moujaled/Development/Grinnell-Menu-iOS",
+					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
+					"/Users/tremblay/Grinnell-Menu-iOS",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -774,6 +781,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/moujaled/Development/Grinnell-Menu-iOS",
+					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
+					"/Users/tremblay/Grinnell-Menu-iOS",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -796,9 +811,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"<Multiple",
-					"values>",
+					"$(inherited)",
 					"/Users/tremblay/Grinnell-Menu-iOS",
+					"/Users/moujaled/Development/Grinnell-Menu-iOS",
+					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
@@ -820,9 +838,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"<Multiple",
-					"values>",
+					"$(inherited)",
 					"/Users/tremblay/Grinnell-Menu-iOS",
+					"/Users/moujaled/Development/Grinnell-Menu-iOS",
+					"/Users/Lea/GitHub/Grinnell-Menu-iOS",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";

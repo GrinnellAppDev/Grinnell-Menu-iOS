@@ -66,7 +66,7 @@
     //Check to see if the file has previously been cached else Get it from server.
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         self.menuDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-        NSLog(@"Loading Json from iPhone cache");
+        //NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
         //NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];

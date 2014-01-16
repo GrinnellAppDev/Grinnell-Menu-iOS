@@ -19,7 +19,7 @@
 #import "AJRNutritionLabelCalculation.h"
 
 @interface AJRNutritionViewController () {
-    IBOutlet AJRNutritionLabelView *backgroundView;
+    IBOutlet AJRNutritionLabelView *nutritionalView;
     AJRBackgroundDimmer *backgroundGradientView;
     
     __weak IBOutlet AJRNutritionLabelView *ingredientsListView;
@@ -78,9 +78,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissNutrition) name:@"DismissNutritionalView" object:nil];
 
     //Sets up the background of the nutrition view
-    backgroundView.layer.cornerRadius = 5.0f;
-    backgroundView.layer.masksToBounds = YES;
-    backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
+    nutritionalView.layer.cornerRadius = 5.0f;
+    nutritionalView.layer.masksToBounds = YES;
+    nutritionalView.layer.borderColor = [UIColor whiteColor].CGColor;
     //backgroundView.layer.borderWidth = 3.0;
     
     ingredientsListView.layer.cornerRadius = 5.0f;
@@ -159,12 +159,20 @@
         [parentViewController.view addSubview:backgroundGradientView];
         
         self.nutritionViewIsCurrent = [[NSUserDefaults standardUserDefaults] boolForKey:@"nutritionViewIsCurrent"];
-
+        
+        
+        // BOTH views should be hidden in the .xib files. Else there will be wierd errors. when flipping.
+        // Setting both views to hidden here as well.
+        
+        nutritionalView.hidden = YES;
+        ingredientsListView.hidden = YES;
+        
         if (self.nutritionViewIsCurrent) {
-            backgroundView.hidden = NO;
+            nutritionalView.hidden = NO;
         } else {
             ingredientsListView.hidden = NO;
         }
+        
         
         UISwipeGestureRecognizer *downwardGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDownwards)];
         [downwardGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
@@ -246,17 +254,17 @@
     [self dismissFromParentViewControllerRightwards:NO];
 }
 
-- (IBAction)close:(id)sender {
+- (IBAction)flip:(id)sender {
     
     [UIView transitionWithView:self.view
                       duration:0.35
                        options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         if (self.nutritionViewIsCurrent) {
-            backgroundView.hidden = YES;
+            nutritionalView.hidden = YES;
             ingredientsListView.hidden = NO;
         } else {
             ingredientsListView.hidden = YES;
-            backgroundView.hidden = NO;
+            nutritionalView.hidden = NO;
         }
     } completion:^(BOOL finished) {
         self.nutritionViewIsCurrent = !self.nutritionViewIsCurrent;
@@ -360,7 +368,7 @@
 - (void)viewDidUnload {
     saturatedFatLabel = nil;
     [super viewDidUnload];
-    self->backgroundView = nil;
+    self->nutritionalView = nil;
     self->carbDailyValueLabel = nil;
     self->fatDailyValueLabel = nil;
     NSLog(@"view did unload");

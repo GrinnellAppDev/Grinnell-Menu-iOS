@@ -174,15 +174,6 @@ typedef enum ScrollDirection {
     Station *station = self.meal.stations[indexPath.section];
     Dish *dish = station.dishes[indexPath.row];
     
-//    //Test Make a dish a favorite.
-//    if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)]) {
-//        [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
-//    }
-//        
-//    [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
-//   
-//    
-//   
     //TODO:(DrJid) We should probably modigy the AJR View to take in a dish object. So all this stuff can be done by the AJRView directly..
     
     if (dish.hasNutrition) {
@@ -191,9 +182,7 @@ typedef enum ScrollDirection {
         AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
         
         //Send the ingredients.
-        NSLog(@"ing Ar: %@", dish.ingredientsArray);
         controller.ingredientsArray = dish.ingredientsArray;
-        
         
         //Set the various data values for the view
         // controller.servingSize = @"12 fl oz. (1 Can)";

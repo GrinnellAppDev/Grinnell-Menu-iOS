@@ -69,10 +69,10 @@
         //NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
-        //NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
+        NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
         
         //temp test version
-        NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/ingredients/12-31-2013.json"];
+        //NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/ingredients/12-31-2013.json"];
 
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         NSError *error = nil;

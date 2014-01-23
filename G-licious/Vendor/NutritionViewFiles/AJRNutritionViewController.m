@@ -388,7 +388,7 @@
     NSString *ingredient = self.ingredientsArray[indexPath.row];
     CGSize maxSize = CGSizeMake(210.0f, MAXFLOAT); //210 because that's the width of our ingredients text label on screen.
     CGRect labelRect = [ingredient boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0f]} context:nil];
-    return  MAX(labelRect.size.height + 10.0f, 40); //10.0f for padding. 
+    return  MAX(labelRect.size.height + 10.0f, 40); //10.0f for padding.
 }
 
 

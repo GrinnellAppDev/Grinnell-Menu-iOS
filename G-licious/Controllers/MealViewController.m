@@ -104,10 +104,10 @@ typedef enum ScrollDirection {
     [cell.favButton addTarget:self action:@selector(toggleFav:) forControlEvents:UIControlEventTouchUpInside];
     
     if (dish.fave) {
-        [cell.favButton setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
+        [cell.favButton setImage:[UIImage imageNamed:@"starred_red.png"] forState:UIControlStateNormal];
     }
     else
-        [cell.favButton setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
+        [cell.favButton setImage:[UIImage imageNamed:@"unstarred_red.png"] forState:UIControlStateNormal];
     
 }
 
@@ -125,7 +125,7 @@ typedef enum ScrollDirection {
     
     if (dish.fave) {
         //Mark dish as favorite!
-        [sender setImage:[UIImage imageNamed:@"starred.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"starred_red.png"] forState:UIControlStateNormal];
 
         if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)])
             [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
@@ -136,7 +136,7 @@ typedef enum ScrollDirection {
             [self scrollPositionDownwardsWithFavoritesVenueOnScreen:NO];
     }
     else {
-        [sender setImage:[UIImage imageNamed:@"unstarred.png"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"unstarred_red.png"] forState:UIControlStateNormal];
         [self.menuModel.favoriteDishIds removeObject:@(dish.ID)];
         
         if (firstStation.dishes.count == 1)

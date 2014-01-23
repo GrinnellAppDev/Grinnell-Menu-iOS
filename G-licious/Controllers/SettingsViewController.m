@@ -137,7 +137,7 @@
 
 - (void)showRateGlicious {
     NSDictionary *parameters = [NSDictionary dictionaryWithObject:@"523738999" forKey:SKStoreProductParameterITunesItemIdentifier];
-    SKStoreProductViewController *productViewController = [[SKStoreProductViewController alloc] init];    
+    SKStoreProductViewController *productViewController = [[SKStoreProductViewController alloc] init];
     productViewController.delegate = self;
     [productViewController loadProductWithParameters:parameters completionBlock:nil];
     [self presentViewController:productViewController animated:YES completion:nil];

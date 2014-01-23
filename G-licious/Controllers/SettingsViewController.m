@@ -9,8 +9,9 @@
 #import "SettingsViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import <MessageUI/MessageUI.h>
+#import <StoreKit/StoreKit.h>
 
-@interface SettingsViewController () <MFMailComposeViewControllerDelegate>
+@interface SettingsViewController () <MFMailComposeViewControllerDelegate, SKStoreProductViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISwitch *veganSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *glutenFreeSwitch;
@@ -135,9 +136,16 @@
 }
 
 - (void)showRateGlicious {
-    int gliciousID = 523738999;
-    NSString* url = [NSString stringWithFormat: @"http://itunes.apple.com/app/id%d", gliciousID];
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObject:@"523738999" forKey:SKStoreProductParameterITunesItemIdentifier];
+    SKStoreProductViewController *productViewController = [[SKStoreProductViewController alloc] init];    
+    productViewController.delegate = self;
+    [productViewController loadProductWithParameters:parameters completionBlock:nil];
+    [self presentViewController:productViewController animated:YES completion:nil];
+}
+
+-(void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

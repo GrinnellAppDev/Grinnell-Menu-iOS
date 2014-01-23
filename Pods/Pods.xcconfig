@@ -1,5 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/FlurrySDK" "${PODS_ROOT}/Headers/NSCalendar-EqualWithGranularity" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/SVProgressHUD"
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/FlurrySDK/Flurry"
+OTHER_CFLAGS = $(inherited) "-isystem${PODS_ROOT}/Headers" "-isystem${PODS_ROOT}/Headers/FlurrySDK" "-isystem${PODS_ROOT}/Headers/NSCalendar-EqualWithGranularity" "-isystem${PODS_ROOT}/Headers/Reachability" "-isystem${PODS_ROOT}/Headers/SVProgressHUD"
 OTHER_LDFLAGS = -ObjC -lFlurry_4.3.0 -framework CoreGraphics -framework QuartzCore -framework Security -framework SystemConfiguration -framework UIKit
 PODS_ROOT = ${SRCROOT}/Pods

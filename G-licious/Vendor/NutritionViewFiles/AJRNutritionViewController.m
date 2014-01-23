@@ -48,9 +48,6 @@
     IBOutlet UILabel *carbDailyValueLabel;
     IBOutlet UILabel *dietaryFiberDailyValueLabel;
     IBOutlet UILabel *proteinDailyValueLabel;
-
-
-
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *flipButton;
@@ -113,7 +110,7 @@
     carbDailyValueLabel.text =  [AJRNutritionLabelCalculation calculateTotalCarbDailyValue:[self carbs]];
     
     titleLabel.text = self.dishTitle;
-    ingredientsViewTitleLabel.text = self.dishTitle; 
+    ingredientsViewTitleLabel.text = self.dishTitle;
     
     if (self.allowSwipeToDismiss) {
         //Add a swipe gesture recognizer to dismiss the view 
@@ -386,27 +383,35 @@
     return self.ingredientsArray.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *ingredient = self.ingredientsArray[indexPath.row];
+    CGSize maxSize = CGSizeMake(210.0f, MAXFLOAT); //210 because that's the width of our ingredients text label on screen.
+    CGRect labelRect = [ingredient boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0f]} context:nil];
+    return  MAX(labelRect.size.height + 10.0f, 40); //10.0f for padding. 
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"Cell";
+    static NSString *cellIdentifier = @"IngredientCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
     if(cell == nil)  {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:cellIdentifier];
-        
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     NSString *ingredient = self.ingredientsArray[indexPath.row];
-    //Customize Cell
     cell.textLabel.text = ingredient;
     
+    //Customize Cell
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-
     cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:14.0f];
     cell.textLabel.textColor = [UIColor blackColor];
     cell.backgroundColor = [UIColor clearColor];
-    
     return cell;
 }
 

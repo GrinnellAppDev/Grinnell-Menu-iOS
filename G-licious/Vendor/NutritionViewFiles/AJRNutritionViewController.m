@@ -128,7 +128,7 @@
 
 
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissInward)];
-        tapGestureRecognizer.numberOfTapsRequired = 2;
+        tapGestureRecognizer.numberOfTapsRequired = 1;
         
         [self.view addGestureRecognizer:downwardGestureRecognizer];
         [self.view addGestureRecognizer:upwardGestureRecognizer];

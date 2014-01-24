@@ -347,7 +347,7 @@
 
     [self willMoveToParentViewController:nil];
     
-    [UIView animateWithDuration:0.4
+    [UIView animateWithDuration:0.25
                      animations:^{
                          CGAffineTransform transform = CGAffineTransformMakeScale(0.2, 0.2);
                          self.view.transform = transform;

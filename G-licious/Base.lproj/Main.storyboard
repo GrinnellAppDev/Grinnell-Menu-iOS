@@ -30,7 +30,7 @@
                                             <rect key="frame" x="244" y="-1" width="43" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
-                                            <state key="normal" image="unstarred">
+                                            <state key="normal" image="unstarred_red">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -333,7 +333,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="unstarred" width="40" height="40"/>
+        <image name="unstarred_red" width="40" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

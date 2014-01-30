@@ -160,7 +160,9 @@
         
         // BOTH views should be hidden in the .xib files. Else there will be wierd errors. when flipping.
         // Setting both views to hidden here as well.
+        // Update: Since the ingredients view was taken out. Default to always showing the nutrition view.
         
+        /*
         nutritionalView.hidden = YES;
         ingredientsListView.hidden = YES;
         
@@ -169,6 +171,9 @@
         } else {
             ingredientsListView.hidden = NO;
         }
+        */
+        
+        nutritionalView.hidden = NO;
         
         
         UISwipeGestureRecognizer *downwardGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDownwards)];
@@ -348,6 +353,7 @@
     [self willMoveToParentViewController:nil];
     
     [UIView animateWithDuration:0.25
+     
                      animations:^{
                          CGAffineTransform transform = CGAffineTransformMakeScale(0.2, 0.2);
                          self.view.transform = transform;

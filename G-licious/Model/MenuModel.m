@@ -43,7 +43,7 @@
 - (NSArray *)performFetch {
     
     [self getAvailableDays];
-    [self setCurrentPage];
+   // [self setCurrentPage];
     
     //We need to pick the right components in the cases self.date changes.
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
@@ -274,6 +274,8 @@
 /* Sets the page value that the Stations view should scroll to depending on the time
  * of the day G-licious was accessed
  */
+
+/*
 - (void)setCurrentPage
 {
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
@@ -340,6 +342,7 @@
         }
     }
 }
+*/
 
 //Method to determine the availability of network Connections using the Reachability Class
 - (BOOL)networkCheck {

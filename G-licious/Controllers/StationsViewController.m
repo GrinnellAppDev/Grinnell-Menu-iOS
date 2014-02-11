@@ -108,7 +108,13 @@
 
 - (void)setupInitialScreen {
     
-    self.date = [NSDate date];
+    
+    //Test out self.date. Change it.
+    self.date = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 3];
+    NSLog(@"now: %@", [NSDate date]);
+    NSLog(@"set date: %@", self.date);
+    
+    
     [self setCurrentPage];
     
     // prepareMenu returns an array of the menu, if there is no array (no menu for the initial date,
@@ -133,7 +139,6 @@
     self.navigationDateLabel.text = formattedDateString;
     self.dateBarButton.title = formattedDateString;
 }
-
 
 -(NSArray *)prepareMenu
 {
@@ -215,6 +220,7 @@
 }
 
 - (NSString *)selectedDateStringFromDate:(NSDate *)date {
+    
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *today = [NSDate date];
     NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24];
@@ -258,6 +264,8 @@
  * of the day G-licious was accessed
  */
 - (void)setCurrentPage {
+    
+   
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
     
     NSDate *tomorrow = [[NSDate alloc] initWithTimeInterval:60*60*24 sinceDate:self.date];
@@ -267,7 +275,7 @@
     NSInteger weekday = [todayComponents weekday];
     
     //Sunday
-    if (weekday == 1){
+    if (weekday == 1) {
         if (hour < 13 || (hour < 14 && minute < 30))
             _currentPage = 0;
         else if (hour < 19)
@@ -279,14 +287,14 @@
     }
     
     //Saturday
-    else if (weekday == 7){
+    else if (weekday == 7) {
         if (hour < 10)
             _currentPage = 0;
         else if (hour < 13 || (hour < 14 && minute < 30))
             _currentPage = 1;
         else if (hour < 19)
             _currentPage = 2;
-        else{
+        else {
             _currentPage = 0;
             self.date = tomorrow;
         }
@@ -305,13 +313,15 @@
         }
     }
     //All other days
-    else{
+    else {
         if (hour < 10)
             _currentPage = 0;
         else if (hour < 13 || (hour < 14 && minute < 30))
             _currentPage  = 1;
         else if (hour < 20)
             _currentPage = 2;
+        else if (hour < 22)
+            _currentPage = 3;
         else {
             _currentPage  = 0;
             self.date = tomorrow;

@@ -19,7 +19,7 @@
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]} forState:UIControlStateNormal];
     [[SVProgressHUD appearance] setHudFont:[UIFont fontWithName:@"AvenirNext-Regular" size:16]];
-    [Flurry startSession:@"GEJ8BPK37ZJE31GQG3C9"];
+    //[Flurry startSession:@"GEJ8BPK37ZJE31GQG3C9"];
     
     return YES;
 }

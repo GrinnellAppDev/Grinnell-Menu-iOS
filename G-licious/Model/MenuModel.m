@@ -102,7 +102,7 @@
 /* Creates and returns the array of meals.
  * Requires the menuDictionary downloaded from the server.
  */
--(NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary {
+- (NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary {
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
     //Go through Menu Dictionary and create a meal for each Meal available.
@@ -125,7 +125,7 @@
 }
 
 //Returns a filtered Menu depending on the values of the Filter Switches.
--(NSArray *)applyFiltersTo:(NSArray *)originalMenu {
+- (NSArray *)applyFiltersTo:(NSArray *)originalMenu {
     //TODO - Might be able to put this somwhere else.
     [self loadFavoriteDishes];
     
@@ -226,7 +226,7 @@
     return filteredMenu;
 }
 
--(void)printMenu:(NSArray *)menuArray {
+- (void)printMenu:(NSArray *)menuArray {
     for (Meal *meal in menuArray) {
         for (Station *station in meal.stations) {
             NSLog(@"%@ %@",station.name, station.dishes);
@@ -270,79 +270,6 @@
     }
     
 }
-
-/* Sets the page value that the Stations view should scroll to depending on the time
- * of the day G-licious was accessed
- */
-
-/*
-- (void)setCurrentPage
-{
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
-    
-    NSDate *tomorrow = [[NSDate alloc] initWithTimeInterval:60*60*24 sinceDate:self.date];
-    
-    
-    NSInteger hour = [todayComponents hour];
-    NSInteger minute = [todayComponents minute];
-    NSInteger weekday = [todayComponents weekday];
-    
-    //Sunday
-    
-    if (weekday == 1){
-        if (hour < 13 || (hour < 14 && minute < 30))
-            //self.mealChoice = @"Lunch";
-            self.page = 0;
-        else if (hour < 19)
-            self.page = 1;
-        //self.mealChoice = @"Dinner";
-        else{
-            //            self.mealChoice = @"Breakfast";
-            self.date = tomorrow;
-        }
-    }
-    
-    //Saturday
-    else if (weekday == 7){
-        if (hour < 10)
-            self.page = 0;
-        else if (hour < 13 || (hour < 14 && minute < 30))
-            self.page = 1;
-        else if (hour < 19)
-            self.page = 2;
-        else{
-            self.page = 0;
-            self.date = tomorrow;
-        }
-    }
-    //Friday
-    else if (weekday == 6){
-        if (hour < 10)
-            self.page = 0;
-        else if (hour < 13 || (hour < 14 && minute < 30))
-            self.page = 1;
-        else if (hour < 19)
-            self.page = 2;
-        else{
-            self.page = 1;
-            self.date = tomorrow;
-        }
-    }
-    //All other days
-    else{
-        if (hour < 10)
-            self.page = 0;
-        else if (hour < 13 || (hour < 14 && minute < 30))
-            self.page = 1;
-        else if (hour < 20)
-            self.page = 2;
-        else{
-            self.page = 1;
-            self.date = tomorrow;
-        }
-    }
-}
-*/
 
 //Method to determine the availability of network Connections using the Reachability Class
 - (BOOL)networkCheck {

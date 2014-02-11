@@ -29,8 +29,6 @@ typedef enum DayOfWeek : NSUInteger {
     Saturday
 } DayOfWeek;
 
-
-
 @interface StationsViewController () <RMDateSelectionViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -121,10 +119,8 @@ typedef enum DayOfWeek : NSUInteger {
 - (void)setupInitialScreen {
     
     //Test out self.date. Change it.
-    self.date =  [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 3];
-    NSLog(@"now: %@", [NSDate date]);
-    NSLog(@"set date: %@", self.date);
-    
+    self.date = [NSDate date];
+
     
     [self setCurrentPage];
     
@@ -151,7 +147,7 @@ typedef enum DayOfWeek : NSUInteger {
     self.dateBarButton.title = formattedDateString;
 }
 
--(NSArray *)prepareMenu
+- (NSArray *)prepareMenu
 {
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
     self.menu = [self.menuModel performFetch];
@@ -187,6 +183,7 @@ typedef enum DayOfWeek : NSUInteger {
     [self.slider reloadPages];
     self.slider.zoomOutAnimationDisabled = NO;
 }
+
 - (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
     //Currently not doign anything when the user hits cancel.
 }
@@ -198,7 +195,7 @@ typedef enum DayOfWeek : NSUInteger {
     return self.menu.count;
 }
 
--(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index {
+- (TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MealViewController *mealViewController = [storyboard instantiateViewControllerWithIdentifier:@"MealViewController"];
@@ -215,7 +212,7 @@ typedef enum DayOfWeek : NSUInteger {
     [self updateHoursLabel];
 }
 
--(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
+- (TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
     
     TTSlidingPageTitle *title = [[TTSlidingPageTitle alloc] initWithHeaderText:[self.menu[index] name]];
     return title;

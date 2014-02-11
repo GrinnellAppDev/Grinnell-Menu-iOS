@@ -19,6 +19,18 @@
 #import "SettingsViewController.h"
 
 
+typedef enum DayOfWeek : NSUInteger {
+    Sunday,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday
+} DayOfWeek;
+
+
+
 @interface StationsViewController () <RMDateSelectionViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -108,9 +120,8 @@
 
 - (void)setupInitialScreen {
     
-    
     //Test out self.date. Change it.
-    self.date = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 3];
+    self.date =  [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 3];
     NSLog(@"now: %@", [NSDate date]);
     NSLog(@"set date: %@", self.date);
     
@@ -142,7 +153,6 @@
 
 -(NSArray *)prepareMenu
 {
-
     self.menuModel = [[MenuModel alloc] initWithDate:self.date];
     self.menu = [self.menuModel performFetch];
     self.availableDays = self.menuModel.availableDays;
@@ -257,6 +267,8 @@
         [mvc.tableView reloadData];
     }
 }
+
+
 
 
 #pragma mark - Determine Current Page

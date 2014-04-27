@@ -143,8 +143,7 @@
     [self presentViewController:productViewController animated:YES completion:nil];
 }
 
--(void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
-{
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

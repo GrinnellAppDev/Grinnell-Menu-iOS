@@ -12,15 +12,19 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Crashlytics startWithAPIKey:@"45894d9e8a6bc3b8513651d6de36159e2c836e51"];
+    
+    NSString *strings_private = [[NSBundle mainBundle] pathForResource:@"strings_private" ofType:@"strings"];
+    NSDictionary *keysDict = [NSDictionary dictionaryWithContentsOfFile:strings_private];
+    
+    [Crashlytics startWithAPIKey:[keysDict objectForKey:@"CrashlyticsAPIKey"]];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]} forState:UIControlStateNormal];
     [[SVProgressHUD appearance] setHudFont:[UIFont fontWithName:@"AvenirNext-Regular" size:16]];
-    [Flurry startSession:@"GEJ8BPK37ZJE31GQG3C9"];
     
+    [Flurry setCrashReportingEnabled:NO];
+    [Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
     return YES;
 }
 							

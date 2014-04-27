@@ -105,10 +105,9 @@ typedef enum ScrollDirection {
     
     if (dish.fave) {
         [cell.favButton setImage:[UIImage imageNamed:@"starred_red.png"] forState:UIControlStateNormal];
-    }
-    else
+    } else {
         [cell.favButton setImage:[UIImage imageNamed:@"unstarred_red.png"] forState:UIControlStateNormal];
-    
+    }
 }
 
 - (void)toggleFav:(UIButton *)sender {

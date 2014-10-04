@@ -329,8 +329,6 @@ typedef enum DayOfWeek : NSUInteger {
             _currentPage  = 1;
         else if (hour < 20)
             _currentPage = 2;
-        else if (hour < 22)
-            _currentPage = 3;
         else {
             _currentPage  = 0;
             self.date = tomorrow;

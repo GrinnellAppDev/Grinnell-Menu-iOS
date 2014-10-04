@@ -24,7 +24,6 @@
     return [date1 isEqualToDate:date2];
 }
 
-
 - (NSComparisonResult)ojf_compareDate:(NSDate *)date1 toDate:(NSDate *)date2 withGranularity:(NSCalendarUnit)granularity
 {
     int componentFlags = granularity * 2 - 2;

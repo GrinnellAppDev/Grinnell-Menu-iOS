@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16016DE91890C8E5007D6556 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16016DE81890C8E5007D6556 /* StoreKit.framework */; };
 		1605A36618349A3200358697 /* DishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1605A36518349A3200358697 /* DishCell.m */; };
 		168B4403182E2A3B001808E3 /* UIColor+GAColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4402182E2A3B001808E3 /* UIColor+GAColor.m */; };
 		168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4407182E2F14001808E3 /* AJRBackgroundDimmer.m */; };
@@ -90,7 +89,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		16016DE81890C8E5007D6556 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1605A36418349A3200358697 /* DishCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishCell.h; sourceTree = "<group>"; };
 		1605A36518349A3200358697 /* DishCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishCell.m; sourceTree = "<group>"; };
 		168B4401182E2A3B001808E3 /* UIColor+GAColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GAColor.h"; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16016DE91890C8E5007D6556 /* StoreKit.framework in Frameworks */,
 				16AB52CF1881DB3E00ECCABC /* Crashlytics.framework in Frameworks */,
 				16FDAC39182EC7360016E6A5 /* SystemConfiguration.framework in Frameworks */,
 				16FF71C41824A3300026C568 /* CoreGraphics.framework in Frameworks */,
@@ -342,7 +339,6 @@
 		16FF71C01824A3300026C568 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				16016DE81890C8E5007D6556 /* StoreKit.framework */,
 				16AB52CE1881DB3E00ECCABC /* Crashlytics.framework */,
 				16FDAC38182EC7360016E6A5 /* SystemConfiguration.framework */,
 				16FF71C11824A3300026C568 /* Foundation.framework */,
@@ -503,6 +499,11 @@
 				TargetAttributes = {
 					16FF71BD1824A3300026C568 = {
 						DevelopmentTeam = H69TS4DPUJ;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					16FF71DE1824A3300026C568 = {
 						TestTargetID = 16FF71BD1824A3300026C568;
@@ -818,6 +819,7 @@
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-licious/G-licious-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -843,6 +845,7 @@
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-licious/G-licious-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

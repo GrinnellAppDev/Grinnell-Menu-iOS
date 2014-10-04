@@ -112,7 +112,14 @@ typedef enum ScrollDirection {
 
 - (void)toggleFav:(UIButton *)sender {
     UIView *contentView = [sender superview];
-    DishCell *cell = (DishCell *)[[contentView superview] superview];
+    DishCell *cell;
+    
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        cell = (DishCell *) [contentView superview];
+    } else {
+        cell = (DishCell *) [[contentView superview] superview];
+    }
+    
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     Station *station = self.meal.stations[indexPath.section];
@@ -126,22 +133,25 @@ typedef enum ScrollDirection {
         //Mark dish as favorite!
         [sender setImage:[UIImage imageNamed:@"starred_red.png"] forState:UIControlStateNormal];
 
-        if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)])
+        if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)]) {
             [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
+        }
         
-        if ([firstStation.name isEqualToString:@"Favorites"])
+        if ([firstStation.name isEqualToString:@"Favorites"]) {
             [self scrollPositionDownwardsWithFavoritesVenueOnScreen:YES];
-        else
+        } else {
             [self scrollPositionDownwardsWithFavoritesVenueOnScreen:NO];
+        }
     }
     else {
         [sender setImage:[UIImage imageNamed:@"unstarred_red.png"] forState:UIControlStateNormal];
         [self.menuModel.favoriteDishIds removeObject:@(dish.ID)];
         
-        if (firstStation.dishes.count == 1)
+        if (firstStation.dishes.count == 1) {
             [self scrollPositionUpwards:YES];
-        else
+        } else {
             [self scrollPositionUpwards:NO];
+        }
     }
     
     [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];

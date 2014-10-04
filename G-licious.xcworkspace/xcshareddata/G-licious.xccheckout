@@ -12,22 +12,34 @@
 	<dict>
 		<key>4BF22DDE-2373-4EAD-87F9-25D27DA62048</key>
 		<string>https://github.com/GrinnellAppDev/Grinnell-Menu-iOS.git</string>
+		<key>750019B3E3DE2C1DB27B932C0198B7677F34BE50</key>
+		<string>https://github.com/deweytyl/Grinnell-Menu-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>G-licious.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4BF22DDE-2373-4EAD-87F9-25D27DA62048</key>
+		<string>../../Grinnell-Menu-iOS</string>
+		<key>750019B3E3DE2C1DB27B932C0198B7677F34BE50</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/GrinnellAppDev/Grinnell-Menu-iOS.git</string>
+	<string>https://github.com/deweytyl/Grinnell-Menu-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>4BF22DDE-2373-4EAD-87F9-25D27DA62048</string>
+	<string>750019B3E3DE2C1DB27B932C0198B7677F34BE50</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>750019B3E3DE2C1DB27B932C0198B7677F34BE50</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Glicious-iOS</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

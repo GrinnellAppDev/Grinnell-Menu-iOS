@@ -102,8 +102,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger section = [indexPath section];
-    switch (section) {
+    switch ([indexPath section]) {
         case 1:
             [self contactUs];
             break;

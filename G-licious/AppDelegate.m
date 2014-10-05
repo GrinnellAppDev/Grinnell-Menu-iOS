@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 #import <Flurry.h>
 
 @implementation AppDelegate

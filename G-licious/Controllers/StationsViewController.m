@@ -10,6 +10,7 @@
 #import "TTUIScrollViewSlidingPages.h"
 #import "MealViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "RMDateSelectionViewController.h"
 #import "MenuModel.h"
 #import "DiningHallHours.h"

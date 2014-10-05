@@ -75,7 +75,7 @@
 		8BBC829618838AD1004E9883 /* flips4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829418838AD1004E9883 /* flips4@2x.png */; };
 		8BBC829918838B5D004E9883 /* flips5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829718838B5D004E9883 /* flips5.png */; };
 		8BBC829A18838B5D004E9883 /* flips5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829818838B5D004E9883 /* flips5@2x.png */; };
-		E1883D18190DAB37004B6D5C /* strings_private.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1883D17190DAB37004B6D5C /* strings_private.strings */; };
+		B6D1494A19E1B82600E2B801 /* strings_private.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6D1494919E1B82600E2B801 /* strings_private.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,7 +187,7 @@
 		8BBC829418838AD1004E9883 /* flips4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips4@2x.png"; sourceTree = "<group>"; };
 		8BBC829718838B5D004E9883 /* flips5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flips5.png; sourceTree = "<group>"; };
 		8BBC829818838B5D004E9883 /* flips5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips5@2x.png"; sourceTree = "<group>"; };
-		E1883D17190DAB37004B6D5C /* strings_private.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = strings_private.strings; sourceTree = "<group>"; };
+		B6D1494919E1B82600E2B801 /* strings_private.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = strings_private.strings; path = ../strings_private.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,7 +372,7 @@
 		16FF71C81824A3300026C568 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E1883D17190DAB37004B6D5C /* strings_private.strings */,
+				B6D1494919E1B82600E2B801 /* strings_private.strings */,
 				16FF71C91824A3300026C568 /* G-licious-Info.plist */,
 				16FF71CA1824A3300026C568 /* InfoPlist.strings */,
 				16FF71CD1824A3300026C568 /* main.m */,
@@ -548,7 +548,6 @@
 				8BBC8276188378A9004E9883 /* flip3@2x.png in Resources */,
 				8BBC82721883783D004E9883 /* flipCopy2.png in Resources */,
 				8BBC829618838AD1004E9883 /* flips4@2x.png in Resources */,
-				E1883D18190DAB37004B6D5C /* strings_private.strings in Resources */,
 				8BBC827918837B94004E9883 /* flipNew.png in Resources */,
 				8BBC82851883888E004E9883 /* flips1.png in Resources */,
 				8BBC828D18838980004E9883 /* flips2.png in Resources */,
@@ -564,6 +563,7 @@
 				8BBC827A18837B94004E9883 /* flipNew@2x.png in Resources */,
 				16A01D78183D966C00D8F4C2 /* Main-iPad.storyboard in Resources */,
 				8BBC829518838AD1004E9883 /* flips4.png in Resources */,
+				B6D1494A19E1B82600E2B801 /* strings_private.strings in Resources */,
 				8BBC826A18836CDE004E9883 /* flip.png in Resources */,
 				8BBC829918838B5D004E9883 /* flips5.png in Resources */,
 				8BBC828118837C9F004E9883 /* flipNew2.png in Resources */,

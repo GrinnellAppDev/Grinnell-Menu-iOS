@@ -67,13 +67,24 @@ typedef enum ScrollDirection {
 
 - (DishCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"DishCell";
+    static NSString *NutritionCellIdentifier = @"NutritionDishCell";
+    static NSString *PlainCellIdentifier = @"PlainDishCell";
+    DishCell *cell;
     
-    DishCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    Station *station = self.meal.stations[indexPath.section];
+    Dish *dish = station.dishes[indexPath.row];
     
-    if (!cell) {
-        cell = [[DishCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    if (dish.hasNutrition) {
+        cell = [tableView dequeueReusableCellWithIdentifier:NutritionCellIdentifier forIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:PlainCellIdentifier forIndexPath:indexPath];
     }
+    
+   // DishCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+//    if (!cell) {
+//        cell = [[DishCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+//    }
     
     // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
@@ -93,11 +104,8 @@ typedef enum ScrollDirection {
         UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         [selectedBackgroundView setBackgroundColor:[UIColor lightScarletColor]]; // set color here
         [cell setSelectedBackgroundView:selectedBackgroundView];
-
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

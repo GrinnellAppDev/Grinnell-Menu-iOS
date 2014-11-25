@@ -186,7 +186,7 @@
     CGFloat screenWidth = screenRect.size.width;
   
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        
+        self.view.center = parentViewController.view.center;
     } else {
         self.view.frame = CGRectMake(screenWidth/4, 0, self.view.frame.size.width, self.view.frame.size.height);
     }

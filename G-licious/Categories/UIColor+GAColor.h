@@ -11,7 +11,7 @@
 @interface UIColor (GAColor)
 
 + (UIColor *) scarletColor;
-+ (UIColor *)lightScarletColor;
++ (UIColor *) lightScarletColor;
 
 
 @end

@@ -255,7 +255,7 @@
             [df setDateFormat:@"MM-dd-yyyy"];
             NSDate *lastDate = [df dateFromString:dayString];
             NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:[NSDate date] toDate:lastDate options:0];
-            self.availableDays = [components day] + 1;
+            self.availableDays = (int) [components day] + 1;
             self.hasAvailableDays = YES;
         } else {
             //Available Data is nil which means, the server may be down or there is something else interfering.

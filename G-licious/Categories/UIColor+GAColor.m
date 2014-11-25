@@ -10,7 +10,7 @@
 
 @implementation UIColor (GAColor)
 
-+ (UIColor *) scarletColor
++ (UIColor *)scarletColor
 {
     return [UIColor colorWithRed:135/255.f green:1/255.f blue:6/255.f alpha:1.0];
 }

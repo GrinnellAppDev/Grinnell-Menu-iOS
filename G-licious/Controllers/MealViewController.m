@@ -10,6 +10,7 @@
 #import "Station.h"
 #import "Dish.h"
 #import "AJRNutritionViewController.h"
+#import "AJRNutritionViewController+GADish.h"
 #import "DishCell.h"
 
 @interface MealViewController ()
@@ -79,13 +80,7 @@ typedef enum ScrollDirection {
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:PlainCellIdentifier forIndexPath:indexPath];
     }
-    
-   // DishCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-//    if (!cell) {
-//        cell = [[DishCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-//    }
-    
+
     // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
     
@@ -176,6 +171,8 @@ typedef enum ScrollDirection {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    // Kandy Wilson says the nutrition info is outdated and wants it removed from the app for now
+    
     Station *station = self.meal.stations[indexPath.section];
     Dish *dish = station.dishes[indexPath.row];
     
@@ -183,30 +180,10 @@ typedef enum ScrollDirection {
     
     if (dish.hasNutrition) {
         
-        //Initalize the nutrition view
-        AJRNutritionViewController *controller = [[AJRNutritionViewController alloc] init];
+        // Initalize the nutrition view
+        AJRNutritionViewController *controller = [AJRNutritionViewController controllerWithDish:dish];
         
-        //Send the ingredients.
-        controller.ingredientsArray = dish.ingredientsArray;
-        
-        //Set the various data values for the view
-        // controller.servingSize = @"12 fl oz. (1 Can)";
-        // controller.calories = 100;      //Type: int
-        //  controller.sugar = 12;          //Type: float
-        //  controller.protein = 3;         //Type: float
-        controller.dishTitle = dish.name;
-        controller.servingSize = [NSString stringWithFormat:@"%@", dish.servSize];
-        
-        controller.calories = [dish.nutrition[@"KCAL"] floatValue];
-        controller.fat = [dish.nutrition[@"FAT"] floatValue];
-        controller.satfat = [dish.nutrition[@"SFA"]floatValue];
-        controller.transfat = [dish.nutrition[@"FATRN"]floatValue];
-        controller.cholesterol = [dish.nutrition[@"CHOL"] floatValue];
-        controller.sodium = [dish.nutrition[@"NA"]floatValue];
-        controller.carbs = [dish.nutrition[@"CHO"] floatValue];
-        controller.dietaryfiber = [dish.nutrition[@"TDFB"] floatValue];
-        controller.sugar = [dish.nutrition[@"SUGR"] floatValue];
-        controller.protein = [dish.nutrition[@"PRO"] floatValue];
+        // Add motion effects to
         
         UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
         
@@ -219,6 +196,7 @@ typedef enum ScrollDirection {
         
         UIMotionEffectGroup *group = [UIMotionEffectGroup new];
         group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+        
         [controller.view addMotionEffect:group];
         
         [controller presentInParentViewController:self.parentViewController];

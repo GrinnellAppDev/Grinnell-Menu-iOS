@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StationsViewController.h"
 
+@class StationsViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

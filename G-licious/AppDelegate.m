@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "StationsViewController.h"
 #import <Crashlytics/Crashlytics.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <Flurry.h>
@@ -26,6 +27,7 @@
     
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
+    
     return YES;
 }
 							

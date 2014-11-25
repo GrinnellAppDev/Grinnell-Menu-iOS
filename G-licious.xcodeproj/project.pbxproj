@@ -75,7 +75,9 @@
 		8BBC829618838AD1004E9883 /* flips4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829418838AD1004E9883 /* flips4@2x.png */; };
 		8BBC829918838B5D004E9883 /* flips5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829718838B5D004E9883 /* flips5.png */; };
 		8BBC829A18838B5D004E9883 /* flips5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829818838B5D004E9883 /* flips5@2x.png */; };
+		B6483DDE1A23CFCB00A2A876 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6483DDD1A23CFCB00A2A876 /* FavoritesManager.m */; };
 		B6D1494A19E1B82600E2B801 /* strings_private.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6D1494919E1B82600E2B801 /* strings_private.strings */; };
+		B6D5EB4B1A23955E003922FC /* AJRNutritionViewController+GADish.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,7 +189,11 @@
 		8BBC829418838AD1004E9883 /* flips4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips4@2x.png"; sourceTree = "<group>"; };
 		8BBC829718838B5D004E9883 /* flips5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flips5.png; sourceTree = "<group>"; };
 		8BBC829818838B5D004E9883 /* flips5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips5@2x.png"; sourceTree = "<group>"; };
+		B6483DDC1A23CFCB00A2A876 /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
+		B6483DDD1A23CFCB00A2A876 /* FavoritesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManager.m; sourceTree = "<group>"; };
 		B6D1494919E1B82600E2B801 /* strings_private.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = strings_private.strings; path = ../strings_private.strings; sourceTree = "<group>"; };
+		B6D5EB491A23955E003922FC /* AJRNutritionViewController+GADish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AJRNutritionViewController+GADish.h"; sourceTree = "<group>"; };
+		B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AJRNutritionViewController+GADish.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +241,8 @@
 			children = (
 				168B4401182E2A3B001808E3 /* UIColor+GAColor.h */,
 				168B4402182E2A3B001808E3 /* UIColor+GAColor.m */,
+				B6D5EB491A23955E003922FC /* AJRNutritionViewController+GADish.h */,
+				B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -312,6 +320,8 @@
 				16AA38C61825DE3000374116 /* Station.m */,
 				16AA38C81825DE8F00374116 /* Meal.h */,
 				16AA38C91825DE8F00374116 /* Meal.m */,
+				B6483DDC1A23CFCB00A2A876 /* FavoritesManager.h */,
+				B6483DDD1A23CFCB00A2A876 /* FavoritesManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -646,7 +656,9 @@
 				16FF72131824A3C70026C568 /* StationsViewController.m in Sources */,
 				16AA38BB182597DD00374116 /* SettingsViewController.m in Sources */,
 				168B4414182E2F14001808E3 /* AJRNutritionViewController.m in Sources */,
+				B6D5EB4B1A23955E003922FC /* AJRNutritionViewController+GADish.m in Sources */,
 				16AA38C11825D35D00374116 /* MenuModel.m in Sources */,
+				B6483DDE1A23CFCB00A2A876 /* FavoritesManager.m in Sources */,
 				16FF720E1824A3AD0026C568 /* TTScrollViewWrapper.m in Sources */,
 				16AA38CD1825F25A00374116 /* DiningHallHours.m in Sources */,
 				168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */,
@@ -807,6 +819,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -819,9 +832,12 @@
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-licious/G-licious-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "G-licious/Model/G-licious-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -833,6 +849,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -845,9 +862,11 @@
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-licious/G-licious-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "G-licious/Model/G-licious-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

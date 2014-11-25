@@ -9,6 +9,7 @@
 #import "MealViewController.h"
 #import "Station.h"
 #import "Dish.h"
+#import "FavoritesManager.h"
 #import "AJRNutritionViewController.h"
 #import "AJRNutritionViewController+GADish.h"
 #import "DishCell.h"
@@ -117,6 +118,8 @@ typedef enum ScrollDirection {
     UIView *contentView = [sender superview];
     DishCell *cell;
     
+    FavoritesManager *favoritesManager = [FavoritesManager sharedManager];
+    
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
         cell = (DishCell *) [contentView superview];
     } else {
@@ -136,8 +139,8 @@ typedef enum ScrollDirection {
         //Mark dish as favorite!
         [sender setImage:[UIImage imageNamed:@"starred_red.png"] forState:UIControlStateNormal];
 
-        if (![self.menuModel.favoriteDishIds containsObject:@(dish.ID)]) {
-            [self.menuModel.favoriteDishIds addObject:@(dish.ID)];
+        if (![favoritesManager containsFavorite:dish]) {
+            [favoritesManager addFavorite:dish];
         }
         
         if ([firstStation.name isEqualToString:@"Favorites"]) {
@@ -148,7 +151,7 @@ typedef enum ScrollDirection {
     }
     else {
         [sender setImage:[UIImage imageNamed:@"unstarred_red.png"] forState:UIControlStateNormal];
-        [self.menuModel.favoriteDishIds removeObject:@(dish.ID)];
+        [favoritesManager removeFavorite:dish];
         
         if (firstStation.dishes.count == 1) {
             [self scrollPositionUpwards:YES];

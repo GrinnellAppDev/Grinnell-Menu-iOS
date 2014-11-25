@@ -10,6 +10,7 @@
 #import "Dish.h"
 #import "Station.h"
 #import "Meal.h"
+#import "FavoritesManager.h"
 #import <Reachability.h>
 
 @interface MenuModel()
@@ -127,7 +128,8 @@
 //Returns a filtered Menu depending on the values of the Filter Switches.
 - (NSArray *)applyFiltersTo:(NSArray *)originalMenu {
     //TODO - Might be able to put this somwhere else.
-    [self loadFavoriteDishes];
+    //[self loadFavoriteDishes];
+    FavoritesManager *favoritesManager = [FavoritesManager sharedManager];
     
     NSMutableArray *filteredMenu = [[NSMutableArray alloc] init];
     
@@ -173,7 +175,7 @@
                 //Check if dish is a favorite. And add it to the favorites Station. (Each Meal has a favorite station)
                 //DLog(@"fdid: %@", self.favoriteDishIds);
                 
-                if ( [self.favoriteDishIds containsObject:@(dish.ID)] ) {
+                if ( [favoritesManager containsFavorite:dish] ) {
                     dish.fave = YES;
                     //DLog(@"dish %@ was a favorite", dish.name);
                     if (![favStation.dishes containsObject:dish]) {

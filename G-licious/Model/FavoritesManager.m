@@ -53,15 +53,16 @@
     return [self.favoriteDishIds writeToFile:[self favoritesFilePath] atomically:YES];
 }
 
-- (void)addFavorite:(int)dishID {
-    [self.favoriteDishIds addObject:@(dishID)];
+- (void)addFavorite:(Dish *)dish {
+    [self.favoriteDishIds addObject:@(dish.ID)];
 }
 
--(void)removeFavorite:(int)dishID {
-    [self.favoriteDishIds removeObject:@(dishID)];
+- (void)removeFavorite:(Dish *)dish {
+    [self.favoriteDishIds removeObject:@(dish.ID)];
 }
 
--(BOOL)containesFavorite:(int)dishID {
-    return [self.favoriteDishIds containsObject:@(dishID)];
+- (BOOL)containsFavorite:(Dish *)dish {
+    return [self.favoriteDishIds containsObject:@(dish.ID)];
 }
+
 @end

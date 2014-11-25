@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Dish;
+
 @interface FavoritesManager : NSObject
 
 /**
@@ -17,5 +19,9 @@
 
 - (NSString *)favoritesFilePath;
 - (BOOL)save;
+
+- (void)addFavorite:(Dish *)dishID;
+- (void)removeFavorite:(Dish *)dishID;
+- (BOOL)containsFavorite:(Dish *)dishID;
 
 @end

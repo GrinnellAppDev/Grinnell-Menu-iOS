@@ -3,6 +3,7 @@
 //  G-licious
 //
 //  Created by Maijid Moujaled on 11/2/13.
+//  Modified by Tyler Dewey on 11/24/14.
 //  Copyright (c) 2013 Maijid Moujaled. All rights reserved.
 //
 

@@ -2,8 +2,8 @@
 //  AJRNutritionViewController+AJRNutritionViewController_GADish.h
 //  G-licious
 //
-//  Created by AppDev on 11/24/14.
-//  Copyright (c) 2014 Maijid Moujaled. All rights reserved.
+//  Created by Tyler Dewey on 11/24/14.
+//  Copyright (c) 2014 Grinnell AppDev. All rights reserved.
 //
 
 #import "AJRNutritionViewController.h"

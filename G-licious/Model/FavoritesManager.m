@@ -2,8 +2,8 @@
 //  FavoritesManager.m
 //  G-licious
 //
-//  Created by AppDev on 11/24/14.
-//  Copyright (c) 2014 Maijid Moujaled. All rights reserved.
+//  Created by Tyler Dewey on 11/24/14.
+//  Copyright (c) 2014 Grinnell AppDev. All rights reserved.
 //
 
 #import "FavoritesManager.h"
@@ -11,7 +11,7 @@
 
 @interface FavoritesManager()
 
-@property (nonatomic, strong) NSMutableArray *favoriteDishIds;
+@property (nonatomic, strong) NSMutableSet *favoriteDishIds;
 
 @end
 
@@ -20,13 +20,18 @@
 - (instancetype)init {
     self = [super init];
     
-    //Load up the favorites file if there is one.
+    // Temporary variable to read in stored favorites
+    NSArray *temp;
+    
     NSString *favoritesFilePath = [self favoritesFilePath];
+    
+    //Load up the favorites file if there is one.
     if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
-        self.favoriteDishIds = [[NSMutableArray alloc] initWithContentsOfFile:favoritesFilePath];
+        temp = [[NSArray alloc] initWithContentsOfFile:favoritesFilePath];
+        self.favoriteDishIds = [[NSMutableSet alloc] initWithArray:temp];
     } else {
         //We still need to allocate memory for an empty array.
-        self.favoriteDishIds = [[NSMutableArray alloc] init];
+        self.favoriteDishIds = [[NSMutableSet alloc] init];
     }
     
     return self;
@@ -36,6 +41,7 @@
     
     static FavoritesManager *sharedManager = nil;
     static dispatch_once_t onceToken;
+    
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
     });
@@ -50,7 +56,8 @@
 }
 
 - (BOOL)save {
-    return [self.favoriteDishIds writeToFile:[self favoritesFilePath] atomically:YES];
+    NSArray *temp = [self.favoriteDishIds allObjects];
+    return [temp writeToFile:[self favoritesFilePath] atomically:YES];
 }
 
 - (void)addFavorite:(Dish *)dish {

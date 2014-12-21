@@ -17,7 +17,7 @@
  */
 + (instancetype)sharedManager;
 
-- (NSString *)favoritesFilePath;
++ (NSString *)favoritesFilePath;
 - (BOOL)save;
 
 - (void)addFavorite:(Dish *)dishID;

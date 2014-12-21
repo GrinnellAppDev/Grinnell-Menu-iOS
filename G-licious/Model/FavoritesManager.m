@@ -17,13 +17,15 @@
 
 @implementation FavoritesManager
 
+#pragma mark - Object Lifecycle
+
 - (instancetype)init {
     self = [super init];
     
     // Temporary variable to read in stored favorites
     NSArray *temp;
     
-    NSString *favoritesFilePath = [self favoritesFilePath];
+    NSString *favoritesFilePath = [FavoritesManager favoritesFilePath];
     
     //Load up the favorites file if there is one.
     if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
@@ -49,7 +51,9 @@
     return sharedManager;
 }
 
-- (NSString *)favoritesFilePath {
+#pragma mark - Persistence
+
++ (NSString *)favoritesFilePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     return [documentsDirectory stringByAppendingPathComponent:@"favorites.plist"];
@@ -57,18 +61,24 @@
 
 - (BOOL)save {
     NSArray *temp = [self.favoriteDishIds allObjects];
-    return [temp writeToFile:[self favoritesFilePath] atomically:YES];
+    return [temp writeToFile:[FavoritesManager favoritesFilePath] atomically:YES];
 }
 
 - (void)addFavorite:(Dish *)dish {
+    if (dish == nil) return;
+    
     [self.favoriteDishIds addObject:@(dish.ID)];
 }
 
 - (void)removeFavorite:(Dish *)dish {
+    if (dish == nil) return;
+    
     [self.favoriteDishIds removeObject:@(dish.ID)];
 }
 
 - (BOOL)containsFavorite:(Dish *)dish {
+    if (dish == nil) return NO;
+    
     return [self.favoriteDishIds containsObject:@(dish.ID)];
 }
 

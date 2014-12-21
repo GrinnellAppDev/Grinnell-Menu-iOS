@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "StationsViewController.h"
+#import "G_licious-Swift.h"
+#import "FavoritesManager.h"
 #import <Crashlytics/Crashlytics.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <Flurry.h>
@@ -27,6 +29,14 @@
     
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
+    
+    if(![[FavoritesManager sharedManager] containsFavorite:nil]) {
+        NSLog(@"Loaded FavoritesManager");
+    }
+    
+    FavoritesSummary *favoritesSummary = [[FavoritesSummary alloc] init];
+    
+    NSLog(@"%@", [favoritesSummary favoriteDishesForDate:[NSDate date]]);
     
     return YES;
 }

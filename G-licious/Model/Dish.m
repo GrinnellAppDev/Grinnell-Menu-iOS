@@ -3,19 +3,34 @@
 //  G-licious
 //
 //  Created by Maijid Moujaled on 11/2/13.
-//  Copyright (c) 2013 Maijid Moujaled. All rights reserved.
+//  Modified by Tyler Dewey on 12/14/14.
+//  Copyright (c) 2013 Grinnell AppDev. All rights reserved.
 //
 
 #import "Dish.h"
 @implementation Dish
 
+#pragma mark - Description
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ vegan:%d, ovolacto: %d", self.name, self.vegan, self.ovolacto];
 }
 
+#pragma mark - Convenience Constructors
 
--(id)initWithDishDictionary:(NSDictionary *)aDishDictionary {
++ (instancetype)dishWithDishDictionary:(NSDictionary *)aDishDictionary {
+    Dish *dish = [[Dish alloc] initWithDishDictionary:aDishDictionary];
+    return dish;
+}
+
++ (instancetype)dishWithOtherDish:(Dish *)aDish {
+    Dish *dish = [[Dish alloc] initWithOtherDish:aDish];
+    return dish;
+}
+
+#pragma mark - Initializers
+
+- (instancetype)initWithDishDictionary:(NSDictionary *)aDishDictionary {
     self = [super init];
     
     if (self) {
@@ -53,8 +68,7 @@
     return self;
 }
 
-
--(id)initWithOtherDish:(Dish *)aDish
+- (instancetype)initWithOtherDish:(Dish *)aDish
 {
     self = [super init];
     if (self) {
@@ -73,6 +87,8 @@
     }
     return self;
 }
+
+#pragma mark - Comparison
 
 - (BOOL)isEqual:(id)other {
     if (other == self)

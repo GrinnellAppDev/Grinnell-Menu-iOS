@@ -3,7 +3,8 @@
 //  G-licious
 //
 //  Created by Maijid Moujaled on 11/2/13.
-//  Copyright (c) 2013 Maijid Moujaled. All rights reserved.
+//  Modified by Tyler Dewey on 12/14/14.
+//  Copyright (c) 2013 Grinnell AppDev. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -25,7 +26,10 @@
 @property (nonatomic, strong) NSDictionary *nutrition;
 @property (nonatomic, strong) NSArray *ingredientsArray;
 
--(id)initWithDishDictionary:(NSDictionary *)aDishDictionary;
--(id)initWithOtherDish:(Dish *)aDish;
++(instancetype)dishWithDishDictionary:(NSDictionary *)aDishDictionary;
++(instancetype)dishWithOtherDish:(Dish *)aDish;
+
+-(instancetype)initWithDishDictionary:(NSDictionary *)aDishDictionary;
+-(instancetype)initWithOtherDish:(Dish *)aDish;
 
 @end

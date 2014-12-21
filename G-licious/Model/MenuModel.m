@@ -48,7 +48,7 @@
    // [self setCurrentPage];
     
     //We need to pick the right components in the cases self.date changes.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.date];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.date];
     
     //Changed to NSinteger instead of ints. IF it breaks here, that's why...
     NSInteger selectedDay = [components day];
@@ -109,7 +109,7 @@
     
     //Go through Menu Dictionary and create a meal for each Meal available.
     [theMenuDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *mealName, NSDictionary *mealDict, BOOL *stop) {
-        //ONSLog(@"Mealname: %@, mealDict:", mealName);
+        //NSLog(@"Mealname: %@, mealDict:", mealName);
         
         if (![mealName isEqualToString:@"PASSOVER"]) {
             //next step - create the Meal(i.e Breakfast, Lunch, etc)
@@ -246,7 +246,7 @@
         NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
         NSError *error;
         NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
-        NSDictionary *availableDaysJson = [[NSDictionary alloc] init];
+        NSDictionary *availableDaysJson;
         
         if (availableData != nil) {
             availableDaysJson = [NSJSONSerialization JSONObjectWithData:availableData
@@ -257,7 +257,7 @@
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setDateFormat:@"MM-dd-yyyy"];
             NSDate *lastDate = [df dateFromString:dayString];
-            NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:[NSDate date] toDate:lastDate options:0];
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:[NSDate date] toDate:lastDate options:0];
             self.availableDays = (int) [components day] + 1;
             self.hasAvailableDays = YES;
         } else {

@@ -229,12 +229,12 @@ typedef enum DayOfWeek : NSUInteger {
 
 - (NSString *)selectedDateStringFromDate:(NSDate *)date {
     
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *today = [NSDate date];
     NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24];
-    if ([calendar ojf_isDate:date equalToDate:today withGranularity:NSDayCalendarUnit])
+    if ([calendar ojf_isDate:date equalToDate:today withGranularity:NSCalendarUnitDay])
         return @"Today";
-    else if ([calendar ojf_isDate:date equalToDate:tomorrow withGranularity:NSDayCalendarUnit])
+    else if ([calendar ojf_isDate:date equalToDate:tomorrow withGranularity:NSCalendarUnitDay])
         return @"Tomorrow";
     else {
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -276,7 +276,7 @@ typedef enum DayOfWeek : NSUInteger {
 - (void)setCurrentPage {
     
    
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:self.date];
+    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitWeekday fromDate:self.date];
     
     NSDate *tomorrow = [[NSDate alloc] initWithTimeInterval:60*60*24 sinceDate:self.date];
     

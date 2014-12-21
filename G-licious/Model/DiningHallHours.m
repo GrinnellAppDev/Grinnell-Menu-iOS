@@ -11,7 +11,7 @@
 @implementation DiningHallHours
 
 + (NSString *)hoursForMeal:(NSString *)mealChoice onDay:(NSDate *)selectedDate {
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekdayCalendarUnit fromDate:selectedDate];
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitWeekday fromDate:selectedDate];
     NSInteger weekday = [dateComponents weekday];
     
     NSString *tmpString;

@@ -209,14 +209,11 @@ typedef enum ScrollDirection {
 
 #pragma mark - Handle Scrolling Offset Values
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    ScrollDirection scrollDirection = ScrollDirectionNone;
-    
     int contentOffsetDifference = scrollView.contentOffset.y - self.startContentOffset;
     
     if (scrollView.contentOffset.y < 0 ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowToolBar" object:nil];
     } else if (contentOffsetDifference > 60 ) {
-        scrollDirection = ScrollDirectionUp;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"HideToolBar" object:nil];
         
         //Set tableview insets back to normal

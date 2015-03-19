@@ -13,6 +13,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <Flurry.h>
+#import <Parse/Parse.h>
 
 @implementation AppDelegate
 
@@ -30,11 +31,35 @@
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
     
+    // Set Parse installation
+    [Parse setApplicationId:[keysDict objectForKey:@"ParseApplicationId"]
+                  clientKey:[keysDict objectForKey:@"ParseClientKey"]];
+    
+    // Register for Push Notitications
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
     if([FavoritesManager sharedManager]) {
         NSLog(@"Loaded FavoritesManager");
     }
     
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

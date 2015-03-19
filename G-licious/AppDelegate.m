@@ -30,13 +30,9 @@
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
     
-    if(![[FavoritesManager sharedManager] containsFavorite:nil]) {
+    if([FavoritesManager sharedManager]) {
         NSLog(@"Loaded FavoritesManager");
     }
-    
-    FavoritesSummary *favoritesSummary = [[FavoritesSummary alloc] init];
-    
-    NSLog(@"%@", [favoritesSummary favoriteDishesForDate:[NSDate date]]);
     
     return YES;
 }

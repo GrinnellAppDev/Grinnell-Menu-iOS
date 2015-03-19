@@ -10,7 +10,7 @@ import Foundation
 
 public class FavoritesSummary: NSObject {
 
-    let serverURL = "http://tcdb.grinnell.edu/apps/glicious/"
+    let serverURL = "http://appdev.grinnell.edu/glicious/"
     
     public func favoriteDishesForDate(date: NSDate) -> [Dish]? {
         var error: NSError?

@@ -66,11 +66,10 @@
         //NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
-        NSString *url = [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
+        NSString *url = [NSString stringWithFormat:@"http://appdev.grinnell.edu/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
         
         //temp test version
-        //NSString *url =  [NSString stringWithFormat:@"http://tcdb.grinnell.edu/apps/glicious/2-14-2014.json"];
-
+        
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         NSError *error = nil;
         if (data)
@@ -243,7 +242,7 @@
         
         //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
         //Using the last_date json to do this.
-        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://tcdb.grinnell.edu/apps/glicious/last_date.json"];
+        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://appdev.grinnell.edu/glicious/last_date.json"];
         NSError *error;
         NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
         NSDictionary *availableDaysJson;

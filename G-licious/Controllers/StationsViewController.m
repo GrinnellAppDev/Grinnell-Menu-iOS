@@ -382,9 +382,12 @@ typedef enum DayOfWeek : NSUInteger {
 
 - (void)updateHoursLabel
 {
-    NSString *meal = [self.menu[_currentPage] name];
-    NSString *hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
-    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString ];
+    NSString *hoursString = @"";
+    if (_currentPage < self.menu.count) {
+        NSString *meal = [self.menu[_currentPage] name];
+        hoursString = [DiningHallHours hoursForMeal:meal onDay:self.date];
+    }
+    self.hoursLabel.text = [NSString stringWithFormat:@"Hours: %@",  hoursString];
 }
 
 - (void)disableNavigationButtons

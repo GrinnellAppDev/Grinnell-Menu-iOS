@@ -17,7 +17,13 @@ public class FavoritesSummary: NSObject {
         var favDishes = [Dish]()
         
         // Get the day's dishes
-        let dishesArr = self.retrieveDishesForDate(date, error:&error)
+        let dishesArr: [Dish]?
+        do {
+            dishesArr = try self.retrieveDishesForDate(date)
+        } catch let error1 as NSError {
+            error = error1
+            dishesArr = nil
+        }
         
         if let err = error {                    // Dish retrieval was unsuccessful
             NSLog("Error: \(err), \(err.userInfo)")
@@ -37,14 +43,15 @@ public class FavoritesSummary: NSObject {
         return favDishes
     }
     
-    private func retrieveDishesForDate(date: NSDate, error: NSErrorPointer) -> [Dish]? {
+    private func retrieveDishesForDate(date: NSDate) throws -> [Dish] {
+        var error: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
         
         var jsonError: NSError?
         var dishes = [Dish]()
         
         // Retrieve the year, month, and day components from the selected day
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: date)
+        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
         
         //let dishesURL = NSURL(string: serverURL + "\(components.month)-\(components.day)-\(components.year)_dishes.json")!
         
@@ -56,16 +63,22 @@ public class FavoritesSummary: NSObject {
         if (data == nil) {
             let userInfo = [NSLocalizedDescriptionKey: "Failed to download dishes data"]
             let err = NSError(domain: "GliciousServerErrorDomain", code: 1, userInfo: userInfo)
-            if (error != nil) { error.memory = err }
-            return nil
+            if (true) { error = err }
+            throw error
         }
         
         // Parse dishes array object from JSON data
-        let dishesJSON: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options:nil , error:&jsonError)
+        let dishesJSON: AnyObject?
+        do {
+            dishesJSON = try NSJSONSerialization.JSONObjectWithData(data!, options:[] )
+        } catch let error as NSError {
+            jsonError = error
+            dishesJSON = nil
+        }
         
         if let err = jsonError {                                // if parse failed
-            if (error != nil) { error.memory = err }
-            return nil
+            if (true) { error = err }
+            throw error
         }
         
         // Cast JSON object into array of dish dictionaries
@@ -76,8 +89,8 @@ public class FavoritesSummary: NSObject {
         } else {
             let userInfo = [NSLocalizedDescriptionKey: "Failed to properly cast JSON object to dishes array"]
             let err = NSError(domain: "GliciousServerErrorDomain", code: 2, userInfo: userInfo)
-            if (error != nil) { error.memory = err }
-            return nil
+            if (true) { error = err }
+            throw error
         }
         
         NSLog("\(dishes)")

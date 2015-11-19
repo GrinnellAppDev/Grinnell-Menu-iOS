@@ -10,12 +10,13 @@
 #import "TTUIScrollViewSlidingPages.h"
 #import "MealViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import <SVProgressHUD/SVProgressHUD.h>
+#import "SVProgressHUD/SVProgressHUD.h"
 #import "RMDateSelectionViewController.h"
+#import "RMDateSelectionViewController+GADateSelection.h"
 #import "MenuModel.h"
 #import "DiningHallHours.h"
 #import "UIColor+GAColor.h"
-#import <NSCalendar+equalWithGranularity.h>
+#import "NSCalendar+equalWithGranularity.h"
 #import "AppDelegate.h"
 #import "SettingsViewController.h"
 
@@ -30,11 +31,11 @@ typedef enum DayOfWeek : NSUInteger {
     Saturday
 } DayOfWeek;
 
-@interface StationsViewController () <RMDateSelectionViewControllerDelegate>
+@interface StationsViewController ()
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) RMDateSelectionViewController *dateSelectionViewController;
+@property (nonatomic, strong) RMDateSelectionViewController *dateSelectionController;
 @property (nonatomic, strong) MenuModel *menuModel;
 @property (nonatomic, strong) NSArray *menu;
 @property (nonatomic, strong) NSDate *date;
@@ -157,38 +158,46 @@ typedef enum DayOfWeek : NSUInteger {
     return self.menu;
 }
 
-//Sets up the datePicker
-//Today is the minimum and sets the maximum based on availableDays
+// Sets up the datePicker
+// Today is the minimum and sets the maximum based on availableDays
 // TODO: Just use the last date
 - (IBAction)changeDate:(id)sender {
-    if (!self.dateSelectionViewController) {
-        self.dateSelectionViewController = [RMDateSelectionViewController dateSelectionController];
-        self.dateSelectionViewController.delegate = self;
-        self.dateSelectionViewController.view.tintColor = [UIColor scarletColor];
+    if (!self.dateSelectionController) {
+        
+        //Create select action
+        RMAction *selectAction = [RMAction actionWithTitle:@"Select" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+            
+            NSDate *selectedDate = ((UIDatePicker *)controller.contentView).date;
+            
+            self.date = selectedDate;
+            
+            [self prepareMenu];
+            [self showHudForDate:self.date];
+            
+            //Disable the zoom out animation to prevent it from crashing when displaying a menu with less pages.
+            self.slider.zoomOutAnimationDisabled = YES;
+            [self.slider reloadPages];
+            self.slider.zoomOutAnimationDisabled = NO;
+        }];
+        
+        //Create cancel action
+        RMAction *cancelAction = [RMAction actionWithTitle:@"Cancel" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
+            // Do nothing, just let controller cancel
+        }];
+        
+        self.dateSelectionController = [RMDateSelectionViewController configuredDateSelectionControllerWithSelectAction:selectAction andCancelAction:cancelAction];
     }
-    [self.dateSelectionViewController show];
-    [self.dateSelectionViewController.datePicker setMinimumDate:[NSDate date]];
-    int range = 24 * 60 * 60 * self.availableDays;
-    NSDate *maxDate = [[NSDate alloc] initWithTimeIntervalSinceNow:range];
-    self.dateSelectionViewController.datePicker.maximumDate = maxDate;
+    
+    // Must re-configure max&min date when datepicker is displayed
+    [self.dateSelectionController.datePicker setMinimumDate:[NSDate date]];
+    
+    int availableDaysInSeconds = 24 * 60 * 60 * self.availableDays;
+    NSDate *maxDate = [[NSDate alloc] initWithTimeIntervalSinceNow:availableDaysInSeconds];
+    
+    self.dateSelectionController.datePicker.maximumDate = maxDate;
+    
+    [self presentViewController:self.dateSelectionController animated:YES completion:nil];
 }
-
-#pragma mark - RMDateSelectionViewController Delegates
-- (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate {
-    self.menuModel = [[MenuModel alloc] initWithDate:aDate];
-    self.date = aDate;
-    [self prepareMenu];
-    [self showHudForDate:self.date];
-    //Disable the zoom out animation to prevent it from crashing when displaying a menu with less pages.
-    self.slider.zoomOutAnimationDisabled = YES;
-    [self.slider reloadPages];
-    self.slider.zoomOutAnimationDisabled = NO;
-}
-
-- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc {
-    //Currently not doign anything when the user hits cancel.
-}
-
 
 #pragma mark - TTSlidingPageController delegate methods
 - (NSInteger)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source
@@ -223,7 +232,7 @@ typedef enum DayOfWeek : NSUInteger {
 #pragma mark - Showing the HUD
 - (void)showHudForDate:(NSDate *)date {
     NSString *selectedDateString = [self selectedDateStringFromDate:date];
-    [[SVProgressHUD appearance] setHudBackgroundColor:[UIColor colorWithWhite:0.8f alpha:0.4]];
+    [[SVProgressHUD appearance] setBackgroundColor:[UIColor colorWithWhite:0.8f alpha:0.4]];
     [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@'s Menu", selectedDateString]];
 }
 

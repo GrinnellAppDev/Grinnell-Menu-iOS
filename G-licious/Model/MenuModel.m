@@ -12,7 +12,7 @@
 #import "Station.h"
 #import "Meal.h"
 #import "FavoritesManager.h"
-#import <Reachability.h>
+#import "Reachability.h"
 
 @interface MenuModel()
 
@@ -66,7 +66,7 @@
         //NSLog(@"Loading Json from iPhone cache");
     } else if ([self networkCheck]) {
         //correct version
-        NSString *url = [NSString stringWithFormat:@"http://appdev.grinnell.edu/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
+        NSString *url = [NSString stringWithFormat:@"https://appdev.grinnell.edu/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
         
         //temp test version
         
@@ -242,7 +242,7 @@
         
         //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
         //Using the last_date json to do this.
-        NSURL *datesAvailableURL = [NSURL URLWithString:@"http://appdev.grinnell.edu/glicious/last_date.json"];
+        NSURL *datesAvailableURL = [NSURL URLWithString:@"https://appdev.grinnell.edu/glicious/last_date.json"];
         NSError *error;
         NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
         NSDictionary *availableDaysJson;

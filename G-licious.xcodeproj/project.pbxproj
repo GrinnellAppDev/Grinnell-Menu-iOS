@@ -18,8 +18,6 @@
 		168B4417182E2F14001808E3 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B4410182E2F14001808E3 /* CloseButton@2x.png */; };
 		16A01D78183D966C00D8F4C2 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */; };
 		16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38AD1824AAFB00374116 /* MealViewController.m */; };
-		16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16AA38B01825932C00374116 /* RMDateSelectionViewController.xib */; };
-		16AA38B81825932C00374116 /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38B41825932C00374116 /* RMDateSelectionViewController.m */; };
 		16AA38BB182597DD00374116 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38BA182597DD00374116 /* SettingsViewController.m */; };
 		16AA38C11825D35D00374116 /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C01825D35D00374116 /* MenuModel.m */; };
 		16AA38C41825DDD100374116 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C31825DDD100374116 /* Dish.m */; };
@@ -50,7 +48,8 @@
 		16FF720F1824A3AD0026C568 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72041824A3AD0026C568 /* TTSlidingPage.m */; };
 		16FF72101824A3AD0026C568 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72071824A3AD0026C568 /* TTSlidingPageTitle.m */; };
 		16FF72131824A3C70026C568 /* StationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72121824A3C70026C568 /* StationsViewController.m */; };
-		34A6D83C5D584BCB9314657F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3575E85EF1F9439AAB9C3D46 /* libPods.a */; };
+		1D962ABF802BF93F8AC9766C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC43AAB5D97073B452208BD6 /* Pods.framework */; };
+		367467C71BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */; };
 		8BBC826918836CDE004E9883 /* flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826718836CDE004E9883 /* flip@2x.png */; };
 		8BBC826A18836CDE004E9883 /* flip.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826818836CDE004E9883 /* flip.png */; };
 		8BBC826D188377D8004E9883 /* flipCopy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826B188377D8004E9883 /* flipCopy.png */; };
@@ -75,8 +74,6 @@
 		8BBC829618838AD1004E9883 /* flips4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829418838AD1004E9883 /* flips4@2x.png */; };
 		8BBC829918838B5D004E9883 /* flips5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829718838B5D004E9883 /* flips5.png */; };
 		8BBC829A18838B5D004E9883 /* flips5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829818838B5D004E9883 /* flips5@2x.png */; };
-		B62144791ABB716800BE9C39 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B62144771ABB716800BE9C39 /* Bolts.framework */; };
-		B621447A1ABB716800BE9C39 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B62144781ABB716800BE9C39 /* Parse.framework */; };
 		B621447C1ABB718C00BE9C39 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B621447B1ABB718C00BE9C39 /* AudioToolbox.framework */; };
 		B621447E1ABB719700BE9C39 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B621447D1ABB719700BE9C39 /* CFNetwork.framework */; };
 		B62144801ABB71AD00BE9C39 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B621447F1ABB71AD00BE9C39 /* CoreLocation.framework */; };
@@ -123,12 +120,6 @@
 		16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
 		16AA38AC1824AAFB00374116 /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
 		16AA38AD1824AAFB00374116 /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
-		16AA38B11825932C00374116 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/RMDateSelectionViewController.xib; sourceTree = "<group>"; };
-		16AA38B21825932C00374116 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RMDateSelectionViewController.xib; sourceTree = "<group>"; };
-		16AA38B31825932C00374116 /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
-		16AA38B41825932C00374116 /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
-		16AA38B51825932C00374116 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/RMDateSelectionViewController.xib"; sourceTree = "<group>"; };
-		16AA38B61825932C00374116 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/RMDateSelectionViewController.xib"; sourceTree = "<group>"; };
 		16AA38B9182597DD00374116 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		16AA38BA182597DD00374116 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		16AA38BF1825D35D00374116 /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
@@ -178,7 +169,8 @@
 		16FF72111824A3C70026C568 /* StationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsViewController.h; sourceTree = "<group>"; };
 		16FF72121824A3C70026C568 /* StationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsViewController.m; sourceTree = "<group>"; };
 		18370641A617AE8A328A0BCB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		3575E85EF1F9439AAB9C3D46 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		367467C51BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMDateSelectionViewController+GADateSelection.h"; sourceTree = "<group>"; };
+		367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMDateSelectionViewController+GADateSelection.m"; sourceTree = "<group>"; };
 		415D9C2653FC147DC2D97491 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BBC826718836CDE004E9883 /* flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip@2x.png"; sourceTree = "<group>"; };
 		8BBC826818836CDE004E9883 /* flip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flip.png; sourceTree = "<group>"; };
@@ -204,8 +196,6 @@
 		8BBC829418838AD1004E9883 /* flips4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips4@2x.png"; sourceTree = "<group>"; };
 		8BBC829718838B5D004E9883 /* flips5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flips5.png; sourceTree = "<group>"; };
 		8BBC829818838B5D004E9883 /* flips5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips5@2x.png"; sourceTree = "<group>"; };
-		B62144771ABB716800BE9C39 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		B62144781ABB716800BE9C39 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		B621447B1ABB718C00BE9C39 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B621447D1ABB719700BE9C39 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B621447F1ABB71AD00BE9C39 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -224,6 +214,7 @@
 		B6D1494919E1B82600E2B801 /* strings_private.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = strings_private.strings; path = ../strings_private.strings; sourceTree = "<group>"; };
 		B6D5EB491A23955E003922FC /* AJRNutritionViewController+GADish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AJRNutritionViewController+GADish.h"; sourceTree = "<group>"; };
 		B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AJRNutritionViewController+GADish.m"; sourceTree = "<group>"; };
+		BC43AAB5D97073B452208BD6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,9 +238,7 @@
 				16AB52CF1881DB3E00ECCABC /* Crashlytics.framework in Frameworks */,
 				16FF71C61824A3300026C568 /* UIKit.framework in Frameworks */,
 				16FF71C21824A3300026C568 /* Foundation.framework in Frameworks */,
-				34A6D83C5D584BCB9314657F /* libPods.a in Frameworks */,
-				B621447A1ABB716800BE9C39 /* Parse.framework in Frameworks */,
-				B62144791ABB716800BE9C39 /* Bolts.framework in Frameworks */,
+				1D962ABF802BF93F8AC9766C /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +275,8 @@
 				168B4402182E2A3B001808E3 /* UIColor+GAColor.m */,
 				B6D5EB491A23955E003922FC /* AJRNutritionViewController+GADish.h */,
 				B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */,
+				367467C51BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.h */,
+				367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -338,16 +329,6 @@
 				16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */,
 			);
 			name = iPad;
-			sourceTree = "<group>";
-		};
-		16AA38AF1825932C00374116 /* RMDateSelectionViewController */ = {
-			isa = PBXGroup;
-			children = (
-				16AA38B01825932C00374116 /* RMDateSelectionViewController.xib */,
-				16AA38B31825932C00374116 /* RMDateSelectionViewController.h */,
-				16AA38B41825932C00374116 /* RMDateSelectionViewController.m */,
-			);
-			path = RMDateSelectionViewController;
 			sourceTree = "<group>";
 		};
 		16AA38BE1825D31500374116 /* Model */ = {
@@ -404,15 +385,13 @@
 				B621447F1ABB71AD00BE9C39 /* CoreLocation.framework */,
 				B621447D1ABB719700BE9C39 /* CFNetwork.framework */,
 				B621447B1ABB718C00BE9C39 /* AudioToolbox.framework */,
-				B62144771ABB716800BE9C39 /* Bolts.framework */,
-				B62144781ABB716800BE9C39 /* Parse.framework */,
 				16AB52CE1881DB3E00ECCABC /* Crashlytics.framework */,
 				16FDAC38182EC7360016E6A5 /* SystemConfiguration.framework */,
 				16FF71C11824A3300026C568 /* Foundation.framework */,
 				16FF71C31824A3300026C568 /* CoreGraphics.framework */,
 				16FF71C51824A3300026C568 /* UIKit.framework */,
 				16FF71E01824A3300026C568 /* XCTest.framework */,
-				3575E85EF1F9439AAB9C3D46 /* libPods.a */,
+				BC43AAB5D97073B452208BD6 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -471,7 +450,6 @@
 			isa = PBXGroup;
 			children = (
 				168B4405182E2E9A001808E3 /* NutritionViewFiles */,
-				16AA38AF1825932C00374116 /* RMDateSelectionViewController */,
 				16FF71F71824A36E0026C568 /* UIScrollViewSlidingPages */,
 			);
 			path = Vendor;
@@ -537,6 +515,7 @@
 				16FF71BC1824A3300026C568 /* Resources */,
 				5E29B6A0FAC8433CA616AB6A /* Copy Pods Resources */,
 				16AB52CD1881DB1800ECCABC /* ShellScript */,
+				9ACDC31FC09187B440043445 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -571,7 +550,9 @@
 		16FF71B61824A32F0026C568 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Maijid Moujaled";
 				TargetAttributes = {
 					16FF71BD1824A3300026C568 = {
@@ -634,7 +615,6 @@
 				8BBC82861883888F004E9883 /* flips1@2x.png in Resources */,
 				8BBC827D18837BE3004E9883 /* flipNew1.png in Resources */,
 				8BBC82711883783D004E9883 /* flipCopy2@2x.png in Resources */,
-				16AA38B71825932C00374116 /* RMDateSelectionViewController.xib in Resources */,
 				8BBC826D188377D8004E9883 /* flipCopy.png in Resources */,
 				8BBC826918836CDE004E9883 /* flip@2x.png in Resources */,
 				8BBC827A18837B94004E9883 /* flipNew@2x.png in Resources */,
@@ -707,6 +687,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		9ACDC31FC09187B440043445 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -732,13 +727,13 @@
 				168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */,
 				16FF720D1824A3AD0026C568 /* TTScrollSlidingPagesController.m in Sources */,
 				16FF71D21824A3300026C568 /* AppDelegate.m in Sources */,
+				367467C71BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m in Sources */,
 				16FF71CE1824A3300026C568 /* main.m in Sources */,
 				168B4413182E2F14001808E3 /* AJRNutritionLabelView.m in Sources */,
 				16AA38CA1825DE8F00374116 /* Meal.m in Sources */,
 				16FF720C1824A3AD0026C568 /* TTBlackTriangle.m in Sources */,
 				16FF720F1824A3AD0026C568 /* TTSlidingPage.m in Sources */,
 				16AA38C71825DE3000374116 /* Station.m in Sources */,
-				16AA38B81825932C00374116 /* RMDateSelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,17 +756,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		16AA38B01825932C00374116 /* RMDateSelectionViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				16AA38B11825932C00374116 /* de */,
-				16AA38B21825932C00374116 /* en */,
-				16AA38B51825932C00374116 /* zh-Hans */,
-				16AA38B61825932C00374116 /* zh-Hant */,
-			);
-			name = RMDateSelectionViewController.xib;
-			sourceTree = "<group>";
-		};
 		16FF71CA1824A3300026C568 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -817,6 +801,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG = 1;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -837,7 +823,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -861,6 +847,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEBUG = 0;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -875,7 +862,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -901,9 +888,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-licious/G-licious-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.grinnell.glicious;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "G-licious/G-licious-Bridging-Header.h";
@@ -933,9 +921,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-licious/G-licious-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.grinnell.glicious;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "G-licious/G-licious-Bridging-Header.h";
@@ -960,6 +949,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "G-liciousTests/G-liciousTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.maijid.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -978,6 +968,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "G-licious/G-licious-Prefix.pch";
 				INFOPLIST_FILE = "G-liciousTests/G-liciousTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.maijid.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

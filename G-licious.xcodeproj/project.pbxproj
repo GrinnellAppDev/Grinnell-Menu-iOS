@@ -24,7 +24,6 @@
 		16AA38C71825DE3000374116 /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C61825DE3000374116 /* Station.m */; };
 		16AA38CA1825DE8F00374116 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C91825DE8F00374116 /* Meal.m */; };
 		16AA38CD1825F25A00374116 /* DiningHallHours.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38CC1825F25A00374116 /* DiningHallHours.m */; };
-		16AB52CF1881DB3E00ECCABC /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16AB52CE1881DB3E00ECCABC /* Crashlytics.framework */; };
 		16FF71C21824A3300026C568 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16FF71C11824A3300026C568 /* Foundation.framework */; };
 		16FF71C61824A3300026C568 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16FF71C51824A3300026C568 /* UIKit.framework */; };
 		16FF71CC1824A3300026C568 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 16FF71CA1824A3300026C568 /* InfoPlist.strings */; };
@@ -120,7 +119,6 @@
 		16AA38C91825DE8F00374116 /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = "<group>"; };
 		16AA38CB1825F25A00374116 /* DiningHallHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiningHallHours.h; sourceTree = "<group>"; };
 		16AA38CC1825F25A00374116 /* DiningHallHours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiningHallHours.m; sourceTree = "<group>"; };
-		16AB52CE1881DB3E00ECCABC /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		16FF71BE1824A3300026C568 /* G-licious.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "G-licious.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16FF71C11824A3300026C568 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		16FF71C51824A3300026C568 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -199,7 +197,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B62144821ABB71B800BE9C39 /* MobileCoreServices.framework in Frameworks */,
-				16AB52CF1881DB3E00ECCABC /* Crashlytics.framework in Frameworks */,
 				16FF71C61824A3300026C568 /* UIKit.framework in Frameworks */,
 				16FF71C21824A3300026C568 /* Foundation.framework in Frameworks */,
 				1D962ABF802BF93F8AC9766C /* Pods.framework in Frameworks */,
@@ -339,7 +336,6 @@
 			isa = PBXGroup;
 			children = (
 				B62144811ABB71B800BE9C39 /* MobileCoreServices.framework */,
-				16AB52CE1881DB3E00ECCABC /* Crashlytics.framework */,
 				16FF71C11824A3300026C568 /* Foundation.framework */,
 				16FF71C51824A3300026C568 /* UIKit.framework */,
 				16FF71E01824A3300026C568 /* XCTest.framework */,
@@ -607,7 +603,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 45894d9e8a6bc3b8513651d6de36159e2c836e51";
+			shellScript = "${PODS_ROOT}/Fabric/run 45894d9e8a6bc3b8513651d6de36159e2c836e51 e63db966a2704d736a61d448865ca84d08aaaa601dce5b22725702038b26a699";
 		};
 		5E29B6A0FAC8433CA616AB6A /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -13,11 +13,12 @@
 #import "Meal.h"
 #import "FavoritesManager.h"
 #import "Reachability.h"
+#import "G_licious-Swift.h"
 
 @interface MenuModel()
 
-@property(nonatomic, strong) NSDictionary *menuDictionary;
-@property(nonatomic, strong) NSArray *originalMenu;
+@property (nonatomic, strong) NSDictionary *menuDictionary;
+@property (nonatomic, strong) NSArray *originalMenu;
 @property (nonatomic, assign) BOOL hasAvailableDays;
 
 - (NSArray *)createMenuFromDictionary:(NSDictionary *)theMenuDictionary;
@@ -47,30 +48,20 @@
     [self getAvailableDays];
    // [self setCurrentPage];
     
-    //We need to pick the right components in the cases self.date changes.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.date];
-    
-    //Changed to NSinteger instead of ints. IF it breaks here, that's why...
-    NSInteger selectedDay = [components day];
-    NSInteger selectedMonth = [components month];
-    NSInteger selectedYear = [components year];
-    
     //File Directories used.
-    NSString *tempPath = NSTemporaryDirectory();
-    NSString *daymenuplist = [NSString stringWithFormat:@"%ld-%ld-%ld.plist", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
-    NSString *path = [tempPath stringByAppendingPathComponent:daymenuplist];
+    NSString *menuPath = [URLUtils menuPlistPathForDate:self.date];
     
     //Check to see if the file has previously been cached else Get it from server.
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        self.menuDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-        //NSLog(@"Loading Json from iPhone cache");
+    if ([[NSFileManager defaultManager] fileExistsAtPath:menuPath]) {
+        self.menuDictionary = [[NSDictionary alloc] initWithContentsOfFile:menuPath];
+
     } else if ([self networkCheck]) {
         //correct version
-        NSString *url = [NSString stringWithFormat:@"https://appdev.grinnell.edu/glicious/%ld-%ld-%ld.json", (long)selectedMonth, (long)selectedDay, (long)selectedYear];
+        NSURL *menuURL = [URLUtils menuURLForDate:self.date];
         
         //temp test version
         
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        NSData *data = [NSData dataWithContentsOfURL:menuURL];
         NSError *error = nil;
         if (data)
         {
@@ -81,8 +72,9 @@
             if (error) {
                 NSLog(@"There was an error: %@", [error localizedDescription]);
             }
+            
             // Cache the menudictionary after downloading.
-            [self.menuDictionary writeToFile:path atomically:YES];
+            [self.menuDictionary writeToFile:menuPath atomically:YES];
         } else {
             //Handle Data Nil Error
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Drat!" message:@"Seems there are no menus for this date available. Do check back again soon!" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
@@ -98,6 +90,12 @@
     NSArray *originalMenu = [self createMenuFromDictionary:self.menuDictionary];
     NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
     return filteredMenu;
+}
+
+- (void)fetchMenuForDate:(NSDate *)date completionHandler:(void (^)(NSArray *menu, NSError *error))completionHandler {
+    
+    
+    
 }
 
 /* Creates and returns the array of meals.
@@ -128,7 +126,6 @@
 //Returns a filtered Menu depending on the values of the Filter Switches.
 - (NSArray *)applyFiltersTo:(NSArray *)originalMenu {
     //TODO - Might be able to put this somwhere else.
-    //[self loadFavoriteDishes];
     FavoritesManager *favoritesManager = [FavoritesManager sharedManager];
     
     NSMutableArray *filteredMenu = [[NSMutableArray alloc] init];
@@ -152,6 +149,7 @@
     if (veganSwitchValue) [predicates addObject:veganPred];
     if (gfSwitchValue) [predicates addObject:gfPred];
     if (passSwitchValue) [predicates addObject:passPred];
+
     
     [originalMenu enumerateObjectsUsingBlock:^(Meal *meal, NSUInteger idx, BOOL *stop) {
         NSMutableArray *originalMealStations = [[NSMutableArray alloc] initWithArray:meal.stations];
@@ -242,7 +240,7 @@
         
         //There's a network connection. Before Pulling in any real data. Let's check if there actually is any data available.
         //Using the last_date json to do this.
-        NSURL *datesAvailableURL = [NSURL URLWithString:@"https://appdev.grinnell.edu/glicious/last_date.json"];
+        NSURL *datesAvailableURL = [URLUtils lastDateUrl];
         NSError *error;
         NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
         NSDictionary *availableDaysJson;
@@ -256,6 +254,8 @@
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setDateFormat:@"MM-dd-yyyy"];
             NSDate *lastDate = [df dateFromString:dayString];
+            
+            // get the difference between two dates
             NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:[NSDate date] toDate:lastDate options:0];
             self.availableDays = (int) [components day] + 1;
             self.hasAvailableDays = YES;

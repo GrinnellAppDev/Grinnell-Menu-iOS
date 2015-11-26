@@ -47,6 +47,7 @@
 		16FF72131824A3C70026C568 /* StationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72121824A3C70026C568 /* StationsViewController.m */; };
 		1D962ABF802BF93F8AC9766C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC43AAB5D97073B452208BD6 /* Pods.framework */; };
 		367467C71BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */; };
+		3693C6661C06411C0059395B /* URLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693C6651C06411C0059395B /* URLUtils.swift */; };
 		8BBC826918836CDE004E9883 /* flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826718836CDE004E9883 /* flip@2x.png */; };
 		8BBC826A18836CDE004E9883 /* flip.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826818836CDE004E9883 /* flip.png */; };
 		8BBC826D188377D8004E9883 /* flipCopy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826B188377D8004E9883 /* flipCopy.png */; };
@@ -155,6 +156,7 @@
 		18370641A617AE8A328A0BCB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		367467C51BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMDateSelectionViewController+GADateSelection.h"; sourceTree = "<group>"; };
 		367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMDateSelectionViewController+GADateSelection.m"; sourceTree = "<group>"; };
+		3693C6651C06411C0059395B /* URLUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUtils.swift; sourceTree = "<group>"; };
 		415D9C2653FC147DC2D97491 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BBC826718836CDE004E9883 /* flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip@2x.png"; sourceTree = "<group>"; };
 		8BBC826818836CDE004E9883 /* flip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flip.png; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				16AA38BF1825D35D00374116 /* MenuModel.h */,
 				16AA38C01825D35D00374116 /* MenuModel.m */,
 				16AA38C21825DDD100374116 /* Dish.h */,
+				3693C6651C06411C0059395B /* URLUtils.swift */,
 				16AA38C31825DDD100374116 /* Dish.m */,
 				16AA38C51825DE3000374116 /* Station.h */,
 				16AA38C61825DE3000374116 /* Station.m */,
@@ -659,6 +662,7 @@
 			files = (
 				16AA38C41825DDD100374116 /* Dish.m in Sources */,
 				B652A2481A3CEF0100F782BC /* FavoritesSummary.swift in Sources */,
+				3693C6661C06411C0059395B /* URLUtils.swift in Sources */,
 				1605A36618349A3200358697 /* DishCell.m in Sources */,
 				16FF72101824A3AD0026C568 /* TTSlidingPageTitle.m in Sources */,
 				16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */,

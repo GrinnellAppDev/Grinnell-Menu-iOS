@@ -9,8 +9,6 @@
 import Foundation
 
 public class FavoritesSummary: NSObject {
-
-    let serverURL = "http://appdev.grinnell.edu/glicious/"
     
     public func favoriteDishesForDate(date: NSDate, completionHandler: ([Dish]?, NSError?) -> Void) {
         
@@ -40,11 +38,7 @@ public class FavoritesSummary: NSObject {
     
     private func retrieveDishesForDate(date: NSDate, completionHandler: ([Dish]?, NSError?) -> Void) {
         
-        // Retrieve the year, month, and day components from the selected day
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month, .Day], fromDate: date)
-        
-        let dishesURL = NSURL(string: serverURL + "\(components.month)-\(components.day)-\(components.year)_dishes.json")!
+        let dishesURL = URLUtils.dishesURLForDate(date)
         
         
         let dataTask = NSURLSession.sharedSession().dataTaskWithURL(dishesURL) { (data, response, error) -> Void in

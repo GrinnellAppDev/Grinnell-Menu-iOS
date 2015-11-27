@@ -17,6 +17,8 @@
 
 @interface MenuModel()
 
+@property (nonatomic, strong) MenuCache *menuCache;
+
 @property (nonatomic, strong) NSDictionary *menuDictionary;
 @property (nonatomic, strong) NSArray *originalMenu;
 @property (nonatomic, assign) BOOL hasAvailableDays;
@@ -30,10 +32,23 @@
     Reachability *internetReachable;
 }
 
-- (id)initWithDate:(NSDate *)aDate {
+- (instancetype)init {
     self = [super init];
-    if (self)
+    
+    if (self) {
+        self.menuCache = [[MenuCache alloc] init];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithDate:(NSDate *)aDate {
+    self = [self init];
+    
+    if (self) {
         self.date = aDate;
+    }
+    
     return self;
 }
 
@@ -46,9 +61,7 @@
 - (NSArray *)performFetch {
     
     [self getAvailableDays];
-   // [self setCurrentPage];
     
-    //File Directories used.
     NSString *menuPath = [URLUtils menuPlistPathForDate:self.date];
     
     //Check to see if the file has previously been cached else Get it from server.
@@ -61,6 +74,7 @@
         
         //temp test version
         
+        // TODO: use NSURLSession
         NSData *data = [NSData dataWithContentsOfURL:menuURL];
         NSError *error = nil;
         if (data)
@@ -93,8 +107,59 @@
 }
 
 - (void)fetchMenuForDate:(NSDate *)date completionHandler:(void (^)(NSArray *menu, NSError *error))completionHandler {
+
     
-    
+    [self getAvailableDaysWithCompletionHandler:^(int availableDays, NSError *availableDaysError) {
+        if (availableDaysError != nil) {
+            completionHandler(nil, availableDaysError);
+            return;
+        }
+        
+        if ([self.menuCache hasMenuForDate:date]) {
+            NSDictionary *cachedMenuDict = [self.menuCache getMenuDictForDate:date];
+            
+            NSArray *originalMenu = [self createMenuFromDictionary:cachedMenuDict];
+            NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
+            
+            completionHandler(filteredMenu, nil);
+            return;
+        }
+        
+        if (![self networkCheck]) {
+            NSError *networkError = [NSError errorWithDomain:@"GliciousServerError"
+                                                        code:2
+                                                    userInfo:@{NSLocalizedDescriptionKey: @"The internet connection is offline"}];
+            completionHandler(nil, networkError);
+            return;
+        }
+        
+        NSURL *menuURL = [URLUtils menuURLForDate:date];
+        
+        NSURLSessionDataTask *menuDataTask = [[NSURLSession sharedSession] dataTaskWithURL:menuURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (error != nil) {
+                NSError *menuError = [NSError errorWithDomain:@"GliciousServerError"
+                                                         code:2
+                                                     userInfo:@{NSLocalizedDescriptionKey: @"Seems there are no menus for this date available. Do check back again soon!"}];
+                completionHandler(nil, menuError);
+                return;
+            }
+            
+            NSError *jsonError;
+            NSDictionary *menuDictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:kNilOptions
+                                                               error:&jsonError];
+            NSLog(@"Downloaded new data");
+            
+            [self.menuCache cacheMenuDict:menuDictionary forDate:date];
+            
+            NSArray *originalMenu = [self createMenuFromDictionary:menuDictionary];
+            NSArray *filteredMenu = [self applyFiltersTo:originalMenu];
+            
+            completionHandler(filteredMenu, nil);
+        }];
+        
+        [menuDataTask resume];
+    }];
     
 }
 
@@ -242,7 +307,7 @@
         //Using the last_date json to do this.
         NSURL *datesAvailableURL = [URLUtils lastDateUrl];
         NSError *error;
-        NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL];
+        NSData *availableData = [NSData dataWithContentsOfURL:datesAvailableURL]; // TODO: use NSURLSession
         NSDictionary *availableDaysJson;
         
         if (availableData != nil) {
@@ -273,6 +338,49 @@
     
 }
 
+- (void)getAvailableDaysWithCompletionHandler:(void (^)(int availableDays, NSError *error))completionHandler {
+    if (self.hasAvailableDays) {
+        completionHandler(self.availableDays, nil);
+        return;
+    }
+    
+    NSURL *datesAvailableURL = [URLUtils lastDateUrl];
+    
+    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:datesAvailableURL
+                                                                 completionHandler:^(NSData * _Nullable data,
+                                                                                     NSURLResponse * _Nullable response,
+                                                                                     NSError * _Nullable dataTaskError) {
+        
+        if (dataTaskError != nil) {
+            NSError *error = [NSError errorWithDomain:@"GliciousServerError"
+                                                 code:1
+                                             userInfo:@{NSLocalizedDescriptionKey: @"Unable to get available days"}];
+            completionHandler(-1, error);
+            return;
+        }
+        
+        NSError *jsonError;
+        NSDictionary *availableDaysJson = [NSJSONSerialization JSONObjectWithData:data
+                                                                          options:kNilOptions
+                                                                            error:&jsonError];
+        
+        
+        NSString *dayString = availableDaysJson[@"Last_Day"];
+        NSDateFormatter *formatter = [self dateFormatter];
+        
+        NSDate *lastDate = [formatter dateFromString:dayString];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:[NSDate date] toDate:lastDate options:0];
+        self.availableDays = (int) [components day] + 1; // TODO: decide if int or NSNumber would be better suited here
+        self.hasAvailableDays = YES;
+        
+        completionHandler(self.availableDays, nil);
+        
+        
+    }];
+    
+    [dataTask resume];
+}
+
 //Method to determine the availability of network Connections using the Reachability Class
 - (BOOL)networkCheck {
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -280,25 +388,15 @@
     return (!(networkStatus == NotReachable));
 }
 
-
-
-#pragma mark - Favorites Array Filepath
-- (NSString *)favoritesFilePath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"favorites.plist"];
-}
-
-
-- (void)loadFavoriteDishes {
-    //Load up the favorites file if there is one.
-    NSString *favoritesFilePath = [self favoritesFilePath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:favoritesFilePath]) {
-        self.favoriteDishIds = [[NSMutableArray alloc] initWithContentsOfFile:favoritesFilePath];
-    } else {
-        //We still need to allocate memory for an empty array.
-        self.favoriteDishIds = [[NSMutableArray alloc] init];
+- (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *formatter;
+    
+    if (formatter == nil) {
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM-dd-yyyy"];
     }
+    
+    return formatter;
 }
 
 @end

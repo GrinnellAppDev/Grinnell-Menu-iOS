@@ -47,6 +47,7 @@
 		16FF72131824A3C70026C568 /* StationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72121824A3C70026C568 /* StationsViewController.m */; };
 		1D962ABF802BF93F8AC9766C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC43AAB5D97073B452208BD6 /* Pods.framework */; };
 		367467C71BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */; };
+		368ED1BB1C08E4C600DF08C7 /* MenuCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368ED1BA1C08E4C600DF08C7 /* MenuCache.swift */; };
 		3693C6661C06411C0059395B /* URLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693C6651C06411C0059395B /* URLUtils.swift */; };
 		8BBC826918836CDE004E9883 /* flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826718836CDE004E9883 /* flip@2x.png */; };
 		8BBC826A18836CDE004E9883 /* flip.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826818836CDE004E9883 /* flip.png */; };
@@ -156,6 +157,7 @@
 		18370641A617AE8A328A0BCB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		367467C51BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMDateSelectionViewController+GADateSelection.h"; sourceTree = "<group>"; };
 		367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMDateSelectionViewController+GADateSelection.m"; sourceTree = "<group>"; };
+		368ED1BA1C08E4C600DF08C7 /* MenuCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCache.swift; sourceTree = "<group>"; };
 		3693C6651C06411C0059395B /* URLUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUtils.swift; sourceTree = "<group>"; };
 		415D9C2653FC147DC2D97491 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BBC826718836CDE004E9883 /* flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip@2x.png"; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				16AA38CC1825F25A00374116 /* DiningHallHours.m */,
 				16AA38BF1825D35D00374116 /* MenuModel.h */,
 				16AA38C01825D35D00374116 /* MenuModel.m */,
+				368ED1BA1C08E4C600DF08C7 /* MenuCache.swift */,
 				16AA38C21825DDD100374116 /* Dish.h */,
 				3693C6651C06411C0059395B /* URLUtils.swift */,
 				16AA38C31825DDD100374116 /* Dish.m */,
@@ -674,6 +677,7 @@
 				B6D5EB4B1A23955E003922FC /* AJRNutritionViewController+GADish.m in Sources */,
 				16AA38C11825D35D00374116 /* MenuModel.m in Sources */,
 				B6483DDE1A23CFCB00A2A876 /* FavoritesManager.m in Sources */,
+				368ED1BB1C08E4C600DF08C7 /* MenuCache.swift in Sources */,
 				16FF720E1824A3AD0026C568 /* TTScrollViewWrapper.m in Sources */,
 				16AA38CD1825F25A00374116 /* DiningHallHours.m in Sources */,
 				168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */,

@@ -18,7 +18,7 @@ public class FavoritesSummary: NSObject {
                 let favoritesManager = FavoritesManager.sharedManager()
                 var favDishes = [Dish]()
                 
-                for dish in dishes where favoritesManager.containsFavorite(dish){
+                for dish in dishes where favoritesManager.containsFavorite(dish) {
                     favDishes.append(dish)
                 }
                 

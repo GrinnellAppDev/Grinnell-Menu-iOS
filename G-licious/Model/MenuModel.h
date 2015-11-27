@@ -22,9 +22,11 @@ typedef void (^FetchCompletionBlock) (NSArray *filteredMenu, NSError *error);
 @property (nonatomic, assign) int availableDays;
 @property (nonatomic, assign) int page;
 
-- (id)initWithDate:(NSDate *)aDate;
+- (instancetype)init;
+- (instancetype)initWithDate:(NSDate *)aDate;
 - (NSArray *)performFetch;
+- (void)fetchMenuForDate:(NSDate *)date completionHandler:(void (^)(NSArray *menu, NSError *error))completionHandler;
 - (void)getAvailableDays;
-- (NSString *)favoritesFilePath;
+- (void)getAvailableDaysWithCompletionHandler:(void (^)(int availableDays, NSError *error))completionHandler;
 
 @end

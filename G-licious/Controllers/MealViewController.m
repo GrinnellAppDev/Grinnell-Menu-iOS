@@ -160,7 +160,6 @@ typedef enum ScrollDirection {
         }
     }
     
-    [self.menuModel.favoriteDishIds writeToFile:[self.menuModel favoritesFilePath] atomically:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ResetFavorites" object:nil];
 }
 

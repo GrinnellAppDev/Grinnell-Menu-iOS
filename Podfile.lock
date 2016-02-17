@@ -3,32 +3,17 @@ PODS:
   - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
   - Fabric (1.6.1)
-  - NSCalendar-EqualWithGranularity (1.0)
   - Parse (1.9.1):
     - Bolts/Tasks (>= 1.4.0)
-  - Reachability (3.2)
-  - RMActionController (1.0.5)
-  - RMDateSelectionViewController (2.0.3):
-    - RMActionController (~> 1.0.5)
-  - SVProgressHUD (1.1.3)
 
 DEPENDENCIES:
   - Crashlytics
-  - NSCalendar-EqualWithGranularity
   - Parse
-  - Reachability
-  - RMDateSelectionViewController (~> 2.0.3)
-  - SVProgressHUD (~> 1.0)
 
 SPEC CHECKSUMS:
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
-  NSCalendar-EqualWithGranularity: 8eb4e51188109fb2e2170eae1fdce06f642d963a
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  RMActionController: b83653e7452ed51492094d65dc82151c36443c03
-  RMDateSelectionViewController: 354a0f1fe40bac01054528b7a8735f2973bbd813
-  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
 COCOAPODS: 0.39.0

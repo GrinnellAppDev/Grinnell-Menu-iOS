@@ -7,11 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "StationsViewController.h"
 #import "G_licious-Swift.h"
-#import "FavoritesManager.h"
 #import <Crashlytics/Crashlytics.h>
-#import <SVProgressHUD/SVProgressHUD.h>
 #import <Parse/Parse.h>
 
 @implementation AppDelegate
@@ -25,13 +22,6 @@
     [Crashlytics startWithAPIKey:[keysDict objectForKey:@"CrashlyticsAPIKey"]];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]} forState:UIControlStateNormal];
-    
-    // For some reason this method doesn't work even though
-    // you can find it in the pod's source in this project. FML
-    //[[SVProgressHUD appearance] setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:16]];
-    
-    //[Flurry setCrashReportingEnabled:NO];
-    //[Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
     
     // Set Parse installation
 #if DEBUG == 1 // If we're running on a dev machine, use dev keys
@@ -56,10 +46,6 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
-    if([FavoritesManager sharedManager]) {
-        NSLog(@"Loaded FavoritesManager");
-    }
-    
     return YES;
 }
 
@@ -82,12 +68,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionalView" object:nil];
-    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
-    [[FavoritesManager sharedManager] save];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -98,7 +80,6 @@
    // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     //StationsViewController *stationsViewController = [storyboard instantiateViewControllerWithIdentifier:@"StationsViewController"];
     //DLog(@"svc: %@", self.stationsViewController);
-    [self.stationsViewController setupInitialScreen];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -109,7 +90,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[FavoritesManager sharedManager] save];
 }
 
 @end

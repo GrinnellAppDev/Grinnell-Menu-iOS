@@ -9,7 +9,5 @@
 #ifndef G_licious_G_licious_Bridging_Header_h
 #define G_licious_G_licious_Bridging_Header_h
 
-#import "Dish.h"
-#import "FavoritesManager.h"
 
 #endif

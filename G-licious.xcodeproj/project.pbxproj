@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1605A36618349A3200358697 /* DishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1605A36518349A3200358697 /* DishCell.m */; };
-		168B4403182E2A3B001808E3 /* UIColor+GAColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4402182E2A3B001808E3 /* UIColor+GAColor.m */; };
 		168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4407182E2F14001808E3 /* AJRBackgroundDimmer.m */; };
 		168B4412182E2F14001808E3 /* AJRNutritionLabelCalculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B4409182E2F14001808E3 /* AJRNutritionLabelCalculation.m */; };
 		168B4413182E2F14001808E3 /* AJRNutritionLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 168B440B182E2F14001808E3 /* AJRNutritionLabelView.m */; };
@@ -17,13 +15,6 @@
 		168B4416182E2F14001808E3 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B440F182E2F14001808E3 /* CloseButton.png */; };
 		168B4417182E2F14001808E3 /* CloseButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 168B4410182E2F14001808E3 /* CloseButton@2x.png */; };
 		16A01D78183D966C00D8F4C2 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */; };
-		16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38AD1824AAFB00374116 /* MealViewController.m */; };
-		16AA38BB182597DD00374116 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38BA182597DD00374116 /* SettingsViewController.m */; };
-		16AA38C11825D35D00374116 /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C01825D35D00374116 /* MenuModel.m */; };
-		16AA38C41825DDD100374116 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C31825DDD100374116 /* Dish.m */; };
-		16AA38C71825DE3000374116 /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C61825DE3000374116 /* Station.m */; };
-		16AA38CA1825DE8F00374116 /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38C91825DE8F00374116 /* Meal.m */; };
-		16AA38CD1825F25A00374116 /* DiningHallHours.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AA38CC1825F25A00374116 /* DiningHallHours.m */; };
 		16FF71C21824A3300026C568 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16FF71C11824A3300026C568 /* Foundation.framework */; };
 		16FF71C61824A3300026C568 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16FF71C51824A3300026C568 /* UIKit.framework */; };
 		16FF71CC1824A3300026C568 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 16FF71CA1824A3300026C568 /* InfoPlist.strings */; };
@@ -44,11 +35,8 @@
 		16FF720E1824A3AD0026C568 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72021824A3AD0026C568 /* TTScrollViewWrapper.m */; };
 		16FF720F1824A3AD0026C568 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72041824A3AD0026C568 /* TTSlidingPage.m */; };
 		16FF72101824A3AD0026C568 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72071824A3AD0026C568 /* TTSlidingPageTitle.m */; };
-		16FF72131824A3C70026C568 /* StationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16FF72121824A3C70026C568 /* StationsViewController.m */; };
 		1D962ABF802BF93F8AC9766C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC43AAB5D97073B452208BD6 /* Pods.framework */; };
-		367467C71BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */; };
-		368ED1BB1C08E4C600DF08C7 /* MenuCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368ED1BA1C08E4C600DF08C7 /* MenuCache.swift */; };
-		3693C6661C06411C0059395B /* URLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693C6651C06411C0059395B /* URLUtils.swift */; };
+		366BAE931C568E3700C58698 /* NetNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366BAE921C568E3700C58698 /* NetNutritionViewController.swift */; };
 		8BBC826918836CDE004E9883 /* flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826718836CDE004E9883 /* flip@2x.png */; };
 		8BBC826A18836CDE004E9883 /* flip.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826818836CDE004E9883 /* flip.png */; };
 		8BBC826D188377D8004E9883 /* flipCopy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC826B188377D8004E9883 /* flipCopy.png */; };
@@ -74,10 +62,7 @@
 		8BBC829918838B5D004E9883 /* flips5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829718838B5D004E9883 /* flips5.png */; };
 		8BBC829A18838B5D004E9883 /* flips5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BBC829818838B5D004E9883 /* flips5@2x.png */; };
 		B62144821ABB71B800BE9C39 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B62144811ABB71B800BE9C39 /* MobileCoreServices.framework */; };
-		B6483DDE1A23CFCB00A2A876 /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6483DDD1A23CFCB00A2A876 /* FavoritesManager.m */; };
-		B652A2481A3CEF0100F782BC /* FavoritesSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B652A2471A3CEF0100F782BC /* FavoritesSummary.swift */; };
 		B6D1494A19E1B82600E2B801 /* strings_private.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6D1494919E1B82600E2B801 /* strings_private.strings */; };
-		B6D5EB4B1A23955E003922FC /* AJRNutritionViewController+GADish.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,10 +76,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1605A36418349A3200358697 /* DishCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishCell.h; sourceTree = "<group>"; };
-		1605A36518349A3200358697 /* DishCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishCell.m; sourceTree = "<group>"; };
-		168B4401182E2A3B001808E3 /* UIColor+GAColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GAColor.h"; sourceTree = "<group>"; };
-		168B4402182E2A3B001808E3 /* UIColor+GAColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GAColor.m"; sourceTree = "<group>"; };
 		168B4406182E2F14001808E3 /* AJRBackgroundDimmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRBackgroundDimmer.h; sourceTree = "<group>"; };
 		168B4407182E2F14001808E3 /* AJRBackgroundDimmer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJRBackgroundDimmer.m; sourceTree = "<group>"; };
 		168B4408182E2F14001808E3 /* AJRNutritionLabelCalculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJRNutritionLabelCalculation.h; sourceTree = "<group>"; };
@@ -107,20 +88,6 @@
 		168B440F182E2F14001808E3 /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
 		168B4410182E2F14001808E3 /* CloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloseButton@2x.png"; sourceTree = "<group>"; };
 		16A01D77183D966C00D8F4C2 /* Main-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
-		16AA38AC1824AAFB00374116 /* MealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealViewController.h; sourceTree = "<group>"; };
-		16AA38AD1824AAFB00374116 /* MealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealViewController.m; sourceTree = "<group>"; };
-		16AA38B9182597DD00374116 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		16AA38BA182597DD00374116 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		16AA38BF1825D35D00374116 /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
-		16AA38C01825D35D00374116 /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
-		16AA38C21825DDD100374116 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
-		16AA38C31825DDD100374116 /* Dish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dish.m; sourceTree = "<group>"; };
-		16AA38C51825DE3000374116 /* Station.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Station.h; sourceTree = "<group>"; };
-		16AA38C61825DE3000374116 /* Station.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Station.m; sourceTree = "<group>"; };
-		16AA38C81825DE8F00374116 /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = "<group>"; };
-		16AA38C91825DE8F00374116 /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = "<group>"; };
-		16AA38CB1825F25A00374116 /* DiningHallHours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiningHallHours.h; sourceTree = "<group>"; };
-		16AA38CC1825F25A00374116 /* DiningHallHours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiningHallHours.m; sourceTree = "<group>"; };
 		16FF71BE1824A3300026C568 /* G-licious.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "G-licious.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16FF71C11824A3300026C568 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		16FF71C51824A3300026C568 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -152,13 +119,8 @@
 		16FF72061824A3AD0026C568 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
 		16FF72071824A3AD0026C568 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
 		16FF72081824A3AD0026C568 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
-		16FF72111824A3C70026C568 /* StationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsViewController.h; sourceTree = "<group>"; };
-		16FF72121824A3C70026C568 /* StationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsViewController.m; sourceTree = "<group>"; };
 		18370641A617AE8A328A0BCB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		367467C51BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMDateSelectionViewController+GADateSelection.h"; sourceTree = "<group>"; };
-		367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMDateSelectionViewController+GADateSelection.m"; sourceTree = "<group>"; };
-		368ED1BA1C08E4C600DF08C7 /* MenuCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCache.swift; sourceTree = "<group>"; };
-		3693C6651C06411C0059395B /* URLUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUtils.swift; sourceTree = "<group>"; };
+		366BAE921C568E3700C58698 /* NetNutritionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetNutritionViewController.swift; sourceTree = "<group>"; };
 		415D9C2653FC147DC2D97491 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8BBC826718836CDE004E9883 /* flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip@2x.png"; sourceTree = "<group>"; };
 		8BBC826818836CDE004E9883 /* flip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flip.png; sourceTree = "<group>"; };
@@ -185,13 +147,8 @@
 		8BBC829718838B5D004E9883 /* flips5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flips5.png; sourceTree = "<group>"; };
 		8BBC829818838B5D004E9883 /* flips5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flips5@2x.png"; sourceTree = "<group>"; };
 		B62144811ABB71B800BE9C39 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		B6483DDC1A23CFCB00A2A876 /* FavoritesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
-		B6483DDD1A23CFCB00A2A876 /* FavoritesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesManager.m; sourceTree = "<group>"; };
-		B652A2471A3CEF0100F782BC /* FavoritesSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesSummary.swift; sourceTree = "<group>"; };
 		B65C186F1A3E404C00259564 /* G-licious-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "G-licious-Bridging-Header.h"; sourceTree = "<group>"; };
 		B6D1494919E1B82600E2B801 /* strings_private.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = strings_private.strings; path = ../strings_private.strings; sourceTree = "<group>"; };
-		B6D5EB491A23955E003922FC /* AJRNutritionViewController+GADish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AJRNutritionViewController+GADish.h"; sourceTree = "<group>"; };
-		B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AJRNutritionViewController+GADish.m"; sourceTree = "<group>"; };
 		BC43AAB5D97073B452208BD6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -220,32 +177,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1610BCFB1880F52200BBA1DC /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				16FF72111824A3C70026C568 /* StationsViewController.h */,
-				16FF72121824A3C70026C568 /* StationsViewController.m */,
-				16AA38AC1824AAFB00374116 /* MealViewController.h */,
-				16AA38AD1824AAFB00374116 /* MealViewController.m */,
-				16AA38B9182597DD00374116 /* SettingsViewController.h */,
-				16AA38BA182597DD00374116 /* SettingsViewController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		168B4400182E29DF001808E3 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				168B4401182E2A3B001808E3 /* UIColor+GAColor.h */,
-				168B4402182E2A3B001808E3 /* UIColor+GAColor.m */,
-				B6D5EB491A23955E003922FC /* AJRNutritionViewController+GADish.h */,
-				B6D5EB4A1A23955E003922FC /* AJRNutritionViewController+GADish.m */,
-				367467C51BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.h */,
-				367467C61BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
 		168B4405182E2E9A001808E3 /* NutritionViewFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,28 +227,6 @@
 			name = iPad;
 			sourceTree = "<group>";
 		};
-		16AA38BE1825D31500374116 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				16AA38CB1825F25A00374116 /* DiningHallHours.h */,
-				16AA38CC1825F25A00374116 /* DiningHallHours.m */,
-				16AA38BF1825D35D00374116 /* MenuModel.h */,
-				16AA38C01825D35D00374116 /* MenuModel.m */,
-				368ED1BA1C08E4C600DF08C7 /* MenuCache.swift */,
-				16AA38C21825DDD100374116 /* Dish.h */,
-				3693C6651C06411C0059395B /* URLUtils.swift */,
-				16AA38C31825DDD100374116 /* Dish.m */,
-				16AA38C51825DE3000374116 /* Station.h */,
-				16AA38C61825DE3000374116 /* Station.m */,
-				16AA38C81825DE8F00374116 /* Meal.h */,
-				16AA38C91825DE8F00374116 /* Meal.m */,
-				B6483DDC1A23CFCB00A2A876 /* FavoritesManager.h */,
-				B6483DDD1A23CFCB00A2A876 /* FavoritesManager.m */,
-				B652A2471A3CEF0100F782BC /* FavoritesSummary.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		16FF71B51824A32F0026C568 = {
 			isa = PBXGroup;
 			children = (
@@ -353,16 +262,12 @@
 		16FF71C71824A3300026C568 /* G-licious */ = {
 			isa = PBXGroup;
 			children = (
-				1610BCFB1880F52200BBA1DC /* Controllers */,
 				16A01D76183D932C00D8F4C2 /* iPad */,
-				168B4400182E29DF001808E3 /* Categories */,
-				16AA38BE1825D31500374116 /* Model */,
 				16FF71F61824A3680026C568 /* Vendor */,
 				16FF71D01824A3300026C568 /* AppDelegate.h */,
 				16FF71D11824A3300026C568 /* AppDelegate.m */,
+				366BAE921C568E3700C58698 /* NetNutritionViewController.swift */,
 				16FF71D31824A3300026C568 /* Main.storyboard */,
-				1605A36418349A3200358697 /* DishCell.h */,
-				1605A36518349A3200358697 /* DishCell.m */,
 				16FF71D91824A3300026C568 /* Images.xcassets */,
 				16FF71C81824A3300026C568 /* Supporting Files */,
 			);
@@ -663,33 +568,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16AA38C41825DDD100374116 /* Dish.m in Sources */,
-				B652A2481A3CEF0100F782BC /* FavoritesSummary.swift in Sources */,
-				3693C6661C06411C0059395B /* URLUtils.swift in Sources */,
-				1605A36618349A3200358697 /* DishCell.m in Sources */,
 				16FF72101824A3AD0026C568 /* TTSlidingPageTitle.m in Sources */,
-				16AA38AE1824AAFB00374116 /* MealViewController.m in Sources */,
-				168B4403182E2A3B001808E3 /* UIColor+GAColor.m in Sources */,
 				168B4412182E2F14001808E3 /* AJRNutritionLabelCalculation.m in Sources */,
-				16FF72131824A3C70026C568 /* StationsViewController.m in Sources */,
-				16AA38BB182597DD00374116 /* SettingsViewController.m in Sources */,
 				168B4414182E2F14001808E3 /* AJRNutritionViewController.m in Sources */,
-				B6D5EB4B1A23955E003922FC /* AJRNutritionViewController+GADish.m in Sources */,
-				16AA38C11825D35D00374116 /* MenuModel.m in Sources */,
-				B6483DDE1A23CFCB00A2A876 /* FavoritesManager.m in Sources */,
-				368ED1BB1C08E4C600DF08C7 /* MenuCache.swift in Sources */,
 				16FF720E1824A3AD0026C568 /* TTScrollViewWrapper.m in Sources */,
-				16AA38CD1825F25A00374116 /* DiningHallHours.m in Sources */,
 				168B4411182E2F14001808E3 /* AJRBackgroundDimmer.m in Sources */,
 				16FF720D1824A3AD0026C568 /* TTScrollSlidingPagesController.m in Sources */,
+				366BAE931C568E3700C58698 /* NetNutritionViewController.swift in Sources */,
 				16FF71D21824A3300026C568 /* AppDelegate.m in Sources */,
-				367467C71BFD9CD7002F5A1C /* RMDateSelectionViewController+GADateSelection.m in Sources */,
 				16FF71CE1824A3300026C568 /* main.m in Sources */,
 				168B4413182E2F14001808E3 /* AJRNutritionLabelView.m in Sources */,
-				16AA38CA1825DE8F00374116 /* Meal.m in Sources */,
 				16FF720C1824A3AD0026C568 /* TTBlackTriangle.m in Sources */,
 				16FF720F1824A3AD0026C568 /* TTSlidingPage.m in Sources */,
-				16AA38C71825DE3000374116 /* Station.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

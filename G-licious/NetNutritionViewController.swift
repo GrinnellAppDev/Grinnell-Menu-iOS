@@ -33,21 +33,4 @@ class NetNutritionViewController: UIViewController, WKNavigationDelegate {
         webView.loadRequest(NSURLRequest(URL: NET_NUTRITION_URL))
     }
     
-    // Logging for debugging
-    
-    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
-        NSLog("Failed provisional navigation: %@", error.userInfo);
-    }
-    
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        NSLog("Failed navigation: %@", error.userInfo);
-    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        NSLog("Finished navigation")
-    }
-    
-    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
-        NSLog("Committed navigation")
-    }
 }

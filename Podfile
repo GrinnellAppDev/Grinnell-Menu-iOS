@@ -1,6 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
-pod 'SVProgressHUD', '~> 1.0'
-pod 'Reachability'
-pod 'NSCalendar-EqualWithGranularity'
-pod 'FlurrySDK', '~> 4.3.0'
+platform :ios, '8.0'
+
+use_frameworks!
+
+pod 'Parse'
+pod 'Crashlytics'

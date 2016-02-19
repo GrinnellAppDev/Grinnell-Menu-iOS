@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "750019B3E3DE2C1DB27B932C0198B7677F34BE50",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "750019B3E3DE2C1DB27B932C0198B7677F34BE50" : 0,
+    "4BF22DDE-2373-4EAD-87F9-25D27DA62048" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5009858F-608B-4903-9CEB-46C689FE29EE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "750019B3E3DE2C1DB27B932C0198B7677F34BE50" : "Glicious-iOS",
+    "4BF22DDE-2373-4EAD-87F9-25D27DA62048" : "Grinnell-Menu-iOS"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "G-licious",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "G-licious.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/GrinnellAppDev\/Grinnell-Menu-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4BF22DDE-2373-4EAD-87F9-25D27DA62048"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/deweytyl\/Grinnell-Menu-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "750019B3E3DE2C1DB27B932C0198B7677F34BE50"
+    }
+  ]
+}

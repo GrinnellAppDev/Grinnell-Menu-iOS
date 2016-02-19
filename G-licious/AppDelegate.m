@@ -7,12 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "StationsViewController.h"
 #import "G_licious-Swift.h"
-#import "FavoritesManager.h"
 #import <Crashlytics/Crashlytics.h>
-#import <SVProgressHUD/SVProgressHUD.h>
-#import <Flurry.h>
 #import <Parse/Parse.h>
 
 @implementation AppDelegate
@@ -26,14 +22,20 @@
     [Crashlytics startWithAPIKey:[keysDict objectForKey:@"CrashlyticsAPIKey"]];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]} forState:UIControlStateNormal];
-    [[SVProgressHUD appearance] setHudFont:[UIFont fontWithName:@"AvenirNext-Regular" size:16]];
-    
-    [Flurry setCrashReportingEnabled:NO];
-    [Flurry startSession:[keysDict objectForKey:@"FlurrySession"]];
     
     // Set Parse installation
-    [Parse setApplicationId:[keysDict objectForKey:@"ParseApplicationId"]
-                  clientKey:[keysDict objectForKey:@"ParseClientKey"]];
+#if DEBUG == 1 // If we're running on a dev machine, use dev keys
+    
+    [Parse setApplicationId:[keysDict objectForKey:@"ParseAppIdDev"]
+                  clientKey:[keysDict objectForKey:@"ParseClientKeyDev"]];
+    
+#else // otherwise use prod keys
+    
+    [Parse setApplicationId:[keysDict objectForKey:@"ParseAppIdProd"]
+                  clientKey:[keysDict objectForKey:@"ParseClientKeyProd"]];
+    
+#endif
+    
     
     // Register for Push Notitications
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
@@ -43,10 +45,6 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
-    
-    if([FavoritesManager sharedManager]) {
-        NSLog(@"Loaded FavoritesManager");
-    }
     
     return YES;
 }
@@ -70,8 +68,6 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissNutritionalView" object:nil];
-    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -84,7 +80,6 @@
    // UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     //StationsViewController *stationsViewController = [storyboard instantiateViewControllerWithIdentifier:@"StationsViewController"];
     //DLog(@"svc: %@", self.stationsViewController);
-    [self.stationsViewController setupInitialScreen];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
